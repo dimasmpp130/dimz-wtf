@@ -1854,884 +1854,911 @@
     </div>
 
     <script>
-      const DATA = {
-
-        download:[
-          {
-            name:"Facebook Downloader",
-            desc:"Downloader untuk media Facebook",
-            url:"./download/fesnuk_downloaders.html",
-            icon:"fa-facebook",
-            type:"brand",
-            color:"blue",
-            tags:"facebook downloader video atau foto"
-          },
-          {
-            name:"Instagram Downloader",
-            desc:"Download media dari Instagram",
-            url:"./download/insta_downloaders.html",
-            icon:"fa-instagram",
-            type:"brand",
-            color:"pink",
-            tags:"instagram downloader foto video reel postingan"
-          },
-          {
-            name:"TikTok Downloader",
-            desc:"Download video atau foto TikTok",
-            url:"./download/tiktok_downloaders.html",
-            icon:"fa-tiktok",
-            type:"brand",
-            color:"cyan",
-            tags:"tiktok downloader video atau foto"
-          },
-          {
-            name:"YouTube Downloader",
-            desc:"Download video atau audio YouTube",
-            url:"./download/yutub_downloaders.html",
-            icon:"fa-youtube",
-            type:"brand",
-            color:"pink",
-            tags:"youtube downloader mp3 dan mp4"
-          }
-        ],
-
-        canva:[
-          {
-            name:"Brat Generator",
-            desc:"Buat gambar Brat dengan mudah",
-            url:"./canva/brat_generator_on.html",
-            icon:"fa-image",
-            type:"solid",
-            color:"pink",
-            tags:"brat generator gambar image maker"
-          },
-          {
-            name:"Lobby Epep Maker",
-            desc:"Buat tampilan lobby Epep sendiri",
-            url:"./canva/lobby_epep_maker.html",
-            icon:"fa-gamepad",
-            type:"solid",
-            color:"violet",
-            tags:"free fire epep lobby maker game"
-          }
-        ],
-
-        islamic:[
-          {
-            name:"Jadwal Sholat",
-            desc:"Cek jadwal sholat berdasarkan lokasi",
-            url:"./islamic/jadwal_sholat_st.html",
-            icon:"fa-mosque",
-            type:"solid",
-            color:"green",
-            tags:"islam sholat jadwal waktu adzan"
-          }
-        ],
-
-        search:[
-          {
-            name:"Lyrics Search",
-            desc:"Cari lirik lagu dengan cepat",
-            url:"./search/lyrics_search_tools.html",
-            icon:"fa-music",
-            type:"solid",
-            color:"cyan",
-            tags:"lyrics lirik lagu music search"
-          }
-        ],
-
-        temp:[
-          {
-            name:"Bully Gateway",
-            desc:"Gateway menuju halaman file Bully",
-            url:"./temp/down_bully_gateway.html",
-            icon:"fa-gamepad",
-            type:"solid",
-            color:"yellow",
-            tags:"bully anniversary edition game download"
-          },
-          {
-            name:"GTA Gateway",
-            desc:"Gateway menuju halaman file GTA",
-            url:"./temp/down_gta_gateway.html",
-            icon:"fa-car",
-            type:"solid",
-            color:"orange",
-            tags:"gta san andreas game download"
-          }
-        ],
-
-        tools:[
-          {
-            name:"Khodam Generator",
-            desc:"Generator khodam random untuk hiburan",
-            url:"./tools/khodam_generator.html",
-            icon:"fa-wand-magic-sparkles",
-            type:"solid",
-            color:"violet",
-            tags:"khodam generator random fun"
-          }
-        ]
-
-      };
-
-      function escapeHTML(value){
-        return String(value)
-          .replace(/&/g,"&amp;")
-          .replace(/</g,"&lt;")
-          .replace(/>/g,"&gt;")
-          .replace(/"/g,"&quot;")
-          .replace(/'/g,"&#039;");
-      }
-
-      function escapeRegex(value){
-        return String(value)
-          .replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
-      }
-
-      function highlight(value,query){
-
-        const safe=escapeHTML(value);
-
-        if(!query){
-          return safe;
-        }
-
-        const regex=new RegExp(
-          "("+escapeRegex(query)+")",
-          "gi"
-        );
-
-        return safe.replace(
-          regex,
-          "<mark style=\"background:rgba(169,156,255,.2);color:inherit;border-radius:3px;padding:1px 2px\">$1</mark>"
-        );
-      }
-
-      function renderList(type,query=""){
-
-        const ids={
-          download:"downloadList",
-          canva:"canvaList",
-          islamic:"islamicList",
-          search:"searchList",
-          temp:"tempList",
-          tools:"toolsList"
-        };
-
-        const container=document.getElementById(ids[type]);
-
-        if(!container || !DATA[type]){
-          return;
-        }
-
-        const q=query.trim().toLowerCase();
-
-        const results=DATA[type].filter(item=>{
-
-          const text=[
-            item.name,
-            item.desc,
-            item.tags
-          ].join(" ").toLowerCase();
-
-          return !q || text.includes(q);
-
-        });
-
-        if(!results.length){
-
-          container.innerHTML=`
-            <div class="no-result">
-              Tidak ada hasil yang cocok.
-            </div>
-          `;
-
-          return;
-        }
-
-        container.innerHTML=results.map(item=>{
-
-          const external=item.url.startsWith("http")
-            ? `target="_blank" rel="noopener noreferrer"`
-            : "";
-
-          const iconType=item.type==="brand"
-            ? "fa-brands"
-            : "fa-solid";
-
-          return `
-            <a
-              class="item"
-              href="${escapeHTML(item.url)}"
-              ${external}
-            >
-
-              <div class="item-icon ${escapeHTML(item.color)}">
-                <i class="${iconType} ${escapeHTML(item.icon)}"></i>
-              </div>
-
-              <div class="item-info">
-
-                <strong>
-                  ${highlight(item.name,q)}
-                </strong>
-
-                <span>
-                  ${highlight(item.desc,q)}
-                </span>
-
-              </div>
-
-              <div class="item-arrow">
-                <i class="fa-solid fa-chevron-right"></i>
-              </div>
-
-            </a>
-          `;
-
-        }).join("");
-      }
-
-      document.querySelectorAll("[data-modal]").forEach(button=>{
-
-        button.addEventListener("click",()=>{
-
-          const modal=document.getElementById(
-            button.dataset.modal
-          );
-
-          if(modal){
-            modal.classList.add("active");
-          }
-
-        });
-
-      });
-
-      document.querySelectorAll("[data-close]").forEach(button=>{
-
-        button.addEventListener("click",()=>{
-
-          button.closest(".modal").classList.remove("active");
-
-        });
-
-      });
-
-      document.querySelectorAll(".modal").forEach(modal=>{
-
-        modal.addEventListener("click",event=>{
-
-          if(event.target===modal){
-            modal.classList.remove("active");
-          }
-
-        });
-
-      });
-
-      document.addEventListener("keydown",event=>{
-
-        if(event.key==="Escape"){
-
-          document.querySelectorAll(".modal.active").forEach(modal=>{
-            modal.classList.remove("active");
-          });
-
-        }
-
-      });
-
-      document.querySelectorAll("[data-search]").forEach(input=>{
-
-        input.addEventListener("input",()=>{
-
-          renderList(
-            input.dataset.search,
-            input.value
-          );
-
-        });
-
-      });
-
-      document.querySelectorAll("[data-clear]").forEach(button=>{
-
-        button.addEventListener("click",()=>{
-
-          const input=button.parentElement.querySelector("input");
-
-          input.value="";
-
-          renderList(input.dataset.search);
-
-          input.focus();
-
-        });
-
-      });
-
-      document.getElementById("homeBtn").addEventListener(
-        "click",
-        ()=>{
-          location.href="./";
-        }
-      );
-
-      const themeBtn=document.getElementById("themeBtn");
-
-      const savedTheme=localStorage.getItem(
-        "dimmzzz_theme"
-      );
-
-      if(savedTheme==="light"){
-        document.body.classList.add("light");
-      }
-
-      function updateThemeIcon(){
-
-        themeBtn.innerHTML=
-          document.body.classList.contains("light")
-          ? '<i class="fa-solid fa-moon"></i>'
-          : '<i class="fa-solid fa-sun"></i>';
-
-      }
-
-      updateThemeIcon();
-
-      themeBtn.addEventListener("click",()=>{
-
-        document.body.classList.toggle("light");
-
-        localStorage.setItem(
-          "dimmzzz_theme",
-          document.body.classList.contains("light")
-            ? "light"
-            : "dark"
-        );
-
-        updateThemeIcon();
-
-      });
-
-      function updateStats(){
-
-        const now=new Date();
-
-        const localDay=
-          now.getFullYear()+"-"+
-          String(now.getMonth()+1).padStart(2,"0")+"-"+
-          String(now.getDate()).padStart(2,"0");
-
-        const localMonth=
-          now.getFullYear()+"-"+
-          String(now.getMonth()+1).padStart(2,"0");
-
-        const dayKey="dimmzzz_day_"+localDay;
-        const monthKey="dimmzzz_month_"+localMonth;
-        const totalKey="dimmzzz_total";
-
-        const today=
-          Number(localStorage.getItem(dayKey)||0)+1;
-
-        const monthly=
-          Number(localStorage.getItem(monthKey)||0)+1;
-
-        const total=
-          Number(localStorage.getItem(totalKey)||0)+1;
-
-        localStorage.setItem(dayKey,today);
-        localStorage.setItem(monthKey,monthly);
-        localStorage.setItem(totalKey,total);
-
-        document.getElementById("todayVisit").textContent=today;
-        document.getElementById("monthVisit").textContent=monthly;
-        document.getElementById("totalVisit").textContent=total;
-      }
-
-      function updateClock(){
-
-        const now=new Date();
-
-        const hours=String(
-          now.getHours()
-        ).padStart(2,"0");
-
-        const minutes=String(
-          now.getMinutes()
-        ).padStart(2,"0");
-
-        const seconds=String(
-          now.getSeconds()
-        ).padStart(2,"0");
-
-        document.getElementById("liveClock").textContent=
-          hours+":"+minutes+":"+seconds;
-
-        document.getElementById("liveDate").textContent=
-          new Intl.DateTimeFormat(
-            "id-ID",
-            {
-              weekday:"long",
-              day:"2-digit",
-              month:"long",
-              year:"numeric"
+            const DATA = {
+
+              download:[
+                {
+                  name:"Facebook Downloader",
+                  desc:"Downloader untuk media Facebook",
+                  url:"./download/fesnuk_downloaders.html",
+                  icon:"fa-facebook",
+                  type:"brand",
+                  color:"blue",
+                  tags:"facebook downloader video atau foto"
+                },
+                {
+                  name:"Instagram Downloader",
+                  desc:"Download media dari Instagram",
+                  url:"./download/insta_downloaders.html",
+                  icon:"fa-instagram",
+                  type:"brand",
+                  color:"pink",
+                  tags:"instagram downloader foto video reel postingan"
+                },
+                {
+                  name:"TikTok Downloader",
+                  desc:"Download video atau foto TikTok",
+                  url:"./download/tiktok_downloaders.html",
+                  icon:"fa-tiktok",
+                  type:"brand",
+                  color:"cyan",
+                  tags:"tiktok downloader video atau foto"
+                },
+                {
+                  name:"YouTube Downloader",
+                  desc:"Download video atau audio YouTube",
+                  url:"./download/yutub_downloaders.html",
+                  icon:"fa-youtube",
+                  type:"brand",
+                  color:"pink",
+                  tags:"youtube downloader mp3 dan mp4"
+                }
+              ],
+
+              canva:[
+                {
+                  name:"Brat Generator",
+                  desc:"Buat gambar Brat dengan mudah",
+                  url:"./canva/brat_generator_on.html",
+                  icon:"fa-image",
+                  type:"solid",
+                  color:"pink",
+                  tags:"brat generator gambar image maker"
+                },
+                {
+                  name:"Lobby Epep Maker",
+                  desc:"Buat tampilan lobby Epep sendiri",
+                  url:"./canva/lobby_epep_maker.html",
+                  icon:"fa-gamepad",
+                  type:"solid",
+                  color:"violet",
+                  tags:"free fire epep lobby maker game"
+                }
+              ],
+
+              islamic:[
+                {
+                  name:"Jadwal Sholat",
+                  desc:"Cek jadwal sholat berdasarkan lokasi",
+                  url:"./islamic/jadwal_sholat_st.html",
+                  icon:"fa-mosque",
+                  type:"solid",
+                  color:"green",
+                  tags:"islam sholat jadwal waktu adzan"
+                }
+              ],
+
+              search:[
+                {
+                  name:"Lyrics Search",
+                  desc:"Cari lirik lagu dengan cepat",
+                  url:"./search/lyrics_search_tools.html",
+                  icon:"fa-music",
+                  type:"solid",
+                  color:"cyan",
+                  tags:"lyrics lirik lagu music search"
+                }
+              ],
+
+              temp:[
+                {
+                  name:"Bully Gateway",
+                  desc:"Gateway menuju halaman file Bully",
+                  url:"./temp/down_bully_gateway.html",
+                  icon:"fa-gamepad",
+                  type:"solid",
+                  color:"yellow",
+                  tags:"bully anniversary edition game download"
+                },
+                {
+                  name:"GTA Gateway",
+                  desc:"Gateway menuju halaman file GTA",
+                  url:"./temp/down_gta_gateway.html",
+                  icon:"fa-car",
+                  type:"solid",
+                  color:"orange",
+                  tags:"gta san andreas game download"
+                }
+              ],
+
+              tools:[
+                {
+                  name:"Khodam Generator",
+                  desc:"Generator khodam random untuk hiburan",
+                  url:"./tools/khodam_generator.html",
+                  icon:"fa-wand-magic-sparkles",
+                  type:"solid",
+                  color:"violet",
+                  tags:"khodam generator random fun"
+                },
+                {
+                  name:"Magic Wheel Calculator",
+                  desc:"Hitung berapa Diamond yang dibutuhkan untuk dapat skin Legend di Magic Wheel Mobile Legends",
+                  url:"./temp/magicwell_mlbb_detect.html",
+                  icon:"fa-compact-disc",
+                  type:"solid",
+                  color:"gold",
+                  tags:"magic wheel ml calculator diamond legend skin"
+                },
+                {
+                  name:"Winrate Calculator ML",
+                  desc:"Hitung berapa kali win streak yang dibutuhkan untuk mencapai winrate impian di Mobile Legends",
+                  url:"./temp/winrate_mlbb_detect.html",
+                  icon:"fa-chart-line",
+                  type:"solid",
+                  color:"cyan",
+                  tags:"winrate calculator ml mobile legends win lose"
+                },
+                {
+                  name:"Zodiac Wheel Calculator",
+                  desc:"Kalkulator Diamond untuk event Zodiac Summon & Wheel di Mobile Legends biar gak boncos",
+                  url:"./temp/zodiakwell_mlbb_detect.html",
+                  icon:"fa-star-and-crescent",
+                  type:"solid",
+                  color:"violet",
+                  tags:"zodiac calculator ml wheel summon diamond"
+                }
+              ]
+
+            };
+
+            function escapeHTML(value){
+              return String(value)
+                .replace(/&/g,"&amp;")
+                .replace(/</g,"&lt;")
+                .replace(/>/g,"&gt;")
+                .replace(/"/g,"&quot;")
+                .replace(/'/g,"&#039;");
             }
-          ).format(now);
-      }
 
-      const MOTIVATION_URL=
-        "https://raw.githubusercontent.com/dimasmpp130/dimasmpp130/refs/heads/main/motivasi.txt";
-
-      const fallbackMotivations=[
-        "Pelan-pelan juga tetap maju.",
-        "Tidak harus sempurna untuk mulai.",
-        "Sedikit demi sedikit, lama-lama menjadi sesuatu.",
-        "Tetap berjalan meski langkahnya kecil.",
-        "Apa yang kamu mulai hari ini bisa berarti besar nanti.",
-        "Jangan berhenti hanya karena prosesnya belum terlihat.",
-        "Belajar, mencoba, gagal, lalu coba lagi.",
-        "Konsisten kecil lebih baik daripada semangat sesaat.",
-        "Fokus pada proses dan nikmati perjalanannya.",
-        "Hari ini adalah kesempatan untuk menjadi sedikit lebih baik."
-      ];
-
-      function getRandomMotivation(list){
-
-        const valid=list
-          .map(item=>String(item).trim())
-          .filter(Boolean);
-
-        if(!valid.length){
-          return fallbackMotivations[
-            Math.floor(
-              Math.random()*fallbackMotivations.length
-            )
-          ];
-        }
-
-        return valid[
-          Math.floor(
-            Math.random()*valid.length
-          )
-        ];
-      }
-
-      async function loadMotivation(){
-
-        const element=document.getElementById(
-          "motivationText"
-        );
-
-        try{
-
-          element.classList.add("loading");
-
-          const response=await fetch(
-            MOTIVATION_URL+"?t="+Date.now(),
-            {
-              cache:"no-store"
+            function escapeRegex(value){
+              return String(value)
+                .replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
             }
-          );
 
-          if(!response.ok){
-            throw new Error("Gagal mengambil motivasi");
-          }
+            function highlight(value,query){
 
-          const text=await response.text();
+              const safe=escapeHTML(value);
 
-          const lines=text
-            .split(/\r?\n/)
-            .map(line=>line.trim())
-            .filter(Boolean);
-
-          element.textContent=
-            getRandomMotivation(lines);
-
-        }catch(error){
-
-          element.textContent=
-            getRandomMotivation(
-              fallbackMotivations
-            );
-
-        }finally{
-
-          element.classList.remove("loading");
-
-        }
-      }
-
-      const _x=a=>
-        String.fromCharCode(...a);
-
-      const _api=_x([
-        104,116,116,112,115,58,47,47,
-        97,112,105,46,110,101,111,120,
-        114,46,101,117,47,97,112,105,
-        47,103,101,109,112,97
-      ]);
-
-      const _key=_x([
-        103,66,119,52,98,102,106,53,
-        104,97,113,89
-      ]);
-
-      const _q=_x([
-        63,97,112,105,107,101,121,61
-      ]);
-
-      const EARTHQUAKE_API=
-        _api+_q+_key;
-
-      const earthquakeFallback={
-
-        map:
-          "https://bmkg-content-inatews.storage.googleapis.com/20260924072635.mmi.jpg",
-
-        waktu:
-          "24 September 2026, 07:26:35 WIB",
-
-        lintang:
-          "1.60 LS",
-
-        bujur:
-          "138.93 BT",
-
-        magnitudo:
-          "4.3",
-
-        kedalaman:
-          "10 km",
-
-        wilayah:
-          "Pusat gempa berada di laut 36 km timur laut Sarmi",
-
-        zona:
-          "II Sarmi",
-
-        arahan:
-          "Gempa ini dirasakan untuk diteruskan pada masyarakat",
-
-        saran:
-          "Hati-hati terhadap gempabumi susulan yang mungkin terjadi"
-
-      };
-
-      function earthquakeHTML(data){
-
-        const safe=value=>
-          escapeHTML(
-            value==null || value===""
-            ? "-"
-            : value
-          );
-
-        return `
-          <div class="earthquake-body">
-
-            <div class="earthquake-map">
-
-              <img
-                src="${safe(data.map)}"
-                alt="Peta gempa bumi"
-                loading="lazy"
-              >
-
-              <div class="map-label">
-                Peta Intensitas / MMI
-              </div>
-
-            </div>
-
-            <div class="earthquake-info">
-
-              <div class="quake-main">
-
-                <div class="quake-mag">
-                  <small>Magnitudo</small>
-                  <strong>M${safe(data.magnitudo)}</strong>
-                </div>
-
-                <div class="quake-depth">
-                  <small>Kedalaman</small>
-                  <strong>${safe(data.kedalaman)}</strong>
-                </div>
-
-              </div>
-
-              <div class="quake-grid">
-
-                <div class="quake-detail full">
-                  <small>Waktu</small>
-                  <strong>${safe(data.waktu)}</strong>
-                </div>
-
-                <div class="quake-detail">
-                  <small>Lintang</small>
-                  <strong>${safe(data.lintang)}</strong>
-                </div>
-
-                <div class="quake-detail">
-                  <small>Bujur</small>
-                  <strong>${safe(data.bujur)}</strong>
-                </div>
-
-                <div class="quake-detail full">
-                  <small>Wilayah</small>
-                  <strong>${safe(data.wilayah)}</strong>
-                </div>
-
-                <div class="quake-detail full">
-                  <small>Zona / MMI</small>
-                  <strong>${safe(data.zona)}</strong>
-                </div>
-
-              </div>
-
-              <div class="quake-message">
-                <small>Arahan</small>
-                <p>${safe(data.arahan)}</p>
-              </div>
-
-              <div class="quake-message warning">
-                <small>Saran</small>
-                <p>${safe(data.saran)}</p>
-              </div>
-
-            </div>
-
-          </div>
-        `;
-      }
-
-      async function loadEarthquake(){
-
-        const container=document.getElementById(
-          "earthquakeContent"
-        );
-
-        const updated=document.getElementById(
-          "quakeUpdated"
-        );
-
-        container.innerHTML=`
-          <div class="quake-loading">
-            <i class="fa-solid fa-spinner fa-spin"></i>
-            Memuat informasi gempa...
-          </div>
-        `;
-
-        try{
-
-          const response=await fetch(
-            EARTHQUAKE_API+"&t="+Date.now(),
-            {
-              cache:"no-store"
-            }
-          );
-
-          if(!response.ok){
-            throw new Error("HTTP "+response.status);
-          }
-
-          const result=await response.json();
-
-          if(
-            !result ||
-            result.status!==true ||
-            !result.data
-          ){
-            throw new Error(
-              "Format response API tidak valid"
-            );
-          }
-
-          container.innerHTML=
-            earthquakeHTML(result.data);
-
-          updated.textContent=
-            "Data berhasil diperbarui • "+
-            new Date().toLocaleTimeString(
-              "id-ID",
-              {
-                hour:"2-digit",
-                minute:"2-digit",
-                second:"2-digit"
+              if(!query){
+                return safe;
               }
-            );
 
-          const mapImage=
-            container.querySelector(
-              ".earthquake-map img"
-            );
+              const regex=new RegExp(
+                "("+escapeRegex(query)+")",
+                "gi"
+              );
 
-          if(mapImage){
+              return safe.replace(
+                regex,
+                "<mark style=\"background:rgba(169,156,255,.2);color:inherit;border-radius:3px;padding:1px 2px\">$1</mark>"
+              );
+            }
 
-            mapImage.addEventListener(
-              "error",
-              ()=>{
+            function renderList(type,query=""){
 
-                mapImage.style.display="none";
+              const ids={
+                download:"downloadList",
+                canva:"canvaList",
+                islamic:"islamicList",
+                search:"searchList",
+                temp:"tempList",
+                tools:"toolsList"
+              };
 
-                const errorBox=
-                  document.createElement("div");
+              const container=document.getElementById(ids[type]);
 
-                errorBox.className="quake-error";
+              if(!container || !DATA[type]){
+                return;
+              }
 
-                errorBox.innerHTML=`
-                  <i class="fa-solid fa-image"></i>
-                  <strong>Peta gempa tidak dapat dimuat.</strong>
-                  <span>Data gempa lainnya tetap tersedia.</span>
+              const q=query.trim().toLowerCase();
+
+              const results=DATA[type].filter(item=>{
+
+                const text=[
+                  item.name,
+                  item.desc,
+                  item.tags
+                ].join(" ").toLowerCase();
+
+                return !q || text.includes(q);
+
+              });
+
+              if(!results.length){
+
+                container.innerHTML=`
+                  <div class="no-result">
+                    Tidak ada hasil yang cocok.
+                  </div>
                 `;
 
-                mapImage.parentElement.appendChild(
-                  errorBox
+                return;
+              }
+
+              container.innerHTML=results.map(item=>{
+
+                const external=item.url.startsWith("http")
+                  ? `target="_blank" rel="noopener noreferrer"`
+                  : "";
+
+                const iconType=item.type==="brand"
+                  ? "fa-brands"
+                  : "fa-solid";
+
+                return `
+                  <a
+                    class="item"
+                    href="${escapeHTML(item.url)}"
+                    ${external}
+                  >
+
+                    <div class="item-icon ${escapeHTML(item.color)}">
+                      <i class="${iconType} ${escapeHTML(item.icon)}"></i>
+                    </div>
+
+                    <div class="item-info">
+
+                      <strong>
+                        ${highlight(item.name,q)}
+                      </strong>
+
+                      <span>
+                        ${highlight(item.desc,q)}
+                      </span>
+
+                    </div>
+
+                    <div class="item-arrow">
+                      <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+
+                  </a>
+                `;
+
+              }).join("");
+            }
+
+            document.querySelectorAll("[data-modal]").forEach(button=>{
+
+              button.addEventListener("click",()=>{
+
+                const modal=document.getElementById(
+                  button.dataset.modal
                 );
 
-              },
-              {once:true}
-            );
-
-          }
-
-        }catch(error){
-
-          container.innerHTML=
-            earthquakeHTML(
-              earthquakeFallback
-            )+
-            `
-              <div style="
-                padding:0 17px 14px;
-                color:var(--muted);
-                font-size:8px;
-              ">
-                <i class="fa-solid fa-circle-info"></i>
-                API sedang tidak dapat diakses.
-                Data yang ditampilkan adalah data cadangan.
-              </div>
-            `;
-
-          updated.textContent="API tidak tersedia";
-
-        }
-      }
-
-      const video=document.getElementById(
-        "animeVideo"
-      );
-
-      const POSTER_DELAY=1500;
-
-      let posterDelayDone=false;
-      let videoVisible=true;
-
-      video.addEventListener("error",()=>{
-        video.style.display="none";
-      });
-
-      const startVideo=()=>{
-
-        if(
-          !posterDelayDone ||
-          !videoVisible
-        ){
-          return;
-        }
-
-        video.play().catch(()=>{});
-
-      };
-
-      setTimeout(
-        ()=>{
-          posterDelayDone=true;
-          startVideo();
-        },
-        POSTER_DELAY
-      );
-
-      if("IntersectionObserver" in window){
-
-        const videoObserver=
-          new IntersectionObserver(
-            entries=>{
-
-              entries.forEach(entry=>{
-
-                videoVisible=
-                  entry.isIntersecting;
-
-                if(videoVisible){
-                  startVideo();
-                }else{
-                  video.pause();
+                if(modal){
+                  modal.classList.add("active");
                 }
 
               });
 
-            },
-            {
-              threshold:.12
+            });
+
+            document.querySelectorAll("[data-close]").forEach(button=>{
+
+              button.addEventListener("click",()=>{
+
+                button.closest(".modal").classList.remove("active");
+
+              });
+
+            });
+
+            document.querySelectorAll(".modal").forEach(modal=>{
+
+              modal.addEventListener("click",event=>{
+
+                if(event.target===modal){
+                  modal.classList.remove("active");
+                }
+
+              });
+
+            });
+
+            document.addEventListener("keydown",event=>{
+
+              if(event.key==="Escape"){
+
+                document.querySelectorAll(".modal.active").forEach(modal=>{
+                  modal.classList.remove("active");
+                });
+
+              }
+
+            });
+
+            document.querySelectorAll("[data-search]").forEach(input=>{
+
+              input.addEventListener("input",()=>{
+
+                renderList(
+                  input.dataset.search,
+                  input.value
+                );
+
+              });
+
+            });
+
+            document.querySelectorAll("[data-clear]").forEach(button=>{
+
+              button.addEventListener("click",()=>{
+
+                const input=button.parentElement.querySelector("input");
+
+                input.value="";
+
+                renderList(input.dataset.search);
+
+                input.focus();
+
+              });
+
+            });
+
+            document.getElementById("homeBtn").addEventListener(
+              "click",
+              ()=>{
+                location.href="./";
+              }
+            );
+
+            const themeBtn=document.getElementById("themeBtn");
+
+            const savedTheme=localStorage.getItem(
+              "dimmzzz_theme"
+            );
+
+            if(savedTheme==="light"){
+              document.body.classList.add("light");
             }
-          );
 
-        videoObserver.observe(video);
+            function updateThemeIcon(){
 
-      }else{
+              themeBtn.innerHTML=
+                document.body.classList.contains("light")
+                ? '<i class="fa-solid fa-moon"></i>'
+                : '<i class="fa-solid fa-sun"></i>';
 
-        videoVisible=true;
-        startVideo();
+            }
 
-      }
+            updateThemeIcon();
 
-      updateClock();
+            themeBtn.addEventListener("click",()=>{
 
-      setInterval(
-        updateClock,
-        1000
-      );
+              document.body.classList.toggle("light");
 
-      loadMotivation();
+              localStorage.setItem(
+                "dimmzzz_theme",
+                document.body.classList.contains("light")
+                  ? "light"
+                  : "dark"
+              );
 
-      document.getElementById("year").textContent=
-        new Date().getFullYear();
+              updateThemeIcon();
 
-      Object.keys(DATA).forEach(type=>{
-        renderList(type);
-      });
+            });
 
-      updateStats();
+            function updateStats(){
 
-      loadEarthquake();
+              const now=new Date();
 
-      setInterval(
-        loadEarthquake,
-        5*60*1000
-      );
+              const localDay=
+                now.getFullYear()+"-"+
+                String(now.getMonth()+1).padStart(2,"0")+"-"+
+                String(now.getDate()).padStart(2,"0");
 
-      const path=
-        location.pathname.toLowerCase();
+              const localMonth=
+                now.getFullYear()+"-"+
+                String(now.getMonth()+1).padStart(2,"0");
 
-      const params=
-        new URLSearchParams(
-          location.search
-        );
+              const dayKey="dimmzzz_day_"+localDay;
+              const monthKey="dimmzzz_month_"+localMonth;
+              const totalKey="dimmzzz_total";
 
-      const is404=
-        path.endsWith("/404") ||
-        path.endsWith("/404.html") ||
-        params.get("404")==="1";
+              const today=
+                Number(localStorage.getItem(dayKey)||0)+1;
 
-      if(is404){
+              const monthly=
+                Number(localStorage.getItem(monthKey)||0)+1;
 
-        document
-          .getElementById("notFound")
-          .classList.add("active");
+              const total=
+                Number(localStorage.getItem(totalKey)||0)+1;
 
-      }
+              localStorage.setItem(dayKey,today);
+              localStorage.setItem(monthKey,monthly);
+              localStorage.setItem(totalKey,total);
+
+              document.getElementById("todayVisit").textContent=today;
+              document.getElementById("monthVisit").textContent=monthly;
+              document.getElementById("totalVisit").textContent=total;
+            }
+
+            function updateClock(){
+
+              const now=new Date();
+
+              const hours=String(
+                now.getHours()
+              ).padStart(2,"0");
+
+              const minutes=String(
+                now.getMinutes()
+              ).padStart(2,"0");
+
+              const seconds=String(
+                now.getSeconds()
+              ).padStart(2,"0");
+
+              document.getElementById("liveClock").textContent=
+                hours+":"+minutes+":"+seconds;
+
+              document.getElementById("liveDate").textContent=
+                new Intl.DateTimeFormat(
+                  "id-ID",
+                  {
+                    weekday:"long",
+                    day:"2-digit",
+                    month:"long",
+                    year:"numeric"
+                  }
+                ).format(now);
+            }
+
+            const MOTIVATION_URL=
+              "https://raw.githubusercontent.com/dimasmpp130/dimasmpp130/refs/heads/main/motivasi.txt";
+
+            const fallbackMotivations=[
+              "Pelan-pelan juga tetap maju.",
+              "Tidak harus sempurna untuk mulai.",
+              "Sedikit demi sedikit, lama-lama menjadi sesuatu.",
+              "Tetap berjalan meski langkahnya kecil.",
+              "Apa yang kamu mulai hari ini bisa berarti besar nanti.",
+              "Jangan berhenti hanya karena prosesnya belum terlihat.",
+              "Belajar, mencoba, gagal, lalu coba lagi.",
+              "Konsisten kecil lebih baik daripada semangat sesaat.",
+              "Fokus pada proses dan nikmati perjalanannya.",
+              "Hari ini adalah kesempatan untuk menjadi sedikit lebih baik."
+            ];
+
+            function getRandomMotivation(list){
+
+              const valid=list
+                .map(item=>String(item).trim())
+                .filter(Boolean);
+
+              if(!valid.length){
+                return fallbackMotivations[
+                  Math.floor(
+                    Math.random()*fallbackMotivations.length
+                  )
+                ];
+              }
+
+              return valid[
+                Math.floor(
+                  Math.random()*valid.length
+                )
+              ];
+            }
+
+            async function loadMotivation(){
+
+              const element=document.getElementById(
+                "motivationText"
+              );
+
+              try{
+
+                element.classList.add("loading");
+
+                const response=await fetch(
+                  MOTIVATION_URL+"?t="+Date.now(),
+                  {
+                    cache:"no-store"
+                  }
+                );
+
+                if(!response.ok){
+                  throw new Error("Gagal mengambil motivasi");
+                }
+
+                const text=await response.text();
+
+                const lines=text
+                  .split(/\r?\n/)
+                  .map(line=>line.trim())
+                  .filter(Boolean);
+
+                element.textContent=
+                  getRandomMotivation(lines);
+
+              }catch(error){
+
+                element.textContent=
+                  getRandomMotivation(
+                    fallbackMotivations
+                  );
+
+              }finally{
+
+                element.classList.remove("loading");
+
+              }
+            }
+
+            const _x=a=>
+              String.fromCharCode(...a);
+
+            const _api=_x([
+              104,116,116,112,115,58,47,47,
+              97,112,105,46,110,101,111,120,
+              114,46,101,117,47,97,112,105,
+              47,103,101,109,112,97
+            ]);
+
+            const _key=_x([
+              103,66,119,52,98,102,106,53,
+              104,97,113,89
+            ]);
+
+            const _q=_x([
+              63,97,112,105,107,101,121,61
+            ]);
+
+            const EARTHQUAKE_API=
+              _api+_q+_key;
+
+            const earthquakeFallback={
+
+              map:
+                "https://bmkg-content-inatews.storage.googleapis.com/20260924072635.mmi.jpg",
+
+              waktu:
+                "24 September 2026, 07:26:35 WIB",
+
+              lintang:
+                "1.60 LS",
+
+              bujur:
+                "138.93 BT",
+
+              magnitudo:
+                "4.3",
+
+              kedalaman:
+                "10 km",
+
+              wilayah:
+                "Pusat gempa berada di laut 36 km timur laut Sarmi",
+
+              zona:
+                "II Sarmi",
+
+              arahan:
+                "Gempa ini dirasakan untuk diteruskan pada masyarakat",
+
+              saran:
+                "Hati-hati terhadap gempabumi susulan yang mungkin terjadi"
+
+            };
+
+            function earthquakeHTML(data){
+
+              const safe=value=>
+                escapeHTML(
+                  value==null || value===""
+                  ? "-"
+                  : value
+                );
+
+              return `
+                <div class="earthquake-body">
+
+                  <div class="earthquake-map">
+
+                    <img
+                      src="${safe(data.map)}"
+                      alt="Peta gempa bumi"
+                      loading="lazy"
+                    >
+
+                    <div class="map-label">
+                      Peta Intensitas / MMI
+                    </div>
+
+                  </div>
+
+                  <div class="earthquake-info">
+
+                    <div class="quake-main">
+
+                      <div class="quake-mag">
+                        <small>Magnitudo</small>
+                        <strong>M${safe(data.magnitudo)}</strong>
+                      </div>
+
+                      <div class="quake-depth">
+                        <small>Kedalaman</small>
+                        <strong>${safe(data.kedalaman)}</strong>
+                      </div>
+
+                    </div>
+
+                    <div class="quake-grid">
+
+                      <div class="quake-detail full">
+                        <small>Waktu</small>
+                        <strong>${safe(data.waktu)}</strong>
+                      </div>
+
+                      <div class="quake-detail">
+                        <small>Lintang</small>
+                        <strong>${safe(data.lintang)}</strong>
+                      </div>
+
+                      <div class="quake-detail">
+                        <small>Bujur</small>
+                        <strong>${safe(data.bujur)}</strong>
+                      </div>
+
+                      <div class="quake-detail full">
+                        <small>Wilayah</small>
+                        <strong>${safe(data.wilayah)}</strong>
+                      </div>
+
+                      <div class="quake-detail full">
+                        <small>Zona / MMI</small>
+                        <strong>${safe(data.zona)}</strong>
+                      </div>
+
+                    </div>
+
+                    <div class="quake-message">
+                      <small>Arahan</small>
+                      <p>${safe(data.arahan)}</p>
+                    </div>
+
+                    <div class="quake-message warning">
+                      <small>Saran</small>
+                      <p>${safe(data.saran)}</p>
+                    </div>
+
+                  </div>
+
+                </div>
+              `;
+            }
+
+            async function loadEarthquake(){
+
+              const container=document.getElementById(
+                "earthquakeContent"
+              );
+
+              const updated=document.getElementById(
+                "quakeUpdated"
+              );
+
+              container.innerHTML=`
+                <div class="quake-loading">
+                  <i class="fa-solid fa-spinner fa-spin"></i>
+                  Memuat informasi gempa...
+                </div>
+              `;
+
+              try{
+
+                const response=await fetch(
+                  EARTHQUAKE_API+"&t="+Date.now(),
+                  {
+                    cache:"no-store"
+                  }
+                );
+
+                if(!response.ok){
+                  throw new Error("HTTP "+response.status);
+                }
+
+                const result=await response.json();
+
+                if(
+                  !result ||
+                  result.status!==true ||
+                  !result.data
+                ){
+                  throw new Error(
+                    "Format response API tidak valid"
+                  );
+                }
+
+                container.innerHTML=
+                  earthquakeHTML(result.data);
+
+                updated.textContent=
+                  "Data berhasil diperbarui • "+
+                  new Date().toLocaleTimeString(
+                    "id-ID",
+                    {
+                      hour:"2-digit",
+                      minute:"2-digit",
+                      second:"2-digit"
+                    }
+                  );
+
+                const mapImage=
+                  container.querySelector(
+                    ".earthquake-map img"
+                  );
+
+                if(mapImage){
+
+                  mapImage.addEventListener(
+                    "error",
+                    ()=>{
+
+                      mapImage.style.display="none";
+
+                      const errorBox=
+                        document.createElement("div");
+
+                      errorBox.className="quake-error";
+
+                      errorBox.innerHTML=`
+                        <i class="fa-solid fa-image"></i>
+                        <strong>Peta gempa tidak dapat dimuat.</strong>
+                        <span>Data gempa lainnya tetap tersedia.</span>
+                      `;
+
+                      mapImage.parentElement.appendChild(
+                        errorBox
+                      );
+
+                    },
+                    {once:true}
+                  );
+
+                }
+
+              }catch(error){
+
+                container.innerHTML=
+                  earthquakeHTML(
+                    earthquakeFallback
+                  )+
+                  `
+                    <div style="
+                      padding:0 17px 14px;
+                      color:var(--muted);
+                      font-size:8px;
+                    ">
+                      <i class="fa-solid fa-circle-info"></i>
+                      API sedang tidak dapat diakses.
+                      Data yang ditampilkan adalah data cadangan.
+                    </div>
+                  `;
+
+                updated.textContent="API tidak tersedia";
+
+              }
+            }
+
+            const video=document.getElementById(
+              "animeVideo"
+            );
+
+            const POSTER_DELAY=1500;
+
+            let posterDelayDone=false;
+            let videoVisible=true;
+
+            video.addEventListener("error",()=>{
+              video.style.display="none";
+            });
+
+            const startVideo=()=>{
+
+              if(
+                !posterDelayDone ||
+                !videoVisible
+              ){
+                return;
+              }
+
+              video.play().catch(()=>{});
+
+            };
+
+            setTimeout(
+              ()=>{
+                posterDelayDone=true;
+                startVideo();
+              },
+              POSTER_DELAY
+            );
+
+            if("IntersectionObserver" in window){
+
+              const videoObserver=
+                new IntersectionObserver(
+                  entries=>{
+
+                    entries.forEach(entry=>{
+
+                      videoVisible=
+                        entry.isIntersecting;
+
+                      if(videoVisible){
+                        startVideo();
+                      }else{
+                        video.pause();
+                      }
+
+                    });
+
+                  },
+                  {
+                    threshold:.12
+                  }
+                );
+
+              videoObserver.observe(video);
+
+            }else{
+
+              videoVisible=true;
+              startVideo();
+
+            }
+
+            updateClock();
+
+            setInterval(
+              updateClock,
+              1000
+            );
+
+            loadMotivation();
+
+            document.getElementById("year").textContent=
+              new Date().getFullYear();
+
+            Object.keys(DATA).forEach(type=>{
+              renderList(type);
+            });
+
+            updateStats();
+
+            loadEarthquake();
+
+            setInterval(
+              loadEarthquake,
+              5*60*1000
+            );
+
+            const path=
+              location.pathname.toLowerCase();
+
+            const params=
+              new URLSearchParams(
+                location.search
+              );
+
+            const is404=
+              path.endsWith("/404") ||
+              path.endsWith("/404.html") ||
+              params.get("404")==="1";
+
+            if(is404){
+
+              document
+                .getElementById("notFound")
+                .classList.add("active");
+
+            }
     </script>
   </body>
 </html>
