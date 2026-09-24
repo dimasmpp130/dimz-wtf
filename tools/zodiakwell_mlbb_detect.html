@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#070911" />
+    <meta
+      name="description"
+      content="Kalkulator Zodiak Wheel MLBB by DIMMZZZSUM_ENAK"
+    />
+    <title>Kalkulator Zodiak Wheel MLBB - DIMMZZZSUM_ENAK</title>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      *{
+          margin:0;
+          padding:0;
+          box-sizing:border-box;
+          font-family:Inter,"Segoe UI",Arial,sans-serif;
+      }
+
+      :root{
+          --bg:#070911;
+          --bg-soft:#0b0f1a;
+          --panel:rgba(15,20,34,.78);
+          --panel-strong:rgba(18,24,41,.94);
+          --line:rgba(255,255,255,.08);
+          --text:#f5f7ff;
+          --muted:#8e99b3;
+          --blue:#5b8cff;
+          --cyan:#45d7ff;
+          --gold:#ffd76a;
+          --gold-soft:#ffedaa;
+          --green:#65e6a5;
+          --orange:#ffad5a;
+          --red:#ff6878;
+          --progress:0%;
+      }
+
+      html{
+          scroll-behavior:smooth;
+      }
+
+      body{
+          min-height:100vh;
+          color:var(--text);
+          background:
+              radial-gradient(circle at 12% 8%,rgba(70,111,255,.15),transparent 28%),
+              radial-gradient(circle at 88% 16%,rgba(255,207,89,.10),transparent 24%),
+              radial-gradient(circle at 50% 100%,rgba(50,210,255,.08),transparent 35%),
+              var(--bg);
+          overflow-x:hidden;
+          padding:24px 16px 40px;
+          position:relative;
+      }
+
+      body::before{
+          content:"";
+          position:fixed;
+          inset:0;
+          pointer-events:none;
+          opacity:.28;
+          background-image:
+              linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+              linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+          background-size:45px 45px;
+          mask-image:linear-gradient(to bottom,black,transparent 90%);
+      }
+
+      body::after{
+          content:"";
+          position:fixed;
+          width:380px;
+          height:380px;
+          border-radius:50%;
+          background:rgba(68,119,255,.08);
+          filter:blur(80px);
+          top:-150px;
+          left:-120px;
+          pointer-events:none;
+          animation:ambientFloat 9s ease-in-out infinite alternate;
+      }
+
+      .container{
+          width:100%;
+          max-width:1040px;
+          margin:auto;
+          position:relative;
+          z-index:2;
+      }
+
+      header{
+          position:relative;
+          overflow:hidden;
+          padding:38px 28px 30px;
+          text-align:center;
+          border:1px solid var(--line);
+          border-radius:28px;
+          background:
+              linear-gradient(145deg,rgba(24,31,53,.92),rgba(10,14,25,.84));
+          box-shadow:
+              0 25px 70px rgba(0,0,0,.38),
+              inset 0 1px 0 rgba(255,255,255,.05);
+          margin-bottom:18px;
+          isolation:isolate;
+          animation:headerIn .8s cubic-bezier(.2,.8,.2,1);
+      }
+
+      header::before{
+          content:"";
+          position:absolute;
+          width:260px;
+          height:260px;
+          border-radius:50%;
+          background:rgba(91,140,255,.13);
+          filter:blur(65px);
+          top:-150px;
+          left:50%;
+          transform:translateX(-50%);
+          z-index:-1;
+      }
+
+      header::after{
+          content:"";
+          position:absolute;
+          width:70%;
+          height:1px;
+          left:15%;
+          bottom:0;
+          background:linear-gradient(90deg,transparent,var(--gold),transparent);
+          opacity:.65;
+      }
+
+      .header-icon{
+          width:76px;
+          height:76px;
+          margin:0 auto 18px;
+          border-radius:23px;
+          display:grid;
+          place-items:center;
+          position:relative;
+          background:
+              linear-gradient(145deg,rgba(255,218,111,.18),rgba(75,123,255,.13));
+          border:1px solid rgba(255,215,106,.28);
+          box-shadow:
+              0 0 35px rgba(255,215,106,.10),
+              inset 0 1px 0 rgba(255,255,255,.12);
+          animation:iconFloat 4s ease-in-out infinite;
+      }
+
+      .header-icon::before{
+          content:"";
+          position:absolute;
+          inset:-7px;
+          border:1px solid rgba(91,140,255,.25);
+          border-radius:28px;
+          animation:ringPulse 2.8s ease-in-out infinite;
+      }
+
+      .header-icon i{
+          color:var(--gold);
+          font-size:2rem;
+          filter:drop-shadow(0 0 12px rgba(255,215,106,.55));
+      }
+
+      h1{
+          font-size:clamp(1.65rem,4vw,2.6rem);
+          line-height:1.15;
+          letter-spacing:-.03em;
+          margin-bottom:11px;
+          background:linear-gradient(110deg,#fff 20%,#dbe5ff 45%,var(--gold-soft) 75%,#fff);
+          background-size:220% auto;
+          -webkit-background-clip:text;
+          background-clip:text;
+          color:transparent;
+          animation:titleShine 5s linear infinite;
+      }
+
+      .subtitle{
+          color:var(--muted);
+          font-size:.98rem;
+          line-height:1.6;
+      }
+
+      .creator{
+          display:inline-flex;
+          align-items:center;
+          gap:8px;
+          margin-top:17px;
+          padding:8px 15px;
+          border-radius:999px;
+          color:var(--gold);
+          font-size:.78rem;
+          font-weight:700;
+          letter-spacing:.08em;
+          text-transform:uppercase;
+          background:rgba(255,215,106,.07);
+          border:1px solid rgba(255,215,106,.18);
+      }
+
+      .main-card{
+          position:relative;
+          overflow:hidden;
+          border:1px solid var(--line);
+          border-radius:28px;
+          background:linear-gradient(145deg,rgba(16,22,38,.9),rgba(8,12,22,.94));
+          box-shadow:0 25px 70px rgba(0,0,0,.34);
+          padding:22px;
+          animation:cardIn .8s .1s both cubic-bezier(.2,.8,.2,1);
+      }
+
+      .main-card::before{
+          content:"";
+          position:absolute;
+          width:240px;
+          height:240px;
+          border-radius:50%;
+          background:rgba(69,215,255,.055);
+          filter:blur(70px);
+          right:-120px;
+          top:250px;
+          pointer-events:none;
+      }
+
+      .intro{
+          display:flex;
+          align-items:center;
+          gap:15px;
+          padding:17px;
+          border-radius:20px;
+          background:rgba(255,255,255,.025);
+          border:1px solid var(--line);
+          margin-bottom:14px;
+      }
+
+      .intro-icon{
+          flex:0 0 44px;
+          width:44px;
+          height:44px;
+          display:grid;
+          place-items:center;
+          border-radius:14px;
+          color:var(--cyan);
+          background:rgba(69,215,255,.08);
+          border:1px solid rgba(69,215,255,.14);
+      }
+
+      .intro strong{
+          display:block;
+          font-size:.92rem;
+          margin-bottom:4px;
+      }
+
+      .intro span{
+          color:var(--muted);
+          font-size:.82rem;
+          line-height:1.5;
+      }
+
+      .info-grid{
+          display:grid;
+          grid-template-columns:1fr 1fr;
+          gap:14px;
+          margin-bottom:14px;
+      }
+
+      .info-card{
+          position:relative;
+          overflow:hidden;
+          padding:17px;
+          border-radius:20px;
+          border:1px solid var(--line);
+          background:rgba(255,255,255,.022);
+          transition:.35s ease;
+      }
+
+      .info-card::after{
+          content:"";
+          position:absolute;
+          top:0;
+          left:-120%;
+          width:80%;
+          height:100%;
+          background:linear-gradient(90deg,transparent,rgba(255,255,255,.055),transparent);
+          transform:skewX(-20deg);
+          transition:.7s ease;
+      }
+
+      .info-card:hover::after{
+          left:140%;
+      }
+
+      .info-card:hover{
+          transform:translateY(-3px);
+          border-color:rgba(91,140,255,.2);
+          background:rgba(255,255,255,.035);
+      }
+
+      .info-label{
+          color:var(--muted);
+          font-size:.72rem;
+          font-weight:700;
+          letter-spacing:.1em;
+          text-transform:uppercase;
+          margin-bottom:8px;
+      }
+
+      .info-value{
+          font-size:1.1rem;
+          font-weight:800;
+      }
+
+      .gold{
+          color:var(--gold);
+      }
+
+      .blue{
+          color:var(--cyan);
+      }
+
+      .formula-panel{
+          margin-bottom:18px;
+          padding:18px;
+          border-radius:20px;
+          border:1px solid rgba(255,215,106,.12);
+          background:
+              linear-gradient(135deg,rgba(255,215,106,.055),rgba(91,140,255,.035));
+      }
+
+      .formula-head{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:10px;
+          margin-bottom:13px;
+      }
+
+      .formula-title{
+          display:flex;
+          align-items:center;
+          gap:9px;
+          font-size:.88rem;
+          font-weight:800;
+      }
+
+      .formula-title i{
+          color:var(--gold);
+      }
+
+      .formula-badge{
+          padding:5px 9px;
+          border-radius:999px;
+          font-size:.65rem;
+          font-weight:800;
+          letter-spacing:.08em;
+          color:var(--gold);
+          border:1px solid rgba(255,215,106,.18);
+          background:rgba(255,215,106,.06);
+      }
+
+      .formula-list{
+          display:grid;
+          gap:7px;
+      }
+
+      .formula-row{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:15px;
+          padding:9px 11px;
+          border-radius:10px;
+          background:rgba(0,0,0,.14);
+          color:var(--muted);
+          font-size:.78rem;
+      }
+
+      .formula-row strong{
+          color:#dfe6f8;
+          font-weight:700;
+      }
+
+      .formula-row code{
+          color:var(--gold-soft);
+          font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+          font-size:.74rem;
+      }
+
+      .calculator-panel{
+          position:relative;
+          overflow:hidden;
+          padding:24px;
+          border-radius:24px;
+          background:
+              radial-gradient(circle at 50% 0%,rgba(91,140,255,.10),transparent 42%),
+              rgba(5,9,17,.72);
+          border:1px solid rgba(255,255,255,.075);
+      }
+
+      .calculator-panel::before{
+          content:"";
+          position:absolute;
+          width:170px;
+          height:170px;
+          border-radius:50%;
+          border:1px solid rgba(91,140,255,.06);
+          top:-85px;
+          left:50%;
+          transform:translateX(-50%);
+      }
+
+      .panel-heading{
+          text-align:center;
+          margin-bottom:20px;
+      }
+
+      .panel-heading span{
+          display:block;
+          color:var(--muted);
+          font-size:.68rem;
+          letter-spacing:.14em;
+          font-weight:800;
+          text-transform:uppercase;
+          margin-bottom:7px;
+      }
+
+      .panel-heading strong{
+          font-size:1.12rem;
+      }
+
+      .point-area{
+          display:grid;
+          grid-template-columns:210px 1fr;
+          align-items:center;
+          gap:28px;
+      }
+
+      .progress-wrap{
+          display:grid;
+          place-items:center;
+      }
+
+      .progress-ring{
+          --size:190px;
+          width:var(--size);
+          height:var(--size);
+          border-radius:50%;
+          padding:8px;
+          position:relative;
+          background:
+              conic-gradient(
+                  from -90deg,
+                  var(--gold) 0 var(--progress),
+                  rgba(255,255,255,.055) var(--progress) 100%
+              );
+          box-shadow:
+              0 0 35px rgba(255,215,106,.08),
+              inset 0 0 25px rgba(0,0,0,.25);
+          transition:background .35s ease,box-shadow .35s ease;
+      }
+
+      .progress-ring::before{
+          content:"";
+          position:absolute;
+          inset:8px;
+          border-radius:50%;
+          background:
+              radial-gradient(circle at 50% 35%,rgba(91,140,255,.09),transparent 48%),
+              #090d17;
+          border:1px solid rgba(255,255,255,.06);
+      }
+
+      .progress-ring::after{
+          content:"";
+          position:absolute;
+          inset:-4px;
+          border-radius:50%;
+          border:1px solid rgba(255,215,106,.10);
+          animation:ringRotate 8s linear infinite;
+      }
+
+      .point-content{
+          position:absolute;
+          inset:0;
+          display:grid;
+          place-items:center;
+          text-align:center;
+          z-index:2;
+      }
+
+      .point-small{
+          color:var(--muted);
+          font-size:.68rem;
+          font-weight:800;
+          letter-spacing:.12em;
+          text-transform:uppercase;
+          margin-bottom:4px;
+      }
+
+      .point-value{
+          font-size:3.9rem;
+          line-height:1;
+          font-weight:900;
+          letter-spacing:-.06em;
+          color:var(--gold);
+          text-shadow:0 0 25px rgba(255,215,106,.25);
+      }
+
+      .point-unit{
+          color:var(--muted);
+          font-size:.7rem;
+          margin-top:5px;
+      }
+
+      .phase-badge{
+          margin-top:10px;
+          display:inline-flex;
+          padding:5px 9px;
+          border-radius:999px;
+          font-size:.6rem;
+          font-weight:800;
+          letter-spacing:.08em;
+          color:var(--cyan);
+          background:rgba(69,215,255,.07);
+          border:1px solid rgba(69,215,255,.13);
+      }
+
+      .control-area{
+          min-width:0;
+      }
+
+      .control-top{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          margin-bottom:13px;
+      }
+
+      .control-label{
+          font-size:.75rem;
+          color:var(--muted);
+          font-weight:700;
+          text-transform:uppercase;
+          letter-spacing:.08em;
+      }
+
+      .live-point{
+          color:var(--gold);
+          font-size:.78rem;
+          font-weight:800;
+      }
+
+      .slider-box{
+          padding:17px 15px 13px;
+          border-radius:18px;
+          background:rgba(255,255,255,.025);
+          border:1px solid var(--line);
+      }
+
+      .slider{
+          width:100%;
+          height:10px;
+          appearance:none;
+          -webkit-appearance:none;
+          border-radius:999px;
+          outline:none;
+          background:
+              linear-gradient(
+                  90deg,
+                  var(--blue) 0 var(--value),
+                  rgba(255,255,255,.08) var(--value) 100%
+              );
+          box-shadow:inset 0 1px 4px rgba(0,0,0,.55);
+          cursor:pointer;
+      }
+
+      .slider::-webkit-slider-thumb{
+          appearance:none;
+          -webkit-appearance:none;
+          width:27px;
+          height:27px;
+          border-radius:50%;
+          border:4px solid #0a0e18;
+          background:var(--gold);
+          box-shadow:
+              0 0 0 2px rgba(255,215,106,.4),
+              0 0 22px rgba(255,215,106,.5);
+          transition:.2s ease;
+      }
+
+      .slider::-webkit-slider-thumb:hover{
+          transform:scale(1.18);
+          box-shadow:
+              0 0 0 3px rgba(255,215,106,.45),
+              0 0 30px rgba(255,215,106,.65);
+      }
+
+      .slider::-moz-range-thumb{
+          width:20px;
+          height:20px;
+          border-radius:50%;
+          border:4px solid #0a0e18;
+          background:var(--gold);
+          box-shadow:0 0 0 2px rgba(255,215,106,.4),0 0 22px rgba(255,215,106,.5);
+          cursor:pointer;
+      }
+
+      .slider-scale{
+          display:flex;
+          justify-content:space-between;
+          margin-top:10px;
+          color:#68738c;
+          font-size:.65rem;
+          font-weight:700;
+      }
+
+      .slider-scale span:nth-child(2){
+          color:#8995ad;
+      }
+
+      .button-row{
+          display:grid;
+          grid-template-columns:1fr 1fr;
+          gap:10px;
+          margin-top:13px;
+      }
+
+      .point-control{
+          height:43px;
+          border:1px solid var(--line);
+          border-radius:13px;
+          background:rgba(255,255,255,.035);
+          color:#dbe4f8;
+          cursor:pointer;
+          font-size:.82rem;
+          font-weight:800;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          gap:9px;
+          transition:.25s ease;
+      }
+
+      .point-control:hover{
+          transform:translateY(-2px);
+          background:rgba(91,140,255,.1);
+          border-color:rgba(91,140,255,.28);
+          box-shadow:0 10px 25px rgba(0,0,0,.18);
+      }
+
+      .point-control:active{
+          transform:scale(.96);
+      }
+
+      .point-control i{
+          font-size:.72rem;
+      }
+
+      .status-line{
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          gap:7px;
+          margin-top:15px;
+          color:var(--muted);
+          font-size:.7rem;
+      }
+
+      .status-dot{
+          width:7px;
+          height:7px;
+          border-radius:50%;
+          background:var(--cyan);
+          box-shadow:0 0 10px var(--cyan);
+          animation:statusPulse 1.7s ease-in-out infinite;
+      }
+
+      .result-section{
+          margin-top:18px;
+      }
+
+      .section-heading{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:12px;
+          margin-bottom:11px;
+      }
+
+      .section-heading strong{
+          font-size:.88rem;
+      }
+
+      .section-heading span{
+          color:var(--muted);
+          font-size:.7rem;
+      }
+
+      .result-grid{
+          display:grid;
+          grid-template-columns:repeat(4,1fr);
+          gap:10px;
+      }
+
+      .result-card{
+          position:relative;
+          overflow:hidden;
+          min-height:124px;
+          padding:17px;
+          border-radius:18px;
+          background:rgba(255,255,255,.025);
+          border:1px solid var(--line);
+          display:flex;
+          flex-direction:column;
+          justify-content:space-between;
+          transition:.3s ease;
+      }
+
+      .result-card::before{
+          content:"";
+          position:absolute;
+          width:70px;
+          height:70px;
+          border-radius:50%;
+          background:rgba(91,140,255,.07);
+          filter:blur(25px);
+          right:-20px;
+          bottom:-20px;
+      }
+
+      .result-card:hover{
+          transform:translateY(-3px);
+          border-color:rgba(91,140,255,.2);
+      }
+
+      .result-card.diamond-card{
+          background:
+              linear-gradient(145deg,rgba(255,215,106,.09),rgba(255,255,255,.025));
+          border-color:rgba(255,215,106,.18);
+      }
+
+      .result-card.diamond-card::before{
+          background:rgba(255,215,106,.13);
+      }
+
+      .result-card-label{
+          color:var(--muted);
+          font-size:.67rem;
+          font-weight:800;
+          letter-spacing:.07em;
+          text-transform:uppercase;
+      }
+
+      .result-card-value{
+          font-size:1.7rem;
+          font-weight:900;
+          letter-spacing:-.04em;
+          color:#e9efff;
+          transition:color .3s ease;
+      }
+
+      .result-card-value i{
+          font-size:1rem;
+          margin-right:4px;
+      }
+
+      .diamond-value{
+          color:var(--gold);
+          text-shadow:0 0 18px rgba(255,215,106,.2);
+      }
+
+      .details-card{
+          margin-top:10px;
+          padding:17px;
+          border-radius:18px;
+          background:rgba(255,255,255,.02);
+          border:1px solid var(--line);
+      }
+
+      .details-head{
+          display:flex;
+          align-items:center;
+          gap:8px;
+          margin-bottom:11px;
+          color:#dce5fb;
+          font-size:.78rem;
+          font-weight:800;
+      }
+
+      .details-head i{
+          color:var(--cyan);
+      }
+
+      .detail-list{
+          display:grid;
+          gap:0;
+      }
+
+      .detail-row{
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:15px;
+          padding:9px 0;
+          border-bottom:1px dashed rgba(255,255,255,.06);
+          font-size:.73rem;
+      }
+
+      .detail-row:last-child{
+          border-bottom:0;
+          padding-bottom:0;
+      }
+
+      .detail-row span:first-child{
+          color:var(--muted);
+      }
+
+      .detail-row span:last-child{
+          color:#e1e8fa;
+          font-weight:700;
+          text-align:right;
+          font-family:ui-monospace,SFMono-Regular,Consolas,monospace;
+      }
+
+      .reference-section{
+          margin-top:18px;
+      }
+
+      .reference-grid{
+          display:grid;
+          grid-template-columns:repeat(4,1fr);
+          gap:9px;
+      }
+
+      .reference-item{
+          position:relative;
+          overflow:hidden;
+          padding:14px 10px;
+          text-align:center;
+          border-radius:16px;
+          background:rgba(255,255,255,.022);
+          border:1px solid var(--line);
+          transition:.3s cubic-bezier(.2,.8,.2,1);
+          cursor:default;
+      }
+
+      .reference-item::after{
+          content:"";
+          position:absolute;
+          width:70px;
+          height:150%;
+          top:-20%;
+          left:-100px;
+          transform:rotate(20deg);
+          background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
+          transition:.55s ease;
+      }
+
+      .reference-item:hover{
+          transform:translateY(-4px) scale(1.015);
+          border-color:rgba(255,215,106,.18);
+          background:rgba(255,215,106,.035);
+          box-shadow:0 12px 25px rgba(0,0,0,.18);
+      }
+
+      .reference-item:hover::after{
+          left:120%;
+      }
+
+      .reference-point{
+          font-size:.74rem;
+          font-weight:900;
+          color:#e9eefc;
+          margin-bottom:5px;
+      }
+
+      .reference-diamond{
+          font-size:.7rem;
+          color:var(--gold);
+          font-weight:700;
+      }
+
+      .note{
+          margin-top:18px;
+          padding:18px;
+          border-radius:18px;
+          background:
+              linear-gradient(135deg,rgba(69,215,255,.035),rgba(255,215,106,.035));
+          border:1px solid var(--line);
+      }
+
+      .note-title{
+          display:flex;
+          align-items:center;
+          gap:8px;
+          color:#eaf0ff;
+          font-size:.8rem;
+          font-weight:800;
+          margin-bottom:12px;
+      }
+
+      .note-title i{
+          color:var(--gold);
+      }
+
+      .note-grid{
+          display:grid;
+          grid-template-columns:1fr 1fr;
+          gap:8px;
+      }
+
+      .note-item{
+          padding:10px 12px;
+          border-radius:11px;
+          background:rgba(0,0,0,.13);
+          color:var(--muted);
+          font-size:.7rem;
+          line-height:1.55;
+      }
+
+      .note-item strong{
+          color:#dce5fa;
+      }
+
+      footer{
+          text-align:center;
+          padding:25px 10px 0;
+          color:#68738c;
+          font-size:.7rem;
+          line-height:1.7;
+      }
+
+      footer strong{
+          color:var(--gold);
+      }
+
+      .anim-pop{
+          animation:valuePop .35s cubic-bezier(.2,.8,.2,1);
+      }
+
+      @keyframes headerIn{
+          from{opacity:0;transform:translateY(-20px) scale(.98)}
+          to{opacity:1;transform:none}
+      }
+
+      @keyframes cardIn{
+          from{opacity:0;transform:translateY(25px)}
+          to{opacity:1;transform:none}
+      }
+
+      @keyframes iconFloat{
+          0%,100%{transform:translateY(0) rotate(-2deg)}
+          50%{transform:translateY(-5px) rotate(2deg)}
+      }
+
+      @keyframes ringPulse{
+          0%,100%{transform:scale(.96);opacity:.35}
+          50%{transform:scale(1.08);opacity:.8}
+      }
+
+      @keyframes ringRotate{
+          from{transform:rotate(0)}
+          to{transform:rotate(360deg)}
+      }
+
+      @keyframes titleShine{
+          from{background-position:200% center}
+          to{background-position:-20% center}
+      }
+
+      @keyframes ambientFloat{
+          from{transform:translate(0,0)}
+          to{transform:translate(130px,70px)}
+      }
+
+      @keyframes valuePop{
+          0%{transform:scale(.88);opacity:.4}
+          60%{transform:scale(1.07);opacity:1}
+          100%{transform:scale(1)}
+      }
+
+      @keyframes statusPulse{
+          0%,100%{opacity:.5;transform:scale(.85)}
+          50%{opacity:1;transform:scale(1.15)}
+      }
+
+      @media(max-width:820px){
+          .point-area{
+              grid-template-columns:1fr;
+          }
+
+          .progress-wrap{
+              margin-bottom:5px;
+          }
+
+          .result-grid{
+              grid-template-columns:repeat(2,1fr);
+          }
+
+          .reference-grid{
+              grid-template-columns:repeat(4,1fr);
+          }
+      }
+
+      @media(max-width:600px){
+          body{
+              padding:12px 10px 28px;
+          }
+
+          header{
+              padding:28px 18px 24px;
+              border-radius:23px;
+          }
+
+          .header-icon{
+              width:66px;
+              height:66px;
+              border-radius:20px;
+          }
+
+          .header-icon i{
+              font-size:1.7rem;
+          }
+
+          .main-card{
+              padding:12px;
+              border-radius:23px;
+          }
+
+          .info-grid{
+              grid-template-columns:1fr;
+          }
+
+          .calculator-panel{
+              padding:18px 14px;
+          }
+
+          .progress-ring{
+              --size:165px;
+          }
+
+          .point-value{
+              font-size:3.4rem;
+          }
+
+          .result-grid{
+              grid-template-columns:1fr 1fr;
+              gap:8px;
+          }
+
+          .result-card{
+              min-height:110px;
+              padding:14px;
+          }
+
+          .result-card-value{
+              font-size:1.45rem;
+          }
+
+          .reference-grid{
+              grid-template-columns:repeat(2,1fr);
+          }
+
+          .note-grid{
+              grid-template-columns:1fr;
+          }
+
+          .formula-row{
+              flex-direction:column;
+              align-items:flex-start;
+              gap:4px;
+          }
+      }
+
+      @media(max-width:390px){
+          .result-grid{
+              grid-template-columns:1fr;
+          }
+
+          .point-control{
+              height:40px;
+          }
+
+          .progress-ring{
+              --size:150px;
+          }
+      }
+
+      @media(prefers-reduced-motion:reduce){
+          *,
+          *::before,
+          *::after{
+              animation-duration:.01ms!important;
+              animation-iteration-count:1!important;
+              scroll-behavior:auto!important;
+              transition-duration:.01ms!important;
+          }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-icon">
+          <i class="fas fa-gem"></i>
+        </div>
+
+        <h1>KALKULATOR ZODIAK WHEEL MLBB</h1>
+
+        <p class="subtitle">
+          Hitung estimasi diamond berdasarkan progress Zodiak Wheel yang sudah
+          kamu miliki.
+        </p>
+
+        <div class="creator">
+          <i class="fas fa-code"></i>
+          Created by DIMMZZZSUM_ENAK
+        </div>
+      </header>
+
+      <main class="main-card">
+        <div class="intro">
+          <div class="intro-icon">
+            <i class="fas fa-sliders"></i>
+          </div>
+          <div>
+            <strong>Atur Progress Zodiak Wheel</strong>
+            <span
+              >Geser slider atau gunakan tombol untuk melihat estimasi diamond
+              secara realtime.</span
+            >
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-label">Harga Awal</div>
+            <div class="info-value gold">
+              <i class="fas fa-gem"></i>
+              1.700 Diamond
+            </div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">Target Maksimal</div>
+            <div class="info-value blue">
+              <i class="fas fa-bullseye"></i>
+              100 Point
+            </div>
+          </div>
+        </div>
+
+        <div class="formula-panel">
+          <div class="formula-head">
+            <div class="formula-title">
+              <i class="fas fa-function"></i>
+              Rumus Perhitungan
+            </div>
+            <div class="formula-badge">AKURAT</div>
+          </div>
+
+          <div class="formula-list">
+            <div class="formula-row">
+              <strong>0–89 Point</strong>
+              <code>1.700 - (point × 17)</code>
+            </div>
+
+            <div class="formula-row">
+              <strong>90–99 Point</strong>
+              <code>200 - ((point - 90) × 20)</code>
+            </div>
+
+            <div class="formula-row">
+              <strong>100 Point</strong>
+              <code>0 Diamond</code>
+            </div>
+          </div>
+        </div>
+
+        <section class="calculator-panel">
+          <div class="panel-heading">
+            <span>Live Calculator</span>
+            <strong>POINT ZODIAK WHEEL YANG SUDAH DIMILIKI</strong>
+          </div>
+
+          <div class="point-area">
+            <div class="progress-wrap">
+              <div class="progress-ring" id="progressRing">
+                <div class="point-content">
+                  <div>
+                    <div class="point-small">Point Saat Ini</div>
+                    <div class="point-value" id="pointValue">0</div>
+                    <div class="point-unit">/ 100 POINT</div>
+                    <div class="phase-badge" id="phaseBadge">FASE 01</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-area">
+              <div class="control-top">
+                <div class="control-label">Progress Point</div>
+                <div class="live-point" id="livePoint">0 / 100</div>
+              </div>
+
+              <div class="slider-box">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="0"
+                  class="slider"
+                  id="pointSlider"
+                />
+
+                <div class="slider-scale">
+                  <span>0</span>
+                  <span>50</span>
+                  <span>90</span>
+                  <span>100</span>
+                </div>
+              </div>
+
+              <div class="button-row">
+                <button class="point-control" id="decreaseBtn" type="button">
+                  <i class="fas fa-minus"></i>
+                  Kurangi
+                </button>
+
+                <button class="point-control" id="increaseBtn" type="button">
+                  Tambah
+                  <i class="fas fa-plus"></i>
+                </button>
+              </div>
+
+              <div class="status-line">
+                <span class="status-dot"></span>
+                <span id="statusText"
+                  >Kalkulator aktif • Belum mendapatkan skin</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="result-section">
+          <div class="section-heading">
+            <strong>
+              <i class="fas fa-chart-simple"></i>
+              Hasil Perhitungan
+            </strong>
+
+            <span id="resultPhase">FASE 01</span>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <div class="result-card-label">Point Dimiliki</div>
+              <div class="result-card-value" id="currentPointResult">0</div>
+            </div>
+
+            <div class="result-card">
+              <div class="result-card-label">Sisa Point</div>
+              <div class="result-card-value" id="neededPointsResult">100</div>
+            </div>
+
+            <div class="result-card">
+              <div class="result-card-label">Estimasi Spin</div>
+              <div class="result-card-value" id="estimatedSpinsResult">
+                ~100
+              </div>
+            </div>
+
+            <div class="result-card diamond-card">
+              <div class="result-card-label">Diamond Dibutuhkan</div>
+              <div class="result-card-value diamond-value" id="diamondResult">
+                <i class="fas fa-gem"></i>
+                <span id="diamondNumber">1.700</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="details-card">
+            <div class="details-head">
+              <i class="fas fa-calculator"></i>
+              Detail Perhitungan
+            </div>
+
+            <div class="detail-list">
+              <div class="detail-row">
+                <span>Rumus digunakan</span>
+                <span id="formulaUsed">1.700 - (0 × 17)</span>
+              </div>
+
+              <div class="detail-row">
+                <span>Point saat ini</span>
+                <span id="currentPointDetail">0</span>
+              </div>
+
+              <div class="detail-row">
+                <span>Diamond per point</span>
+                <span id="diamondPerPoint">17</span>
+              </div>
+
+              <div class="detail-row">
+                <span>Total diamond</span>
+                <span id="totalDiamondDetail">1.700 Diamond</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="reference-section">
+          <div class="section-heading">
+            <strong>
+              <i class="fas fa-bolt"></i>
+              Quick Reference
+            </strong>
+
+            <span>Estimasi diamond</span>
+          </div>
+
+          <div class="reference-grid">
+            <div class="reference-item">
+              <div class="reference-point">0 Point</div>
+              <div class="reference-diamond">1.700 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">25 Point</div>
+              <div class="reference-diamond">1.275 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">50 Point</div>
+              <div class="reference-diamond">850 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">75 Point</div>
+              <div class="reference-diamond">425 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">89 Point</div>
+              <div class="reference-diamond">187 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">95 Point</div>
+              <div class="reference-diamond">100 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">99 Point</div>
+              <div class="reference-diamond">20 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">100 Point</div>
+              <div class="reference-diamond">0 Diamond</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="note">
+          <div class="note-title">
+            <i class="fas fa-circle-info"></i>
+            Sistem Zodiak Wheel MLBB
+          </div>
+
+          <div class="note-grid">
+            <div class="note-item">
+              <strong>0–89 Point</strong><br />
+              1.700 - (point × 17) Diamond
+            </div>
+
+            <div class="note-item">
+              <strong>90–99 Point</strong><br />
+              200 - ((point - 90) × 20) Diamond
+            </div>
+
+            <div class="note-item">
+              <strong>100 Point</strong><br />
+              0 Diamond karena skin sudah didapat.
+            </div>
+
+            <div class="note-item">
+              <strong>Contoh 50 Point</strong><br />
+              1.700 - (50 × 17) = 850 Diamond
+            </div>
+
+            <div class="note-item">
+              <strong>Contoh 89 Point</strong><br />
+              1.700 - (89 × 17) = 187 Diamond
+            </div>
+
+            <div class="note-item">
+              <strong>Contoh 95 Point</strong><br />
+              200 - ((95 - 90) × 20) = 100 Diamond
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div>
+          © 2026 Kalkulator Zodiak Wheel MLBB by
+          <strong>DIMMZZZSUM_ENAK</strong>
+        </div>
+        <div>Mobile Legends: Bang Bang • Zodiac Wheel Calculator</div>
+      </footer>
+    </div>
+
+    <script>
+      const ZODIAC_MAX_POINTS = 100;
+      const ZODIAC_BASE_PRICE = 1700;
+      const ZODIAC_PRICE_DECREASE = 17;
+
+      const pointSlider = document.getElementById("pointSlider");
+      const pointValue = document.getElementById("pointValue");
+      const decreaseBtn = document.getElementById("decreaseBtn");
+      const increaseBtn = document.getElementById("increaseBtn");
+      const progressRing = document.getElementById("progressRing");
+      const livePoint = document.getElementById("livePoint");
+      const phaseBadge = document.getElementById("phaseBadge");
+      const resultPhase = document.getElementById("resultPhase");
+      const statusText = document.getElementById("statusText");
+
+      const currentPointResult = document.getElementById("currentPointResult");
+      const neededPointsResult = document.getElementById("neededPointsResult");
+      const estimatedSpinsResult = document.getElementById("estimatedSpinsResult");
+      const diamondNumber = document.getElementById("diamondNumber");
+
+      const formulaUsed = document.getElementById("formulaUsed");
+      const currentPointDetail = document.getElementById("currentPointDetail");
+      const diamondPerPoint = document.getElementById("diamondPerPoint");
+      const totalDiamondDetail = document.getElementById("totalDiamondDetail");
+
+      const numberAnimations = new WeakMap();
+
+      function calculateZodiacDiamond(point){
+          if(point >= 100) return 0;
+
+          if(point >= 90){
+              return 200 - ((point - 90) * 20);
+          }
+
+          return ZODIAC_BASE_PRICE - (point * ZODIAC_PRICE_DECREASE);
+      }
+
+      function getFormulaUsed(point){
+          if(point >= 100) return "Sudah dapat skin";
+          if(point >= 90) return `200 - ((${point} - 90) × 20)`;
+          return `1.700 - (${point} × 17)`;
+      }
+
+      function getDiamondPerPoint(point){
+          if(point >= 100) return 0;
+          if(point >= 90) return 20;
+          return 17;
+      }
+
+      function formatNumber(value){
+          return Math.round(value).toLocaleString("id-ID");
+      }
+
+      function animateNumber(element,target,duration=280){
+          const previousFrame = numberAnimations.get(element);
+
+          if(previousFrame){
+              cancelAnimationFrame(previousFrame);
+          }
+
+          const current = Number(element.dataset.value || 0);
+          const start = performance.now();
+
+          function frame(now){
+              const progress = Math.min((now - start) / duration,1);
+              const eased = 1 - Math.pow(1 - progress,3);
+              const value = current + (target - current) * eased;
+
+              element.textContent = formatNumber(value);
+              element.dataset.value = value;
+
+              if(progress < 1){
+                  const id = requestAnimationFrame(frame);
+                  numberAnimations.set(element,id);
+              }else{
+                  element.textContent = formatNumber(target);
+                  element.dataset.value = target;
+              }
+          }
+
+          const id = requestAnimationFrame(frame);
+          numberAnimations.set(element,id);
+      }
+
+      function triggerPop(element){
+          element.classList.remove("anim-pop");
+          void element.offsetWidth;
+          element.classList.add("anim-pop");
+      }
+
+      function setPhase(point){
+          let phase = "PHASE 01";
+          let text = "Kalkulator aktif • Progress awal";
+          let color = "var(--cyan)";
+
+          if(point >= 100){
+              phase = "COMPLETE";
+              text = "Skin didapat • Progress selesai";
+              color = "var(--green)";
+          }else if(point >= 90){
+              phase = "FINAL PHASE";
+              text = "Final phase • Tinggal sedikit lagi";
+              color = "var(--gold)";
+          }else if(point >= 50){
+              phase = "PHASE 02";
+              text = "Progress bagus • Menuju target";
+              color = "var(--blue)";
+          }else if(point > 0){
+              phase = "PHASE 01";
+              text = "Progress berjalan • Belum selesai";
+              color = "var(--cyan)";
+          }
+
+          phaseBadge.textContent = phase;
+          resultPhase.textContent = phase;
+          statusText.textContent = text;
+          statusText.style.color = color;
+      }
+
+      function setDiamondColor(diamond){
+          const elements = [
+              diamondNumber,
+              currentPointResult
+          ];
+
+          let color = "var(--gold)";
+
+          if(diamond >= 1500){
+              color = "var(--red)";
+          }else if(diamond >= 1000){
+              color = "var(--orange)";
+          }else if(diamond >= 500){
+              color = "#ffd45f";
+          }else if(diamond > 0){
+              color = "var(--green)";
+          }else{
+              color = "var(--green)";
+          }
+
+          elements.forEach(element => {
+              element.style.color = color;
+          });
+      }
+
+      function updateCalculation(){
+          const point = Number(pointSlider.value);
+          const pointsNeeded = ZODIAC_MAX_POINTS - point;
+          const diamondNeeded = calculateZodiacDiamond(point);
+
+          animateNumber(currentPointResult,point);
+          animateNumber(neededPointsResult,pointsNeeded);
+          animateNumber(diamondNumber,diamondNeeded);
+
+          estimatedSpinsResult.textContent = pointsNeeded > 0 ? `~${pointsNeeded}` : "0";
+
+          currentPointDetail.textContent = point;
+          formulaUsed.textContent = getFormulaUsed(point);
+          diamondPerPoint.textContent = getDiamondPerPoint(point);
+          totalDiamondDetail.textContent = `${formatNumber(diamondNeeded)} Diamond`;
+
+          livePoint.textContent = `${point} / 100`;
+
+          pointSlider.style.setProperty("--value",`${point}%`);
+          progressRing.style.setProperty("--progress",`${point}%`);
+
+          pointValue.textContent = point;
+
+          setPhase(point);
+          setDiamondColor(diamondNeeded);
+
+          triggerPop(pointValue);
+          triggerPop(diamondNumber);
+      }
+
+      function setPoint(value){
+          const point = Math.max(0,Math.min(ZODIAC_MAX_POINTS,Number(value)));
+
+          pointSlider.value = point;
+          updateCalculation();
+      }
+
+      function changePoint(amount){
+          setPoint(Number(pointSlider.value) + amount);
+      }
+
+      pointSlider.addEventListener("input",updateCalculation);
+
+      decreaseBtn.addEventListener("click",function(){
+          changePoint(-1);
+          triggerPop(this);
+      });
+
+      increaseBtn.addEventListener("click",function(){
+          changePoint(1);
+          triggerPop(this);
+      });
+
+      document.addEventListener("keydown",function(event){
+          const tag = document.activeElement?.tagName;
+
+          if(tag === "INPUT" || tag === "BUTTON" || tag === "TEXTAREA" || tag === "SELECT"){
+              return;
+          }
+
+          if(event.key === "ArrowLeft" || event.key === "-"){
+              changePoint(-1);
+              event.preventDefault();
+          }
+
+          if(event.key === "ArrowRight" || event.key === "+" || event.key === "="){
+              changePoint(1);
+              event.preventDefault();
+          }
+      });
+
+      updateCalculation();
+    </script>
+  </body>
+</html>
