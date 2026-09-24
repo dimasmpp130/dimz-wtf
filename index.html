@@ -1,0 +1,2737 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0b0f" />
+    <meta name="description" content="DIMMZZZSUM_ENAK - Official Links" />
+    <title>DIMMZZZSUM_ENAK — Official Links</title>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      :root{
+        --bg:#090a0e;
+        --surface:#101218;
+        --surface2:#151820;
+        --text:#f4f5f7;
+        --muted:#858b98;
+        --soft:#aeb3bd;
+        --line:rgba(255,255,255,.075);
+        --line2:rgba(255,255,255,.12);
+        --violet:#a99cff;
+        --cyan:#78ded3;
+        --pink:#f2a6c7;
+        --yellow:#e8cf8d;
+        --green:#79d6a2;
+        --red:#ff8d9a;
+        --orange:#e7aa72;
+        --blue:#8fb8ff;
+      }
+
+      *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+      }
+
+      html{
+        scroll-behavior:auto;
+        -webkit-overflow-scrolling:touch;
+      }
+
+      body{
+        min-height:100vh;
+        overflow-x:hidden;
+        color:var(--text);
+        background:var(--bg);
+        font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+        -webkit-font-smoothing:antialiased;
+        text-rendering:optimizeLegibility;
+      }
+
+      body::before,
+      body::after{
+        content:"";
+        position:fixed;
+        pointer-events:none;
+        z-index:-2;
+      }
+
+      body::before{
+        width:430px;
+        height:430px;
+        top:-170px;
+        left:-120px;
+        background:rgba(120,222,211,.045);
+        border-radius:50%;
+        filter:blur(52px);
+        animation:ambientOne 18s ease-in-out infinite alternate;
+      }
+
+      body::after{
+        width:390px;
+        height:390px;
+        right:-130px;
+        top:35%;
+        background:rgba(169,156,255,.04);
+        border-radius:50%;
+        filter:blur(52px);
+        animation:ambientTwo 21s ease-in-out infinite alternate;
+      }
+
+      @keyframes ambientOne{
+        from{transform:translate3d(0,0,0)}
+        to{transform:translate3d(55px,35px,0)}
+      }
+
+      @keyframes ambientTwo{
+        from{transform:translate3d(0,0,0)}
+        to{transform:translate3d(-42px,-28px,0)}
+      }
+
+      .grain{
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        z-index:999;
+        opacity:.012;
+        background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      }
+
+      .topbar{
+        width:min(1040px,calc(100% - 28px));
+        margin:15px auto 0;
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+      }
+
+      .brand{
+        display:flex;
+        align-items:center;
+        gap:11px;
+        color:var(--text);
+        text-decoration:none;
+      }
+
+      .brand-logo{
+        position:relative;
+        width:41px;
+        height:41px;
+        display:grid;
+        place-items:center;
+      }
+
+      .brand-logo::before{
+        content:"";
+        position:absolute;
+        width:27px;
+        height:27px;
+        border:1px solid var(--violet);
+        border-radius:8px;
+        opacity:.3;
+        animation:frameBlink 2.8s ease-in-out infinite;
+      }
+
+      .brand-logo::after{
+        content:"";
+        position:absolute;
+        width:35px;
+        height:35px;
+        border:1px solid var(--cyan);
+        border-radius:11px;
+        opacity:.28;
+        animation:frameSecond 3.4s ease-in-out infinite;
+      }
+
+      @keyframes frameBlink{
+        0%,100%{opacity:.22;transform:scale(.88)}
+        45%{opacity:.95;transform:scale(1)}
+        60%{opacity:.35}
+      }
+
+      @keyframes frameSecond{
+        0%,100%{opacity:.2}
+        50%{opacity:.55}
+      }
+
+      .brand-core{
+        position:relative;
+        z-index:3;
+        width:29px;
+        height:29px;
+        display:grid;
+        place-items:center;
+        border:1px solid var(--line2);
+        border-radius:8px;
+        background:var(--surface2);
+        color:var(--violet);
+        font-size:11px;
+      }
+
+      .brand-name{
+        font-size:14px;
+        font-weight:750;
+        letter-spacing:.2px;
+      }
+
+      .top-actions{
+        display:flex;
+        gap:7px;
+      }
+
+      .top-btn{
+        width:37px;
+        height:37px;
+        border:1px solid var(--line);
+        border-radius:11px;
+        background:rgba(255,255,255,.025);
+        color:var(--muted);
+        display:grid;
+        place-items:center;
+        cursor:pointer;
+        transition:.16s ease;
+      }
+
+      .top-btn:hover{
+        transform:translateY(-2px);
+        background:rgba(255,255,255,.06);
+        color:var(--text);
+      }
+
+      .container{
+        width:min(1040px,calc(100% - 28px));
+        margin:auto;
+      }
+
+      .hero{
+        display:grid;
+        grid-template-columns:1.02fr .98fr;
+        align-items:center;
+        gap:27px;
+        padding:48px 0 25px;
+      }
+
+      .hero-copy{
+        position:relative;
+      }
+
+      .eyebrow{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        margin-bottom:17px;
+        color:var(--muted);
+        font-size:10px;
+        letter-spacing:1.8px;
+        text-transform:uppercase;
+      }
+
+      .eyebrow i{
+        color:var(--cyan);
+        font-size:6px;
+      }
+
+      .hero h1{
+        margin-bottom:18px;
+        font-size:clamp(48px,7vw,76px);
+        line-height:.9;
+        letter-spacing:-4.5px;
+      }
+
+      .hero h1 span{
+        color:var(--violet);
+      }
+
+      .hero-description{
+        max-width:500px;
+        color:var(--muted);
+        font-size:13px;
+        line-height:1.8;
+      }
+
+      .profile-mini{
+        display:flex;
+        align-items:center;
+        gap:11px;
+        margin-top:23px;
+      }
+
+      .avatar-wrap{
+        position:relative;
+        width:45px;
+        height:45px;
+      }
+
+      .avatar{
+        width:45px;
+        height:45px;
+        object-fit:cover;
+        border-radius:14px;
+        border:1px solid var(--line);
+        background:var(--surface2);
+      }
+
+      .status-dot{
+        position:absolute;
+        right:-2px;
+        bottom:-2px;
+        width:11px;
+        height:11px;
+        border-radius:50%;
+        background:var(--green);
+        border:3px solid var(--bg);
+        box-shadow:0 0 8px rgba(121,214,162,.35);
+      }
+
+      .profile-mini strong{
+        display:block;
+        font-size:12px;
+      }
+
+      .profile-mini small{
+        display:block;
+        margin-top:3px;
+        color:var(--muted);
+        font-size:9px;
+      }
+
+      .video-card{
+        position:relative;
+        height:365px;
+        overflow:hidden;
+        border:1px solid var(--line);
+        border-radius:25px;
+        background:linear-gradient(135deg,#11141b,#0d0f14);
+        contain:paint;
+      }
+
+      .video-card::before{
+        content:"";
+        position:absolute;
+        z-index:2;
+        top:13px;
+        left:13px;
+        width:7px;
+        height:7px;
+        border-radius:50%;
+        background:var(--pink);
+        box-shadow:12px 0 0 rgba(232,207,141,.55),24px 0 0 rgba(120,222,211,.55);
+        opacity:.8;
+      }
+
+      .video-card video{
+        display:block;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        opacity:.67;
+      }
+
+      .video-overlay{
+        position:absolute;
+        inset:0;
+        background:linear-gradient(to top,rgba(7,8,11,.92),transparent 62%);
+        pointer-events:none;
+      }
+
+      .video-label{
+        position:absolute;
+        left:19px;
+        bottom:17px;
+        color:rgba(255,255,255,.55);
+        font-size:9px;
+        letter-spacing:1.4px;
+      }
+
+      .section{
+        padding:19px 0;
+      }
+
+      .section-head{
+        display:flex;
+        align-items:end;
+        justify-content:space-between;
+        gap:15px;
+        margin-bottom:12px;
+      }
+
+      .section-head h2{
+        font-size:19px;
+        letter-spacing:-.5px;
+      }
+
+      .section-head p{
+        margin-top:3px;
+        color:var(--muted);
+        font-size:10px;
+      }
+
+      .menu-grid{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:10px;
+      }
+
+      .menu-card{
+        position:relative;
+        min-height:142px;
+        padding:19px;
+        border:1px solid var(--line);
+        border-radius:18px;
+        background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+        color:var(--text);
+        text-align:left;
+        cursor:pointer;
+        overflow:hidden;
+        isolation:isolate;
+        transition:.16s ease;
+      }
+
+      .menu-card::after{
+        content:"";
+        position:absolute;
+        width:72px;
+        height:72px;
+        right:-36px;
+        bottom:-36px;
+        border-radius:50%;
+        border:1px solid rgba(255,255,255,.045);
+        transition:.2s ease;
+        pointer-events:none;
+      }
+
+      .menu-card:hover{
+        transform:translateY(-2px);
+        border-color:rgba(169,156,255,.24);
+        background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.02));
+      }
+
+      .menu-card:hover::after{
+        transform:scale(1.28);
+      }
+
+      .menu-icon{
+        width:41px;
+        height:41px;
+        display:grid;
+        place-items:center;
+        margin-bottom:15px;
+        border-radius:12px;
+        background:rgba(255,255,255,.045);
+        font-size:14px;
+      }
+
+      .violet{color:var(--violet)}
+      .cyan{color:var(--cyan)}
+      .pink{color:var(--pink)}
+      .yellow{color:var(--yellow)}
+      .green{color:var(--green)}
+      .orange{color:var(--orange)}
+      .blue{color:var(--blue)}
+
+      .menu-card h3{
+        font-size:12px;
+        line-height:1.35;
+      }
+
+      .menu-card p{
+        margin-top:5px;
+        color:var(--muted);
+        font-size:9px;
+        line-height:1.45;
+      }
+
+      .about{
+        display:grid;
+        grid-template-columns:1.05fr .95fr;
+        gap:10px;
+      }
+
+      .about-card{
+        min-height:130px;
+        padding:20px;
+        border:1px solid var(--line);
+        border-radius:18px;
+        background:var(--surface);
+      }
+
+      .about-card h3{
+        margin-bottom:8px;
+        font-size:14px;
+      }
+
+      .about-card p{
+        color:var(--muted);
+        font-size:11px;
+        line-height:1.75;
+      }
+
+      .about-tags{
+        display:flex;
+        flex-wrap:wrap;
+        gap:6px;
+        margin-top:13px;
+      }
+
+      .about-tags span{
+        padding:5px 8px;
+        border:1px solid var(--line);
+        border-radius:7px;
+        color:var(--muted);
+        font-size:8px;
+      }
+
+      .stats{
+        height:100%;
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:7px;
+      }
+
+      .stat{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        padding:13px;
+        border:1px solid var(--line);
+        border-radius:14px;
+        background:rgba(255,255,255,.018);
+      }
+
+      .stat small{
+        color:var(--muted);
+        font-size:7px;
+        letter-spacing:.8px;
+        text-transform:uppercase;
+      }
+
+      .stat strong{
+        margin-top:7px;
+        font-size:18px;
+      }
+
+      .earthquake-card{
+        position:relative;
+        overflow:hidden;
+        border:1px solid var(--line);
+        border-radius:19px;
+        background:linear-gradient(135deg,rgba(169,156,255,.055),rgba(120,222,211,.018));
+      }
+
+      .earthquake-top{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        padding:15px 17px;
+        border-bottom:1px solid var(--line);
+      }
+
+      .earthquake-title{
+        display:flex;
+        align-items:center;
+        gap:9px;
+      }
+
+      .earthquake-title-icon{
+        width:34px;
+        height:34px;
+        display:grid;
+        place-items:center;
+        border-radius:10px;
+        background:rgba(169,156,255,.08);
+        color:var(--violet);
+        font-size:13px;
+      }
+
+      .earthquake-title strong{
+        display:block;
+        font-size:12px;
+      }
+
+      .earthquake-title small{
+        display:block;
+        margin-top:2px;
+        color:var(--muted);
+        font-size:8px;
+      }
+
+      .earthquake-status{
+        display:flex;
+        align-items:center;
+        gap:6px;
+        color:var(--green);
+        font-size:8px;
+      }
+
+      .earthquake-status span{
+        width:6px;
+        height:6px;
+        border-radius:50%;
+        background:var(--green);
+        box-shadow:0 0 8px rgba(121,214,162,.45);
+        animation:livePulse 1.5s ease-in-out infinite;
+      }
+
+      @keyframes livePulse{
+        0%,100%{opacity:.45;transform:scale(.8)}
+        50%{opacity:1;transform:scale(1)}
+      }
+
+      .earthquake-body{
+        display:grid;
+        grid-template-columns:1.08fr .92fr;
+      }
+
+      .earthquake-map{
+        position:relative;
+        min-height:300px;
+        background:#0b0d11;
+        overflow:hidden;
+        contain:paint;
+      }
+
+      .earthquake-map img{
+        display:block;
+        width:100%;
+        height:100%;
+        min-height:300px;
+        object-fit:cover;
+        opacity:.86;
+        transition:.2s ease;
+      }
+
+      .earthquake-map:hover img{
+        transform:scale(1.015);
+        opacity:.96;
+      }
+
+      .earthquake-map::after{
+        content:"";
+        position:absolute;
+        inset:0;
+        pointer-events:none;
+        background:linear-gradient(90deg,transparent 60%,rgba(9,10,14,.28));
+      }
+
+      .map-label{
+        position:absolute;
+        z-index:2;
+        left:12px;
+        bottom:12px;
+        padding:6px 8px;
+        border:1px solid rgba(255,255,255,.1);
+        border-radius:7px;
+        background:rgba(5,6,9,.65);
+        color:rgba(255,255,255,.72);
+        font-size:7px;
+        letter-spacing:.7px;
+        text-transform:uppercase;
+      }
+
+      .earthquake-info{
+        padding:17px;
+      }
+
+      .quake-main{
+        display:flex;
+        align-items:flex-end;
+        justify-content:space-between;
+        gap:15px;
+        padding-bottom:15px;
+        border-bottom:1px solid var(--line);
+      }
+
+      .quake-mag small,
+      .quake-depth small,
+      .quake-detail small,
+      .quake-message small{
+        display:block;
+        color:var(--muted);
+        font-size:7px;
+        letter-spacing:1px;
+        text-transform:uppercase;
+      }
+
+      .quake-mag strong{
+        display:block;
+        margin-top:3px;
+        color:var(--violet);
+        font-size:39px;
+        line-height:1;
+        letter-spacing:-2px;
+      }
+
+      .quake-depth{
+        text-align:right;
+      }
+
+      .quake-depth strong{
+        display:block;
+        margin-top:4px;
+        font-size:14px;
+      }
+
+      .quake-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+        margin-top:13px;
+      }
+
+      .quake-detail{
+        padding:10px;
+        border:1px solid var(--line);
+        border-radius:10px;
+        background:rgba(255,255,255,.018);
+      }
+
+      .quake-detail.full{
+        grid-column:1/-1;
+      }
+
+      .quake-detail strong{
+        display:block;
+        margin-top:4px;
+        color:var(--soft);
+        font-size:9px;
+        line-height:1.55;
+        font-weight:600;
+      }
+
+      .quake-message{
+        margin-top:9px;
+        padding:10px;
+        border-left:2px solid var(--cyan);
+        border-radius:0 8px 8px 0;
+        background:rgba(120,222,211,.025);
+      }
+
+      .quake-message small{
+        color:var(--cyan);
+      }
+
+      .quake-message p{
+        margin-top:4px;
+        color:var(--muted);
+        font-size:9px;
+        line-height:1.55;
+      }
+
+      .quake-message.warning{
+        border-left-color:var(--yellow);
+        background:rgba(232,207,141,.025);
+      }
+
+      .quake-message.warning small{
+        color:var(--yellow);
+      }
+
+      .quake-loading{
+        min-height:300px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        color:var(--muted);
+        font-size:10px;
+      }
+
+      .quake-loading i{
+        margin-right:7px;
+      }
+
+      .quake-error{
+        padding:30px 20px;
+        text-align:center;
+        color:var(--muted);
+      }
+
+      .quake-error i{
+        display:block;
+        margin-bottom:9px;
+        color:var(--red);
+        font-size:20px;
+      }
+
+      .quake-error strong{
+        display:block;
+        margin-bottom:4px;
+        color:var(--text);
+        font-size:11px;
+      }
+
+      .quake-error span{
+        font-size:9px;
+      }
+
+      .social-box{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:9px;
+      }
+
+      .social-item{
+        position:relative;
+        min-height:78px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:11px;
+        border:1px solid var(--line);
+        border-radius:17px;
+        background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012));
+        color:var(--soft);
+        text-decoration:none;
+        transition:.16s ease;
+      }
+
+      .social-item:hover{
+        transform:translateY(-2px);
+        background:var(--surface2);
+        border-color:rgba(255,255,255,.13);
+      }
+
+      .social-item i{
+        font-size:18px;
+      }
+
+      .social-name{
+        font-size:11px;
+        font-weight:650;
+      }
+
+      .social-arrow{
+        position:absolute;
+        right:14px;
+        color:#626874;
+        font-size:8px!important;
+      }
+
+      .social-item.whatsapp:hover{color:var(--green)}
+      .social-item.instagram:hover{color:var(--pink)}
+      .social-item.youtube:hover{color:#ff8585}
+
+      .currently{
+        position:relative;
+        display:grid;
+        grid-template-columns:1fr auto;
+        align-items:center;
+        gap:18px;
+        padding:19px 21px;
+        border:1px solid var(--line);
+        border-radius:18px;
+        overflow:hidden;
+        background:linear-gradient(120deg,rgba(169,156,255,.065),rgba(120,222,211,.025));
+      }
+
+      .currently::before{
+        content:"";
+        position:absolute;
+        width:120px;
+        height:120px;
+        right:-45px;
+        top:-65px;
+        border-radius:50%;
+        border:1px solid rgba(169,156,255,.08);
+      }
+
+      .currently-label{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        color:var(--muted);
+        font-size:8px;
+        letter-spacing:1.3px;
+        text-transform:uppercase;
+      }
+
+      .currently-label span{
+        width:6px;
+        height:6px;
+        border-radius:50%;
+        background:var(--green);
+        animation:livePulse 1.5s ease-in-out infinite;
+      }
+
+      .currently h3{
+        margin-top:7px;
+        font-size:14px;
+        line-height:1.5;
+      }
+
+      .currently p{
+        margin-top:4px;
+        max-width:600px;
+        color:var(--muted);
+        font-size:10px;
+        line-height:1.6;
+      }
+
+      .currently-time{
+        min-width:145px;
+        text-align:right;
+        color:var(--violet);
+        font-family:"Courier New",monospace;
+        font-size:25px;
+        font-weight:700;
+        letter-spacing:2px;
+        font-variant-numeric:tabular-nums;
+        text-shadow:0 0 18px rgba(169,156,255,.18);
+      }
+
+      .digital-date{
+        margin-top:7px;
+        color:var(--muted);
+        font-family:"Courier New",monospace;
+        font-size:9px;
+        font-weight:500;
+        letter-spacing:.4px;
+        text-transform:uppercase;
+      }
+
+      .motivation{
+        transition:opacity .2s ease;
+      }
+
+      .motivation.loading{
+        opacity:.45;
+      }
+
+      footer{
+        padding:25px 0 27px;
+        text-align:center;
+        color:#606672;
+        font-size:9px;
+      }
+
+      .modal{
+        position:fixed;
+        inset:0;
+        z-index:50;
+        display:none;
+        align-items:center;
+        justify-content:center;
+        padding:16px;
+        background:rgba(3,4,7,.72);
+        backdrop-filter:blur(5px);
+      }
+
+      .modal.active{
+        display:flex;
+      }
+
+      .modal-box{
+        width:min(640px,100%);
+        max-height:82vh;
+        overflow:auto;
+        border:1px solid var(--line);
+        border-radius:20px;
+        background:#101218;
+        -webkit-overflow-scrolling:touch;
+      }
+
+      .modal-head{
+        position:sticky;
+        top:0;
+        z-index:2;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        padding:16px;
+        border-bottom:1px solid var(--line);
+        background:rgba(16,18,24,.97);
+      }
+
+      .modal-head h3{
+        font-size:14px;
+      }
+
+      .close{
+        width:33px;
+        height:33px;
+        border:1px solid var(--line);
+        border-radius:9px;
+        background:rgba(255,255,255,.035);
+        color:var(--muted);
+        cursor:pointer;
+      }
+
+      .search{
+        position:relative;
+        margin:13px 16px;
+      }
+
+      .search>i{
+        position:absolute;
+        left:12px;
+        top:50%;
+        color:#626874;
+        transform:translateY(-50%);
+      }
+
+      .search input{
+        width:100%;
+        padding:11px 36px;
+        border:1px solid var(--line);
+        border-radius:10px;
+        outline:none;
+        background:#0a0c10;
+        color:var(--text);
+        font-size:10px;
+      }
+
+      .search input:focus{
+        border-color:rgba(169,156,255,.32);
+      }
+
+      .search-clear{
+        position:absolute;
+        right:8px;
+        top:50%;
+        border:0;
+        background:none;
+        color:#626874;
+        cursor:pointer;
+        transform:translateY(-50%);
+      }
+
+      .modal-list{
+        display:grid;
+        gap:7px;
+        padding:0 16px 16px;
+      }
+
+      .item{
+        display:flex;
+        align-items:center;
+        gap:11px;
+        padding:11px;
+        border:1px solid var(--line);
+        border-radius:12px;
+        background:rgba(255,255,255,.022);
+        color:var(--text);
+        text-decoration:none;
+        transition:.14s ease;
+      }
+
+      .item:hover{
+        transform:translateX(2px);
+        background:rgba(255,255,255,.05);
+      }
+
+      .item-icon{
+        width:38px;
+        height:38px;
+        flex-shrink:0;
+        display:grid;
+        place-items:center;
+        border-radius:10px;
+        background:rgba(255,255,255,.045);
+      }
+
+      .item-info{
+        min-width:0;
+      }
+
+      .item-info strong{
+        display:block;
+        font-size:10px;
+      }
+
+      .item-info span{
+        display:block;
+        margin-top:3px;
+        overflow:hidden;
+        color:var(--muted);
+        font-size:8px;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+      }
+
+      .item-arrow{
+        margin-left:auto;
+        color:#626874;
+        font-size:9px;
+      }
+
+      .no-result{
+        padding:30px;
+        text-align:center;
+        color:var(--muted);
+        font-size:10px;
+      }
+
+      .not-found{
+        display:none;
+      }
+
+      .not-found.active{
+        display:flex;
+      }
+
+      .not-found .modal-box{
+        padding:37px 23px;
+        text-align:center;
+      }
+
+      .error-code{
+        color:var(--violet);
+        font-size:59px;
+        font-weight:900;
+        letter-spacing:-5px;
+      }
+
+      .not-found p{
+        margin:7px 0 19px;
+        color:var(--muted);
+        font-size:11px;
+        line-height:1.7;
+      }
+
+      .back-home{
+        padding:10px 16px;
+        border:1px solid var(--line);
+        border-radius:9px;
+        background:rgba(255,255,255,.04);
+        color:var(--text);
+        cursor:pointer;
+      }
+
+      body.light{
+        --bg:#f1f0ed;
+        --surface:#faf9f7;
+        --surface2:#fff;
+        --text:#17181c;
+        --muted:#777a82;
+        --soft:#4d5159;
+        --line:rgba(20,22,27,.095);
+        --line2:rgba(20,22,27,.14);
+        --violet:#7067ce;
+        --cyan:#238f86;
+        --pink:#b96388;
+        --yellow:#a78336;
+        --green:#369464;
+        --red:#c34c5c;
+        --orange:#a86d39;
+        --blue:#547fc8;
+      }
+
+      body.light::before{
+        background:rgba(35,143,134,.035);
+      }
+
+      body.light::after{
+        background:rgba(112,103,206,.035);
+      }
+
+      body.light .video-card{
+        background:#dddcd8;
+      }
+
+      body.light .video-overlay{
+        background:linear-gradient(to top,rgba(25,26,29,.67),transparent 65%);
+      }
+
+      body.light .modal{
+        background:rgba(230,229,226,.75);
+      }
+
+      body.light .modal-box{
+        background:#fafafa;
+      }
+
+      body.light .modal-head{
+        background:rgba(250,250,250,.97);
+      }
+
+      body.light .search input{
+        background:#f1f1ef;
+        color:#17181c;
+      }
+
+      body.light .earthquake-map{
+        background:#ddd;
+      }
+
+      @media(max-width:820px){
+        body::before,
+        body::after{
+          animation:none;
+          filter:blur(45px);
+        }
+
+        .hero{
+          grid-template-columns:1fr;
+          gap:19px;
+          padding-top:36px;
+        }
+
+        .video-card{
+          order:-1;
+          height:285px;
+        }
+
+        .menu-grid{
+          grid-template-columns:repeat(2,1fr);
+          gap:9px;
+        }
+
+        .menu-card{
+          min-height:128px;
+          padding:17px;
+        }
+
+        .menu-icon{
+          width:38px;
+          height:38px;
+          margin-bottom:13px;
+        }
+
+        .about{
+          grid-template-columns:1fr;
+        }
+
+        .earthquake-body{
+          grid-template-columns:1fr;
+        }
+
+        .earthquake-map,
+        .earthquake-map img{
+          min-height:260px;
+          height:260px;
+        }
+      }
+
+      @media(max-width:560px){
+        .container,
+        .topbar{
+          width:calc(100% - 22px);
+        }
+
+        .hero{
+          padding:31px 0 18px;
+        }
+
+        .hero h1{
+          font-size:49px;
+          letter-spacing:-3.5px;
+        }
+
+        .hero-description{
+          font-size:12px;
+        }
+
+        .video-card{
+          height:225px;
+          border-radius:20px;
+        }
+
+        .section{
+          padding:15px 0;
+        }
+
+        .menu-grid{
+          gap:8px;
+        }
+
+        .menu-card{
+          min-height:120px;
+          padding:15px;
+          border-radius:16px;
+        }
+
+        .menu-icon{
+          width:36px;
+          height:36px;
+          margin-bottom:12px;
+          border-radius:11px;
+          font-size:13px;
+        }
+
+        .menu-card h3{
+          font-size:11px;
+        }
+
+        .menu-card p{
+          margin-top:4px;
+          font-size:8px;
+        }
+
+        .about-card{
+          padding:17px;
+        }
+
+        .stats{
+          gap:5px;
+        }
+
+        .stat{
+          padding:11px 8px;
+        }
+
+        .stat strong{
+          font-size:16px;
+        }
+
+        .earthquake-top{
+          padding:13px;
+        }
+
+        .earthquake-body{
+          display:block;
+        }
+
+        .earthquake-map,
+        .earthquake-map img{
+          min-height:215px;
+          height:215px;
+        }
+
+        .earthquake-info{
+          padding:13px;
+        }
+
+        .quake-main{
+          padding-bottom:13px;
+        }
+
+        .quake-mag strong{
+          font-size:34px;
+        }
+
+        .quake-grid{
+          gap:6px;
+          margin-top:10px;
+        }
+
+        .quake-detail{
+          padding:9px;
+        }
+
+        .quake-detail strong{
+          font-size:8px;
+        }
+
+        .social-box{
+          gap:7px;
+        }
+
+        .social-item{
+          min-height:67px;
+          flex-direction:column;
+          gap:5px;
+        }
+
+        .social-item i{
+          font-size:17px;
+        }
+
+        .social-name{
+          font-size:9px;
+        }
+
+        .social-arrow{
+          display:none;
+        }
+
+        .currently{
+          grid-template-columns:1fr;
+          gap:14px;
+          padding:16px;
+        }
+
+        .currently h3{
+          font-size:12px;
+        }
+
+        .currently p{
+          font-size:9px;
+        }
+
+        .currently-time{
+          min-width:0;
+          text-align:left;
+          font-size:22px;
+        }
+
+        .digital-date{
+          font-size:8px;
+        }
+      }
+
+      @media(prefers-reduced-motion:reduce){
+        *,
+        *::before,
+        *::after{
+          animation:none!important;
+          transition:none!important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="grain"></div>
+
+    <header class="topbar">
+      <a href="./" class="brand">
+        <span class="brand-logo">
+          <span class="brand-core">
+            <i class="fa-solid fa-terminal"></i>
+          </span>
+        </span>
+        <span class="brand-name">WELCOME</span>
+      </a>
+
+      <div class="top-actions">
+        <button class="top-btn" id="homeBtn" aria-label="Beranda">
+          <i class="fa-solid fa-house"></i>
+        </button>
+
+        <button class="top-btn" id="themeBtn" aria-label="Ganti tema">
+          <i class="fa-solid fa-sun"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">
+            <i class="fa-solid fa-circle"></i>
+            Official website
+          </div>
+
+          <h1>MYNAME<span>DIMZ</span></h1>
+
+          <p class="hero-description">
+            Tempat kecil berbagai tools, downloader, project, dan file yang saya
+            buat. Simple, ringan, dan langsung menuju tujuan.
+          </p>
+
+          <div class="profile-mini">
+            <div class="avatar-wrap">
+              <img
+                class="avatar"
+                src="./media/avatar.png"
+                alt="Avatar"
+                onerror="this.style.opacity='.25'"
+              />
+              <span class="status-dot"></span>
+            </div>
+
+            <div>
+              <strong>DIMMZZZSUM_ENAK</strong>
+              <small>Pemula Banget • Bukan Suhu</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <video
+            id="animeVideo"
+            muted
+            loop
+            playsinline
+            preload="metadata"
+            poster="./media/anime-poster.jpg"
+          >
+            <source src="./media/anime-loop.mp4" type="video/mp4" />
+          </video>
+
+          <div class="video-overlay"></div>
+
+          <div class="video-label">
+            // $routine = ["Eat", "Bath", "Sleep", "Again"];
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>Explore</h2>
+            <p>Semua bagian website berdasarkan struktur folder.</p>
+          </div>
+        </div>
+
+        <div class="menu-grid">
+          <button class="menu-card" data-modal="modalDownload">
+            <div class="menu-icon violet">
+              <i class="fa-solid fa-download"></i>
+            </div>
+            <h3>Download</h3>
+            <p>Berbagai downloader yang tersedia.</p>
+          </button>
+
+          <button class="menu-card" data-modal="modalCanva">
+            <div class="menu-icon pink">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3>Canva / Maker</h3>
+            <p>Generator dan maker sederhana.</p>
+          </button>
+
+          <button class="menu-card" data-modal="modalIslamic">
+            <div class="menu-icon green">
+              <i class="fa-solid fa-mosque"></i>
+            </div>
+            <h3>Islamic</h3>
+            <p>Tools dan informasi Islami.</p>
+          </button>
+
+          <button class="menu-card" data-modal="modalSearch">
+            <div class="menu-icon cyan">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </div>
+            <h3>Search</h3>
+            <p>Tools pencarian yang tersedia.</p>
+          </button>
+
+          <button class="menu-card" data-modal="modalTemp">
+            <div class="menu-icon orange">
+              <i class="fa-solid fa-folder-open"></i>
+            </div>
+            <h3>Temp / Gateway</h3>
+            <p>Halaman gateway menuju file.</p>
+          </button>
+
+          <button class="menu-card" data-modal="modalTools">
+            <div class="menu-icon yellow">
+              <i class="fa-solid fa-screwdriver-wrench"></i>
+            </div>
+            <h3>Tools</h3>
+            <p>Berbagai tools web sederhana.</p>
+          </button>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>About Me</h2>
+            <p>Sedikit tentang halaman ini.</p>
+          </div>
+        </div>
+
+        <div class="about">
+          <div class="about-card">
+            <h3>Diimzzzz Tamvans</h3>
+
+            <p>
+              Saya Diimmzzz. Manusia gabut yang hobi bikin hal random di
+              internet. Kadang berguna, kadang cuma buat ngilangin bosen.
+            </p>
+
+            <div class="about-tags">
+              <span>WEB</span>
+              <span>TOOLS</span>
+              <span>DOWNLOAD</span>
+              <span>PROJECT</span>
+              <span>EXPERIMENT</span>
+            </div>
+          </div>
+
+          <div class="about-card">
+            <div class="stats">
+              <div class="stat">
+                <small>Visit Harian</small>
+                <strong id="todayVisit">0</strong>
+              </div>
+
+              <div class="stat">
+                <small>Visit Bulanan</small>
+                <strong id="monthVisit">0</strong>
+              </div>
+
+              <div class="stat">
+                <small>Total Visit</small>
+                <strong id="totalVisit">0</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>Info Gempa</h2>
+            <p>Informasi gempa terbaru dari API.</p>
+          </div>
+        </div>
+
+        <div class="earthquake-card">
+          <div class="earthquake-top">
+            <div class="earthquake-title">
+              <div class="earthquake-title-icon">
+                <i class="fa-solid fa-house-crack"></i>
+              </div>
+
+              <div>
+                <strong>Gempa Terkini</strong>
+                <small id="quakeUpdated">Mengambil data...</small>
+              </div>
+            </div>
+
+            <div class="earthquake-status">
+              <span></span>
+              LIVE
+            </div>
+          </div>
+
+          <div id="earthquakeContent">
+            <div class="quake-loading">
+              <i class="fa-solid fa-spinner fa-spin"></i>
+              Memuat informasi gempa...
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <div>
+            <h2>Social Media</h2>
+            <p>Temukan saya di internet.</p>
+          </div>
+        </div>
+
+        <div class="social-box">
+          <a
+            class="social-item whatsapp"
+            href="https://wa.me/6282331243615"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fa-brands fa-whatsapp"></i>
+            <span class="social-name">WhatsApp</span>
+            <i class="fa-solid fa-arrow-up-right-from-square social-arrow"></i>
+          </a>
+
+          <a
+            class="social-item instagram"
+            href="https://www.instagram.com/nandz.404"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fa-brands fa-instagram"></i>
+            <span class="social-name">Instagram</span>
+            <i class="fa-solid fa-arrow-up-right-from-square social-arrow"></i>
+          </a>
+
+          <a
+            class="social-item youtube"
+            href="https://youtube.com/@NandSkie"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fa-brands fa-youtube"></i>
+            <span class="social-name">YouTube</span>
+            <i class="fa-solid fa-arrow-up-right-from-square social-arrow"></i>
+          </a>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="currently">
+          <div>
+            <div class="currently-label">
+              <span></span>
+              Currently
+            </div>
+
+            <h3 id="motivationText" class="motivation">Memuat motivasi...</h3>
+
+            <p>
+              Semangat untuk terus membuat, mencoba, dan berkembang sedikit demi
+              sedikit.
+            </p>
+          </div>
+
+          <div>
+            <div class="currently-time" id="liveClock">00:00:00</div>
+
+            <div class="digital-date" id="liveDate">Memuat tanggal...</div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © <span id="year"></span>
+      DIMMZZZSUM_ENAK · Built with Hosting.
+    </footer>
+
+    <div class="modal" id="modalDownload">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3>Download</h3>
+
+          <button class="close" data-close aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="search"
+            placeholder="Cari downloader..."
+            data-search="download"
+          />
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modal-list" id="downloadList"></div>
+      </div>
+    </div>
+
+    <div class="modal" id="modalCanva">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3>Canva / Maker</h3>
+
+          <button class="close" data-close aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="search"
+            placeholder="Cari maker..."
+            data-search="canva"
+          />
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modal-list" id="canvaList"></div>
+      </div>
+    </div>
+
+    <div class="modal" id="modalIslamic">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3>Islamic</h3>
+
+          <button class="close" data-close aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="search"
+            placeholder="Cari tools Islami..."
+            data-search="islamic"
+          />
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modal-list" id="islamicList"></div>
+      </div>
+    </div>
+
+    <div class="modal" id="modalSearch">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3>Search</h3>
+
+          <button class="close" data-close aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="search"
+            placeholder="Cari search tools..."
+            data-search="search"
+          />
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modal-list" id="searchList"></div>
+      </div>
+    </div>
+
+    <div class="modal" id="modalTemp">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3>Temp / Gateway</h3>
+
+          <button class="close" data-close aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="search"
+            placeholder="Cari gateway..."
+            data-search="temp"
+          />
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modal-list" id="tempList"></div>
+      </div>
+    </div>
+
+    <div class="modal" id="modalTools">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3>Tools</h3>
+
+          <button class="close" data-close aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="search"
+            placeholder="Cari tools..."
+            data-search="tools"
+          />
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modal-list" id="toolsList"></div>
+      </div>
+    </div>
+
+    <div class="modal not-found" id="notFound">
+      <div class="modal-box">
+        <div class="error-code">404</div>
+
+        <p>
+          Waduh, kamu nyasar 😭<br />
+          Link yang kamu buka kayaknya nggak ada. Tenang, nggak ada jumpscare di
+          sini.
+        </p>
+
+        <button class="back-home" onclick="location.href='./'">
+          Balik ke halaman utama
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const DATA = {
+
+        download:[
+          {
+            name:"Facebook Downloader",
+            desc:"Downloader untuk media Facebook",
+            url:"./download/fesnuk_downloaders.html",
+            icon:"fa-facebook",
+            type:"brand",
+            color:"blue",
+            tags:"facebook downloader video atau foto"
+          },
+          {
+            name:"Instagram Downloader",
+            desc:"Download media dari Instagram",
+            url:"./download/insta_downloaders.html",
+            icon:"fa-instagram",
+            type:"brand",
+            color:"pink",
+            tags:"instagram downloader foto video reel postingan"
+          },
+          {
+            name:"TikTok Downloader",
+            desc:"Download video atau foto TikTok",
+            url:"./download/tiktok_downloaders.html",
+            icon:"fa-tiktok",
+            type:"brand",
+            color:"cyan",
+            tags:"tiktok downloader video atau foto"
+          },
+          {
+            name:"YouTube Downloader",
+            desc:"Download video atau audio YouTube",
+            url:"./download/yutub_downloaders.html",
+            icon:"fa-youtube",
+            type:"brand",
+            color:"pink",
+            tags:"youtube downloader mp3 dan mp4"
+          }
+        ],
+
+        canva:[
+          {
+            name:"Brat Generator",
+            desc:"Buat gambar Brat dengan mudah",
+            url:"./canva/brat_generator_on.html",
+            icon:"fa-image",
+            type:"solid",
+            color:"pink",
+            tags:"brat generator gambar image maker"
+          },
+          {
+            name:"Lobby Epep Maker",
+            desc:"Buat tampilan lobby Epep sendiri",
+            url:"./canva/lobby_epep_maker.html",
+            icon:"fa-gamepad",
+            type:"solid",
+            color:"violet",
+            tags:"free fire epep lobby maker game"
+          }
+        ],
+
+        islamic:[
+          {
+            name:"Jadwal Sholat",
+            desc:"Cek jadwal sholat berdasarkan lokasi",
+            url:"./islamic/jadwal_sholat_st.html",
+            icon:"fa-mosque",
+            type:"solid",
+            color:"green",
+            tags:"islam sholat jadwal waktu adzan"
+          }
+        ],
+
+        search:[
+          {
+            name:"Lyrics Search",
+            desc:"Cari lirik lagu dengan cepat",
+            url:"./search/lyrics_search_tools.html",
+            icon:"fa-music",
+            type:"solid",
+            color:"cyan",
+            tags:"lyrics lirik lagu music search"
+          }
+        ],
+
+        temp:[
+          {
+            name:"Bully Gateway",
+            desc:"Gateway menuju halaman file Bully",
+            url:"./temp/down_bully_gateway.html",
+            icon:"fa-gamepad",
+            type:"solid",
+            color:"yellow",
+            tags:"bully anniversary edition game download"
+          },
+          {
+            name:"GTA Gateway",
+            desc:"Gateway menuju halaman file GTA",
+            url:"./temp/down_gta_gateway.html",
+            icon:"fa-car",
+            type:"solid",
+            color:"orange",
+            tags:"gta san andreas game download"
+          }
+        ],
+
+        tools:[
+          {
+            name:"Khodam Generator",
+            desc:"Generator khodam random untuk hiburan",
+            url:"./tools/khodam_generator.html",
+            icon:"fa-wand-magic-sparkles",
+            type:"solid",
+            color:"violet",
+            tags:"khodam generator random fun"
+          }
+        ]
+
+      };
+
+      function escapeHTML(value){
+        return String(value)
+          .replace(/&/g,"&amp;")
+          .replace(/</g,"&lt;")
+          .replace(/>/g,"&gt;")
+          .replace(/"/g,"&quot;")
+          .replace(/'/g,"&#039;");
+      }
+
+      function escapeRegex(value){
+        return String(value)
+          .replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+      }
+
+      function highlight(value,query){
+
+        const safe=escapeHTML(value);
+
+        if(!query){
+          return safe;
+        }
+
+        const regex=new RegExp(
+          "("+escapeRegex(query)+")",
+          "gi"
+        );
+
+        return safe.replace(
+          regex,
+          "<mark style=\"background:rgba(169,156,255,.2);color:inherit;border-radius:3px;padding:1px 2px\">$1</mark>"
+        );
+      }
+
+      function renderList(type,query=""){
+
+        const ids={
+          download:"downloadList",
+          canva:"canvaList",
+          islamic:"islamicList",
+          search:"searchList",
+          temp:"tempList",
+          tools:"toolsList"
+        };
+
+        const container=document.getElementById(ids[type]);
+
+        if(!container || !DATA[type]){
+          return;
+        }
+
+        const q=query.trim().toLowerCase();
+
+        const results=DATA[type].filter(item=>{
+
+          const text=[
+            item.name,
+            item.desc,
+            item.tags
+          ].join(" ").toLowerCase();
+
+          return !q || text.includes(q);
+
+        });
+
+        if(!results.length){
+
+          container.innerHTML=`
+            <div class="no-result">
+              Tidak ada hasil yang cocok.
+            </div>
+          `;
+
+          return;
+        }
+
+        container.innerHTML=results.map(item=>{
+
+          const external=item.url.startsWith("http")
+            ? `target="_blank" rel="noopener noreferrer"`
+            : "";
+
+          const iconType=item.type==="brand"
+            ? "fa-brands"
+            : "fa-solid";
+
+          return `
+            <a
+              class="item"
+              href="${escapeHTML(item.url)}"
+              ${external}
+            >
+
+              <div class="item-icon ${escapeHTML(item.color)}">
+                <i class="${iconType} ${escapeHTML(item.icon)}"></i>
+              </div>
+
+              <div class="item-info">
+
+                <strong>
+                  ${highlight(item.name,q)}
+                </strong>
+
+                <span>
+                  ${highlight(item.desc,q)}
+                </span>
+
+              </div>
+
+              <div class="item-arrow">
+                <i class="fa-solid fa-chevron-right"></i>
+              </div>
+
+            </a>
+          `;
+
+        }).join("");
+      }
+
+      document.querySelectorAll("[data-modal]").forEach(button=>{
+
+        button.addEventListener("click",()=>{
+
+          const modal=document.getElementById(
+            button.dataset.modal
+          );
+
+          if(modal){
+            modal.classList.add("active");
+          }
+
+        });
+
+      });
+
+      document.querySelectorAll("[data-close]").forEach(button=>{
+
+        button.addEventListener("click",()=>{
+
+          button.closest(".modal").classList.remove("active");
+
+        });
+
+      });
+
+      document.querySelectorAll(".modal").forEach(modal=>{
+
+        modal.addEventListener("click",event=>{
+
+          if(event.target===modal){
+            modal.classList.remove("active");
+          }
+
+        });
+
+      });
+
+      document.addEventListener("keydown",event=>{
+
+        if(event.key==="Escape"){
+
+          document.querySelectorAll(".modal.active").forEach(modal=>{
+            modal.classList.remove("active");
+          });
+
+        }
+
+      });
+
+      document.querySelectorAll("[data-search]").forEach(input=>{
+
+        input.addEventListener("input",()=>{
+
+          renderList(
+            input.dataset.search,
+            input.value
+          );
+
+        });
+
+      });
+
+      document.querySelectorAll("[data-clear]").forEach(button=>{
+
+        button.addEventListener("click",()=>{
+
+          const input=button.parentElement.querySelector("input");
+
+          input.value="";
+
+          renderList(input.dataset.search);
+
+          input.focus();
+
+        });
+
+      });
+
+      document.getElementById("homeBtn").addEventListener(
+        "click",
+        ()=>{
+          location.href="./";
+        }
+      );
+
+      const themeBtn=document.getElementById("themeBtn");
+
+      const savedTheme=localStorage.getItem(
+        "dimmzzz_theme"
+      );
+
+      if(savedTheme==="light"){
+        document.body.classList.add("light");
+      }
+
+      function updateThemeIcon(){
+
+        themeBtn.innerHTML=
+          document.body.classList.contains("light")
+          ? '<i class="fa-solid fa-moon"></i>'
+          : '<i class="fa-solid fa-sun"></i>';
+
+      }
+
+      updateThemeIcon();
+
+      themeBtn.addEventListener("click",()=>{
+
+        document.body.classList.toggle("light");
+
+        localStorage.setItem(
+          "dimmzzz_theme",
+          document.body.classList.contains("light")
+            ? "light"
+            : "dark"
+        );
+
+        updateThemeIcon();
+
+      });
+
+      function updateStats(){
+
+        const now=new Date();
+
+        const localDay=
+          now.getFullYear()+"-"+
+          String(now.getMonth()+1).padStart(2,"0")+"-"+
+          String(now.getDate()).padStart(2,"0");
+
+        const localMonth=
+          now.getFullYear()+"-"+
+          String(now.getMonth()+1).padStart(2,"0");
+
+        const dayKey="dimmzzz_day_"+localDay;
+        const monthKey="dimmzzz_month_"+localMonth;
+        const totalKey="dimmzzz_total";
+
+        const today=
+          Number(localStorage.getItem(dayKey)||0)+1;
+
+        const monthly=
+          Number(localStorage.getItem(monthKey)||0)+1;
+
+        const total=
+          Number(localStorage.getItem(totalKey)||0)+1;
+
+        localStorage.setItem(dayKey,today);
+        localStorage.setItem(monthKey,monthly);
+        localStorage.setItem(totalKey,total);
+
+        document.getElementById("todayVisit").textContent=today;
+        document.getElementById("monthVisit").textContent=monthly;
+        document.getElementById("totalVisit").textContent=total;
+      }
+
+      function updateClock(){
+
+        const now=new Date();
+
+        const hours=String(
+          now.getHours()
+        ).padStart(2,"0");
+
+        const minutes=String(
+          now.getMinutes()
+        ).padStart(2,"0");
+
+        const seconds=String(
+          now.getSeconds()
+        ).padStart(2,"0");
+
+        document.getElementById("liveClock").textContent=
+          hours+":"+minutes+":"+seconds;
+
+        document.getElementById("liveDate").textContent=
+          new Intl.DateTimeFormat(
+            "id-ID",
+            {
+              weekday:"long",
+              day:"2-digit",
+              month:"long",
+              year:"numeric"
+            }
+          ).format(now);
+      }
+
+      const MOTIVATION_URL=
+        "https://raw.githubusercontent.com/dimasmpp130/dimasmpp130/refs/heads/main/motivasi.txt";
+
+      const fallbackMotivations=[
+        "Pelan-pelan juga tetap maju.",
+        "Tidak harus sempurna untuk mulai.",
+        "Sedikit demi sedikit, lama-lama menjadi sesuatu.",
+        "Tetap berjalan meski langkahnya kecil.",
+        "Apa yang kamu mulai hari ini bisa berarti besar nanti.",
+        "Jangan berhenti hanya karena prosesnya belum terlihat.",
+        "Belajar, mencoba, gagal, lalu coba lagi.",
+        "Konsisten kecil lebih baik daripada semangat sesaat.",
+        "Fokus pada proses dan nikmati perjalanannya.",
+        "Hari ini adalah kesempatan untuk menjadi sedikit lebih baik."
+      ];
+
+      function getRandomMotivation(list){
+
+        const valid=list
+          .map(item=>String(item).trim())
+          .filter(Boolean);
+
+        if(!valid.length){
+          return fallbackMotivations[
+            Math.floor(
+              Math.random()*fallbackMotivations.length
+            )
+          ];
+        }
+
+        return valid[
+          Math.floor(
+            Math.random()*valid.length
+          )
+        ];
+      }
+
+      async function loadMotivation(){
+
+        const element=document.getElementById(
+          "motivationText"
+        );
+
+        try{
+
+          element.classList.add("loading");
+
+          const response=await fetch(
+            MOTIVATION_URL+"?t="+Date.now(),
+            {
+              cache:"no-store"
+            }
+          );
+
+          if(!response.ok){
+            throw new Error("Gagal mengambil motivasi");
+          }
+
+          const text=await response.text();
+
+          const lines=text
+            .split(/\r?\n/)
+            .map(line=>line.trim())
+            .filter(Boolean);
+
+          element.textContent=
+            getRandomMotivation(lines);
+
+        }catch(error){
+
+          element.textContent=
+            getRandomMotivation(
+              fallbackMotivations
+            );
+
+        }finally{
+
+          element.classList.remove("loading");
+
+        }
+      }
+
+      const _x=a=>
+        String.fromCharCode(...a);
+
+      const _api=_x([
+        104,116,116,112,115,58,47,47,
+        97,112,105,46,110,101,111,120,
+        114,46,101,117,47,97,112,105,
+        47,103,101,109,112,97
+      ]);
+
+      const _key=_x([
+        103,66,119,52,98,102,106,53,
+        104,97,113,89
+      ]);
+
+      const _q=_x([
+        63,97,112,105,107,101,121,61
+      ]);
+
+      const EARTHQUAKE_API=
+        _api+_q+_key;
+
+      const earthquakeFallback={
+
+        map:
+          "https://bmkg-content-inatews.storage.googleapis.com/20260924072635.mmi.jpg",
+
+        waktu:
+          "24 September 2026, 07:26:35 WIB",
+
+        lintang:
+          "1.60 LS",
+
+        bujur:
+          "138.93 BT",
+
+        magnitudo:
+          "4.3",
+
+        kedalaman:
+          "10 km",
+
+        wilayah:
+          "Pusat gempa berada di laut 36 km timur laut Sarmi",
+
+        zona:
+          "II Sarmi",
+
+        arahan:
+          "Gempa ini dirasakan untuk diteruskan pada masyarakat",
+
+        saran:
+          "Hati-hati terhadap gempabumi susulan yang mungkin terjadi"
+
+      };
+
+      function earthquakeHTML(data){
+
+        const safe=value=>
+          escapeHTML(
+            value==null || value===""
+            ? "-"
+            : value
+          );
+
+        return `
+          <div class="earthquake-body">
+
+            <div class="earthquake-map">
+
+              <img
+                src="${safe(data.map)}"
+                alt="Peta gempa bumi"
+                loading="lazy"
+              >
+
+              <div class="map-label">
+                Peta Intensitas / MMI
+              </div>
+
+            </div>
+
+            <div class="earthquake-info">
+
+              <div class="quake-main">
+
+                <div class="quake-mag">
+                  <small>Magnitudo</small>
+                  <strong>M${safe(data.magnitudo)}</strong>
+                </div>
+
+                <div class="quake-depth">
+                  <small>Kedalaman</small>
+                  <strong>${safe(data.kedalaman)}</strong>
+                </div>
+
+              </div>
+
+              <div class="quake-grid">
+
+                <div class="quake-detail full">
+                  <small>Waktu</small>
+                  <strong>${safe(data.waktu)}</strong>
+                </div>
+
+                <div class="quake-detail">
+                  <small>Lintang</small>
+                  <strong>${safe(data.lintang)}</strong>
+                </div>
+
+                <div class="quake-detail">
+                  <small>Bujur</small>
+                  <strong>${safe(data.bujur)}</strong>
+                </div>
+
+                <div class="quake-detail full">
+                  <small>Wilayah</small>
+                  <strong>${safe(data.wilayah)}</strong>
+                </div>
+
+                <div class="quake-detail full">
+                  <small>Zona / MMI</small>
+                  <strong>${safe(data.zona)}</strong>
+                </div>
+
+              </div>
+
+              <div class="quake-message">
+                <small>Arahan</small>
+                <p>${safe(data.arahan)}</p>
+              </div>
+
+              <div class="quake-message warning">
+                <small>Saran</small>
+                <p>${safe(data.saran)}</p>
+              </div>
+
+            </div>
+
+          </div>
+        `;
+      }
+
+      async function loadEarthquake(){
+
+        const container=document.getElementById(
+          "earthquakeContent"
+        );
+
+        const updated=document.getElementById(
+          "quakeUpdated"
+        );
+
+        container.innerHTML=`
+          <div class="quake-loading">
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Memuat informasi gempa...
+          </div>
+        `;
+
+        try{
+
+          const response=await fetch(
+            EARTHQUAKE_API+"&t="+Date.now(),
+            {
+              cache:"no-store"
+            }
+          );
+
+          if(!response.ok){
+            throw new Error("HTTP "+response.status);
+          }
+
+          const result=await response.json();
+
+          if(
+            !result ||
+            result.status!==true ||
+            !result.data
+          ){
+            throw new Error(
+              "Format response API tidak valid"
+            );
+          }
+
+          container.innerHTML=
+            earthquakeHTML(result.data);
+
+          updated.textContent=
+            "Data berhasil diperbarui • "+
+            new Date().toLocaleTimeString(
+              "id-ID",
+              {
+                hour:"2-digit",
+                minute:"2-digit",
+                second:"2-digit"
+              }
+            );
+
+          const mapImage=
+            container.querySelector(
+              ".earthquake-map img"
+            );
+
+          if(mapImage){
+
+            mapImage.addEventListener(
+              "error",
+              ()=>{
+
+                mapImage.style.display="none";
+
+                const errorBox=
+                  document.createElement("div");
+
+                errorBox.className="quake-error";
+
+                errorBox.innerHTML=`
+                  <i class="fa-solid fa-image"></i>
+                  <strong>Peta gempa tidak dapat dimuat.</strong>
+                  <span>Data gempa lainnya tetap tersedia.</span>
+                `;
+
+                mapImage.parentElement.appendChild(
+                  errorBox
+                );
+
+              },
+              {once:true}
+            );
+
+          }
+
+        }catch(error){
+
+          container.innerHTML=
+            earthquakeHTML(
+              earthquakeFallback
+            )+
+            `
+              <div style="
+                padding:0 17px 14px;
+                color:var(--muted);
+                font-size:8px;
+              ">
+                <i class="fa-solid fa-circle-info"></i>
+                API sedang tidak dapat diakses.
+                Data yang ditampilkan adalah data cadangan.
+              </div>
+            `;
+
+          updated.textContent="API tidak tersedia";
+
+        }
+      }
+
+      const video=document.getElementById(
+        "animeVideo"
+      );
+
+      const POSTER_DELAY=1500;
+
+      let posterDelayDone=false;
+      let videoVisible=true;
+
+      video.addEventListener("error",()=>{
+        video.style.display="none";
+      });
+
+      const startVideo=()=>{
+
+        if(
+          !posterDelayDone ||
+          !videoVisible
+        ){
+          return;
+        }
+
+        video.play().catch(()=>{});
+
+      };
+
+      setTimeout(
+        ()=>{
+          posterDelayDone=true;
+          startVideo();
+        },
+        POSTER_DELAY
+      );
+
+      if("IntersectionObserver" in window){
+
+        const videoObserver=
+          new IntersectionObserver(
+            entries=>{
+
+              entries.forEach(entry=>{
+
+                videoVisible=
+                  entry.isIntersecting;
+
+                if(videoVisible){
+                  startVideo();
+                }else{
+                  video.pause();
+                }
+
+              });
+
+            },
+            {
+              threshold:.12
+            }
+          );
+
+        videoObserver.observe(video);
+
+      }else{
+
+        videoVisible=true;
+        startVideo();
+
+      }
+
+      updateClock();
+
+      setInterval(
+        updateClock,
+        1000
+      );
+
+      loadMotivation();
+
+      document.getElementById("year").textContent=
+        new Date().getFullYear();
+
+      Object.keys(DATA).forEach(type=>{
+        renderList(type);
+      });
+
+      updateStats();
+
+      loadEarthquake();
+
+      setInterval(
+        loadEarthquake,
+        5*60*1000
+      );
+
+      const path=
+        location.pathname.toLowerCase();
+
+      const params=
+        new URLSearchParams(
+          location.search
+        );
+
+      const is404=
+        path.endsWith("/404") ||
+        path.endsWith("/404.html") ||
+        params.get("404")==="1";
+
+      if(is404){
+
+        document
+          .getElementById("notFound")
+          .classList.add("active");
+
+      }
+    </script>
+  </body>
+</html>
