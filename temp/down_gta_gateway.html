@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta name="theme-color" content="#09090b" />
+    <meta
+      name="description"
+      content="GTA San Andreas Android Files — APK, OBB, Unprotected dan CLEO"
+    />
+    <title>GTA San Andreas Files — DIMMZZZSUM_ENAK</title>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+
+    <style>
+      *{
+          margin:0;
+          padding:0;
+          box-sizing:border-box;
+      }
+
+      :root{
+          --bg:#08090b;
+          --surface:#101114;
+          --surface-2:#15161a;
+          --line:#292b31;
+          --text:#f5f5f5;
+          --muted:#92959d;
+          --red:#e93432;
+          --red-dark:#b91f22;
+          --orange:#ff9b32;
+          --yellow:#ffd35a;
+          --green:#42c985;
+          --shadow:0 25px 80px rgba(0,0,0,.45);
+      }
+
+      html{
+          scroll-behavior:smooth;
+      }
+
+      body{
+          min-height:100vh;
+          overflow-x:hidden;
+          color:var(--text);
+          font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+          background:#09090b;
+      }
+
+      body::before{
+          content:"";
+          position:fixed;
+          inset:0;
+          z-index:-10;
+          background:
+              linear-gradient(
+                  180deg,
+                  rgba(255,174,76,.35) 0%,
+                  rgba(224,77,48,.25) 22%,
+                  rgba(46,39,57,.48) 52%,
+                  rgba(7,8,12,.96) 100%
+              );
+      }
+
+      body::after{
+          content:"";
+          position:fixed;
+          inset:0;
+          z-index:-9;
+          background:
+              radial-gradient(
+                  circle at 50% 23%,
+                  rgba(255,196,82,.42) 0,
+                  rgba(255,139,49,.18) 10%,
+                  transparent 31%
+              ),
+              linear-gradient(
+                  180deg,
+                  transparent 35%,
+                  rgba(5,6,9,.45) 62%,
+                  #08090b 100%
+              );
+          pointer-events:none;
+      }
+
+      button{
+          font:inherit;
+      }
+
+      .page{
+          width:min(880px,calc(100% - 28px));
+          margin:auto;
+          padding:25px 0 40px;
+          position:relative;
+          z-index:2;
+      }
+
+      .scene{
+          position:fixed;
+          inset:0;
+          z-index:-8;
+          overflow:hidden;
+          pointer-events:none;
+      }
+
+      .sun{
+          position:absolute;
+          width:170px;
+          height:170px;
+          left:50%;
+          top:15%;
+          transform:translateX(-50%);
+          border-radius:50%;
+          background:
+              radial-gradient(
+                  circle,
+                  rgba(255,232,155,.95) 0,
+                  rgba(255,176,65,.7) 32%,
+                  rgba(255,116,35,.12) 65%,
+                  transparent 72%
+              );
+          filter:blur(1px);
+      }
+
+      .sun-glow{
+          position:absolute;
+          width:430px;
+          height:180px;
+          left:50%;
+          top:10%;
+          transform:translateX(-50%);
+          background:radial-gradient(
+              ellipse,
+              rgba(255,154,52,.27),
+              transparent 68%
+          );
+          filter:blur(18px);
+      }
+
+      .city{
+          position:absolute;
+          left:0;
+          right:0;
+          bottom:19%;
+          height:135px;
+          opacity:.72;
+          background:
+              linear-gradient(
+                  90deg,
+                  transparent 0 2%,
+                  #111217 2% 7%,
+                  transparent 7% 9%,
+                  #15161b 9% 14%,
+                  transparent 14% 16%,
+                  #101116 16% 23%,
+                  transparent 23% 25%,
+                  #18191e 25% 31%,
+                  transparent 31% 34%,
+                  #111217 34% 41%,
+                  transparent 41% 44%,
+                  #16171c 44% 51%,
+                  transparent 51% 54%,
+                  #101116 54% 60%,
+                  transparent 60% 63%,
+                  #15161b 63% 70%,
+                  transparent 70% 73%,
+                  #101116 73% 79%,
+                  transparent 79% 82%,
+                  #18191e 82% 89%,
+                  transparent 89% 92%,
+                  #111217 92% 98%,
+                  transparent 98%
+              );
+          clip-path:polygon(
+              0 35%,
+              4% 35%,
+              4% 18%,
+              8% 18%,
+              8% 42%,
+              12% 42%,
+              12% 10%,
+              16% 10%,
+              16% 33%,
+              20% 33%,
+              20% 4%,
+              25% 4%,
+              25% 30%,
+              30% 30%,
+              30% 14%,
+              35% 14%,
+              35% 38%,
+              40% 38%,
+              40% 8%,
+              45% 8%,
+              45% 29%,
+              50% 29%,
+              50% 5%,
+              55% 5%,
+              55% 35%,
+              60% 35%,
+              60% 12%,
+              65% 12%,
+              65% 31%,
+              70% 31%,
+              70% 2%,
+              75% 2%,
+              75% 28%,
+              80% 28%,
+              80% 13%,
+              85% 13%,
+              85% 34%,
+              90% 34%,
+              90% 8%,
+              95% 8%,
+              95% 30%,
+              100% 30%,
+              100% 100%,
+              0 100%
+          );
+      }
+
+      .road{
+          position:absolute;
+          left:-10%;
+          right:-10%;
+          bottom:-4%;
+          height:28%;
+          background:
+              linear-gradient(
+                  172deg,
+                  transparent 0 42%,
+                  rgba(255,255,255,.055) 42.2% 42.8%,
+                  transparent 43% 100%
+              ),
+              linear-gradient(
+                  188deg,
+                  transparent 0 56%,
+                  rgba(255,255,255,.04) 56.2% 56.8%,
+                  transparent 57% 100%
+              ),
+              #08090c;
+          transform:perspective(500px) rotateX(7deg);
+      }
+
+      .road::before,
+      .road::after{
+          content:"";
+          position:absolute;
+          top:30%;
+          width:55%;
+          height:3px;
+          background:repeating-linear-gradient(
+              90deg,
+              rgba(255,196,73,.75) 0 38px,
+              transparent 38px 78px
+          );
+          opacity:.35;
+      }
+
+      .road::before{
+          left:-5%;
+          transform:rotate(7deg);
+      }
+
+      .road::after{
+          right:-5%;
+          transform:rotate(-7deg);
+      }
+
+      .palm{
+          position:absolute;
+          bottom:18%;
+          width:10px;
+          height:180px;
+          background:#090a0d;
+          border-radius:100%;
+          transform-origin:bottom;
+      }
+
+      .palm-left{
+          left:6%;
+          transform:rotate(-8deg);
+      }
+
+      .palm-right{
+          right:7%;
+          height:155px;
+          transform:rotate(9deg);
+      }
+
+      .palm::before{
+          content:"";
+          position:absolute;
+          width:120px;
+          height:85px;
+          left:-54px;
+          top:-28px;
+          background:
+              radial-gradient(
+                  ellipse at 50% 80%,
+                  #090a0d 0 10%,
+                  transparent 11%
+              );
+          clip-path:polygon(
+              50% 80%,
+              5% 45%,
+              0 37%,
+              8% 38%,
+              37% 57%,
+              18% 19%,
+              22% 14%,
+              43% 53%,
+              43% 5%,
+              50% 0,
+              54% 52%,
+              78% 13%,
+              83% 17%,
+              61% 57%,
+              95% 36%,
+              100% 40%,
+              63% 72%
+          );
+      }
+
+      .motion-light{
+          position:absolute;
+          width:260px;
+          height:2px;
+          right:-300px;
+          bottom:22%;
+          background:linear-gradient(
+              90deg,
+              transparent,
+              rgba(255,205,100,.7),
+              transparent
+          );
+          transform:rotate(-10deg);
+          animation:carLight 7s linear infinite;
+      }
+
+      .motion-light.two{
+          bottom:27%;
+          width:190px;
+          animation-delay:3.4s;
+          opacity:.5;
+      }
+
+      .topbar{
+          display:flex;
+          align-items:center;
+          justify-content:space-between;
+          gap:15px;
+          margin-bottom:18px;
+          animation:fadeDown .7s ease both;
+      }
+
+      .brand{
+          display:flex;
+          align-items:center;
+          gap:12px;
+      }
+
+      .gta-logo{
+          position:relative;
+          width:58px;
+          height:58px;
+          flex:0 0 58px;
+          display:grid;
+          place-items:center;
+          transform:rotate(-4deg);
+          filter:drop-shadow(0 7px 8px rgba(0,0,0,.45));
+      }
+
+      .gta-logo::before{
+          content:"";
+          position:absolute;
+          inset:3px;
+          background:
+              linear-gradient(
+                  160deg,
+                  #fff 0 18%,
+                  #d9d9d9 19% 34%,
+                  #151515 35% 100%
+              );
+          clip-path:polygon(
+              9% 8%,
+              91% 4%,
+              100% 31%,
+              93% 89%,
+              14% 96%,
+              0 57%
+          );
+          border:2px solid #111;
+      }
+
+      .gta-logo span{
+          position:relative;
+          z-index:2;
+          color:#111;
+          font-family:Impact,Haettenschweiler,"Arial Black",sans-serif;
+          font-size:22px;
+          font-weight:1000;
+          letter-spacing:-2px;
+          text-shadow:
+              1px 1px 0 #fff,
+              -1px -1px 0 #fff;
+      }
+
+      .brand-name{
+          font-size:14px;
+          font-weight:950;
+          letter-spacing:.3px;
+      }
+
+      .brand-sub{
+          margin-top:3px;
+          color:#b5a99e;
+          font-size:8px;
+          font-weight:800;
+          letter-spacing:1px;
+          text-transform:uppercase;
+      }
+
+      .release{
+          display:flex;
+          align-items:center;
+          gap:7px;
+          padding:8px 11px;
+          border:1px solid rgba(255,202,110,.22);
+          border-radius:8px;
+          background:rgba(13,12,13,.68);
+          backdrop-filter:blur(8px);
+          color:#e6d7c4;
+          font-size:9px;
+          font-weight:850;
+          letter-spacing:.5px;
+      }
+
+      .release i{
+          color:var(--yellow);
+      }
+
+      .panel{
+          overflow:hidden;
+          background:rgba(12,13,16,.94);
+          border:1px solid rgba(255,255,255,.1);
+          border-radius:24px;
+          box-shadow:var(--shadow);
+          backdrop-filter:blur(12px);
+      }
+
+      .hero{
+          position:relative;
+          min-height:340px;
+          padding:46px 37px 37px;
+          overflow:hidden;
+          border-bottom:1px solid rgba(255,255,255,.08);
+          background:
+              linear-gradient(
+                  110deg,
+                  rgba(8,8,10,.96) 0%,
+                  rgba(8,8,10,.82) 45%,
+                  rgba(8,8,10,.45) 100%
+              );
+      }
+
+      .hero::before{
+          content:"SAN ANDREAS";
+          position:absolute;
+          right:-22px;
+          bottom:-30px;
+          color:rgba(255,255,255,.035);
+          font-family:Impact,Haettenschweiler,"Arial Black",sans-serif;
+          font-size:105px;
+          letter-spacing:-4px;
+          transform:rotate(-5deg);
+          white-space:nowrap;
+      }
+
+      .hero-content{
+          position:relative;
+          z-index:3;
+          max-width:650px;
+      }
+
+      .eyebrow{
+          display:inline-flex;
+          align-items:center;
+          gap:7px;
+          padding:7px 10px;
+          margin-bottom:18px;
+          border:1px solid rgba(255,176,67,.25);
+          border-radius:6px;
+          background:rgba(255,157,48,.08);
+          color:#ffb55b;
+          font-size:9px;
+          font-weight:900;
+          letter-spacing:1px;
+          text-transform:uppercase;
+          animation:fadeUp .7s .1s ease both;
+      }
+
+      .hero h1{
+          margin-bottom:11px;
+          font-family:Impact,Haettenschweiler,"Arial Black",sans-serif;
+          font-size:clamp(45px,9vw,76px);
+          line-height:.87;
+          letter-spacing:-2px;
+          color:#fff;
+          text-shadow:
+              3px 3px 0 rgba(0,0,0,.8),
+              0 10px 30px rgba(0,0,0,.45);
+          animation:heroTitle .8s .15s ease both;
+      }
+
+      .hero h1 span{
+          display:block;
+          color:#f7a63e;
+          font-size:.72em;
+          letter-spacing:1px;
+          text-shadow:
+              2px 2px 0 #17120d,
+              0 7px 25px rgba(0,0,0,.45);
+      }
+
+      .hero p{
+          max-width:600px;
+          color:#aaaab0;
+          font-size:13px;
+          line-height:1.75;
+          animation:fadeUp .7s .28s ease both;
+      }
+
+      .hero-stats{
+          display:flex;
+          flex-wrap:wrap;
+          gap:8px;
+          margin-top:23px;
+          animation:fadeUp .7s .36s ease both;
+      }
+
+      .stat{
+          display:flex;
+          align-items:center;
+          gap:7px;
+          padding:9px 11px;
+          border:1px solid rgba(255,255,255,.09);
+          border-radius:7px;
+          background:rgba(255,255,255,.045);
+          color:#b5b6bb;
+          font-size:9px;
+          font-weight:800;
+          backdrop-filter:blur(5px);
+      }
+
+      .stat i{
+          color:var(--orange);
+      }
+
+      .files{
+          padding:25px;
+          background:rgba(10,11,14,.78);
+      }
+
+      .section-head{
+          display:flex;
+          align-items:end;
+          justify-content:space-between;
+          gap:15px;
+          margin-bottom:17px;
+      }
+
+      .section-title{
+          font-size:16px;
+          font-weight:900;
+      }
+
+      .section-subtitle{
+          margin-top:4px;
+          color:#72757d;
+          font-size:10px;
+      }
+
+      .file-count{
+          color:#666970;
+          font-size:9px;
+          font-weight:900;
+          letter-spacing:.5px;
+      }
+
+      .file-list{
+          display:grid;
+          gap:10px;
+      }
+
+      .file{
+          position:relative;
+          display:flex;
+          align-items:center;
+          gap:14px;
+          padding:15px;
+          background:rgba(22,23,27,.9);
+          border:1px solid #292b30;
+          border-radius:15px;
+          overflow:hidden;
+          opacity:0;
+          transform:translateY(15px);
+          animation:fileReveal .55s ease forwards;
+          transition:.25s ease;
+      }
+
+      .file:nth-child(1){
+          animation-delay:.1s;
+      }
+
+      .file:nth-child(2){
+          animation-delay:.18s;
+      }
+
+      .file:nth-child(3){
+          animation-delay:.26s;
+      }
+
+      .file:nth-child(4){
+          animation-delay:.34s;
+      }
+
+      .file::after{
+          content:"";
+          position:absolute;
+          inset:0;
+          background:linear-gradient(
+              100deg,
+              transparent 0 35%,
+              rgba(255,255,255,.035) 50%,
+              transparent 65%
+          );
+          transform:translateX(-100%);
+          transition:transform .6s ease;
+          pointer-events:none;
+      }
+
+      .file:hover{
+          transform:translateX(4px);
+          border-color:#453638;
+          background:#191a1e;
+          box-shadow:0 15px 35px rgba(0,0,0,.22);
+      }
+
+      .file:hover::after{
+          transform:translateX(100%);
+      }
+
+      .file-icon{
+          width:49px;
+          height:49px;
+          flex:0 0 49px;
+          display:grid;
+          place-items:center;
+          border-radius:12px;
+          background:rgba(233,52,50,.1);
+          border:1px solid rgba(233,52,50,.14);
+          color:var(--red);
+          font-size:18px;
+          transition:.25s ease;
+      }
+
+      .file:nth-child(2) .file-icon{
+          background:rgba(255,157,50,.1);
+          color:var(--orange);
+          border-color:rgba(255,157,50,.14);
+      }
+
+      .file:nth-child(3) .file-icon{
+          background:rgba(72,126,255,.1);
+          color:#6790ff;
+          border-color:rgba(72,126,255,.14);
+      }
+
+      .file:nth-child(4) .file-icon{
+          background:rgba(164,103,255,.1);
+          color:#aa72ff;
+          border-color:rgba(164,103,255,.14);
+      }
+
+      .file:hover .file-icon{
+          transform:translateY(-2px) rotate(-5deg);
+      }
+
+      .file-info{
+          min-width:0;
+          flex:1;
+      }
+
+      .file-label{
+          display:inline-flex;
+          padding:4px 7px;
+          margin-bottom:6px;
+          border-radius:5px;
+          background:#24262b;
+          color:#8b8e96;
+          font-size:8px;
+          font-weight:900;
+          letter-spacing:.5px;
+          text-transform:uppercase;
+      }
+
+      .file-title{
+          margin-bottom:6px;
+          color:#ededee;
+          font-size:13px;
+          line-height:1.35;
+          font-weight:850;
+      }
+
+      .file-meta{
+          display:flex;
+          flex-wrap:wrap;
+          gap:7px;
+      }
+
+      .file-meta span{
+          color:#676a72;
+          font-size:9px;
+          font-weight:750;
+      }
+
+      .file-meta span:not(:last-child)::after{
+          content:"/";
+          margin-left:7px;
+          color:#393b41;
+      }
+
+      .download{
+          position:relative;
+          overflow:hidden;
+          flex:0 0 auto;
+          min-width:111px;
+          padding:11px 13px;
+          border:1px solid rgba(233,52,50,.28);
+          border-radius:9px;
+          background:#c92c2b;
+          color:#fff;
+          cursor:pointer;
+          font-size:9px;
+          font-weight:900;
+          letter-spacing:.6px;
+          transition:.25s ease;
+          box-shadow:0 7px 20px rgba(233,52,50,.13);
+      }
+
+      .download::before{
+          content:"";
+          position:absolute;
+          left:-120%;
+          top:0;
+          width:75%;
+          height:100%;
+          background:linear-gradient(
+              100deg,
+              transparent,
+              rgba(255,255,255,.22),
+              transparent
+          );
+          transform:skewX(-20deg);
+      }
+
+      .download:hover{
+          background:#e93432;
+          transform:translateY(-2px);
+          box-shadow:0 11px 25px rgba(233,52,50,.2);
+      }
+
+      .download:hover::before{
+          animation:shine .75s ease;
+      }
+
+      .download:active{
+          transform:scale(.97);
+      }
+
+      .download.loading{
+          pointer-events:none;
+          background:#35363b;
+          border-color:#414249;
+      }
+
+      .download.loading i{
+          animation:spin .8s linear infinite;
+      }
+
+      .download.ready{
+          background:#268b5e;
+          border-color:#2d9e6d;
+      }
+
+      .progress{
+          position:absolute;
+          left:0;
+          bottom:0;
+          width:0;
+          height:2px;
+          background:#fff;
+      }
+
+      .download.loading .progress{
+          animation:progress 1.4s linear forwards;
+      }
+
+      .extra{
+          margin:0 25px 25px;
+          padding:18px;
+          display:flex;
+          align-items:center;
+          gap:13px;
+          background:#141519;
+          border:1px solid #292b30;
+          border-radius:14px;
+      }
+
+      .extra-icon{
+          width:41px;
+          height:41px;
+          flex:0 0 41px;
+          display:grid;
+          place-items:center;
+          border-radius:11px;
+          background:rgba(255,157,50,.1);
+          color:var(--orange);
+      }
+
+      .extra-content{
+          flex:1;
+          min-width:0;
+      }
+
+      .extra-title{
+          margin-bottom:4px;
+          font-size:11px;
+          font-weight:850;
+      }
+
+      .extra-text{
+          color:#777a82;
+          font-size:9px;
+          line-height:1.65;
+      }
+
+      .extra-badge{
+          padding:6px 8px;
+          border-radius:6px;
+          background:#1a2923;
+          border:1px solid #254536;
+          color:#54c98c;
+          font-size:8px;
+          font-weight:900;
+      }
+
+      .note{
+          margin:0 25px 23px;
+          padding:13px 14px;
+          display:flex;
+          align-items:flex-start;
+          gap:10px;
+          border:1px solid #282a2f;
+          border-radius:11px;
+          background:#121316;
+          color:#73767f;
+          font-size:9px;
+          line-height:1.7;
+      }
+
+      .note i{
+          color:#878a91;
+          margin-top:2px;
+      }
+
+      .footer{
+          padding:0 25px 25px;
+          text-align:center;
+          color:#575a62;
+          font-size:9px;
+      }
+
+      .footer strong{
+          color:#81848c;
+      }
+
+      .toast{
+          position:fixed;
+          left:50%;
+          bottom:22px;
+          transform:translate(-50%,20px);
+          width:max-content;
+          max-width:calc(100% - 30px);
+          padding:11px 15px;
+          border:1px solid #34363c;
+          border-radius:9px;
+          background:#191a1e;
+          color:#eee;
+          font-size:10px;
+          font-weight:750;
+          text-align:center;
+          opacity:0;
+          pointer-events:none;
+          transition:.25s ease;
+          z-index:99;
+          box-shadow:0 14px 35px rgba(0,0,0,.35);
+      }
+
+      .toast.show{
+          opacity:1;
+          transform:translate(-50%,0);
+      }
+
+      @keyframes fadeDown{
+          from{
+              opacity:0;
+              transform:translateY(-12px);
+          }
+          to{
+              opacity:1;
+              transform:translateY(0);
+          }
+      }
+
+      @keyframes fadeUp{
+          from{
+              opacity:0;
+              transform:translateY(14px);
+          }
+          to{
+              opacity:1;
+              transform:translateY(0);
+          }
+      }
+
+      @keyframes heroTitle{
+          from{
+              opacity:0;
+              transform:translateY(18px) skewX(-4deg);
+          }
+          to{
+              opacity:1;
+              transform:translateY(0) skewX(-4deg);
+          }
+      }
+
+      @keyframes fileReveal{
+          to{
+              opacity:1;
+              transform:translateY(0);
+          }
+      }
+
+      @keyframes shine{
+          to{
+              left:140%;
+          }
+      }
+
+      @keyframes progress{
+          from{
+              width:0;
+          }
+          to{
+              width:100%;
+          }
+      }
+
+      @keyframes spin{
+          to{
+              transform:rotate(360deg);
+          }
+      }
+
+      @keyframes carLight{
+          from{
+              right:-300px;
+          }
+          to{
+              right:120%;
+          }
+      }
+
+      @media(max-width:700px){
+
+          .page{
+              width:min(100% - 20px,880px);
+              padding-top:16px;
+          }
+
+          .hero{
+              min-height:0;
+              padding:34px 25px 29px;
+          }
+
+          .files{
+              padding:19px;
+          }
+
+          .extra{
+              margin-left:19px;
+              margin-right:19px;
+          }
+
+          .note{
+              margin-left:19px;
+              margin-right:19px;
+          }
+
+          .footer{
+              padding-left:19px;
+              padding-right:19px;
+          }
+
+          .city{
+              bottom:20%;
+          }
+
+          .palm-left{
+              left:-4%;
+          }
+
+          .palm-right{
+              right:-4%;
+          }
+      }
+
+      @media(max-width:560px){
+
+          .topbar{
+              margin-bottom:13px;
+          }
+
+          .gta-logo{
+              width:48px;
+              height:48px;
+              flex-basis:48px;
+          }
+
+          .gta-logo span{
+              font-size:18px;
+          }
+
+          .brand-name{
+              font-size:12px;
+          }
+
+          .brand-sub{
+              font-size:7px;
+          }
+
+          .release{
+              padding:7px 9px;
+              font-size:8px;
+          }
+
+          .hero{
+              padding:29px 20px 25px;
+          }
+
+          .hero h1{
+              font-size:clamp(43px,12vw,60px);
+          }
+
+          .hero p{
+              font-size:12px;
+          }
+
+          .hero-stats{
+              display:grid;
+              grid-template-columns:1fr 1fr;
+          }
+
+          .stat{
+              justify-content:center;
+          }
+
+          .files{
+              padding:16px;
+          }
+
+          .file{
+              display:grid;
+              grid-template-columns:49px minmax(0,1fr);
+              gap:12px;
+              padding:13px;
+          }
+
+          .file-info{
+              grid-column:2;
+          }
+
+          .download{
+              grid-column:1 / -1;
+              width:100%;
+              min-width:0;
+          }
+
+          .extra{
+              margin-left:16px;
+              margin-right:16px;
+              padding:14px;
+          }
+
+          .extra-badge{
+              display:none;
+          }
+
+          .note{
+              margin-left:16px;
+              margin-right:16px;
+          }
+
+          .footer{
+              padding-left:16px;
+              padding-right:16px;
+          }
+
+          .sun{
+              width:120px;
+              height:120px;
+              top:17%;
+          }
+
+          .city{
+              bottom:19%;
+              height:95px;
+          }
+
+          .palm{
+              bottom:18%;
+              transform:scale(.72) rotate(-8deg);
+          }
+
+          .palm-right{
+              transform:scale(.72) rotate(9deg);
+          }
+      }
+
+      @media(max-width:380px){
+
+          .page{
+              width:calc(100% - 14px);
+          }
+
+          .release{
+              display:none;
+          }
+
+          .hero{
+              padding:26px 17px 23px;
+          }
+
+          .hero h1{
+              font-size:38px;
+          }
+
+          .hero-stats{
+              grid-template-columns:1fr;
+          }
+
+          .files{
+              padding:13px;
+          }
+
+          .extra{
+              margin-left:13px;
+              margin-right:13px;
+          }
+
+          .note{
+              margin-left:13px;
+              margin-right:13px;
+          }
+      }
+
+      @media(prefers-reduced-motion:reduce){
+
+          *,
+          *::before,
+          *::after{
+              animation-duration:.01ms !important;
+              animation-iteration-count:1 !important;
+              scroll-behavior:auto !important;
+          }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="scene">
+      <div class="sun-glow"></div>
+      <div class="sun"></div>
+      <div class="city"></div>
+
+      <div class="palm palm-left"></div>
+      <div class="palm palm-right"></div>
+
+      <div class="road"></div>
+
+      <div class="motion-light"></div>
+      <div class="motion-light two"></div>
+    </div>
+
+    <div class="page">
+      <div class="topbar">
+        <div class="brand">
+          <div class="gta-logo">
+            <span>GTA</span>
+          </div>
+
+          <div>
+            <div class="brand-name">GTA San Andreas Files</div>
+
+            <div class="brand-sub">Android Edition</div>
+          </div>
+        </div>
+
+        <div class="release">
+          <i class="fa-solid fa-gamepad"></i>
+          ANDROID
+        </div>
+      </div>
+
+      <main class="panel">
+        <section class="hero">
+          <div class="hero-content">
+            <div class="eyebrow">
+              <i class="fa-solid fa-star"></i>
+              Grand Theft Auto
+            </div>
+
+            <h1>
+              GTA
+              <span>SAN ANDREAS</span>
+            </h1>
+
+            <p>
+              Kumpulan file GTA San Andreas untuk Android. Pilih APK normal, APK
+              unprotected, OBB game, atau CLEO sesuai kebutuhanmu.
+            </p>
+
+            <div class="hero-stats">
+              <div class="stat">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                Android
+              </div>
+
+              <div class="stat">
+                <i class="fa-solid fa-box-archive"></i>
+                APK + OBB
+              </div>
+
+              <div class="stat">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                CLEO
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="files">
+          <div class="section-head">
+            <div>
+              <div class="section-title">Game Files</div>
+
+              <div class="section-subtitle">
+                Pilih file yang ingin kamu ambil
+              </div>
+            </div>
+
+            <div class="file-count">04 FILES</div>
+          </div>
+
+          <div class="file-list">
+            <article class="file">
+              <div class="file-icon">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+              </div>
+
+              <div class="file-info">
+                <div class="file-label">Not Official</div>
+
+                <div class="file-title">GTA San Andreas — APK Normal</div>
+
+                <div class="file-meta">
+                  <span>APK</span>
+                  <span>ANDROID</span>
+                  <span>MAIN</span>
+                </div>
+              </div>
+
+              <button
+                class="download"
+                data-link="https://www.mediafire.com/file/j1c4xp6leg1chtd/APK_GTA_SA_Android_Update.zip/file"
+                onclick="startDownload(this)"
+              >
+                <i class="fa-solid fa-download"></i>
+                DOWNLOAD
+                <span class="progress"></span>
+              </button>
+            </article>
+
+            <article class="file">
+              <div class="file-icon">
+                <i class="fa-solid fa-unlock-keyhole"></i>
+              </div>
+
+              <div class="file-info">
+                <div class="file-label">Modified</div>
+
+                <div class="file-title">GTA San Andreas — APK Unprotected</div>
+
+                <div class="file-meta">
+                  <span>APK</span>
+                  <span>UNPROTECTED</span>
+                  <span>ANDROID</span>
+                </div>
+              </div>
+
+              <button
+                class="download"
+                data-link="https://www.mediafire.com/file/0xombzivka1nt2h/APK_GTA_SA_Unprotected_Update.zip/file"
+                onclick="startDownload(this)"
+              >
+                <i class="fa-solid fa-download"></i>
+                DOWNLOAD
+                <span class="progress"></span>
+              </button>
+            </article>
+
+            <article class="file">
+              <div class="file-icon">
+                <i class="fa-solid fa-database"></i>
+              </div>
+
+              <div class="file-info">
+                <div class="file-label">Data</div>
+
+                <div class="file-title">GTA San Andreas — OBB</div>
+
+                <div class="file-meta">
+                  <span>OBB</span>
+                  <span>DATA</span>
+                  <span>GAME FILE</span>
+                </div>
+              </div>
+
+              <button
+                class="download"
+                data-link="https://www.mediafire.com/file/sau1bqhlpznuvtr/OBB_GTA_SA.zip/file"
+                onclick="startDownload(this)"
+              >
+                <i class="fa-solid fa-download"></i>
+                DOWNLOAD
+                <span class="progress"></span>
+              </button>
+            </article>
+
+            <article class="file">
+              <div class="file-icon">
+                <i class="fa-solid fa-wand-magic-sparkles"></i>
+              </div>
+
+              <div class="file-info">
+                <div class="file-label">Optional</div>
+
+                <div class="file-title">GTA San Andreas — CLEO / Cheat</div>
+
+                <div class="file-meta">
+                  <span>CLEO</span>
+                  <span>MOD</span>
+                  <span>OPTIONAL</span>
+                </div>
+              </div>
+
+              <button
+                class="download"
+                data-link="https://www.mediafire.com/file/21hp475gon6xk0l/Z_S.zip/file"
+                onclick="startDownload(this)"
+              >
+                <i class="fa-solid fa-download"></i>
+                DOWNLOAD
+                <span class="progress"></span>
+              </button>
+            </article>
+          </div>
+        </section>
+
+        <div class="extra">
+          <div class="extra-icon">
+            <i class="fa-solid fa-circle-info"></i>
+          </div>
+
+          <div class="extra-content">
+            <div class="extra-title">Sebelum Install</div>
+
+            <div class="extra-text">
+              Pastiin dulu download sesuai spek HP. Buat yang OBB / DATA / CLEO,
+              jangan sampe salah naroh folder, beda versi GTA beda lokasi.
+            </div>
+          </div>
+
+          <div class="extra-badge">READY</div>
+        </div>
+
+        <div class="note">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+
+          <div>
+            Gass Download, sudah dipastikan ini bukan file ori melainkan hasil
+            modifikasi. Link download ini aman dari sumber aslinya.
+          </div>
+        </div>
+
+        <footer class="footer">
+          © 2026 GTA San Andreas Files · Made by
+          <strong>DIMMZZZSUM_ENAK</strong>
+        </footer>
+      </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+      function showToast(message){
+
+          const toast = document.getElementById("toast");
+
+          toast.textContent = message;
+          toast.classList.add("show");
+
+          clearTimeout(toast.timer);
+
+          toast.timer = setTimeout(() => {
+              toast.classList.remove("show");
+          },2600);
+      }
+
+      function startDownload(button){
+
+          if(button.classList.contains("loading")){
+              return;
+          }
+
+          const target = button.dataset.link;
+          const original = button.innerHTML;
+
+          if(
+              !target ||
+              target.startsWith("GANTI_LINK_") ||
+              target === "#"
+          ){
+              showToast("Link file belum diatur.");
+              return;
+          }
+
+          button.classList.add("loading");
+
+          button.innerHTML = `
+              <i class="fa-solid fa-spinner"></i>
+              CHECKING
+              <span class="progress"></span>
+          `;
+
+          showToast("Menyiapkan file...");
+
+          setTimeout(() => {
+
+              button.classList.remove("loading");
+              button.classList.add("ready");
+
+              button.innerHTML = `
+                  <i class="fa-solid fa-check"></i>
+                  READY
+              `;
+
+              showToast("File siap, mengarahkan...");
+
+              setTimeout(() => {
+                  window.location.href = target;
+              },500);
+
+              setTimeout(() => {
+
+                  button.classList.remove("ready");
+                  button.innerHTML = original;
+
+              },1700);
+
+          },1400);
+      }
+    </script>
+  </body>
+</html>
