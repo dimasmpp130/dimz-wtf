@@ -1132,44 +1132,79 @@
         var modalText = document.getElementById("modalText");
         var modalClose = document.getElementById("modalClose");
 
-        for(var i=0;i<buttons.length;i++){
+        function resetDownloadButtons(){
+          for(var i = 0; i < buttons.length; i++){
+            buttons[i].className = "download-btn";
+            buttons[i].innerHTML =
+              '<i class="fa-solid fa-download"></i> DOWNLOAD';
+            buttons[i].disabled = false;
+          }
 
-          buttons[i].addEventListener("click",function(){
+          if(modal){
+            modal.className = "modal";
+          }
+        }
+
+        resetDownloadButtons();
+
+        for(var i = 0; i < buttons.length; i++){
+
+          buttons[i].addEventListener("click", function(){
 
             var button = this;
             var url = button.getAttribute("data-url");
 
-            if(!url) return;
+            if(!url || button.disabled) return;
 
             button.className = "download-btn loading";
-            button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> CHECKING';
+            button.innerHTML =
+              '<i class="fa-solid fa-spinner fa-spin"></i> CHECKING';
+            button.disabled = true;
 
             window.setTimeout(function(){
 
               button.className = "download-btn ready";
-              button.innerHTML = '<i class="fa-solid fa-check"></i> READY';
+              button.innerHTML =
+                '<i class="fa-solid fa-check"></i> READY';
 
               modalTitle.textContent = "Download Siap";
-              modalText.textContent = "Kamu akan diarahkan ke halaman download.";
+              modalText.textContent =
+                "Kamu akan diarahkan ke halaman download.";
               modal.className = "modal show";
 
               window.setTimeout(function(){
                 window.location.href = url;
-              },400);
+              }, 400);
 
-            },700);
+            }, 700);
 
           });
 
         }
 
-        modalClose.addEventListener("click",function(){
+        modalClose.addEventListener("click", function(){
           modal.className = "modal";
+          resetDownloadButtons();
         });
 
-        modal.addEventListener("click",function(event){
+        modal.addEventListener("click", function(event){
           if(event.target === modal){
             modal.className = "modal";
+            resetDownloadButtons();
+          }
+        });
+
+        window.addEventListener("pageshow", function(){
+          resetDownloadButtons();
+        });
+
+        window.addEventListener("focus", function(){
+          resetDownloadButtons();
+        });
+
+        document.addEventListener("visibilitychange", function(){
+          if(document.visibilityState === "visible"){
+            resetDownloadButtons();
           }
         });
 
