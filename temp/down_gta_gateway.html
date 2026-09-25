@@ -1,2121 +1,1095 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta name="theme-color" content="#090b10" />
-    <meta
-      name="description"
-      content="GTA San Andreas Android Files — APK, OBB, Unprotected dan CLEO"
-    />
-    <title>San Andreas Archive — DIMMZZZSUM_ENAK</title>
-
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
- 
-    <style>
-      *{
-          margin:0;
-          padding:0;
-          box-sizing:border-box;
-      }
-
-      :root{
-          --bg:#07090d;
-          --panel:#0d1016;
-          --panel-2:#12161e;
-          --panel-3:#171c25;
-          --line:#262c36;
-          --text:#f4f6f8;
-          --muted:#8e96a3;
-          --yellow:#f4c44e;
-          --yellow-soft:#ffe49a;
-          --orange:#f47b35;
-          --red:#e64a43;
-          --cyan:#55c8d9;
-          --green:#48c98a;
-          --purple:#9a75e8;
-          --shadow:0 28px 90px rgba(0,0,0,.52);
-      }
-
-      html{
-          scroll-behavior:smooth;
-      }
-
-      body{
-          min-height:100vh;
-          overflow-x:hidden;
-          color:var(--text);
-          background:#07090d;
-          font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-      }
-
-      body::before{
-          content:"";
-          position:fixed;
-          inset:0;
-          z-index:-20;
-          background:
-              linear-gradient(
-                  180deg,
-                  rgba(245,153,54,.25) 0%,
-                  rgba(202,74,50,.18) 20%,
-                  rgba(46,48,73,.42) 48%,
-                  rgba(6,8,13,.96) 100%
-              );
-      }
-
-      body::after{
-          content:"";
-          position:fixed;
-          inset:0;
-          z-index:-19;
-          background:
-              radial-gradient(
-                  ellipse at 50% 24%,
-                  rgba(255,197,93,.42),
-                  transparent 28%
-              ),
-              linear-gradient(
-                  180deg,
-                  transparent 30%,
-                  rgba(4,6,10,.25) 48%,
-                  #07090d 92%
-              );
-          pointer-events:none;
-      }
-
-      button{
-          font:inherit;
-      }
-
-      a{
-          color:inherit;
-          text-decoration:none;
-      }
-
-      .scene{
-          position:fixed;
-          inset:0;
-          z-index:-18;
-          overflow:hidden;
-          pointer-events:none;
-      }
-
-      .sun{
-          position:absolute;
-          width:145px;
-          height:145px;
-          top:15%;
-          left:50%;
-          transform:translateX(-50%);
-          border-radius:50%;
-          background:
-              radial-gradient(
-                  circle,
-                  #fff0a9 0,
-                  #ffc95e 27%,
-                  rgba(255,139,47,.55) 47%,
-                  transparent 72%
-              );
-          filter:blur(1px);
-      }
-
-      .sun-haze{
-          position:absolute;
-          width:500px;
-          height:210px;
-          left:50%;
-          top:9%;
-          transform:translateX(-50%);
-          background:radial-gradient(
-              ellipse,
-              rgba(255,153,55,.3),
-              transparent 68%
-          );
-          filter:blur(22px);
-      }
-
-      .sky-lines{
-          position:absolute;
-          inset:0;
-          opacity:.17;
-          background:
-              repeating-linear-gradient(
-                  170deg,
-                  transparent 0 70px,
-                  rgba(255,210,130,.08) 71px 72px
-              );
-      }
-
-      .city{
-          position:absolute;
-          left:0;
-          right:0;
-          bottom:20%;
-          height:145px;
-          background:
-              linear-gradient(
-                  90deg,
-                  #0a0d12 0 4%,
-                  transparent 4% 6%,
-                  #0d1015 6% 10%,
-                  transparent 10% 12%,
-                  #0a0d12 12% 18%,
-                  transparent 18% 20%,
-                  #11141a 20% 27%,
-                  transparent 27% 29%,
-                  #0b0e13 29% 36%,
-                  transparent 36% 39%,
-                  #11141a 39% 46%,
-                  transparent 46% 48%,
-                  #090c11 48% 55%,
-                  transparent 55% 58%,
-                  #10131a 58% 66%,
-                  transparent 66% 68%,
-                  #0a0d12 68% 75%,
-                  transparent 75% 78%,
-                  #11141a 78% 84%,
-                  transparent 84% 87%,
-                  #0b0e13 87% 94%,
-                  transparent 94%
-              );
-          clip-path:polygon(
-              0 38%,
-              4% 38%,
-              4% 17%,
-              8% 17%,
-              8% 34%,
-              12% 34%,
-              12% 7%,
-              17% 7%,
-              17% 29%,
-              21% 29%,
-              21% 12%,
-              25% 12%,
-              25% 35%,
-              30% 35%,
-              30% 4%,
-              35% 4%,
-              35% 26%,
-              40% 26%,
-              40% 9%,
-              45% 9%,
-              45% 34%,
-              50% 34%,
-              50% 5%,
-              55% 5%,
-              55% 30%,
-              60% 30%,
-              60% 12%,
-              65% 12%,
-              65% 35%,
-              70% 35%,
-              70% 3%,
-              75% 3%,
-              75% 28%,
-              80% 28%,
-              80% 9%,
-              85% 9%,
-              85% 33%,
-              90% 33%,
-              90% 14%,
-              95% 14%,
-              95% 30%,
-              100% 30%,
-              100% 100%,
-              0 100%
-          );
-      }
-
-      .city::after{
-          content:"";
-          position:absolute;
-          inset:20% 0 0;
-          background:
-              repeating-linear-gradient(
-                  90deg,
-                  transparent 0 33px,
-                  rgba(255,201,81,.22) 34px 36px,
-                  transparent 37px 65px
-              );
-          opacity:.3;
-      }
-
-      .road{
-          position:absolute;
-          left:-8%;
-          right:-8%;
-          bottom:-5%;
-          height:29%;
-          background:
-              linear-gradient(
-                  168deg,
-                  transparent 0 48%,
-                  rgba(255,255,255,.06) 48.2% 48.7%,
-                  transparent 49% 100%
-              ),
-              linear-gradient(
-                  192deg,
-                  transparent 0 53%,
-                  rgba(255,255,255,.05) 53.2% 53.7%,
-                  transparent 54% 100%
-              ),
-              #07090d;
-          transform:perspective(600px) rotateX(7deg);
-      }
-
-      .road::before,
-      .road::after{
-          content:"";
-          position:absolute;
-          width:52%;
-          height:3px;
-          top:37%;
-          background:repeating-linear-gradient(
-              90deg,
-              rgba(255,202,74,.75) 0 34px,
-              transparent 34px 76px
-          );
-          opacity:.3;
-      }
-
-      .road::before{
-          left:-4%;
-          transform:rotate(7deg);
-      }
-
-      .road::after{
-          right:-4%;
-          transform:rotate(-7deg);
-      }
-
-      .palm{
-          position:absolute;
-          bottom:18%;
-          width:9px;
-          height:175px;
-          background:#07090d;
-          border-radius:100%;
-          transform-origin:bottom;
-      }
-
-      .palm.left{
-          left:6%;
-          transform:rotate(-8deg);
-      }
-
-      .palm.right{
-          right:6%;
-          height:155px;
-          transform:rotate(9deg);
-      }
-
-      .palm::before{
-          content:"";
-          position:absolute;
-          width:120px;
-          height:82px;
-          left:-55px;
-          top:-25px;
-          background:#07090d;
-          clip-path:polygon(
-              50% 78%,
-              5% 42%,
-              0 34%,
-              9% 36%,
-              37% 55%,
-              17% 16%,
-              22% 11%,
-              43% 52%,
-              43% 3%,
-              50% 0,
-              55% 51%,
-              78% 12%,
-              84% 17%,
-              61% 57%,
-              95% 35%,
-              100% 40%,
-              63% 71%
-          );
-      }
-
-      .light{
-          position:absolute;
-          right:-280px;
-          bottom:23%;
-          width:230px;
-          height:2px;
-          background:linear-gradient(
-              90deg,
-              transparent,
-              rgba(255,213,111,.75),
-              transparent
-          );
-          transform:rotate(-9deg);
-          animation:carMove 7s linear infinite;
-      }
-
-      .light.two{
-          bottom:29%;
-          width:170px;
-          opacity:.45;
-          animation-delay:3s;
-      }
-
-      .wrapper{
-          width:min(930px,calc(100% - 28px));
-          margin:auto;
-          padding:24px 0 42px;
-          position:relative;
-          z-index:2;
-      }
-
-      .topbar{
-          display:flex;
-          align-items:center;
-          justify-content:space-between;
-          gap:15px;
-          margin-bottom:17px;
-          animation:fadeDown .7s ease both;
-      }
-
-      .brand{
-          display:flex;
-          align-items:center;
-          gap:12px;
-      }
-
-      .brand-mark{
-          position:relative;
-          width:53px;
-          height:53px;
-          flex:0 0 53px;
-          display:grid;
-          place-items:center;
-          border:1px solid rgba(255,207,91,.4);
-          border-radius:14px;
-          background:
-              linear-gradient(
-                  145deg,
-                  rgba(255,194,75,.18),
-                  rgba(220,73,48,.08)
-              );
-          box-shadow:
-              0 10px 30px rgba(0,0,0,.3),
-              inset 0 0 20px rgba(255,196,75,.06);
-      }
-
-      .brand-mark::before{
-          content:"SA";
-          color:#f7c957;
-          font-family:Impact,Haettenschweiler,"Arial Black",sans-serif;
-          font-size:23px;
-          letter-spacing:-1px;
-          text-shadow:
-              2px 2px 0 #382719,
-              0 0 15px rgba(255,194,75,.2);
-      }
-
-      .brand-mark::after{
-          content:"";
-          position:absolute;
-          width:7px;
-          height:7px;
-          right:8px;
-          top:8px;
-          border-radius:50%;
-          background:#e64a43;
-          box-shadow:0 0 10px rgba(230,74,67,.7);
-      }
-
-      .brand-title{
-          font-size:14px;
-          font-weight:950;
-          letter-spacing:.2px;
-      }
-
-      .brand-sub{
-          margin-top:3px;
-          color:#a29a8e;
-          font-size:8px;
-          font-weight:800;
-          letter-spacing:1.1px;
-          text-transform:uppercase;
-      }
-
-      .version{
-          display:flex;
-          align-items:center;
-          gap:7px;
-          padding:8px 11px;
-          border:1px solid rgba(255,206,89,.2);
-          border-radius:9px;
-          background:rgba(9,10,14,.65);
-          color:#d9cfbe;
-          backdrop-filter:blur(8px);
-          font-size:9px;
-          font-weight:900;
-          letter-spacing:.5px;
-      }
-
-      .version i{
-          color:var(--yellow);
-      }
-
-      .panel{
-          overflow:hidden;
-          border:1px solid rgba(255,255,255,.1);
-          border-radius:24px;
-          background:rgba(9,11,15,.95);
-          box-shadow:var(--shadow);
-          backdrop-filter:blur(12px);
-      }
-
-      .hero{
-          position:relative;
-          min-height:355px;
-          padding:50px 38px 38px;
-          overflow:hidden;
-          border-bottom:1px solid rgba(255,255,255,.08);
-          background:
-              linear-gradient(
-                  110deg,
-                  rgba(7,9,13,.97) 0%,
-                  rgba(8,10,14,.82) 47%,
-                  rgba(8,9,13,.4) 100%
-              );
-      }
-
-      .hero::before{
-          content:"LOS SANTOS";
-          position:absolute;
-          right:-20px;
-          bottom:-35px;
-          color:rgba(255,255,255,.035);
-          font-family:Impact,Haettenschweiler,"Arial Black",sans-serif;
-          font-size:112px;
-          letter-spacing:-4px;
-          transform:rotate(-5deg);
-          white-space:nowrap;
-      }
-
-      .hero::after{
-          content:"";
-          position:absolute;
-          width:280px;
-          height:280px;
-          right:-100px;
-          top:-100px;
-          border-radius:50%;
-          border:1px solid rgba(255,196,74,.1);
-          box-shadow:
-              0 0 0 35px rgba(255,196,74,.025),
-              0 0 0 70px rgba(255,196,74,.018);
-      }
-
-      .hero-content{
-          position:relative;
-          z-index:3;
-          max-width:690px;
-      }
-
-      .kicker{
-          display:inline-flex;
-          align-items:center;
-          gap:8px;
-          margin-bottom:18px;
-          padding:7px 10px;
-          border-left:3px solid var(--yellow);
-          background:rgba(255,190,65,.07);
-          color:#f4c86c;
-          font-size:9px;
-          font-weight:900;
-          letter-spacing:1.1px;
-          text-transform:uppercase;
-          animation:fadeUp .7s .1s ease both;
-      }
-
-      .hero h1{
-          margin-bottom:14px;
-          font-family:Impact,Haettenschweiler,"Arial Black",sans-serif;
-          font-size:clamp(48px,9vw,78px);
-          line-height:.84;
-          letter-spacing:-2px;
-          color:#fff;
-          text-shadow:
-              3px 4px 0 rgba(0,0,0,.8),
-              0 12px 35px rgba(0,0,0,.4);
-          animation:titleIn .8s .15s ease both;
-      }
-
-      .hero h1 span{
-          display:block;
-          margin-top:8px;
-          color:#f1b94c;
-          font-size:.66em;
-          letter-spacing:1.5px;
-          text-shadow:
-              2px 2px 0 #2c2013,
-              0 8px 25px rgba(0,0,0,.45);
-      }
-
-      .hero p{
-          max-width:620px;
-          color:#a4a7ae;
-          font-size:13px;
-          line-height:1.8;
-          animation:fadeUp .7s .28s ease both;
-      }
-
-      .hero-tools{
-          display:flex;
-          flex-wrap:wrap;
-          gap:8px;
-          margin-top:23px;
-          animation:fadeUp .7s .36s ease both;
-      }
-
-      .tool{
-          display:flex;
-          align-items:center;
-          gap:7px;
-          padding:9px 11px;
-          border:1px solid rgba(255,255,255,.09);
-          border-radius:8px;
-          background:rgba(255,255,255,.04);
-          color:#b9bbc0;
-          font-size:9px;
-          font-weight:850;
-      }
-
-      .tool i{
-          color:var(--yellow);
-      }
-
-      .action-row{
-          display:flex;
-          gap:9px;
-          flex-wrap:wrap;
-          margin-top:22px;
-          animation:fadeUp .7s .43s ease both;
-      }
-
-      .hero-button{
-          display:inline-flex;
-          align-items:center;
-          justify-content:center;
-          gap:8px;
-          padding:11px 14px;
-          border-radius:9px;
-          font-size:9px;
-          font-weight:900;
-          letter-spacing:.5px;
-          transition:.2s ease;
-      }
-
-      .hero-button.primary{
-          background:#e04b3f;
-          color:#fff;
-          box-shadow:0 8px 22px rgba(224,75,63,.17);
-      }
-
-      .hero-button.primary:hover{
-          background:#f05a4d;
-          transform:translateY(-2px);
-      }
-
-      .hero-button.secondary{
-          border:1px solid #303640;
-          background:#171a20;
-          color:#c4c7cc;
-      }
-
-      .hero-button.secondary:hover{
-          border-color:#555d69;
-          transform:translateY(-2px);
-      }
-
-      .section{
-          padding:27px;
-          border-bottom:1px solid rgba(255,255,255,.07);
-          background:rgba(10,12,17,.86);
-      }
-
-      .section-heading{
-          display:flex;
-          justify-content:space-between;
-          align-items:flex-end;
-          gap:15px;
-          margin-bottom:17px;
-      }
-
-      .section-kicker{
-          margin-bottom:5px;
-          color:#d6a943;
-          font-size:8px;
-          font-weight:900;
-          letter-spacing:1.2px;
-          text-transform:uppercase;
-      }
-
-      .section-title{
-          font-size:17px;
-          font-weight:900;
-      }
-
-      .section-desc{
-          margin-top:4px;
-          color:#737983;
-          font-size:10px;
-          line-height:1.65;
-      }
-
-      .section-mark{
-          color:#5c626d;
-          font-size:9px;
-          font-weight:900;
-          white-space:nowrap;
-      }
-
-      .file-grid{
-          display:grid;
-          gap:10px;
-      }
-
-      .file{
-          display:flex;
-          align-items:center;
-          gap:13px;
-          padding:15px;
-          border:1px solid #272c34;
-          border-radius:14px;
-          background:#13171d;
-          transition:.25s ease;
-          position:relative;
-          overflow:hidden;
-          opacity:0;
-          transform:translateY(14px);
-          animation:fileIn .55s ease forwards;
-      }
-
-      .file:nth-child(1){animation-delay:.08s}
-      .file:nth-child(2){animation-delay:.15s}
-      .file:nth-child(3){animation-delay:.22s}
-      .file:nth-child(4){animation-delay:.29s}
-
-      .file::after{
-          content:"";
-          position:absolute;
-          top:0;
-          bottom:0;
-          left:-80%;
-          width:60%;
-          background:linear-gradient(
-              100deg,
-              transparent,
-              rgba(255,255,255,.04),
-              transparent
-          );
-          transform:skewX(-20deg);
-      }
-
-      .file:hover{
-          transform:translateX(4px);
-          border-color:#4a3b32;
-          background:#171b22;
-          box-shadow:0 15px 35px rgba(0,0,0,.25);
-      }
-
-      .file:hover::after{
-          animation:fileShine .7s ease;
-      }
-
-      .file-icon{
-          width:48px;
-          height:48px;
-          flex:0 0 48px;
-          display:grid;
-          place-items:center;
-          border-radius:12px;
-          background:rgba(230,74,67,.09);
-          border:1px solid rgba(230,74,67,.14);
-          color:#ef6258;
-          font-size:17px;
-      }
-
-      .file:nth-child(2) .file-icon{
-          background:rgba(85,200,217,.09);
-          color:var(--cyan);
-          border-color:rgba(85,200,217,.14);
-      }
-
-      .file:nth-child(3) .file-icon{
-          background:rgba(244,196,78,.09);
-          color:var(--yellow);
-          border-color:rgba(244,196,78,.14);
-      }
-
-      .file:nth-child(4) .file-icon{
-          background:rgba(154,117,232,.09);
-          color:var(--purple);
-          border-color:rgba(154,117,232,.14);
-      }
-
-      .file-info{
-          flex:1;
-          min-width:0;
-      }
-
-      .file-tag{
-          display:inline-block;
-          padding:4px 7px;
-          margin-bottom:6px;
-          border-radius:5px;
-          background:#22262d;
-          color:#8a909a;
-          font-size:8px;
-          font-weight:900;
-          letter-spacing:.5px;
-          text-transform:uppercase;
-      }
-
-      .file-title{
-          margin-bottom:5px;
-          color:#eeeeef;
-          font-size:13px;
-          line-height:1.4;
-          font-weight:850;
-      }
-
-      .file-meta{
-          display:flex;
-          flex-wrap:wrap;
-          gap:7px;
-      }
-
-      .file-meta span{
-          color:#676d77;
-          font-size:9px;
-          font-weight:750;
-      }
-
-      .file-meta span:not(:last-child)::after{
-          content:"·";
-          margin-left:7px;
-          color:#41464e;
-      }
-
-      .download{
-          position:relative;
-          overflow:hidden;
-          min-width:110px;
-          flex:0 0 auto;
-          padding:11px 13px;
-          border:1px solid rgba(224,75,63,.3);
-          border-radius:9px;
-          background:#cf3d38;
-          color:#fff;
-          cursor:pointer;
-          font-size:9px;
-          font-weight:900;
-          letter-spacing:.6px;
-          transition:.2s ease;
-      }
-
-      .download:hover{
-          background:#e34d45;
-          transform:translateY(-2px);
-          box-shadow:0 10px 24px rgba(224,75,63,.18);
-      }
-
-      .download:active{
-          transform:scale(.97);
-      }
-
-      .download.loading{
-          background:#363a42;
-          border-color:#454a54;
-          pointer-events:none;
-      }
-
-      .download.loading i{
-          animation:spin .8s linear infinite;
-      }
-
-      .download.ready{
-          background:#27865d;
-          border-color:#329d6d;
-      }
-
-      .progress{
-          position:absolute;
-          left:0;
-          bottom:0;
-          width:0;
-          height:2px;
-          background:#fff;
-      }
-
-      .download.loading .progress{
-          animation:progress 1.35s linear forwards;
-      }
-
-      .info-strip{
-          display:grid;
-          grid-template-columns:auto 1fr auto;
-          align-items:center;
-          gap:13px;
-          margin:0 27px 27px;
-          padding:17px;
-          border:1px solid #282d35;
-          border-radius:14px;
-          background:#12161c;
-      }
-
-      .info-icon{
-          width:42px;
-          height:42px;
-          display:grid;
-          place-items:center;
-          border-radius:11px;
-          background:rgba(244,196,78,.09);
-          color:var(--yellow);
-      }
-
-      .info-title{
-          margin-bottom:4px;
-          font-size:11px;
-          font-weight:900;
-      }
-
-      .info-text{
-          color:#747a84;
-          font-size:9px;
-          line-height:1.7;
-      }
-
-      .info-label{
-          padding:6px 8px;
-          border-radius:6px;
-          border:1px solid #254839;
-          background:#15241e;
-          color:#4ec88b;
-          font-size:8px;
-          font-weight:900;
-      }
-
-      .tutorial{
-          padding:27px;
-          border-bottom:1px solid rgba(255,255,255,.07);
-          background:#090c11;
-      }
-
-      .video-box{
-          overflow:hidden;
-          border:1px solid #292f38;
-          border-radius:16px;
-          background:#050609;
-          box-shadow:0 18px 45px rgba(0,0,0,.3);
-      }
-
-      .video-wrapper{
-          aspect-ratio:16/9;
-          background:#050609;
-      }
-
-      .video-wrapper video{
-          display:block;
-          width:100%;
-          height:100%;
-          object-fit:contain;
-          background:#050609;
-      }
-
-      .video-caption{
-          padding:17px 18px;
-          background:#12161c;
-          border-top:1px solid #252a32;
-      }
-
-      .video-caption strong{
-          display:block;
-          margin-bottom:6px;
-          font-size:12px;
-      }
-
-      .video-caption strong i{
-          color:var(--yellow);
-          margin-right:5px;
-      }
-
-      .video-caption p{
-          color:#747a84;
-          font-size:10px;
-          line-height:1.7;
-      }
-
-      .guide{
-          padding:27px;
-          border-bottom:1px solid rgba(255,255,255,.07);
-          background:rgba(10,12,17,.9);
-      }
-
-      .steps{
-          display:grid;
-          gap:10px;
-      }
-
-      .step{
-          display:grid;
-          grid-template-columns:48px 1fr;
-          gap:14px;
-          padding:17px;
-          border:1px solid #282d35;
-          border-radius:14px;
-          background:#13171d;
-          transition:.2s ease;
-      }
-
-      .step:hover{
-          border-color:#3d444e;
-          transform:translateX(2px);
-      }
-
-      .step-number{
-          width:42px;
-          height:42px;
-          display:grid;
-          place-items:center;
-          border-radius:11px;
-          background:#1b2028;
-          border:1px solid #353c47;
-          color:var(--yellow);
-          font-size:13px;
-          font-weight:950;
-      }
-
-      .step-title{
-          margin-bottom:6px;
-          font-size:12px;
-          font-weight:900;
-      }
-
-      .step-text{
-          color:#777d87;
-          font-size:10px;
-          line-height:1.75;
-      }
-
-      .step-text ul{
-          margin:8px 0 0 17px;
-      }
-
-      .step-text li{
-          margin-bottom:3px;
-      }
-
-      .warning{
-          margin-top:15px;
-          padding:14px 15px;
-          display:flex;
-          gap:10px;
-          border:1px solid rgba(244,196,78,.17);
-          border-radius:11px;
-          background:rgba(244,196,78,.045);
-          color:#898078;
-          font-size:9px;
-          line-height:1.7;
-      }
-
-      .warning i{
-          color:var(--yellow);
-          margin-top:2px;
-      }
-
-      .check-section{
-          padding:27px;
-          background:#090c11;
-      }
-
-      .check-grid{
-          display:grid;
-          grid-template-columns:repeat(2,1fr);
-          gap:10px;
-      }
-
-      .check{
-          display:flex;
-          align-items:flex-start;
-          gap:10px;
-          padding:14px;
-          border:1px solid #282d35;
-          border-radius:12px;
-          background:#12161c;
-      }
-
-      .check i{
-          color:var(--green);
-          margin-top:2px;
-      }
-
-      .check span{
-          color:#777d86;
-          font-size:9px;
-          line-height:1.7;
-      }
-
-      .footer{
-          position:relative;
-          padding:31px 22px;
-          text-align:center;
-          overflow:hidden;
-          border-top:1px solid #252a31;
-          background:#090b0f;
-      }
-
-      .footer::before{
-          content:"";
-          position:absolute;
-          left:50%;
-          top:50%;
-          width:260px;
-          height:80px;
-          transform:translate(-50%,-50%);
-          background:
-              linear-gradient(
-                  90deg,
-                  rgba(230,74,67,.08),
-                  rgba(244,196,78,.1),
-                  rgba(85,200,217,.08),
-                  rgba(154,117,232,.08)
-              );
-          filter:blur(32px);
-          animation:footerGlow 4s ease-in-out infinite alternate;
-      }
-
-      .footer-brand{
-          position:relative;
-          display:inline-block;
-          font-size:14px;
-          font-weight:950;
-          letter-spacing:1px;
-          text-transform:uppercase;
-      }
-
-      .footer-brand span{
-          position:relative;
-          display:inline-block;
-          background:
-              linear-gradient(
-                  90deg,
-                  #e64a43,
-                  #f4c44e,
-                  #55c8d9,
-                  #9a75e8,
-                  #e64a43
-              );
-          background-size:300% 100%;
-          -webkit-background-clip:text;
-          background-clip:text;
-          -webkit-text-fill-color:transparent;
-          animation:rgbText 5s linear infinite;
-      }
-
-      .footer-brand span::before,
-      .footer-brand span::after{
-          content:attr(data-text);
-          position:absolute;
-          inset:0;
-          pointer-events:none;
-          opacity:0;
-      }
-
-      .footer-brand span::before{
-          color:#ff315c;
-          -webkit-text-fill-color:#ff315c;
-          animation:glitchA 4s infinite;
-      }
-
-      .footer-brand span::after{
-          color:#36cfff;
-          -webkit-text-fill-color:#36cfff;
-          animation:glitchB 4s infinite;
-      }
-
-      .footer-line{
-          position:relative;
-          width:45px;
-          height:2px;
-          margin:8px auto;
-          border-radius:50px;
-          background:linear-gradient(
-              90deg,
-              #e64a43,
-              #f4c44e,
-              #55c8d9,
-              #9a75e8
-          );
-          background-size:200% 100%;
-          animation:lineMove 3s linear infinite;
-      }
-
-      .footer-copy{
-          position:relative;
-          color:#5e646e;
-          font-size:9px;
-          line-height:1.7;
-      }
-
-      .toast{
-          position:fixed;
-          left:50%;
-          bottom:22px;
-          width:max-content;
-          max-width:calc(100% - 30px);
-          padding:11px 15px;
-          border:1px solid #343a44;
-          border-radius:9px;
-          background:#171b21;
-          color:#eee;
-          font-size:10px;
-          font-weight:750;
-          text-align:center;
-          opacity:0;
-          pointer-events:none;
-          transform:translate(-50%,20px);
-          transition:.25s ease;
-          z-index:99;
-          box-shadow:0 14px 35px rgba(0,0,0,.4);
-      }
-
-      .toast.show{
-          opacity:1;
-          transform:translate(-50%,0);
-      }
-
-      @keyframes fadeDown{
-          from{
-              opacity:0;
-              transform:translateY(-12px);
-          }
-          to{
-              opacity:1;
-              transform:translateY(0);
-          }
-      }
-
-      @keyframes fadeUp{
-          from{
-              opacity:0;
-              transform:translateY(13px);
-          }
-          to{
-              opacity:1;
-              transform:translateY(0);
-          }
-      }
-
-      @keyframes titleIn{
-          from{
-              opacity:0;
-              transform:translateY(18px) skewX(-3deg);
-          }
-          to{
-              opacity:1;
-              transform:translateY(0) skewX(-3deg);
-          }
-      }
-
-      @keyframes fileIn{
-          to{
-              opacity:1;
-              transform:translateY(0);
-          }
-      }
-
-      @keyframes fileShine{
-          from{
-              left:-80%;
-          }
-          to{
-              left:135%;
-          }
-      }
-
-      @keyframes progress{
-          from{
-              width:0;
-          }
-          to{
-              width:100%;
-          }
-      }
-
-      @keyframes spin{
-          to{
-              transform:rotate(360deg);
-          }
-      }
-
-      @keyframes carMove{
-          from{
-              right:-280px;
-          }
-          to{
-              right:120%;
-          }
-      }
-
-      @keyframes footerGlow{
-          from{
-              opacity:.45;
-              transform:translate(-50%,-50%) scale(.9);
-          }
-          to{
-              opacity:1;
-              transform:translate(-50%,-50%) scale(1.15);
-          }
-      }
-
-      @keyframes rgbText{
-          0%{
-              background-position:0% 50%;
-          }
-          50%{
-              background-position:100% 50%;
-          }
-          100%{
-              background-position:200% 50%;
-          }
-      }
-
-      @keyframes lineMove{
-          from{
-              background-position:0% 50%;
-          }
-          to{
-              background-position:200% 50%;
-          }
-      }
-
-      @keyframes glitchA{
-          0%,88%,100%{
-              opacity:0;
-              clip-path:inset(0 0 100% 0);
-              transform:translate(0);
-          }
-          90%{
-              opacity:.7;
-              clip-path:inset(10% 0 70% 0);
-              transform:translate(-2px,-1px);
-          }
-          92%{
-              opacity:.55;
-              clip-path:inset(60% 0 15% 0);
-              transform:translate(2px,1px);
-          }
-      }
-
-      @keyframes glitchB{
-          0%,84%,100%{
-              opacity:0;
-              clip-path:inset(100% 0 0 0);
-              transform:translate(0);
-          }
-          86%{
-              opacity:.65;
-              clip-path:inset(65% 0 15% 0);
-              transform:translate(2px,1px);
-          }
-          88%{
-              opacity:.5;
-              clip-path:inset(15% 0 70% 0);
-              transform:translate(-2px,-1px);
-          }
-      }
-
-      @media(max-width:700px){
-
-          .wrapper{
-              width:min(100% - 20px,930px);
-              padding-top:16px;
-          }
-
-          .hero{
-              min-height:0;
-              padding:36px 25px 30px;
-          }
-
-          .section,
-          .tutorial,
-          .guide,
-          .check-section{
-              padding:20px;
-          }
-
-          .info-strip{
-              margin-left:20px;
-              margin-right:20px;
-          }
-      }
-
-      @media(max-width:560px){
-
-          .brand-mark{
-              width:47px;
-              height:47px;
-              flex-basis:47px;
-          }
-
-          .brand-mark::before{
-              font-size:20px;
-          }
-
-          .brand-title{
-              font-size:12px;
-          }
-
-          .brand-sub{
-              font-size:7px;
-          }
-
-          .version{
-              padding:7px 9px;
-              font-size:8px;
-          }
-
-          .hero{
-              padding:30px 20px 25px;
-          }
-
-          .hero h1{
-              font-size:clamp(44px,12vw,62px);
-          }
-
-          .hero p{
-              font-size:12px;
-          }
-
-          .hero-tools{
-              display:grid;
-              grid-template-columns:1fr 1fr;
-          }
-
-          .tool{
-              justify-content:center;
-          }
-
-          .action-row{
-              display:grid;
-              grid-template-columns:1fr;
-          }
-
-          .hero-button{
-              width:100%;
-          }
-
-          .section,
-          .tutorial,
-          .guide,
-          .check-section{
-              padding:17px;
-          }
-
-          .section-heading{
-              align-items:flex-start;
-          }
-
-          .section-mark{
-              display:none;
-          }
-
-          .file{
-              display:grid;
-              grid-template-columns:48px minmax(0,1fr);
-              gap:11px;
-          }
-
-          .file-info{
-              grid-column:2;
-          }
-
-          .download{
-              grid-column:1 / -1;
-              width:100%;
-          }
-
-          .info-strip{
-              grid-template-columns:auto 1fr;
-              margin-left:17px;
-              margin-right:17px;
-              padding:14px;
-          }
-
-          .info-label{
-              display:none;
-          }
-
-          .step{
-              grid-template-columns:43px 1fr;
-              padding:14px;
-          }
-
-          .step-number{
-              width:39px;
-              height:39px;
-          }
-
-          .check-grid{
-              grid-template-columns:1fr;
-          }
-
-          .sun{
-              width:115px;
-              height:115px;
-              top:17%;
-          }
-
-          .city{
-              bottom:19%;
-              height:100px;
-          }
-
-          .palm.left{
-              left:-5%;
-              transform:scale(.7) rotate(-8deg);
-          }
-
-          .palm.right{
-              right:-5%;
-              transform:scale(.7) rotate(9deg);
-          }
-      }
-
-      @media(max-width:380px){
-
-          .wrapper{
-              width:calc(100% - 14px);
-          }
-
-          .version{
-              display:none;
-          }
-
-          .hero{
-              padding:27px 17px 23px;
-          }
-
-          .hero h1{
-              font-size:39px;
-          }
-
-          .hero-tools{
-              grid-template-columns:1fr;
-          }
-
-          .section,
-          .tutorial,
-          .guide,
-          .check-section{
-              padding:14px;
-          }
-
-          .info-strip{
-              margin-left:14px;
-              margin-right:14px;
-          }
-      }
-
-      @media(prefers-reduced-motion:reduce){
-
-          *,
-          *::before,
-          *::after{
-              animation-duration:.01ms !important;
-              animation-iteration-count:1 !important;
-              scroll-behavior:auto !important;
-          }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="scene">
-      <div class="sky-lines"></div>
-      <div class="sun-haze"></div>
-      <div class="sun"></div>
-      <div class="city"></div>
-
-      <div class="palm left"></div>
-      <div class="palm right"></div>
-
-      <div class="road"></div>
-
-      <div class="light"></div>
-      <div class="light two"></div>
-    </div>
-
-    <div class="wrapper">
-      <header class="topbar">
-        <div class="brand">
-          <div class="brand-mark"></div>
-
-          <div>
-            <div class="brand-title">GTA SA ANDROID</div>
-
-            <div class="brand-sub">Gta Theft San Andreas</div>
-          </div>
-        </div>
-
-        <div class="version">
-          <i class="fa-solid fa-mobile-screen"></i>
-          ANDROID
-        </div>
-      </header>
-
-      <main class="panel">
-        <section class="hero">
-          <div class="hero-content">
-            <div class="kicker">
-              <i class="fa-solid fa-location-dot"></i>
-              Los Santos Archive
-            </div>
-
-            <h1>
-              GTA
-              <span>SAN ANDREAS</span>
-            </h1>
-
-            <p>
-              Kumpulan file GTA San Andreas untuk Android yang sudah dipisahkan
-              berdasarkan kebutuhan. Pilih APK utama, versi unprotected, OBB,
-              atau file CLEO sesuai paket yang ingin kamu gunakan.
-            </p>
-
-            <div class="hero-tools">
-              <div class="tool">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                Android
-              </div>
-
-              <div class="tool">
-                <i class="fa-solid fa-file-zipper"></i>
-                APK / ZIP
-              </div>
-
-              <div class="tool">
-                <i class="fa-solid fa-database"></i>
-                OBB
-              </div>
-
-              <div class="tool">
-                <i class="fa-solid fa-puzzle-piece"></i>
-                CLEO
-              </div>
-            </div>
-
-            <div class="action-row">
-              <a href="#tutorial" class="hero-button primary">
-                <i class="fa-solid fa-play"></i>
-                LIHAT TUTORIAL
-              </a>
-
-              <a href="#panduan" class="hero-button secondary">
-                <i class="fa-solid fa-map"></i>
-                BUKA PANDUAN
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section class="section" id="files">
-          <div class="section-heading">
-            <div>
-              <div class="section-kicker">File Repository</div>
-
-              <div class="section-title">Pilih Paket Game</div>
-
-              <div class="section-desc">
-                Download file sesuai kebutuhan pemasanganmu.
-              </div>
-            </div>
-
-            <div class="section-mark">04 PACKAGES</div>
-          </div>
-
-          <div class="file-grid">
-            <article class="file">
-              <div class="file-icon">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-              </div>
-
-              <div class="file-info">
-                <div class="file-tag">Main Package</div>
-
-                <div class="file-title">GTA San Andreas — APK Normal</div>
-
-                <div class="file-meta">
-                  <span>APK</span>
-                  <span>ANDROID</span>
-                  <span>MAIN</span>
-                </div>
-              </div>
-
-              <button
-                class="download"
-                data-link="https://www.mediafire.com/file/j1c4xp6leg1chtd/APK_GTA_SA_Android_Update.zip/file"
-                onclick="startDownload(this)"
-              >
-                <i class="fa-solid fa-arrow-down"></i>
-                DOWNLOAD
-                <span class="progress"></span>
-              </button>
-            </article>
-
-            <article class="file">
-              <div class="file-icon">
-                <i class="fa-solid fa-shield-halved"></i>
-              </div>
-
-              <div class="file-info">
-                <div class="file-tag">Modified Package</div>
-
-                <div class="file-title">GTA San Andreas — APK Unprotected</div>
-
-                <div class="file-meta">
-                  <span>APK</span>
-                  <span>UNPROTECTED</span>
-                  <span>ANDROID</span>
-                </div>
-              </div>
-
-              <button
-                class="download"
-                data-link="https://www.mediafire.com/file/0xombzivka1nt2h/APK_GTA_SA_Unprotected_Update.zip/file"
-                onclick="startDownload(this)"
-              >
-                <i class="fa-solid fa-arrow-down"></i>
-                DOWNLOAD
-                <span class="progress"></span>
-              </button>
-            </article>
-
-            <article class="file">
-              <div class="file-icon">
-                <i class="fa-solid fa-hard-drive"></i>
-              </div>
-
-              <div class="file-info">
-                <div class="file-tag">Game Data</div>
-
-                <div class="file-title">GTA San Andreas — OBB</div>
-
-                <div class="file-meta">
-                  <span>OBB</span>
-                  <span>DATA</span>
-                  <span>GAME FILE</span>
-                </div>
-              </div>
-
-              <button
-                class="download"
-                data-link="https://www.mediafire.com/file/sau1bqhlpznuvtr/OBB_GTA_SA.zip/file"
-                onclick="startDownload(this)"
-              >
-                <i class="fa-solid fa-arrow-down"></i>
-                DOWNLOAD
-                <span class="progress"></span>
-              </button>
-            </article>
-
-            <article class="file">
-              <div class="file-icon">
-                <i class="fa-solid fa-puzzle-piece"></i>
-              </div>
-
-              <div class="file-info">
-                <div class="file-tag">Add-on</div>
-
-                <div class="file-title">GTA San Andreas — CLEO / Cheat</div>
-
-                <div class="file-meta">
-                  <span>CLEO</span>
-                  <span>MOD</span>
-                  <span>OPTIONAL</span>
-                </div>
-              </div>
-
-              <button
-                class="download"
-                data-link="https://www.mediafire.com/file/21hp475gon6xk0l/Z_S.zip/file"
-                onclick="startDownload(this)"
-              >
-                <i class="fa-solid fa-arrow-down"></i>
-                DOWNLOAD
-                <span class="progress"></span>
-              </button>
-            </article>
-          </div>
-        </section>
-
-        <div class="info-strip">
-          <div class="info-icon">
-            <i class="fa-solid fa-circle-exclamation"></i>
-          </div>
-
-          <div>
-            <div class="info-title">Cek Versi Sebelum Memasang</div>
-
-            <div class="info-text">
-              APK, OBB, dan CLEO harus sesuai dengan struktur serta versi game
-              yang digunakan. Kalau belum yakin, lihat tutorial pemasangan
-              sebelum memindahkan file.
-            </div>
-          </div>
-
-          <div class="info-label">GUIDE</div>
-        </div>
-
-        <section class="tutorial" id="tutorial">
-          <div class="section-heading">
-            <div>
-              <div class="section-kicker">Installation Video</div>
-
-              <div class="section-title">Tutorial Pemasangan</div>
-
-              <div class="section-desc">
-                Lihat video berikut untuk mengetahui urutan pemasangan file GTA
-                San Andreas di Android.
-              </div>
-            </div>
-
-            <div class="section-mark">VIDEO GUIDE</div>
-          </div>
-
-          <div class="video-box">
-            <div class="video-wrapper">
-              <video controls playsinline preload="metadata">
-                <source
-                  src="https://cdn.fileflap.net/1790267834919-c249d2de47b54a9086e000289d0e23a2.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=e978556554f80c9c00dca0f70b4b0461%2F20260924%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20260924T163758Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=4e911b0410f10e10a57859c6aff19b6262b65811aa6b199c1db98cd0a6de70b9"
-                  type="video/mp4"
-                />
-
-                Browser kamu tidak mendukung pemutaran video.
-              </video>
-            </div>
-
-            <div class="video-caption">
-              <strong>
-                <i class="fa-solid fa-circle-play"></i>
-                Cara Memasang GTA San Andreas Android
-              </strong>
-
-              <p>
-                Putar video sampai selesai dan ikuti urutan pemasangan yang
-                ditampilkan. Jika menggunakan OBB atau CLEO, perhatikan lokasi
-                foldernya.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section class="guide" id="panduan">
-          <div class="section-heading">
-            <div>
-              <div class="section-kicker">Step By Step</div>
-
-              <div class="section-title">Panduan Instalasi</div>
-
-              <div class="section-desc">
-                Panduan lengkap dari file download sampai game siap dijalankan.
-              </div>
-            </div>
-
-            <div class="section-mark">07 STEPS</div>
-          </div>
-
-          <div class="steps">
-            <article class="step">
-              <div class="step-number">01</div>
-
-              <div>
-                <div class="step-title">Download File yang Dibutuhkan</div>
-
-                <div class="step-text">
-                  Download APK utama dan OBB sesuai paket yang ingin digunakan.
-                  CLEO bersifat tambahan sehingga tidak wajib dipasang jika
-                  hanya ingin menjalankan game standar.
-
-                  <ul>
-                    <li>Pastikan download selesai.</li>
-                    <li>Gunakan file sesuai versi game.</li>
-                    <li>Sediakan ruang penyimpanan yang cukup.</li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-
-            <article class="step">
-              <div class="step-number">02</div>
-
-              <div>
-                <div class="step-title">Ekstrak File ZIP</div>
-
-                <div class="step-text">
-                  Jika file yang didownload berbentuk ZIP atau arsip lainnya,
-                  ekstrak terlebih dahulu menggunakan aplikasi pengelola file
-                  yang mendukung arsip.
-
-                  <ul>
-                    <li>Tunggu sampai ekstraksi selesai.</li>
-                    <li>Jangan memindahkan file saat proses berjalan.</li>
-                    <li>Pastikan tidak ada error ekstraksi.</li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-
-            <article class="step">
-              <div class="step-number">03</div>
-
-              <div>
-                <div class="step-title">Pasang APK</div>
-
-                <div class="step-text">
-                  Setelah file APK tersedia, buka file tersebut dan lakukan
-                  proses pemasangan. Jika Android meminta izin untuk memasang
-                  aplikasi dari sumber yang kamu pilih, ikuti pengaturan
-                  keamanan perangkat yang sesuai.
-
-                  <ul>
-                    <li>Jangan mengganti nama APK sembarangan.</li>
-                    <li>Tunggu instalasi selesai.</li>
-                    <li>
-                      Jangan langsung membuka game jika OBB belum ditempatkan.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-
-            <article class="step">
-              <div class="step-number">04</div>
-
-              <div>
-                <div class="step-title">Siapkan File OBB</div>
-
-                <div class="step-text">
-                  Ekstrak paket OBB dan periksa folder hasilnya. File OBB harus
-                  ditempatkan mengikuti struktur folder yang sesuai dengan paket
-                  game.
-
-                  <ul>
-                    <li>Jangan mengubah nama file OBB tanpa alasan.</li>
-                    <li>Jangan membuat folder tambahan secara acak.</li>
-                    <li>Gunakan video sebagai acuan lokasi folder.</li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-
-            <article class="step">
-              <div class="step-number">05</div>
-
-              <div>
-                <div class="step-title">Cek Data Game</div>
-
-                <div class="step-text">
-                  Sebelum membuka game, cek kembali apakah APK sudah terpasang
-                  dan file OBB sudah berada di lokasi yang benar.
-
-                  <ul>
-                    <li>Pastikan ukuran file sesuai.</li>
-                    <li>Pastikan proses pemindahan sudah selesai.</li>
-                    <li>Jangan membuka game ketika file masih dipindahkan.</li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-
-            <article class="step">
-              <div class="step-number">06</div>
-
-              <div>
-                <div class="step-title">Pasang CLEO Jika Dibutuhkan</div>
-
-                <div class="step-text">
-                  CLEO merupakan file tambahan untuk kebutuhan modifikasi
-                  tertentu. Jika kamu tidak membutuhkan fitur tambahan, bagian
-                  ini dapat dilewati.
-
-                  <ul>
-                    <li>Gunakan CLEO yang kompatibel dengan versi game.</li>
-                    <li>Ikuti struktur folder dari paket CLEO.</li>
-                    <li>Jangan mencampur file dari versi yang berbeda.</li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-
-            <article class="step">
-              <div class="step-number">07</div>
-
-              <div>
-                <div class="step-title">Jalankan GTA San Andreas</div>
-
-                <div class="step-text">
-                  Setelah semua file selesai dipasang, jalankan game dan tunggu
-                  proses loading pertama. Jika game masuk ke menu utama tanpa
-                  pesan error, pemasangan dasar sudah selesai.
-
-                  <ul>
-                    <li>Tunggu proses loading pertama.</li>
-                    <li>Jika error, cek kembali APK dan OBB.</li>
-                    <li>
-                      Jika menggunakan CLEO, coba jalankan game tanpa add-on
-                      untuk pengecekan.
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </article>
-          </div>
-
-          <div class="warning">
-            <i class="fa-solid fa-triangle-exclamation"></i>
-
-            <div>
-              <strong>Catatan:</strong>
-              struktur folder dapat berbeda tergantung versi GTA San Andreas,
-              Android, dan paket file yang digunakan. Jangan asal memindahkan
-              OBB atau CLEO. Gunakan video tutorial sebagai acuan utama apabila
-              struktur pada perangkatmu berbeda.
-            </div>
-          </div>
-        </section>
-
-        <section class="check-section">
-          <div class="section-heading">
-            <div>
-              <div class="section-kicker">Final Check</div>
-
-              <div class="section-title">Sebelum Menjalankan Game</div>
-
-              <div class="section-desc">
-                Pastikan beberapa hal berikut sudah selesai.
-              </div>
-            </div>
-          </div>
-
-          <div class="check-grid">
-            <div class="check">
-              <i class="fa-solid fa-circle-check"></i>
-              <span> APK sudah terpasang tanpa error. </span>
-            </div>
-
-            <div class="check">
-              <i class="fa-solid fa-circle-check"></i>
-              <span> File OBB sudah ditempatkan sesuai struktur paket. </span>
-            </div>
-
-            <div class="check">
-              <i class="fa-solid fa-circle-check"></i>
-              <span> File ZIP sudah diekstrak sepenuhnya. </span>
-            </div>
-
-            <div class="check">
-              <i class="fa-solid fa-circle-check"></i>
-              <span> CLEO hanya dipasang jika memang diperlukan. </span>
-            </div>
-          </div>
-        </section>
-
-        <footer class="footer">
-          <div class="footer-brand">
-            <span data-text="© 2026 GTA Files · Made by DIMMZZZSUM_ENAK">
-              © 2026 GTA Files · Made by DIMMZZZSUM_ENAK
-            </span>
-          </div>
-
-          <div class="footer-line"></div>
-        </footer>
-      </main>
-    </div>
-
-    <div class="toast" id="toast"></div>
-
-    <script>
-      function showToast(message){
-
-          const toast = document.getElementById("toast");
-
-          toast.textContent = message;
-          toast.classList.add("show");
-
-          clearTimeout(toast.timer);
-
-          toast.timer = setTimeout(() => {
-              toast.classList.remove("show");
-          },2600);
-      }
-
-      function startDownload(button){
-
-          if(button.classList.contains("loading")){
-              return;
-          }
-
-          const target = button.dataset.link;
-          const original = button.innerHTML;
-
-          if(
-              !target ||
-              target.startsWith("GANTI_LINK_") ||
-              target === "#"
-          ){
-              showToast("Link file belum diatur.");
-              return;
-          }
-
-          button.classList.add("loading");
-
-          button.innerHTML = `
-              <i class="fa-solid fa-spinner"></i>
-              CHECKING
-              <span class="progress"></span>
-          `;
-
-          showToast("Menyiapkan file...");
-
-          setTimeout(() => {
-
-              button.classList.remove("loading");
-              button.classList.add("ready");
-
-              button.innerHTML = `
-                  <i class="fa-solid fa-check"></i>
-                  READY
-              `;
-
-              showToast("File siap, mengarahkan...");
-
-              setTimeout(() => {
-                  window.location.href = target;
-              },500);
-
-              setTimeout(() => {
-
-                  button.classList.remove("ready");
-                  button.innerHTML = original;
-
-              },1700);
-
-          },1400);
-      }
-    </script>
-  </body>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta name="theme-color" content="#090b10">
+	<meta name="description" content="GTA San Andreas Android Files — APK, OBB, Unprotected dan CLEO">
+	<title>San Andreas Archive — DIMMZZZSUM_ENAK</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+	<style>
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
+	:root {
+		--bg: #080a0e;
+		--panel: #0d1015;
+		--panel2: #12161c;
+		--line: #292e36;
+		--text: #f2f3f5;
+		--muted: #858c97;
+		--yellow: #f2c24d;
+		--red: #d94840;
+		--green: #43b77d;
+		--cyan: #51bccc;
+		--purple: #9671df;
+	}
+	
+	html {
+		scroll-behavior: smooth;
+	}
+	
+	body {
+		min-height: 100vh;
+		overflow-x: hidden;
+		background: linear-gradient( 180deg, #25201b 0, #17151a 18%, #0c0e13 42%, #080a0e 70%);
+		color: var(--text);
+		font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+	}
+	
+	body:before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 50%;
+		width: 500px;
+		height: 260px;
+		transform: translateX(-50%);
+		background: radial-gradient( circle, rgba(244, 185, 76, .17), transparent 68%);
+		pointer-events: none;
+		z-index: -1;
+	}
+	
+	a {
+		color: inherit;
+		text-decoration: none;
+	}
+	
+	button {
+		font: inherit;
+	}
+	
+	.wrapper {
+		width: min(900px, calc(100% - 20px));
+		margin: auto;
+		padding: 16px 0 30px;
+	}
+	
+	.topbar {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 14px;
+	}
+	
+	.brand {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		min-width: 0;
+	}
+	
+	.brand-mark {
+		width: 48px;
+		height: 48px;
+		flex: 0 0 48px;
+		display: grid;
+		place-items: center;
+		border: 1px solid #66552f;
+		border-radius: 12px;
+		background: #15130f;
+	}
+	
+	.brand-mark:before {
+		content: "SA";
+		font-family: Impact, "Arial Black", sans-serif;
+		font-size: 20px;
+		color: var(--yellow);
+	}
+	
+	.brand-mark:after {
+		content: "";
+		position: absolute;
+		width: 6px;
+		height: 6px;
+		margin: 28px 0 0 28px;
+		border-radius: 50%;
+		background: var(--red);
+	}
+	
+	.brand-title {
+		font-size: 13px;
+		font-weight: 900;
+	}
+	
+	.brand-sub {
+		margin-top: 2px;
+		color: #8d887d;
+		font-size: 8px;
+		font-weight: 800;
+		letter-spacing: .7px;
+		text-transform: uppercase;
+	}
+	
+	.version {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 7px 9px;
+		border: 1px solid #36342f;
+		border-radius: 8px;
+		background: #101115;
+		color: #bdb7aa;
+		font-size: 8px;
+		font-weight: 900;
+	}
+	
+	.version i {
+		color: var(--yellow);
+	}
+	
+	.panel {
+		overflow: hidden;
+		border: 1px solid #252a31;
+		border-radius: 18px;
+		background: var(--panel);
+		box-shadow: 0 12px 35px rgba(0, 0, 0, .35);
+	}
+	
+	.hero {
+		position: relative;
+		padding: 36px 28px 30px;
+		border-bottom: 1px solid #252a31;
+		background: linear-gradient( 110deg, #0b0d11 0%, #0d1015 58%, #121316 100%);
+	}
+	
+	.hero:after {
+		content: "LOS SANTOS";
+		position: absolute;
+		right: -15px;
+		bottom: -15px;
+		font-family: Impact, "Arial Black", sans-serif;
+		font-size: 70px;
+		color: rgba(255, 255, 255, .025);
+		pointer-events: none;
+	}
+	
+	.hero-content {
+		position: relative;
+		z-index: 1;
+	}
+	
+	.kicker {
+		display: inline-flex;
+		align-items: center;
+		gap: 7px;
+		margin-bottom: 15px;
+		padding: 6px 9px;
+		border-left: 3px solid var(--yellow);
+		background: #17150f;
+		color: #e5bd5b;
+		font-size: 8px;
+		font-weight: 900;
+		letter-spacing: 1px;
+		text-transform: uppercase;
+	}
+	
+	.hero h1 {
+		margin-bottom: 13px;
+		font-family: Impact, "Arial Black", sans-serif;
+		font-size: clamp(44px, 9vw, 72px);
+		line-height: .86;
+		letter-spacing: -1px;
+		color: #fff;
+		text-shadow: 2px 3px 0 #000;
+	}
+	
+	.hero h1 span {
+		display: block;
+		margin-top: 7px;
+		color: #eab94e;
+		font-size: .65em;
+		letter-spacing: 1px;
+	}
+	
+	.hero p {
+		max-width: 650px;
+		color: #969ba4;
+		font-size: 12px;
+		line-height: 1.75;
+	}
+	
+	.hero-tools {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 7px;
+		margin-top: 19px;
+	}
+	
+	.tool {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		padding: 8px 10px;
+		border: 1px solid #292e35;
+		border-radius: 7px;
+		background: #13161b;
+		color: #aeb2b9;
+		font-size: 8px;
+		font-weight: 800;
+	}
+	
+	.tool i {
+		color: var(--yellow);
+	}
+	
+	.action-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 8px;
+		margin-top: 19px;
+	}
+	
+	.hero-button {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 7px;
+		padding: 10px 13px;
+		border-radius: 8px;
+		font-size: 8px;
+		font-weight: 900;
+		letter-spacing: .4px;
+	}
+	
+	.hero-button.primary {
+		background: var(--red);
+		color: #fff;
+	}
+	
+	.hero-button.secondary {
+		border: 1px solid #343942;
+		background: #171a20;
+		color: #c1c4c9;
+	}
+	
+	.section,
+	.tutorial,
+	.guide,
+	.check-section {
+		padding: 22px;
+		border-bottom: 1px solid #22272e;
+	}
+	
+	.section-heading {
+		display: flex;
+		align-items: flex-end;
+		justify-content: space-between;
+		gap: 12px;
+		margin-bottom: 14px;
+	}
+	
+	.section-kicker {
+		margin-bottom: 4px;
+		color: #cda541;
+		font-size: 7px;
+		font-weight: 900;
+		letter-spacing: 1.1px;
+		text-transform: uppercase;
+	}
+	
+	.section-title {
+		font-size: 16px;
+		font-weight: 900;
+	}
+	
+	.section-desc {
+		margin-top: 4px;
+		color: #707680;
+		font-size: 9px;
+		line-height: 1.6;
+	}
+	
+	.section-mark {
+		color: #555b64;
+		font-size: 8px;
+		font-weight: 900;
+		white-space: nowrap;
+	}
+	
+	.file-grid {
+		display: grid;
+		gap: 8px;
+	}
+	
+	.file {
+		display: flex;
+		align-items: center;
+		gap: 11px;
+		padding: 13px;
+		border: 1px solid #292e35;
+		border-radius: 11px;
+		background: #13171c;
+	}
+	
+	.file-icon {
+		width: 44px;
+		height: 44px;
+		flex: 0 0 44px;
+		display: grid;
+		place-items: center;
+		border-radius: 10px;
+		background: #201416;
+		color: #e45b54;
+		font-size: 16px;
+	}
+	
+	.file:nth-child(2) .file-icon {
+		background: #111d20;
+		color: var(--cyan);
+	}
+	
+	.file:nth-child(3) .file-icon {
+		background: #211d12;
+		color: var(--yellow);
+	}
+	
+	.file:nth-child(4) .file-icon {
+		background: #1b1626;
+		color: var(--purple);
+	}
+	
+	.file-info {
+		flex: 1;
+		min-width: 0;
+	}
+	
+	.file-tag {
+		display: inline-block;
+		margin-bottom: 5px;
+		padding: 3px 6px;
+		border-radius: 4px;
+		background: #22262d;
+		color: #818792;
+		font-size: 7px;
+		font-weight: 900;
+		letter-spacing: .4px;
+		text-transform: uppercase;
+	}
+	
+	.file-title {
+		margin-bottom: 4px;
+		color: #ededee;
+		font-size: 12px;
+		line-height: 1.35;
+		font-weight: 850;
+	}
+	
+	.file-meta {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 5px;
+	}
+	
+	.file-meta span {
+		color: #646a73;
+		font-size: 8px;
+		font-weight: 700;
+	}
+	
+	.file-meta span:not(:last-child):after {
+		content: "·";
+		margin-left: 5px;
+		color: #3e434b;
+	}
+	
+	.download {
+		position: relative;
+		min-width: 105px;
+		padding: 10px 11px;
+		border: 1px solid #bd3934;
+		border-radius: 8px;
+		background: #c93c37;
+		color: #fff;
+		cursor: pointer;
+		font-size: 8px;
+		font-weight: 900;
+		letter-spacing: .5px;
+	}
+	
+	.download:active {
+		transform: scale(.97);
+	}
+	
+	.download.loading {
+		background: #363a41;
+		border-color: #454a53;
+		pointer-events: none;
+	}
+	
+	.download.ready {
+		background: #27845b;
+		border-color: #319769;
+	}
+	
+	.download.loading i {
+		animation: spin .7s linear infinite;
+	}
+	
+	.progress {
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		width: 0;
+		height: 2px;
+		background: #fff;
+	}
+	
+	.download.loading .progress {
+		animation: progress 1.2s linear forwards;
+	}
+	
+	.info-strip {
+		display: grid;
+		grid-template-columns: auto 1fr auto;
+		align-items: center;
+		gap: 11px;
+		margin: 0 22px 22px;
+		padding: 14px;
+		border: 1px solid #292e35;
+		border-radius: 11px;
+		background: #12161b;
+	}
+	
+	.info-icon {
+		width: 38px;
+		height: 38px;
+		display: grid;
+		place-items: center;
+		border-radius: 9px;
+		background: #211d12;
+		color: var(--yellow);
+	}
+	
+	.info-title {
+		margin-bottom: 3px;
+		font-size: 10px;
+		font-weight: 900;
+	}
+	
+	.info-text {
+		color: #707680;
+		font-size: 8px;
+		line-height: 1.7;
+	}
+	
+	.info-label {
+		padding: 5px 7px;
+		border: 1px solid #27503d;
+		border-radius: 5px;
+		background: #13231c;
+		color: #4dc588;
+		font-size: 7px;
+		font-weight: 900;
+	}
+	
+	.video-box {
+		overflow: hidden;
+		border: 1px solid #292e35;
+		border-radius: 12px;
+		background: #050608;
+	}
+	
+	.video-wrapper {
+		aspect-ratio: 16/9;
+		background: #050608;
+	}
+	
+	.video-wrapper video {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		background: #050608;
+	}
+	
+	.video-caption {
+		padding: 14px;
+		border-top: 1px solid #252a31;
+		background: #12161b;
+	}
+	
+	.video-caption strong {
+		display: block;
+		margin-bottom: 5px;
+		font-size: 11px;
+	}
+	
+	.video-caption strong i {
+		margin-right: 5px;
+		color: var(--yellow);
+	}
+	
+	.video-caption p {
+		color: #707680;
+		font-size: 9px;
+		line-height: 1.65;
+	}
+	
+	.steps {
+		display: grid;
+		gap: 8px;
+	}
+	
+	.step {
+		display: grid;
+		grid-template-columns: 44px 1fr;
+		gap: 12px;
+		padding: 14px;
+		border: 1px solid #292e35;
+		border-radius: 11px;
+		background: #13171c;
+	}
+	
+	.step-number {
+		width: 39px;
+		height: 39px;
+		display: grid;
+		place-items: center;
+		border: 1px solid #373d46;
+		border-radius: 9px;
+		background: #1b2026;
+		color: var(--yellow);
+		font-size: 11px;
+		font-weight: 900;
+	}
+	
+	.step-title {
+		margin-bottom: 5px;
+		font-size: 11px;
+		font-weight: 900;
+	}
+	
+	.step-text {
+		color: #747a83;
+		font-size: 9px;
+		line-height: 1.7;
+	}
+	
+	.step-text ul {
+		margin: 7px 0 0 16px;
+	}
+	
+	.step-text li {
+		margin-bottom: 2px;
+	}
+	
+	.warning {
+		display: flex;
+		gap: 9px;
+		margin-top: 13px;
+		padding: 12px;
+		border: 1px solid #493d20;
+		border-radius: 9px;
+		background: #15130e;
+		color: #817b70;
+		font-size: 8px;
+		line-height: 1.7;
+	}
+	
+	.warning i {
+		margin-top: 2px;
+		color: var(--yellow);
+	}
+	
+	.check-section {
+		border-bottom: 0;
+	}
+	
+	.check-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 8px;
+	}
+	
+	.check {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		padding: 12px;
+		border: 1px solid #292e35;
+		border-radius: 9px;
+		background: #12161b;
+	}
+	
+	.check i {
+		margin-top: 2px;
+		color: var(--green);
+		font-size: 11px;
+	}
+	
+	.check span {
+		color: #747a83;
+		font-size: 8px;
+		line-height: 1.65;
+	}
+	
+	.footer {
+		padding: 25px 15px;
+		text-align: center;
+		border-top: 1px solid #252a31;
+		background: #090b0f;
+	}
+	
+	.footer-brand {
+		font-size: 12px;
+		font-weight: 900;
+		letter-spacing: .6px;
+	}
+	
+	.footer-brand span {
+		color: #d8b14d;
+	}
+	
+	.footer-line {
+		width: 38px;
+		height: 2px;
+		margin: 7px auto;
+		background: var(--yellow);
+	}
+	
+	.footer-copy {
+		color: #5f656e;
+		font-size: 8px;
+	}
+	
+	.toast {
+		position: fixed;
+		left: 50%;
+		bottom: 18px;
+		width: max-content;
+		max-width: calc(100% - 24px);
+		padding: 10px 13px;
+		border: 1px solid #343a43;
+		border-radius: 8px;
+		background: #171b20;
+		color: #eee;
+		font-size: 9px;
+		font-weight: 700;
+		text-align: center;
+		opacity: 0;
+		pointer-events: none;
+		transform: translate(-50%, 15px);
+		transition: opacity .2s, transform .2s;
+		z-index: 99;
+	}
+	
+	.toast.show {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+	
+	@keyframes spin {
+		to {
+			transform: rotate(360deg);
+		}
+	}
+	
+	@keyframes progress {
+		from {
+			width: 0;
+		}
+		to {
+			width: 100%;
+		}
+	}
+	
+	@media(max-width:600px) {
+		.wrapper {
+			width: calc(100% - 14px);
+			padding-top: 11px;
+		}
+		.topbar {
+			margin-bottom: 10px;
+		}
+		.hero {
+			padding: 28px 19px 24px;
+		}
+		.hero h1 {
+			font-size: clamp(40px, 12vw, 60px);
+		}
+		.hero p {
+			font-size: 11px;
+		}
+		.hero-tools {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+		}
+		.tool {
+			justify-content: center;
+		}
+		.action-row {
+			display: grid;
+			grid-template-columns: 1fr;
+		}
+		.hero-button {
+			width: 100%;
+		}
+		.section,
+		.tutorial,
+		.guide,
+		.check-section {
+			padding: 16px;
+		}
+		.info-strip {
+			margin-left: 16px;
+			margin-right: 16px;
+		}
+		.file {
+			display: grid;
+			grid-template-columns: 44px minmax(0, 1fr);
+			gap: 10px;
+		}
+		.file-info {
+			grid-column: 2;
+		}
+		.download {
+			grid-column: 1 / -1;
+			width: 100%;
+		}
+		.check-grid {
+			grid-template-columns: 1fr;
+		}
+		.section-mark {
+			display: none;
+		}
+	}
+	
+	@media(max-width:380px) {
+		.version {
+			display: none;
+		}
+		.brand-title {
+			font-size: 11px;
+		}
+		.brand-sub {
+			font-size: 7px;
+		}
+		.hero {
+			padding: 25px 16px 22px;
+		}
+		.hero h1 {
+			font-size: 39px;
+		}
+		.hero-tools {
+			grid-template-columns: 1fr;
+		}
+		.section,
+		.tutorial,
+		.guide,
+		.check-section {
+			padding: 14px;
+		}
+		.info-strip {
+			margin-left: 14px;
+			margin-right: 14px;
+			grid-template-columns: auto 1fr;
+		}
+		.info-label {
+			display: none;
+		}
+		.step {
+			grid-template-columns: 40px 1fr;
+			padding: 12px;
+		}
+		.step-number {
+			width: 36px;
+			height: 36px;
+		}
+	}
+	
+	@media(prefers-reduced-motion:reduce) {
+		html {
+			scroll-behavior: auto;
+		}
+		.download.loading i {
+			animation: none;
+		}
+	}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<header class="topbar">
+			<div class="brand">
+				<div class="brand-mark"></div>
+				<div>
+					<div class="brand-title">GTA SA ANDROID</div>
+					<div class="brand-sub">Gta Theft San Andreas</div>
+				</div>
+			</div>
+			<div class="version"> <i class="fa-solid fa-mobile-screen"></i> ANDROID </div>
+		</header>
+		<main class="panel">
+			<section class="hero">
+				<div class="hero-content">
+					<div class="kicker"> <i class="fa-solid fa-location-dot"></i> Los Santos Archive </div>
+					<h1>
+GTA
+<span>SAN ANDREAS</span>
+</h1>
+					<p> Kumpulan file GTA San Andreas untuk Android yang sudah dipisahkan berdasarkan kebutuhan. Pilih APK utama, versi unprotected, OBB, atau file CLEO sesuai paket yang ingin kamu gunakan. </p>
+					<div class="hero-tools">
+						<div class="tool"> <i class="fa-solid fa-mobile-screen-button"></i> Android </div>
+						<div class="tool"> <i class="fa-solid fa-file-zipper"></i> APK / ZIP </div>
+						<div class="tool"> <i class="fa-solid fa-database"></i> OBB </div>
+						<div class="tool"> <i class="fa-solid fa-puzzle-piece"></i> CLEO </div>
+					</div>
+					<div class="action-row">
+						<a href="#tutorial" class="hero-button primary"> <i class="fa-solid fa-play"></i> LIHAT TUTORIAL </a>
+						<a href="#panduan" class="hero-button secondary"> <i class="fa-solid fa-map"></i> BUKA PANDUAN </a>
+					</div>
+				</div>
+			</section>
+			<section class="section" id="files">
+				<div class="section-heading">
+					<div>
+						<div class="section-kicker">File Repository</div>
+						<div class="section-title">Pilih Paket Game</div>
+						<div class="section-desc"> Download file sesuai kebutuhan pemasanganmu. </div>
+					</div>
+					<div class="section-mark">04 PACKAGES</div>
+				</div>
+				<div class="file-grid">
+					<article class="file">
+						<div class="file-icon"> <i class="fa-solid fa-mobile-screen-button"></i> </div>
+						<div class="file-info">
+							<div class="file-tag">Main Package</div>
+							<div class="file-title"> GTA San Andreas — APK Normal </div>
+							<div class="file-meta"> <span>APK</span> <span>ANDROID</span> <span>MAIN</span> </div>
+						</div>
+						<button class="download" data-link="https://www.mediafire.com/file/j1c4xp6leg1chtd/APK_GTA_SA_Android_Update.zip/file" onclick="startDownload(this)"> <i class="fa-solid fa-arrow-down"></i> DOWNLOAD <span class="progress"></span> </button>
+					</article>
+					<article class="file">
+						<div class="file-icon"> <i class="fa-solid fa-shield-halved"></i> </div>
+						<div class="file-info">
+							<div class="file-tag">Modified Package</div>
+							<div class="file-title"> GTA San Andreas — APK Unprotected </div>
+							<div class="file-meta"> <span>APK</span> <span>UNPROTECTED</span> <span>ANDROID</span> </div>
+						</div>
+						<button class="download" data-link="https://www.mediafire.com/file/0xombzivka1nt2h/APK_GTA_SA_Unprotected_Update.zip/file" onclick="startDownload(this)"> <i class="fa-solid fa-arrow-down"></i> DOWNLOAD <span class="progress"></span> </button>
+					</article>
+					<article class="file">
+						<div class="file-icon"> <i class="fa-solid fa-hard-drive"></i> </div>
+						<div class="file-info">
+							<div class="file-tag">Game Data</div>
+							<div class="file-title"> GTA San Andreas — OBB </div>
+							<div class="file-meta"> <span>OBB</span> <span>DATA</span> <span>GAME FILE</span> </div>
+						</div>
+						<button class="download" data-link="https://www.mediafire.com/file/sau1bqhlpznuvtr/OBB_GTA_SA.zip/file" onclick="startDownload(this)"> <i class="fa-solid fa-arrow-down"></i> DOWNLOAD <span class="progress"></span> </button>
+					</article>
+					<article class="file">
+						<div class="file-icon"> <i class="fa-solid fa-puzzle-piece"></i> </div>
+						<div class="file-info">
+							<div class="file-tag">Add-on</div>
+							<div class="file-title"> GTA San Andreas — CLEO / Cheat </div>
+							<div class="file-meta"> <span>CLEO</span> <span>MOD</span> <span>OPTIONAL</span> </div>
+						</div>
+						<button class="download" data-link="https://www.mediafire.com/file/21hp475gon6xk0l/Z_S.zip/file" onclick="startDownload(this)"> <i class="fa-solid fa-arrow-down"></i> DOWNLOAD <span class="progress"></span> </button>
+					</article>
+				</div>
+			</section>
+			<div class="info-strip">
+				<div class="info-icon"> <i class="fa-solid fa-circle-exclamation"></i> </div>
+				<div>
+					<div class="info-title"> Cek Versi Sebelum Memasang </div>
+					<div class="info-text"> APK, OBB, dan CLEO harus sesuai dengan struktur serta versi game yang digunakan. Kalau belum yakin, lihat tutorial pemasangan sebelum memindahkan file. </div>
+				</div>
+				<div class="info-label"> GUIDE </div>
+			</div>
+			<section class="tutorial" id="tutorial">
+				<div class="section-heading">
+					<div>
+						<div class="section-kicker">Installation Video</div>
+						<div class="section-title"> Tutorial Pemasangan </div>
+						<div class="section-desc"> Lihat video berikut untuk mengetahui urutan pemasangan file GTA San Andreas di Android. </div>
+					</div>
+					<div class="section-mark"> VIDEO GUIDE </div>
+				</div>
+				<div class="video-box">
+					<div class="video-wrapper">
+						<video controls playsinline preload="metadata">
+							<source src="https://cdn.fileflap.net/1790267834919-c249d2de47b54a9086e000289d0e23a2.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=e978556554f80c9c00dca0f70b4b0461%2F20260924%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20260924T163758Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=4e911b0410f10e10a57859c6aff19b6262b65811aa6b199c1db98cd0a6de70b9" type="video/mp4"> Browser kamu tidak mendukung pemutaran video. </video>
+					</div>
+					<div class="video-caption"> <strong>
+<i class="fa-solid fa-circle-play"></i>
+Cara Memasang GTA San Andreas Android
+</strong>
+						<p> Putar video sampai selesai dan ikuti urutan pemasangan yang ditampilkan. Jika menggunakan OBB atau CLEO, perhatikan lokasi foldernya. </p>
+					</div>
+				</div>
+			</section>
+			<section class="guide" id="panduan">
+				<div class="section-heading">
+					<div>
+						<div class="section-kicker">Step By Step</div>
+						<div class="section-title"> Panduan Instalasi </div>
+						<div class="section-desc"> Panduan lengkap dari file download sampai game siap dijalankan. </div>
+					</div>
+					<div class="section-mark"> 07 STEPS </div>
+				</div>
+				<div class="steps">
+					<article class="step">
+						<div class="step-number">01</div>
+						<div>
+							<div class="step-title"> Download File yang Dibutuhkan </div>
+							<div class="step-text"> Download APK utama dan OBB sesuai paket yang ingin digunakan. CLEO bersifat tambahan sehingga tidak wajib dipasang jika hanya ingin menjalankan game standar.
+								<ul>
+									<li>Pastikan download selesai.</li>
+									<li>Gunakan file sesuai versi game.</li>
+									<li>Sediakan ruang penyimpanan yang cukup.</li>
+								</ul>
+							</div>
+						</div>
+					</article>
+					<article class="step">
+						<div class="step-number">02</div>
+						<div>
+							<div class="step-title"> Ekstrak File ZIP </div>
+							<div class="step-text"> Jika file yang didownload berbentuk ZIP atau arsip lainnya, ekstrak terlebih dahulu menggunakan aplikasi pengelola file yang mendukung arsip.
+								<ul>
+									<li>Tunggu sampai ekstraksi selesai.</li>
+									<li>Jangan memindahkan file saat proses berjalan.</li>
+									<li>Pastikan tidak ada error ekstraksi.</li>
+								</ul>
+							</div>
+						</div>
+					</article>
+					<article class="step">
+						<div class="step-number">03</div>
+						<div>
+							<div class="step-title"> Pasang APK </div>
+							<div class="step-text"> Setelah file APK tersedia, buka file tersebut dan lakukan proses pemasangan. Jika Android meminta izin untuk memasang aplikasi dari sumber yang kamu pilih, ikuti pengaturan keamanan perangkat yang sesuai.
+								<ul>
+									<li>Jangan mengganti nama APK sembarangan.</li>
+									<li>Tunggu instalasi selesai.</li>
+									<li>Jangan langsung membuka game jika OBB belum ditempatkan.</li>
+								</ul>
+							</div>
+						</div>
+					</article>
+					<article class="step">
+						<div class="step-number">04</div>
+						<div>
+							<div class="step-title"> Siapkan File OBB </div>
+							<div class="step-text"> Ekstrak paket OBB dan periksa folder hasilnya. File OBB harus ditempatkan mengikuti struktur folder yang sesuai dengan paket game.
+								<ul>
+									<li>Jangan mengubah nama file OBB tanpa alasan.</li>
+									<li>Jangan membuat folder tambahan secara acak.</li>
+									<li>Gunakan video sebagai acuan lokasi folder.</li>
+								</ul>
+							</div>
+						</div>
+					</article>
+					<article class="step">
+						<div class="step-number">05</div>
+						<div>
+							<div class="step-title"> Cek Data Game </div>
+							<div class="step-text"> Sebelum membuka game, cek kembali apakah APK sudah terpasang dan file OBB sudah berada di lokasi yang benar.
+								<ul>
+									<li>Pastikan ukuran file sesuai.</li>
+									<li>Pastikan proses pemindahan sudah selesai.</li>
+									<li>Jangan membuka game ketika file masih dipindahkan.</li>
+								</ul>
+							</div>
+						</div>
+					</article>
+					<article class="step">
+						<div class="step-number">06</div>
+						<div>
+							<div class="step-title"> Pasang CLEO Jika Dibutuhkan </div>
+							<div class="step-text"> CLEO merupakan file tambahan untuk kebutuhan modifikasi tertentu. Jika kamu tidak membutuhkan fitur tambahan, bagian ini dapat dilewati.
+								<ul>
+									<li>Gunakan CLEO yang kompatibel dengan versi game.</li>
+									<li>Ikuti struktur folder dari paket CLEO.</li>
+									<li>Jangan mencampur file dari versi yang berbeda.</li>
+								</ul>
+							</div>
+						</div>
+					</article>
+					<article class="step">
+						<div class="step-number">07</div>
+						<div>
+							<div class="step-title"> Jalankan GTA San Andreas </div>
+							<div class="step-text"> Setelah semua file selesai dipasang, jalankan game dan tunggu proses loading pertama. Jika game masuk ke menu utama tanpa pesan error, pemasangan dasar sudah selesai.
+								<ul>
+									<li>Tunggu proses loading pertama.</li>
+									<li>Jika error, cek kembali APK dan OBB.</li>
+									<li>Jika menggunakan CLEO, coba jalankan game tanpa add-on untuk pengecekan.</li>
+								</ul>
+							</div>
+						</div>
+					</article>
+				</div>
+				<div class="warning"> <i class="fa-solid fa-triangle-exclamation"></i>
+					<div> <strong>Catatan:</strong> struktur folder dapat berbeda tergantung versi GTA San Andreas, Android, dan paket file yang digunakan. Jangan asal memindahkan OBB atau CLEO. Gunakan video tutorial sebagai acuan utama apabila struktur pada perangkatmu berbeda. </div>
+				</div>
+			</section>
+			<section class="check-section">
+				<div class="section-heading">
+					<div>
+						<div class="section-kicker">Final Check</div>
+						<div class="section-title"> Sebelum Menjalankan Game </div>
+						<div class="section-desc"> Pastikan beberapa hal berikut sudah selesai. </div>
+					</div>
+				</div>
+				<div class="check-grid">
+					<div class="check"> <i class="fa-solid fa-circle-check"></i> <span>APK sudah terpasang tanpa error.</span> </div>
+					<div class="check"> <i class="fa-solid fa-circle-check"></i> <span>File OBB sudah ditempatkan sesuai struktur paket.</span> </div>
+					<div class="check"> <i class="fa-solid fa-circle-check"></i> <span>File ZIP sudah diekstrak sepenuhnya.</span> </div>
+					<div class="check"> <i class="fa-solid fa-circle-check"></i> <span>CLEO hanya dipasang jika memang diperlukan.</span> </div>
+				</div>
+			</section>
+			<footer class="footer">
+				<div class="footer-brand"> <span>© 2026 GTA Files · Made by DIMMZZZSUM_ENAK</span> </div>
+				<div class="footer-line"></div>
+				<div class="footer-copy"> San Andreas Archive </div>
+			</footer>
+		</main>
+	</div>
+	<div class="toast" id="toast"></div>
+	<script>
+	function showToast(message) {
+		const toast = document.getElementById("toast");
+		toast.textContent = message;
+		toast.classList.add("show");
+		clearTimeout(toast.timer);
+		toast.timer = setTimeout(function() {
+			toast.classList.remove("show");
+		}, 2200);
+	}
+
+	function startDownload(button) {
+		if(button.classList.contains("loading")) {
+			return;
+		}
+		const target = button.dataset.link;
+		const original = button.innerHTML;
+		if(!target || target.startsWith("GANTI_LINK_") || target === "#") {
+			showToast("Link file belum diatur.");
+			return;
+		}
+		button.classList.add("loading");
+		button.innerHTML = '<i class="fa-solid fa-spinner"></i> CHECKING <span class="progress"></span>';
+		showToast("Menyiapkan file...");
+		setTimeout(function() {
+			button.classList.remove("loading");
+			button.classList.add("ready");
+			button.innerHTML = '<i class="fa-solid fa-check"></i> READY';
+			showToast("File siap, mengarahkan...");
+			setTimeout(function() {
+				window.location.href = target;
+			}, 400);
+			setTimeout(function() {
+				button.classList.remove("ready");
+				button.innerHTML = original;
+			}, 1500);
+		}, 1100);
+	}
+	</script>
+</body>
 </html>
