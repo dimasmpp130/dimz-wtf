@@ -1169,7 +1169,7 @@
         return result;
       }
 
-      function parseNeoXR(data){
+      function parseDimz(data){
 
         if(!data||data.status!==true){
           throw new Error(
@@ -1283,11 +1283,11 @@
           username,
           profile,
           caption,
-          provider:"NeoXR"
+          provider:"-"
         };
       }
 
-      async function tryNeoXR(instagramUrl){
+      async function tryDimz(instagramUrl){
 
         const endpoint=
           new URL(CONFIG.API_ENDPOINT);
@@ -1308,7 +1308,7 @@
             CONFIG.API_TIMEOUT
           );
 
-        return parseNeoXR(data);
+        return parseDimz(data);
       }
 
       async function processInstagramUrl(instagramUrl){
@@ -1318,7 +1318,7 @@
         );
 
         const result=
-          await tryNeoXR(instagramUrl);
+          await tryDimz(instagramUrl);
 
         if(
           !result||
@@ -1401,7 +1401,6 @@
           link.href=url;
           link.download=filename;
           link.rel="noopener noreferrer";
-          link.style.display="none";
 
           document.body.appendChild(link);
 
