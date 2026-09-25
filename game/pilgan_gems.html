@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#080a0f" />
+    <meta
+      name="description"
+      content="PILGAN — Game pilihan ganda by DIMMZZZSUM_ENAK."
+    />
+    <title>PILGAN — DIMMZZZSUM_ENAK</title>
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}
+      :root{--bg:#080a0f;--p:#10131a;--p2:#151923;--b:#242936;--t:#f4f6fa;--m:#8991a1;--a:#7c6cff;--g:#35d07f;--r:#ff4f68;--y:#ffc857}
+      html,body{min-height:100%}
+      body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--t);padding:10px;-webkit-tap-highlight-color:transparent}
+      button{font:inherit;-webkit-appearance:none;appearance:none}
+      .app{width:100%;max-width:680px;margin:auto}
+      .header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+      .brand{min-width:0}
+      .brand-title{font-size:19px;font-weight:900}
+      .brand-sub{margin-top:2px;color:var(--m);font-size:9px}
+      .coins{min-width:65px;padding:7px 8px;border:1px solid var(--b);border-radius:9px;background:var(--p);text-align:center;font-size:11px;font-weight:800}
+      .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:6px}
+      .stat{padding:7px 4px;border:1px solid var(--b);border-radius:8px;background:var(--p);text-align:center}
+      .stat-label{display:block;margin-bottom:3px;color:var(--m);font-size:7px;text-transform:uppercase}
+      .stat-value{display:block;font-size:13px;font-weight:900}
+      .level-box{padding:8px;margin-bottom:6px;border:1px solid var(--b);border-radius:9px;background:var(--p)}
+      .level-top{display:flex;justify-content:space-between;margin-bottom:5px}
+      .level-name{font-size:10px;font-weight:900}
+      .level-range{color:var(--m);font-size:8px}
+      .progress{height:4px;overflow:hidden;border-radius:5px;background:#20242d}
+      .progress-bar{width:0;height:100%;background:var(--a)}
+      .game{position:relative;padding:11px;border:1px solid var(--b);border-radius:11px;background:var(--p)}
+      .top-row{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-bottom:8px}
+      .category,.timer{padding:5px 7px;border:1px solid var(--b);border-radius:7px;background:var(--p2);font-size:9px;font-weight:800}
+      .category{min-height:25px;color:#c7cce0}
+      .timer{min-width:43px;text-align:center}
+      .timer.warning{color:var(--y)}
+      .timer.danger{color:var(--r)}
+      .question-label{margin-bottom:4px;color:var(--m);font-size:8px;text-transform:uppercase}
+      .question{min-height:68px;display:flex;align-items:center;justify-content:center;padding:8px;text-align:center;font-size:19px;line-height:1.3;font-weight:900;overflow-wrap:anywhere}
+      .question.long{font-size:16px}
+      .question.very-long{font-size:14px}
+      .lives{display:flex;justify-content:center;gap:6px;margin:6px 0 9px}
+      .life{width:22px;height:22px;color:var(--r);font-size:21px;line-height:22px;text-align:center}
+      .life.dead{color:#333843}
+      .options{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+      .option{position:relative;width:100%;min-height:54px;padding:8px 8px 8px 36px;border:1px solid var(--b);border-radius:8px;background:var(--p2);color:var(--t);text-align:left}
+      .option.disabled{opacity:.3}
+      .option.correct{border-color:var(--g);background:rgba(53,208,127,.08)}
+      .option.wrong{border-color:var(--r);background:rgba(255,79,104,.07)}
+      .option-letter{position:absolute;left:7px;top:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;transform:translateY(-50%);border:1px solid #343a48;border-radius:5px;color:#aeb5c7;font-size:9px;font-weight:900}
+      .option-text{font-size:11px;line-height:1.3;font-weight:700;overflow-wrap:anywhere}
+      .status{min-height:18px;margin:9px 2px 5px;color:var(--m);text-align:center;font-size:9px;line-height:1.4}
+      .status.good{color:var(--g)}
+      .status.bad{color:var(--r)}
+      .status.warn{color:var(--y)}
+      .explanation{display:none;margin-top:6px;padding:8px;border:1px solid var(--b);border-radius:7px;background:#0c0f15}
+      .explanation.show{display:block}
+      .explanation-title{margin-bottom:3px;color:#b9b2ff;font-size:8px;font-weight:900}
+      .explanation-text{color:#aab1bf;font-size:9px;line-height:1.4}
+      .actions{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+      .btn{min-height:38px;border:1px solid var(--b);border-radius:8px;background:var(--p2);color:var(--t);font-size:10px;font-weight:900}
+      .btn.primary{border:0;background:var(--a);color:#fff}
+      .btn:disabled{opacity:.4}
+      .loading{display:none;position:absolute;inset:0;z-index:5;align-items:center;justify-content:center;border-radius:11px;background:rgba(8,10,15,.94)}
+      .loading.show{display:flex}
+      .loader-wrap{text-align:center}
+      .loader{width:21px;height:21px;margin:auto auto 6px;border:2px solid #303541;border-top-color:var(--a);border-radius:50%;animation:spin .8s linear infinite}
+      .loader-text{color:var(--m);font-size:8px}
+      @keyframes spin{to{transform:rotate(360deg)}}
+      .toast{position:fixed;left:50%;bottom:15px;z-index:50;max-width:calc(100% - 20px);padding:8px 10px;border:1px solid var(--b);border-radius:7px;background:#151922;color:#fff;font-size:9px;font-weight:800;transform:translateX(-50%);opacity:0;pointer-events:none}
+      .toast.show{opacity:1}
+      .levelup,.gameover{position:fixed;inset:0;z-index:40;display:none;align-items:center;justify-content:center;padding:12px;background:rgba(0,0,0,.82)}
+      .levelup.show,.gameover.show{display:flex}
+      .level-card,.gameover-card{width:100%;max-width:310px;padding:20px 16px;border:1px solid #303542;border-radius:12px;background:#11141c;text-align:center}
+      .level-icon{margin-bottom:6px;font-size:26px}
+      .level-card h2,.gameover-card h2{font-size:19px}
+      .level-card p,.gameover-card p{margin-top:6px;color:var(--m);font-size:9px;line-height:1.5}
+      .level-card button,.gameover-card button{width:100%;height:38px;margin-top:13px;border:0;border-radius:8px;background:var(--a);color:#fff;font-size:10px;font-weight:900}
+      .gameover{z-index:45;background:#030406}
+      .gameover-card{background:#090b10}
+      .gameover-face{width:65px;height:48px;margin:0 auto 10px;position:relative}
+      .eye{position:absolute;top:11px;width:19px;height:7px;border-radius:50%;background:var(--r)}
+      .eye.left{left:6px}
+      .eye.right{right:6px}
+      .mouth{position:absolute;left:50%;bottom:3px;width:36px;height:15px;transform:translateX(-50%);border-bottom:3px solid var(--r);border-radius:50%}
+      .gameover-card h2{color:var(--r)}
+      .gameover-card button{background:#b52f43}
+      @media(max-width:480px){.options{grid-template-columns:1fr}.option{min-height:52px}}
+      @media(max-width:340px){.brand-title{font-size:17px}.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr}}
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="brand">
+          <div class="brand-title">PILGAN - Pilihan Ganda</div>
+          <div class="brand-sub">Game by DIMMZZSUM_ENAK</div>
+        </div>
+        <div class="coins">🪙 <span id="coin">5</span></div>
+      </header>
+
+      <section class="stats">
+        <div class="stat">
+          <span class="stat-label">Level</span
+          ><span class="stat-value" id="level">1</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Point</span
+          ><span class="stat-value" id="score">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">Streak</span
+          ><span class="stat-value" id="streak">0</span>
+        </div>
+        <div class="stat">
+          <span class="stat-label">LV Streak</span
+          ><span class="stat-value" id="levelStreak">0</span>
+        </div>
+      </section>
+
+      <section class="level-box">
+        <div class="level-top">
+          <div class="level-name">LEVEL <span id="levelTop">1</span></div>
+          <div class="level-range" id="levelRange">0–99</div>
+        </div>
+        <div class="progress">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+      </section>
+
+      <main class="game" id="game">
+        <div class="loading" id="loading">
+          <div class="loader-wrap">
+            <div class="loader"></div>
+            <div class="loader-text">Mengambil soal...</div>
+          </div>
+        </div>
+
+        <div class="top-row">
+          <div class="category" id="category">PILIHAN GANDA</div>
+          <div class="timer" id="timer">20s</div>
+        </div>
+
+        <div class="question-label">Pertanyaan</div>
+        <div class="question" id="question">Memuat soal...</div>
+
+        <div class="lives" id="lives">
+          <div class="life">♥</div>
+          <div class="life">♥</div>
+          <div class="life">♥</div>
+        </div>
+
+        <div class="options" id="options"></div>
+
+        <div class="status" id="status">
+          Pilih jawaban yang menurutmu benar.
+        </div>
+
+        <div class="explanation" id="explanation">
+          <div class="explanation-title">Penjelasan</div>
+          <div class="explanation-text" id="explanationText"></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn" id="hintBtn">HINT • 2 COIN</button>
+          <button class="btn primary" id="newBtn">SOAL BARU • 1</button>
+        </div>
+      </main>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="levelup" id="levelup">
+      <div class="level-card">
+        <div class="level-icon">🏆</div>
+        <h2>LEVEL UP!</h2>
+        <p>
+          Kamu berhasil menyelesaikan level sebelumnya. Level streak bertambah.
+        </p>
+        <button id="levelupBtn">LANJUT</button>
+      </div>
+    </div>
+
+    <div class="gameover" id="gameover">
+      <div class="gameover-card">
+        <div class="gameover-face">
+          <div class="eye left"></div>
+          <div class="eye right"></div>
+          <div class="mouth"></div>
+        </div>
+        <h2>GAME OVER</h2>
+        <p>
+          Tiga kesempatanmu sudah habis.<br />Jawaban benar:
+          <strong id="gameoverAnswer">-</strong>
+        </p>
+        <button id="restartBtn">MAIN LAGI</button>
+      </div>
+    </div>
+
+    <script>
+      "use strict";
+
+      var API_URL=String.fromCharCode(
+      104,116,116,112,115,58,47,47,
+      97,112,105,46,110,101,111,120,
+      114,46,101,117,47,97,112,105,
+      47,112,105,108,103,97,110,63,
+      97,112,105,107,101,121,61,
+      103,66,119,52,98,102,106,53,
+      104,97,113,89
+      );
+
+      var GAME_TIME=20;
+      var STORAGE_KEY="pilgan_game_save_v1";
+      var NEXT_RIGHT=1000;
+      var NEXT_WRONG=2200;
+
+      var data=null;
+      var lives=3;
+      var timeLeft=GAME_TIME;
+      var timer=null;
+      var locked=false;
+      var hinted=false;
+      var toastTimer=null;
+
+      var save={
+      date:"",
+      score:0,
+      streak:0,
+      levelStreak:0,
+      coin:5,
+      level:1
+      };
+
+      var coin=document.getElementById("coin");
+      var level=document.getElementById("level");
+      var levelTop=document.getElementById("levelTop");
+      var score=document.getElementById("score");
+      var streak=document.getElementById("streak");
+      var levelStreak=document.getElementById("levelStreak");
+      var levelRange=document.getElementById("levelRange");
+      var progress=document.getElementById("progressBar");
+      var question=document.getElementById("question");
+      var category=document.getElementById("category");
+      var options=document.getElementById("options");
+      var timerEl=document.getElementById("timer");
+      var statusEl=document.getElementById("status");
+      var explanation=document.getElementById("explanation");
+      var explanationText=document.getElementById("explanationText");
+      var livesEl=document.getElementById("lives");
+      var loading=document.getElementById("loading");
+      var hintBtn=document.getElementById("hintBtn");
+      var newBtn=document.getElementById("newBtn");
+      var toast=document.getElementById("toast");
+      var levelup=document.getElementById("levelup");
+      var gameover=document.getElementById("gameover");
+      var gameoverAnswer=document.getElementById("gameoverAnswer");
+      var game=document.getElementById("game");
+
+      function dateKey(){
+      var d=new Date();
+      var m=d.getMonth()+1;
+      var day=d.getDate();
+      return d.getFullYear()+"-"+(m<10?"0":"")+m+"-"+(day<10?"0":"")+day;
+      }
+
+      function levelFromScore(n){
+      return Math.floor(n/100)+1;
+      }
+
+      function saveGame(){
+      save.date=dateKey();
+      try{
+      localStorage.setItem(STORAGE_KEY,JSON.stringify(save));
+      }catch(e){}
+      }
+
+      function resetSave(){
+      save={
+      date:dateKey(),
+      score:0,
+      streak:0,
+      levelStreak:0,
+      coin:5,
+      level:1
+      };
+      saveGame();
+      }
+
+      function loadGame(){
+      var raw=null;
+      try{
+      raw=localStorage.getItem(STORAGE_KEY);
+      }catch(e){}
+
+      if(!raw){
+      resetSave();
+      return;
+      }
+
+      try{
+      var x=JSON.parse(raw);
+
+      if(x.date!==dateKey()){
+      resetSave();
+      return;
+      }
+
+      save={
+      date:x.date||dateKey(),
+      score:Number(x.score)||0,
+      streak:Number(x.streak)||0,
+      levelStreak:Number(x.levelStreak)||0,
+      coin:Number(x.coin)||0,
+      level:Number(x.level)||1
+      };
+
+      save.level=levelFromScore(save.score);
+      }catch(e){
+      resetSave();
+      }
+      }
+
+      function updateUI(){
+      save.level=levelFromScore(save.score);
+
+      coin.textContent=save.coin;
+      level.textContent=save.level;
+      levelTop.textContent=save.level;
+      score.textContent=save.score;
+      streak.textContent=save.streak;
+      levelStreak.textContent=save.levelStreak;
+
+      var start=(save.level-1)*100;
+      var end=save.level*100-1;
+
+      levelRange.textContent=start+"–"+end;
+
+      var pct=((save.score-start)/100)*100;
+      if(pct<0)pct=0;
+      if(pct>100)pct=100;
+      progress.style.width=pct+"%";
+
+      hintBtn.disabled=locked||hinted||save.coin<2;
+      newBtn.disabled=locked||save.coin<1;
+
+      saveGame();
+      }
+
+      function updateLives(){
+      var a=livesEl.getElementsByTagName("div");
+      for(var i=0;i<a.length;i++){
+      if(i<lives){
+      a[i].className="life";
+      }else{
+      a[i].className="life dead";
+      }
+      }
+      }
+
+      function status(text,type){
+      statusEl.className="status";
+      statusEl.textContent=text;
+      if(type)statusEl.className+=" "+type;
+      }
+
+      function toastMsg(text){
+      toast.textContent=text;
+      toast.className="toast show";
+      clearTimeout(toastTimer);
+      toastTimer=setTimeout(function(){
+      toast.className="toast";
+      },1500);
+      }
+
+      function loadingState(v){
+      loading.className=v?"loading show":"loading";
+      }
+
+      function stopTimer(){
+      if(timer){
+      clearInterval(timer);
+      timer=null;
+      }
+      }
+
+      function updateTimer(){
+      timerEl.textContent=timeLeft+"s";
+      timerEl.className="timer";
+
+      if(timeLeft<=8)timerEl.className+=" warning";
+      if(timeLeft<=4)timerEl.className="timer danger";
+      }
+
+      function startTimer(){
+      stopTimer();
+      timeLeft=GAME_TIME;
+      updateTimer();
+
+      timer=setInterval(function(){
+      if(locked)return;
+
+      timeLeft--;
+      updateTimer();
+
+      if(timeLeft<=0){
+      stopTimer();
+      if(!locked)timeoutQuestion();
+      }
+      },1000);
+      }
+
+      function request(url,done,fail){
+      var xhr=new XMLHttpRequest();
+
+      try{
+      xhr.open("GET",url,true);
+      xhr.timeout=12000;
+
+      xhr.onreadystatechange=function(){
+      if(xhr.readyState!==4)return;
+
+      if(xhr.status>=200&&xhr.status<300){
+      try{
+      done(JSON.parse(xhr.responseText));
+      }catch(e){
+      fail("Response API tidak valid.");
+      }
+      }else{
+      fail("API gagal merespons.");
+      }
+      };
+
+      xhr.onerror=function(){
+      fail("Tidak dapat menghubungi API.");
+      };
+
+      xhr.ontimeout=function(){
+      fail("Request API timeout.");
+      };
+
+      xhr.send();
+      }catch(e){
+      fail("Request tidak dapat dijalankan.");
+      }
+      }
+
+      function loadQuestion(){
+      stopTimer();
+
+      locked=true;
+      hinted=false;
+      data=null;
+
+      loadingState(true);
+
+      question.textContent="Mengambil soal...";
+      options.innerHTML="";
+      explanation.className="explanation";
+      explanationText.textContent="";
+
+      status("Menghubungkan ke database soal...");
+      updateUI();
+
+      request(
+      API_URL,
+      function(json){
+      loadingState(false);
+
+      if(
+      !json||
+      json.status!==true||
+      !json.data||
+      !json.data.question||
+      !json.data.selection||
+      !json.data.selection.length||
+      !json.data.answer
+      ){
+      question.textContent="Soal gagal dimuat.";
+      status("Data soal dari API tidak valid.","bad");
+      updateUI();
+      return;
+      }
+
+      data=json.data;
+      renderQuestion();
+      locked=false;
+      updateUI();
+      startTimer();
+      },
+      function(err){
+      loadingState(false);
+      question.textContent="Gagal memuat soal.";
+      status(err||"Terjadi kesalahan.","bad");
+      updateUI();
+      }
+      );
+      }
+
+      function renderQuestion(){
+      var q=String(data.question).trim();
+
+      question.textContent=q;
+      question.className="question";
+
+      if(q.length>40){
+      question.className="question very-long";
+      }else if(q.length>25){
+      question.className="question long";
+      }
+
+      category.textContent=data.category||data.tipe||"PILIHAN GANDA";
+      options.innerHTML="";
+
+      var letters=["A","B","C","D"];
+
+      for(var i=0;i<data.selection.length;i++){
+      var b=document.createElement("button");
+      var l=document.createElement("span");
+      var t=document.createElement("span");
+
+      b.type="button";
+      b.className="option";
+
+      l.className="option-letter";
+      l.textContent=letters[i]||String(i+1);
+
+      t.className="option-text";
+      t.textContent=String(data.selection[i]);
+
+      b.appendChild(l);
+      b.appendChild(t);
+
+      b.onclick=(function(index){
+      return function(){
+      answer(index);
+      };
+      })(i);
+
+      options.appendChild(b);
+      }
+
+      updateLives();
+      status("Pilih jawaban yang menurutmu benar.");
+      }
+
+      function normalize(v){
+      return String(v||"").trim().toUpperCase().replace(/[^A-Z0-9]/g,"");
+      }
+
+      function correctIndex(){
+      var answer=normalize(data.answer);
+      var letters=["A","B","C","D"];
+      var n=letters.indexOf(answer);
+
+      if(n>=0)return n;
+
+      for(var i=0;i<data.selection.length;i++){
+      if(normalize(data.selection[i])===answer)return i;
+      }
+
+      return -1;
+      }
+
+      function answer(index){
+      if(locked||!data)return;
+
+      locked=true;
+      stopTimer();
+
+      var buttons=options.getElementsByTagName("button");
+      var correct=correctIndex();
+
+      if(correct<0){
+      status("Jawaban tidak dapat dikenali.","bad");
+      locked=false;
+      updateUI();
+      startTimer();
+      return;
+      }
+
+      for(var i=0;i<buttons.length;i++){
+      buttons[i].disabled=true;
+      }
+
+      if(index===correct){
+      buttons[index].className+=" correct";
+      correctAnswer();
+      }else{
+      buttons[index].className+=" wrong";
+
+      if(buttons[correct]){
+      buttons[correct].className+=" correct";
+      }
+
+      wrongAnswer();
+      }
+
+      showExplanation();
+      updateUI();
+      }
+
+      function correctAnswer(){
+      var oldLevel=save.level;
+      var base=Math.floor(Math.random()*13)+8;
+      var bonus=Math.floor(timeLeft/4);
+      var streakBonus=Math.min(save.streak,10);
+      var total=base+bonus+streakBonus;
+
+      save.score+=total;
+      save.streak++;
+      save.coin++;
+
+      if(save.streak%5===0){
+      save.coin+=3;
+      toastMsg("+3 coin dari streak!");
+      }
+
+      save.level=levelFromScore(save.score);
+
+      status("BENAR! +"+total+" point • +1 coin","good");
+
+      if(save.level>oldLevel){
+      save.levelStreak++;
+      save.coin+=5;
+      levelup.className="levelup show";
+      status("Level baru tercapai!","good");
+      }else{
+      setTimeout(function(){
+      if(!levelup.classList.contains("show")&&!gameover.classList.contains("show")){
+      loadQuestion();
+      }
+      },NEXT_RIGHT);
+      }
+      }
+
+      function wrongAnswer(){
+      lives--;
+      save.streak=0;
+      updateLives();
+
+      status("SALAH! Jawaban benar ditandai hijau.","bad");
+      updateUI();
+
+      setTimeout(function(){
+      if(lives<=0){
+      gameOver();
+      }else{
+      loadQuestion();
+      }
+      },NEXT_WRONG);
+      }
+
+      function timeoutQuestion(){
+      if(locked)return;
+
+      locked=true;
+      lives--;
+      save.streak=0;
+
+      updateLives();
+
+      var correct=correctIndex();
+      var buttons=options.getElementsByTagName("button");
+
+      for(var i=0;i<buttons.length;i++){
+      buttons[i].disabled=true;
+      }
+
+      if(correct>=0&&buttons[correct]){
+      buttons[correct].className+=" correct";
+      }
+
+      status("Waktu habis! Jawaban benar ditandai hijau.","bad");
+      showExplanation();
+      updateUI();
+
+      setTimeout(function(){
+      if(lives<=0){
+      gameOver();
+      }else{
+      loadQuestion();
+      }
+      },NEXT_WRONG);
+      }
+
+      function showExplanation(){
+      if(!data||!data.explanation)return;
+
+      explanationText.textContent=String(data.explanation);
+      explanation.className="explanation show";
+      }
+
+      function useHint(){
+      if(locked||hinted)return;
+
+      if(save.coin<2){
+      toastMsg("Coin tidak cukup. Butuh 2 coin.");
+      return;
+      }
+
+      var correct=correctIndex();
+
+      if(correct<0){
+      toastMsg("Hint tidak tersedia.");
+      return;
+      }
+
+      var buttons=options.getElementsByTagName("button");
+      var wrong=[];
+
+      for(var i=0;i<buttons.length;i++){
+      if(i!==correct)wrong.push(buttons[i]);
+      }
+
+      for(var j=wrong.length-1;j>0;j--){
+      var k=Math.floor(Math.random()*(j+1));
+      var temp=wrong[j];
+      wrong[j]=wrong[k];
+      wrong[k]=temp;
+      }
+
+      var count=Math.min(2,wrong.length);
+
+      for(var x=0;x<count;x++){
+      wrong[x].className+=" disabled";
+      wrong[x].disabled=true;
+      }
+
+      save.coin-=2;
+      hinted=true;
+
+      status("Hint menghilangkan beberapa pilihan salah.","warn");
+      toastMsg("Hint digunakan • -2 coin");
+      updateUI();
+      }
+
+      function newQuestion(){
+      if(locked)return;
+
+      if(save.coin<1){
+      toastMsg("Coin tidak cukup. Butuh 1 coin.");
+      return;
+      }
+
+      save.coin--;
+      toastMsg("Soal baru • -1 coin");
+      updateUI();
+      loadQuestion();
+      }
+
+      function gameOver(){
+      stopTimer();
+      locked=true;
+
+      if(data){
+      var correct=correctIndex();
+
+      if(correct>=0&&data.selection[correct]!==undefined){
+      gameoverAnswer.textContent=String(data.selection[correct]);
+      }else{
+      gameoverAnswer.textContent=String(data.answer||"-");
+      }
+      }else{
+      gameoverAnswer.textContent="-";
+      }
+
+      gameover.className="gameover show";
+      updateUI();
+      }
+
+      function restart(){
+      gameover.className="gameover";
+      lives=3;
+      save.streak=0;
+      locked=true;
+      updateLives();
+      updateUI();
+      loadQuestion();
+      }
+
+      function checkDay(){
+      if(save.date!==dateKey()){
+      resetSave();
+      lives=3;
+      updateLives();
+      updateUI();
+      toastMsg("Hari baru. Progress direset.");
+      loadQuestion();
+      }
+      }
+
+      document.getElementById("levelupBtn").onclick=function(){
+      levelup.className="levelup";
+      loadQuestion();
+      };
+
+      hintBtn.onclick=useHint;
+      newBtn.onclick=newQuestion;
+      document.getElementById("restartBtn").onclick=restart;
+
+      loadGame();
+      updateUI();
+      updateLives();
+      loadQuestion();
+
+      document.addEventListener("visibilitychange",function(){
+      if(document.visibilityState==="visible"){
+      checkDay();
+      }
+      });
+    </script>
+  </body>
+</html>

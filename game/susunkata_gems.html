@@ -1,0 +1,2505 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+
+    <meta name="theme-color" content="#08090d" />
+
+    <meta name="description" content="WHAT WORD? - Game tebak kata ringan." />
+
+    <title>GAME SUSUN KATA — DIMMZZZSUM_ENAK</title>
+
+    <style>
+
+      *{
+        box-sizing:border-box;
+        margin:0;
+        padding:0;
+        -webkit-tap-highlight-color:transparent;
+      }
+
+      html,
+      body{
+        width:100%;
+        min-height:100%;
+      }
+
+      body{
+        background:#08090d;
+        color:#f4f4f5;
+        font-family:Arial,sans-serif;
+        overflow-x:hidden;
+      }
+
+      button,
+      input{
+        font:inherit;
+      }
+
+      button{
+        border:0;
+        cursor:pointer;
+      }
+
+      .app{
+        width:100%;
+        max-width:520px;
+        min-height:100vh;
+        margin:auto;
+        padding:13px;
+      }
+
+      .header{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        margin-bottom:12px;
+      }
+
+      .logo{
+        display:flex;
+        align-items:center;
+        gap:8px;
+      }
+
+      .logo-icon{
+        width:38px;
+        height:38px;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        background:#15171f;
+        border:1px solid #282b35;
+        border-radius:10px;
+
+        color:#f1f1f3;
+        font-size:19px;
+        font-weight:bold;
+      }
+
+      .logo-text strong{
+        display:block;
+        font-size:15px;
+        letter-spacing:.5px;
+      }
+
+      .logo-text span{
+        display:block;
+        color:#6e727e;
+        font-size:9px;
+        margin-top:2px;
+      }
+
+      .coin{
+        background:#11131a;
+        border:1px solid #272a34;
+        border-radius:10px;
+        padding:8px 11px;
+
+        color:#aaaeb9;
+        font-size:11px;
+
+        white-space:nowrap;
+      }
+
+      .coin b{
+        color:#ffd45c;
+        font-size:13px;
+      }
+
+      .stats{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:6px;
+
+        margin-bottom:11px;
+      }
+
+      .stat{
+        background:#101117;
+        border:1px solid #20232d;
+        border-radius:10px;
+
+        padding:8px 3px;
+
+        text-align:center;
+      }
+
+      .stat-label{
+        display:block;
+
+        color:#696e7b;
+
+        font-size:7px;
+        text-transform:uppercase;
+        letter-spacing:.4px;
+
+        margin-bottom:3px;
+      }
+
+      .stat-value{
+        display:block;
+
+        color:#f0f1f4;
+
+        font-size:13px;
+        font-weight:bold;
+      }
+
+      .level-progress{
+        margin-bottom:11px;
+      }
+
+      .level-progress-top{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+
+        margin-bottom:5px;
+
+        color:#666b77;
+        font-size:9px;
+      }
+
+      .level-progress-top strong{
+        color:#aeb2bd;
+      }
+
+      .level-bar{
+        width:100%;
+        height:5px;
+
+        background:#1a1c24;
+
+        border-radius:20px;
+
+        overflow:hidden;
+      }
+
+      .level-fill{
+        width:0%;
+        height:100%;
+
+        background:#dfe0e4;
+
+        border-radius:20px;
+      }
+
+      .card{
+        position:relative;
+
+        background:#0e1016;
+
+        border:1px solid #222631;
+        border-radius:16px;
+
+        padding:16px;
+      }
+
+      .category{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        gap:7px;
+
+        color:#969ba8;
+
+        font-size:11px;
+
+        margin-bottom:11px;
+
+        text-transform:uppercase;
+        letter-spacing:.7px;
+      }
+
+      .category-icon{
+        width:22px;
+        height:22px;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        color:#dfe1e6;
+
+        background:#171922;
+
+        border:1px solid #292c36;
+        border-radius:7px;
+
+        font-size:10px;
+        font-weight:bold;
+      }
+
+      .question-wrap{
+        width:100%;
+        min-height:88px;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        text-align:center;
+
+        padding:7px 3px 12px;
+      }
+
+      .question{
+        width:100%;
+
+        color:#fff;
+
+        font-size:24px;
+
+        line-height:1.25;
+
+        font-weight:800;
+
+        letter-spacing:1px;
+
+        overflow-wrap:anywhere;
+        word-break:break-word;
+      }
+
+      .question.long{
+        font-size:20px;
+        letter-spacing:.5px;
+      }
+
+      .question.very-long{
+        font-size:17px;
+        letter-spacing:.2px;
+      }
+
+      .timer-info{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+
+        margin-bottom:5px;
+
+        color:#717682;
+
+        font-size:10px;
+      }
+
+      .timer-number{
+        color:#dddfe5;
+        font-weight:bold;
+      }
+
+      .timer-number.warning{
+        color:#ffb347;
+      }
+
+      .timer-number.danger{
+        color:#ff5555;
+      }
+
+      .timer-bar{
+        width:100%;
+        height:6px;
+
+        background:#1a1c24;
+
+        border-radius:20px;
+
+        overflow:hidden;
+
+        margin-bottom:14px;
+      }
+
+      .timer-fill{
+        width:100%;
+        height:100%;
+
+        background:#dedfe3;
+
+        border-radius:20px;
+      }
+
+      .timer-fill.warning{
+        background:#ffb347;
+      }
+
+      .timer-fill.danger{
+        background:#ff4d5c;
+      }
+
+      .lives{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        gap:8px;
+
+        margin-bottom:14px;
+      }
+
+      .life{
+        position:relative;
+
+        width:34px;
+        height:30px;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        color:#ff5965;
+
+        font-family:Arial,sans-serif;
+
+        font-size:27px;
+        line-height:1;
+
+        border:0;
+        background:transparent;
+
+      }
+
+      .life::before{
+        content:"♥";
+      }
+
+      .life.off{
+        color:#343640;
+        opacity:.35;
+      }
+
+      .input-box{
+        display:flex;
+        gap:7px;
+      }
+
+      .answer{
+        min-width:0;
+        flex:1;
+
+        height:46px;
+
+        padding:0 12px;
+
+        background:#090a0f;
+
+        border:1px solid #292d38;
+        border-radius:10px;
+
+        color:#fff;
+
+        outline:none;
+
+        font-size:14px;
+      }
+
+      .answer:focus{
+        border-color:#555b68;
+      }
+
+      .answer::placeholder{
+        color:#5e626e;
+      }
+
+      .btn{
+        height:46px;
+
+        border-radius:10px;
+
+        padding:0 15px;
+
+        font-weight:bold;
+        font-size:12px;
+      }
+
+      .btn-answer{
+        background:#ededf0;
+        color:#08090d;
+      }
+
+      .btn-answer:active{
+        transform:scale(.97);
+      }
+
+      .actions{
+        display:grid;
+
+        grid-template-columns:1fr 1fr;
+
+        gap:7px;
+
+        margin-top:8px;
+      }
+
+      .btn-secondary{
+        background:#151720;
+
+        border:1px solid #282c37;
+
+        color:#d8dbe2;
+      }
+
+      .btn-secondary:active{
+        background:#1b1e27;
+      }
+
+      .btn-secondary:disabled{
+        opacity:.4;
+        cursor:not-allowed;
+      }
+
+      .status{
+        min-height:22px;
+
+        text-align:center;
+
+        font-size:11px;
+
+        color:#777c88;
+
+        margin-top:11px;
+
+        line-height:1.4;
+      }
+
+      .status.good{
+        color:#76df98;
+      }
+
+      .status.bad{
+        color:#ff767e;
+      }
+
+      .status.info{
+        color:#b8bdc8;
+      }
+
+      .status.warn{
+        color:#ffc15d;
+      }
+
+      .hint-word{
+        display:inline-block;
+
+        color:#ffd45c;
+
+        font-weight:bold;
+
+        letter-spacing:3px;
+      }
+
+      .loading{
+        position:absolute;
+
+        inset:0;
+
+        background:#0e1016;
+
+        border-radius:16px;
+
+        display:flex;
+
+        align-items:center;
+        justify-content:center;
+
+        z-index:10;
+      }
+
+      .loading.hide{
+        display:none;
+      }
+
+      .loader-box{
+        text-align:center;
+      }
+
+      .loader-icon{
+        width:34px;
+        height:34px;
+
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        margin:0 auto 7px;
+
+        border-radius:10px;
+
+        background:#171922;
+
+        border:1px solid #292c36;
+
+        color:#dddfe5;
+
+        font-size:16px;
+        font-weight:bold;
+      }
+
+      .loader-text{
+        color:#777c88;
+        font-size:10px;
+      }
+
+      .shake{
+        animation:shake .18s linear;
+      }
+
+      @keyframes shake{
+
+        0%{
+          transform:translateX(0);
+        }
+
+        25%{
+          transform:translateX(-4px);
+        }
+
+        50%{
+          transform:translateX(4px);
+        }
+
+        75%{
+          transform:translateX(-3px);
+        }
+
+        100%{
+          transform:translateX(0);
+        }
+
+      }
+
+      .level-up{
+        position:fixed;
+
+        left:50%;
+        top:30px;
+
+        transform:
+          translate(-50%,-10px);
+
+        z-index:300;
+
+        background:#151720;
+
+        border:1px solid #373b47;
+
+        border-radius:11px;
+
+        padding:11px 16px;
+
+        text-align:center;
+
+        opacity:0;
+
+        pointer-events:none;
+
+        transition:
+          opacity .15s,
+          transform .15s;
+      }
+
+      .level-up.show{
+        opacity:1;
+
+        transform:
+          translate(-50%,0);
+      }
+
+      .level-up-title{
+        color:#fff;
+
+        font-size:11px;
+
+        font-weight:bold;
+
+        letter-spacing:1px;
+      }
+
+      .level-up-number{
+        margin-top:3px;
+
+        color:#ffd45c;
+
+        font-size:19px;
+
+        font-weight:900;
+      }
+
+      .horror{
+        position:fixed;
+
+        inset:0;
+
+        background:#030305;
+
+        display:none;
+
+        align-items:center;
+        justify-content:center;
+
+        z-index:999;
+      }
+
+      .horror.show{
+        display:flex;
+      }
+
+      .horror-box{
+        width:90%;
+        max-width:380px;
+
+        text-align:center;
+      }
+
+      .horror-face{
+        position:relative;
+
+        width:145px;
+        height:102px;
+
+        margin:0 auto 20px;
+
+        background:#060608;
+
+        border:2px solid #3d1116;
+
+        border-radius:50%;
+      }
+
+      .eye{
+        position:absolute;
+
+        top:29px;
+
+        width:27px;
+        height:15px;
+
+        background:#e83240;
+
+        border-radius:50%;
+      }
+
+      .eye.left{
+        left:27px;
+      }
+
+      .eye.right{
+        right:27px;
+      }
+
+      .mouth{
+        position:absolute;
+
+        left:34px;
+        right:34px;
+
+        bottom:18px;
+
+        height:21px;
+
+        border-bottom:3px solid #e83240;
+
+        border-radius:
+          0 0 50% 50%;
+      }
+
+      .horror-title{
+        color:#e83240;
+
+        font-size:23px;
+
+        font-weight:900;
+
+        letter-spacing:3px;
+
+        margin-bottom:7px;
+      }
+
+      .horror-text{
+        color:#74717a;
+
+        font-size:10px;
+
+        line-height:1.5;
+      }
+
+      .horror-answer{
+        margin-top:9px;
+
+        color:#aaa;
+
+        font-size:10px;
+      }
+
+      .horror-button{
+        margin-top:19px;
+
+        height:42px;
+
+        padding:0 19px;
+
+        border-radius:9px;
+
+        background:#eee;
+
+        color:#08090d;
+
+        font-weight:bold;
+
+        font-size:11px;
+      }
+
+      .horror.show .horror-face{
+        animation:faceIn .2s ease-out;
+      }
+
+      @keyframes faceIn{
+
+        0%{
+          opacity:0;
+          transform:scale(.8);
+        }
+
+        100%{
+          opacity:1;
+          transform:scale(1);
+        }
+
+      }
+
+      .footer{
+        text-align:center;
+
+        padding:13px 0 3px;
+
+        color:#4e525e;
+
+        font-size:8px;
+      }
+
+      @media(max-width:360px){
+
+        .app{
+          padding:10px;
+        }
+
+        .card{
+          padding:13px;
+        }
+
+        .stats{
+          gap:4px;
+        }
+
+        .stat-value{
+          font-size:12px;
+        }
+
+        .question-wrap{
+          min-height:78px;
+        }
+
+        .question{
+          font-size:20px;
+        }
+
+        .input-box{
+          flex-direction:column;
+        }
+
+        .answer{
+          width:100%;
+        }
+
+        .btn-answer{
+          width:100%;
+        }
+
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="logo">
+          <div class="logo-icon">?</div>
+
+          <div class="logo-text">
+            <strong> SUSUN KATA! </strong>
+
+            <span> BY DIMMZZZSUM_ENAK </span>
+          </div>
+        </div>
+
+        <div class="coin">
+          COIN
+          <b id="coin">5</b>
+        </div>
+      </header>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat-label"> Level </span>
+
+          <span class="stat-value" id="level"> 1 </span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label"> Point </span>
+
+          <span class="stat-value" id="score"> 0 </span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label"> Streak </span>
+
+          <span class="stat-value" id="streak"> 0 </span>
+        </div>
+
+        <div class="stat">
+          <span class="stat-label"> LV Streak </span>
+
+          <span class="stat-value" id="levelStreak"> 0 </span>
+        </div>
+      </div>
+
+      <div class="level-progress">
+        <div class="level-progress-top">
+          <span> Progress level </span>
+
+          <strong id="levelProgressText"> 0 / 100 </strong>
+        </div>
+
+        <div class="level-bar">
+          <div class="level-fill" id="levelFill"></div>
+        </div>
+      </div>
+
+      <main class="card" id="gameCard">
+        <div class="loading" id="loading">
+          <div class="loader-box">
+            <div class="loader-icon">?</div>
+
+            <div class="loader-text">Nyari soal...</div>
+          </div>
+        </div>
+
+        <div class="category">
+          <span class="category-icon" id="categoryIcon"> ? </span>
+
+          <span id="category"> SABAR.. </span>
+        </div>
+
+        <div class="question-wrap">
+          <div class="question" id="question">-</div>
+        </div>
+
+        <div class="timer-info">
+          <span> Waktu </span>
+
+          <span class="timer-number" id="timerNumber"> 20s </span>
+        </div>
+
+        <div class="timer-bar">
+          <div class="timer-fill" id="timerFill"></div>
+        </div>
+
+        <div class="lives" id="lives">
+          <div class="life"></div>
+
+          <div class="life"></div>
+
+          <div class="life"></div>
+        </div>
+
+        <div class="input-box">
+          <input
+            type="text"
+            id="answer"
+            class="answer"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="characters"
+            spellcheck="false"
+            placeholder="Ketik jawaban.."
+          />
+
+          <button class="btn btn-answer" id="submitBtn" type="button">
+            JAWAB
+          </button>
+        </div>
+
+        <div class="actions">
+          <button class="btn btn-secondary" id="hintBtn" type="button">
+            HINT • 2 COIN
+          </button>
+
+          <button class="btn btn-secondary" id="nextBtn" type="button">
+            SOAL BARU • 1
+          </button>
+        </div>
+
+        <div class="status" id="status">
+          Tebak kata dari huruf acak di atas.
+        </div>
+      </main>
+
+      <div class="footer">WHAT WORD? • SUSUN KATA GAME</div>
+    </div>
+
+    <div class="level-up" id="levelUp">
+      <div class="level-up-title">LEVEL UP</div>
+
+      <div class="level-up-number" id="levelUpNumber">LEVEL 2</div>
+    </div>
+
+    <div class="horror" id="horror">
+      <div class="horror-box">
+        <div class="horror-face">
+          <div class="eye left"></div>
+
+          <div class="eye right"></div>
+
+          <div class="mouth"></div>
+        </div>
+
+        <div class="horror-title">GAME OVER</div>
+
+        <div class="horror-text">
+          Kesempatanmu habis.<br />
+
+          Jangan terlalu lama mikir, nanti jadi kepikiran wkwk...
+        </div>
+
+        <div class="horror-answer">
+          Jawaban:
+
+          <b id="correctAnswer"> - </b>
+        </div>
+
+        <button class="horror-button" id="restartBtn" type="button">
+          MAIN LAGI
+        </button>
+      </div>
+    </div>
+
+    <script>
+
+      (function(){
+
+      "use strict";
+
+      var API_URL=String.fromCharCode(104,116,116,112,115,58,47,47,97,112,105,46,110,101,111,120,114,46,101,117,47,97,112,105,47,119,104,97,116,119,111,114,100,63,97,112,105,107,101,121,61,103,66,119,52,98,102,106,53,104,97,113,89);
+
+      var QUESTION_TIME =
+      20;
+
+      var MAX_LIVES =
+      3;
+
+      var NEW_QUESTION_COST =
+      1;
+
+      var HINT_COST =
+      2;
+
+      var LEVEL_POINTS =
+      100;
+
+      var el = {
+
+      loading:
+      document.getElementById("loading"),
+
+      category:
+      document.getElementById("category"),
+
+      categoryIcon:
+      document.getElementById("categoryIcon"),
+
+      question:
+      document.getElementById("question"),
+
+      timerNumber:
+      document.getElementById("timerNumber"),
+
+      timerFill:
+      document.getElementById("timerFill"),
+
+      lives:
+      document.getElementById("lives"),
+
+      answer:
+      document.getElementById("answer"),
+
+      submitBtn:
+      document.getElementById("submitBtn"),
+
+      hintBtn:
+      document.getElementById("hintBtn"),
+
+      nextBtn:
+      document.getElementById("nextBtn"),
+
+      status:
+      document.getElementById("status"),
+
+      score:
+      document.getElementById("score"),
+
+      streak:
+      document.getElementById("streak"),
+
+      level:
+      document.getElementById("level"),
+
+      levelStreak:
+      document.getElementById("levelStreak"),
+
+      coin:
+      document.getElementById("coin"),
+
+      levelFill:
+      document.getElementById("levelFill"),
+
+      levelProgressText:
+      document.getElementById(
+      "levelProgressText"
+      ),
+
+      gameCard:
+      document.getElementById("gameCard"),
+
+      horror:
+      document.getElementById("horror"),
+
+      correctAnswer:
+      document.getElementById("correctAnswer"),
+
+      restartBtn:
+      document.getElementById("restartBtn"),
+
+      levelUp:
+      document.getElementById("levelUp"),
+
+      levelUpNumber:
+      document.getElementById(
+      "levelUpNumber"
+      )
+
+      };
+
+      var state = {
+
+      answer:"",
+
+      category:"",
+
+      question:"",
+
+      lives:MAX_LIVES,
+
+      score:0,
+
+      streak:0,
+
+      levelStreak:0,
+
+      coin:5,
+
+      level:1,
+
+      time:QUESTION_TIME,
+
+      timer:null,
+
+      loading:false,
+
+      answered:false,
+
+      hintUsed:false,
+
+      currentDate:""
+
+      };
+
+      function getDateKey(){
+
+      var now =
+      new Date();
+
+      var y =
+      now.getFullYear();
+
+      var m =
+      String(
+      now.getMonth()+1
+      );
+
+      var d =
+      String(
+      now.getDate()
+      );
+
+      if(m.length < 2){
+      m="0"+m;
+      }
+
+      if(d.length < 2){
+      d="0"+d;
+      }
+
+      return (
+      y+"-"+m+"-"+d
+      );
+
+      }
+
+      function loadSave(){
+
+      try{
+
+      var raw =
+      localStorage.getItem(
+      "whatword_save"
+      );
+
+      if(!raw){
+
+      state.currentDate =
+      getDateKey();
+
+      saveGame();
+
+      updateStats();
+
+      return;
+
+      }
+
+      var saved =
+      JSON.parse(raw);
+
+      var today =
+      getDateKey();
+
+      if(
+      saved.date &&
+      saved.date !== today
+      ){
+
+      state.score=0;
+
+      state.streak=0;
+
+      state.levelStreak=0;
+
+      state.level=1;
+
+      state.coin=5;
+
+      state.currentDate=
+      today;
+
+      saveGame();
+
+      }else{
+
+      state.score =
+      Number(saved.score) || 0;
+
+      state.streak =
+      Number(saved.streak) || 0;
+
+      state.levelStreak =
+      Number(saved.levelStreak) || 0;
+
+      state.coin =
+      typeof saved.coin === "number"
+      ? saved.coin
+      : 5;
+
+      state.level =
+      Math.floor(
+      state.score /
+      LEVEL_POINTS
+      )+1;
+
+      state.currentDate =
+      today;
+
+      }
+
+      }catch(e){
+
+      state.score=0;
+
+      state.streak=0;
+
+      state.levelStreak=0;
+
+      state.coin=5;
+
+      state.level=1;
+
+      state.currentDate=
+      getDateKey();
+
+      }
+
+      updateStats();
+
+      }
+
+      function saveGame(){
+
+      try{
+
+      localStorage.setItem(
+
+      "whatword_save",
+
+      JSON.stringify({
+
+      date:
+      state.currentDate ||
+      getDateKey(),
+
+      score:
+      state.score,
+
+      streak:
+      state.streak,
+
+      levelStreak:
+      state.levelStreak,
+
+      coin:
+      state.coin,
+
+      level:
+      state.level
+
+      })
+
+      );
+
+      }catch(e){}
+
+      }
+
+      function checkNewDay(){
+
+      var today =
+      getDateKey();
+
+      if(
+      state.currentDate &&
+      state.currentDate !== today
+      ){
+
+      state.currentDate =
+      today;
+
+      state.score=0;
+
+      state.streak=0;
+
+      state.levelStreak=0;
+
+      state.coin=5;
+
+      state.level=1;
+
+      saveGame();
+
+      updateStats();
+
+      }
+
+      }
+
+      setInterval(checkNewDay,60000);
+
+      function updateStats(){
+
+      var calculatedLevel =
+      Math.floor(
+      state.score /
+      LEVEL_POINTS
+      )+1;
+
+      if(
+      calculatedLevel >
+      state.level
+      ){
+      state.level =
+      calculatedLevel;
+
+      state.levelStreak++;
+
+      state.coin += 5;
+
+      saveGame();
+
+      showLevelUp(
+      calculatedLevel
+      );
+
+      }else{
+
+      state.level =
+      calculatedLevel;
+
+      }
+
+      var levelStart =
+      (state.level-1) *
+      LEVEL_POINTS;
+
+      var levelPoint =
+      state.score -
+      levelStart;
+
+      var percent =
+      (levelPoint /
+      LEVEL_POINTS) *
+      100;
+
+      if(percent < 0){
+      percent=0;
+      }
+
+      if(percent > 100){
+      percent=100;
+      }
+
+      el.score.textContent =
+      state.score;
+
+      el.streak.textContent =
+      state.streak;
+
+      el.level.textContent =
+      state.level;
+
+      el.levelStreak.textContent =
+      state.levelStreak;
+
+      el.coin.textContent =
+      state.coin;
+
+      el.levelFill.style.width =
+      percent+"%";
+
+      el.levelProgressText.textContent =
+      levelPoint+
+      " / "+
+      LEVEL_POINTS;
+
+      }
+
+      var levelUpTimer =
+      null;
+
+      function showLevelUp(level){
+
+      el.levelUpNumber.textContent =
+      "LEVEL "+level;
+
+      el.levelUp.className =
+      "level-up show";
+
+      if(levelUpTimer){
+
+      clearTimeout(
+      levelUpTimer
+      );
+
+      }
+
+      levelUpTimer =
+      setTimeout(function(){
+
+      el.levelUp.className =
+      "level-up";
+
+      },1800);
+
+      }
+
+      function getCategoryIcon(category){
+
+      var c =
+      String(category || "")
+      .toLowerCase();
+
+      if(c.indexOf("buah") !== -1)
+      return "B";
+
+      if(c.indexOf("hewan") !== -1)
+      return "H";
+
+      if(c.indexOf("binatang") !== -1)
+      return "H";
+
+      if(c.indexOf("makanan") !== -1)
+      return "M";
+
+      if(c.indexOf("minuman") !== -1)
+      return "D";
+
+      if(c.indexOf("kendaraan") !== -1)
+      return "K";
+
+      if(c.indexOf("transport") !== -1)
+      return "T";
+
+      if(c.indexOf("negara") !== -1)
+      return "N";
+
+      if(c.indexOf("kota") !== -1)
+      return "K";
+
+      if(c.indexOf("profesi") !== -1)
+      return "P";
+
+      if(c.indexOf("pekerjaan") !== -1)
+      return "P";
+
+      if(c.indexOf("benda") !== -1)
+      return "B";
+
+      if(c.indexOf("warna") !== -1)
+      return "W";
+
+      if(c.indexOf("olahraga") !== -1)
+      return "O";
+
+      if(c.indexOf("teknologi") !== -1)
+      return "T";
+
+      if(c.indexOf("film") !== -1)
+      return "F";
+
+      if(c.indexOf("musik") !== -1)
+      return "M";
+
+      if(c.indexOf("sekolah") !== -1)
+      return "S";
+
+      return "?";
+
+      }
+
+      function adjustQuestion(){
+
+      var text =
+      el.question.textContent || "";
+
+      el.question.className =
+      "question";
+
+      if(
+      text.length > 25
+      ){
+
+      el.question.className +=
+      " long";
+
+      }
+
+      if(
+      text.length > 40
+      ){
+
+      el.question.className +=
+      " very-long";
+
+      }
+
+      }
+
+      function setLoadingUI(busy){
+      state.loading=busy;
+      el.loading.className=busy?"loading":"loading hide";
+      el.submitBtn.disabled=busy;
+      el.hintBtn.disabled=busy;
+      el.nextBtn.disabled=busy;
+      }
+
+      function getQuestion(){
+
+      if(state.loading){
+
+      return;
+
+      }
+
+      state.loading=true;
+
+      state.answered=false;
+
+      state.hintUsed=false;
+
+      stopTimer();
+
+      el.loading.className =
+      "loading";
+
+      el.answer.value =
+      "";
+
+      el.submitBtn.disabled =
+      true;
+
+      el.hintBtn.disabled =
+      true;
+
+      el.nextBtn.disabled =
+      true;
+
+      el.status.className =
+      "status";
+
+      el.status.textContent =
+      "Nyari soal...";
+
+      var xhr =
+      new XMLHttpRequest();
+
+      xhr.open(
+      "GET",
+      API_URL,
+      true
+      );
+
+      xhr.timeout =
+      15000;
+
+      xhr.onreadystatechange =
+      function(){
+
+      if(
+      xhr.readyState !== 4
+      ){
+
+      return;
+
+      }
+
+      setLoadingUI(false);
+
+      if(
+      xhr.status >= 200 &&
+      xhr.status < 300
+      ){
+
+      try{
+
+      var json =
+      JSON.parse(
+      xhr.responseText
+      );
+
+      if(
+      json &&
+      json.status &&
+      json.data &&
+      json.data.pertanyaan &&
+      json.data.jawaban
+      ){
+
+      state.category =
+      String(
+      json.data.tipe ||
+      "Umum"
+      );
+
+      state.question =
+      String(
+      json.data.pertanyaan ||
+      ""
+      );
+
+      state.answer =
+      String(
+      json.data.jawaban ||
+      ""
+      )
+      .trim()
+      .toUpperCase();
+
+      el.category.textContent =
+      state.category.toUpperCase();
+
+      el.categoryIcon.textContent =
+      getCategoryIcon(
+      state.category
+      );
+
+      el.question.textContent =
+      state.question;
+
+      adjustQuestion();
+
+      resetTimer();
+
+      el.status.className =
+      "status"; 
+
+      el.status.textContent =
+      "Tebak katanya sebelum waktu habis.";
+
+      }else{
+
+      apiError();
+
+      }
+
+      }catch(e){ 
+
+      apiError();
+
+      }
+
+      }else{
+
+      apiError();
+
+      }
+
+      };
+
+      xhr.onerror =
+      function(){
+
+      setLoadingUI(false);
+
+      apiError();
+
+      };
+
+      xhr.ontimeout =
+      function(){
+
+      setLoadingUI(false);
+
+      apiError();
+
+      };
+
+      xhr.send();
+
+      }
+
+      function apiError(){
+
+      el.status.className =
+      "status bad";
+
+      el.status.textContent =
+      "Gagal ambil soal. Coba lagi.";
+
+      }
+
+      function resetTimer(){
+
+      stopTimer();
+
+      state.time =
+      QUESTION_TIME;
+
+      updateTimer();
+
+      state.timer =
+      setInterval(
+      function(){
+
+      state.time--;
+
+      updateTimer();
+
+      if(
+      state.time <= 0
+      ){
+
+      stopTimer();
+
+      if(
+      !state.answered
+      ){
+
+      timeOut();
+
+      }
+
+      }
+
+      },
+      1000
+      );
+
+      }
+
+      function stopTimer(){
+
+      if(state.timer){
+
+      clearInterval(
+      state.timer
+      );
+
+      state.timer=null;
+
+      }
+
+      }
+
+      function updateTimer(){
+
+      var percent =
+      (state.time /
+      QUESTION_TIME) *
+      100;
+
+      if(percent < 0){
+
+      percent=0;
+
+      }
+
+      el.timerFill.style.width =
+      percent+"%";
+
+      el.timerFill.className =
+      "timer-fill";
+
+      el.timerNumber.className =
+      "timer-number";
+
+      if(
+      state.time <= 7
+      ){
+
+      el.timerFill.className +=
+      " danger";
+
+      el.timerNumber.className +=
+      " danger";
+
+      }else if(
+      state.time <= 10
+      ){
+
+      el.timerFill.className +=
+      " warning";
+
+      el.timerNumber.className +=
+      " warning";
+
+      }
+
+      el.timerNumber.textContent =
+      state.time+"s";
+
+      }
+
+      function updateLives(){
+
+      var children =
+      el.lives.children;
+
+      for(
+      var i=0;
+      i<children.length;
+      i++
+      ){
+
+      if(
+      i < state.lives
+      ){
+
+      children[i].className =
+      "life";
+
+      }else{
+
+      children[i].className =
+      "life off";
+
+      }
+
+      }
+
+      }
+
+      function loseLife(){
+
+      state.lives--;
+
+      updateLives();
+
+      if(
+      state.lives <= 0
+      ){
+
+      gameOver();
+
+      return false;
+
+      }
+
+      return true;
+
+      }
+
+      function normalizeWord(word){
+
+      return String(
+      word || ""
+      )
+      .toUpperCase()
+      .replace(
+      /[^A-Z0-9]/g,
+      ""
+      );
+
+      }
+
+      function levenshtein(a,b){
+      a=normalizeWord(a);
+      b=normalizeWord(b);
+      if(a===b)return 0;
+      if(!a.length)return b.length;
+      if(!b.length)return a.length;
+      if(a.length>b.length){
+      var t=a;a=b;b=t;
+      }
+      var prev=[],cur=[],i,j;
+      for(i=0;i<=a.length;i++)prev[i]=i;
+      for(i=1;i<=b.length;i++){
+      cur[0]=i;
+      for(j=1;j<=a.length;j++){
+      cur[j]=b.charAt(i-1)===a.charAt(j-1)?prev[j-1]:Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+1);
+      }
+      var tmp=prev;prev=cur;cur=tmp;
+      }
+      return prev[a.length];
+      }
+
+      function isAlmostCorrect(
+      input,
+      answer
+      ){
+
+      var a =
+      normalizeWord(input);
+
+      var b =
+      normalizeWord(answer);
+
+      if(!a || !b){
+
+      return false;
+
+      }
+
+      if(a === b){
+
+      return false;
+
+      }
+
+      var maxDiff;
+
+      if(b.length <= 4){
+
+      maxDiff=1;
+
+      }else{
+
+      maxDiff=2;
+
+      }
+
+      return (
+      levenshtein(a,b)
+      <= maxDiff
+      );
+
+      }
+
+      function submitAnswer(){
+
+      if(
+      state.loading ||
+      state.answered
+      ){
+
+      return;
+
+      }
+
+      var value =
+      String(
+      el.answer.value || ""
+      )
+      .trim()
+      .toUpperCase();
+
+      if(!value){
+
+      el.answer.focus();
+
+      return;
+
+      }
+
+      var normalized =
+      normalizeWord(value);
+
+      var correct =
+      normalizeWord(
+      state.answer
+      );
+
+      if(
+      normalized === correct
+      ){
+
+      correctAnswer();
+
+      return;
+
+      }
+
+      if(
+      isAlmostCorrect(
+      value,
+      state.answer
+      )
+      ){
+
+      almostAnswer();
+
+      return;
+
+      }
+
+      wrongAnswer();
+
+      }
+
+      function correctAnswer(){
+
+      state.answered=true;
+
+      stopTimer();
+
+      var randomPoint =
+      Math.floor(
+      Math.random()*13
+      )+8;
+
+      var timeBonus =
+      Math.floor(
+      state.time/4
+      );
+
+      var streakBonus =
+      Math.min(
+      state.streak,
+      10
+      );
+
+      var gained =
+      randomPoint+
+      timeBonus+
+      streakBonus;
+
+      state.score +=
+      gained;
+
+      state.coin +=
+      1;
+
+      state.streak++;
+
+      if(
+      state.streak > 0 &&
+      state.streak % 5 === 0
+      ){
+
+      state.coin += 3;
+
+      }
+
+      updateStats();
+
+      saveGame();
+
+      el.status.className =
+      "status good";
+
+      el.status.textContent =
+      "Benar! +"+
+      gained+
+      " point • +1 coin";
+
+      el.answer.value =
+      "";
+
+      setTimeout(
+      function(){
+
+      getQuestion();
+
+      },
+      600
+      );
+
+      }
+
+      function almostAnswer(){
+
+      state.streak=0;
+
+      saveGame();
+
+      updateStats();
+
+      resetTimer();
+
+      el.answer.value =
+      "";
+
+      var messages=[
+
+      "Dikit lagi.",
+
+      "Sedikit lagi, hampir benar.",
+
+      "Udah deket banget.",
+
+      "Nyaris! Coba perbaiki sedikit.",
+
+      "Hampir kena."
+
+      ];
+
+      var message =
+      messages[
+      Math.floor(
+      Math.random()*
+      messages.length
+      )
+      ];
+
+      el.status.className =
+      "status warn";
+
+      el.status.textContent =
+      message;
+
+      el.answer.focus();
+
+      }
+
+      function wrongAnswer(){
+
+      el.gameCard.className =
+      "card shake";
+
+      setTimeout(
+      function(){
+
+      el.gameCard.className =
+      "card";
+
+      },
+      220
+      );
+
+      var alive =
+      loseLife();
+
+      if(!alive){
+
+      return;
+
+      }
+
+      state.streak=0;
+
+      saveGame();
+
+      updateStats();
+
+      resetTimer();
+
+      el.answer.value =
+      "";
+
+      var messages=[
+
+      "Salah wkwk.",
+
+      "Bukan itu jawabannya.",
+
+      "Masih salah, coba lagi.",
+
+      "Yakin itu?",
+
+      "Belum tepat.",
+
+      "Coba pikir lagi."
+
+      ];
+
+      var message =
+      messages[
+      Math.floor(
+      Math.random()*
+      messages.length
+      )
+      ];
+
+      el.status.className =
+      "status bad";
+
+      el.status.textContent =
+      message;
+
+      el.answer.focus();
+
+      }
+
+      function timeOut(){
+
+      var alive =
+      loseLife();
+
+      if(!alive){
+
+      return;
+
+      }
+
+      state.streak=0;
+
+      saveGame();
+
+      updateStats();
+
+      el.status.className =
+      "status bad";
+
+      el.status.textContent =
+      "Waktu habis.";
+
+      resetTimer();
+
+      }
+
+      function buildHint(answer){
+
+      var word =
+      normalizeWord(answer);
+
+      var length =
+      word.length;
+
+      var revealCount;
+
+      if(
+      length <= 4
+      ){
+
+      revealCount=2;
+
+      }else if(
+      length <= 6
+      ){
+
+      revealCount=2;
+
+      }else if(
+      length <= 8
+      ){
+
+      revealCount=3;
+
+      }else{
+
+      revealCount =
+      Math.max(
+      3,
+      Math.floor(
+      length*0.4
+      )
+      );
+
+      }
+
+      if(
+      revealCount >= length
+      ){
+
+      revealCount =
+      Math.max(
+      2,
+      length-1
+      );
+
+      }
+
+      var positions=[];
+
+      for(
+      var i=0;
+      i<length;
+      i++
+      ){
+
+      positions.push(i);
+
+      }
+
+      for(
+      var j=positions.length-1;
+      j>0;
+      j--
+      ){
+
+      var k =
+      Math.floor(
+      Math.random()*(j+1)
+      );
+
+      var temp =
+      positions[j];
+
+      positions[j]=
+      positions[k];
+
+      positions[k]=
+      temp;
+
+      }
+
+      var reveal={};
+
+      for(
+      var x=0;
+      x<revealCount;
+      x++
+      ){
+
+      reveal[
+      positions[x]
+      ]=true;
+
+      }
+
+      var result="";
+
+      for(
+      var p=0;
+      p<length;
+      p++
+      ){
+
+      if(
+      reveal[p]
+      ){
+
+      result +=
+      word.charAt(p);
+
+      }else{
+
+      result +=
+      "_";
+
+      }
+
+      if(
+      p < length-1
+      ){
+
+      result +=
+      " ";
+
+      }
+
+      }
+
+      return result;
+
+      }
+
+      function useHint(){
+
+      if(
+      state.loading ||
+      state.answered
+      ){
+
+      return;
+
+      }
+
+      if(
+      state.hintUsed
+      ){
+
+      return;
+
+      }
+
+      if(
+      state.coin < HINT_COST
+      ){
+
+      return;
+
+      }
+
+      state.coin -=
+      HINT_COST;
+
+      state.hintUsed=true;
+
+      saveGame();
+
+      updateStats();
+
+      var hint =
+      buildHint(
+      state.answer
+      );
+
+      el.status.className =
+      "status info";
+
+      el.status.innerHTML =
+      "Petunjuk: "+
+      '<span class="hint-word">'+
+      hint+
+      "</span>";
+
+      el.hintBtn.disabled =
+      true;
+
+      }
+
+      function nextQuestion(){
+
+      if(state.loading){
+
+      return;
+
+      }
+
+      if(
+      state.coin <
+      NEW_QUESTION_COST
+      ){
+
+      return;
+
+      }
+
+      state.coin -=
+      NEW_QUESTION_COST;
+
+      saveGame();
+
+      updateStats();
+
+      getQuestion();
+
+      }
+
+      function gameOver(){
+
+      stopTimer();
+
+      state.answered=true;
+
+      el.correctAnswer.textContent =
+      state.answer || "-";
+
+      el.horror.className =
+      "horror show";
+
+      }
+
+      function restart(){
+
+      el.horror.className =
+      "horror";
+
+      state.lives =
+      MAX_LIVES;
+
+      state.streak=0;
+
+      state.answered=false;
+
+      updateLives();
+
+      saveGame();
+
+      updateStats();
+
+      getQuestion();
+
+      }
+      el.submitBtn.onclick =
+      submitAnswer;
+
+      el.hintBtn.onclick =
+      useHint;
+
+      el.nextBtn.onclick =
+      nextQuestion;
+
+      el.restartBtn.onclick =
+      restart;
+
+      el.answer.onkeydown =
+      function(e){
+
+      if(
+      e.key === "Enter"
+      ){
+
+      submitAnswer();
+
+      }
+
+      };
+
+      loadSave();
+
+      updateLives();
+
+      updateStats();
+
+      getQuestion();
+
+      })();
+    </script>
+  </body>
+</html>

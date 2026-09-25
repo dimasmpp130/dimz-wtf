@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#080a0f" />
+    <meta
+      name="description"
+      content="TEBAK LAGU - Tebak judul lagu dari audio."
+    />
+    <title>TEBAK LAGU — DIMMZZZSUM_ENAK</title>
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}
+      html,body{min-height:100%}
+      body{font-family:Arial,Helvetica,sans-serif;background:#080a0f;color:#f4f5f7;-webkit-tap-highlight-color:transparent}
+      button,input{font:inherit}
+      button{cursor:pointer}
+      .app{width:100%;max-width:720px;margin:auto;padding:14px}
+      .header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}
+      .brand h1{font-size:21px;font-weight:900;letter-spacing:-.5px}
+      .brand p{margin-top:3px;color:#858b98;font-size:11px}
+      .coin-box{display:flex;align-items:center;gap:6px;padding:7px 10px;border:1px solid #242935;border-radius:9px;background:#0d1016;color:#ffd45a;font-size:13px;font-weight:800}
+      .coin-icon{width:15px;height:15px;border:2px solid #ffd45a;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:8px}
+      .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:10px}
+      .stat{min-width:0;padding:9px 6px;background:#0d1016;border:1px solid #202530;border-radius:9px;text-align:center}
+      .stat-label{color:#737a88;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.5px}
+      .stat-value{margin-top:3px;font-size:14px;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+      .level{color:#8ea8ff}
+      .streak{color:#ffb84d}
+      .lvstreak{color:#b58cff}
+      .level-info{display:flex;justify-content:space-between;margin:8px 2px 5px;color:#777e8c;font-size:9px}
+      .progress{height:4px;background:#171b23;border-radius:99px;overflow:hidden;margin-bottom:12px}
+      .progress-bar{width:0;height:100%;background:#7d8cff;transition:width .2s}
+      .game-card{background:#0d1016;border:1px solid #202530;border-radius:14px;padding:14px}
+      .question-tag{color:#7d8cff;font-size:9px;font-weight:900;letter-spacing:1px}
+      .question-title{margin-top:5px;font-size:20px;font-weight:900}
+      .question-sub{margin-top:4px;color:#7c8390;font-size:11px}
+      .timer-row{display:flex;justify-content:space-between;margin-top:16px;margin-bottom:6px}
+      .timer-label{color:#777e8c;font-size:10px;font-weight:700}
+      .timer-text{font-size:12px;font-weight:900}
+      .timer-track{height:5px;border-radius:99px;overflow:hidden;background:#181c24}
+      .timer-bar{width:100%;height:100%;background:#7d8cff;transition:width .2s}
+      .lives{display:flex;gap:4px;margin-top:11px}
+      .life{color:#ff5e6c;font-size:19px;line-height:1}
+      .life.dead{color:#30343d}
+      .audio-box{margin-top:16px;padding:12px;border:1px solid #252b35;border-radius:11px;background:#0a0d12}
+      .audio-title{display:flex;align-items:center;gap:9px;margin-bottom:9px}
+      .music-icon{width:34px;height:34px;border:1px solid #303744;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#9ba8ff;font-size:14px;font-weight:900}
+      .audio-title strong{display:block;font-size:12px}
+      .audio-title span{display:block;margin-top:2px;color:#69717e;font-size:9px}
+      audio{display:block;width:100%;height:36px}
+      .answer-area{margin-top:14px}
+      .answer-label{display:block;margin-bottom:6px;color:#858c99;font-size:10px;font-weight:800}
+      .answer-input{width:100%;height:46px;padding:0 12px;border:1px solid #2a303b;border-radius:9px;outline:none;background:#080b10;color:#fff;font-size:13px}
+      .answer-input::placeholder{color:#555d6a}
+      .answer-input:focus{border-color:#707fff}
+      .answer-input.correct{border-color:#35c98b;color:#72e7b3}
+      .answer-input.wrong{border-color:#ff5e6c;color:#ff8b96}
+      .btn-answer{width:100%;height:44px;margin-top:8px;border:0;border-radius:9px;background:#7d8cff;color:#fff;font-size:12px;font-weight:900}
+      .btn-answer:disabled{opacity:.45;cursor:not-allowed}
+      .result{display:none;margin-top:10px;padding:11px;border-radius:9px;border:1px solid #292f39;background:#0a0d12}
+      .result.show{display:block}
+      .result-title{font-size:12px;font-weight:900}
+      .result-title.good{color:#58dca1}
+      .result-title.bad{color:#ff6975}
+      .result-answer{margin-top:4px;color:#dfe2e7;font-size:11px;line-height:1.45}
+      .result-explanation{margin-top:6px;color:#777f8c;font-size:10px;line-height:1.45}
+      .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+      .btn-secondary{height:40px;border:1px solid #292f39;border-radius:8px;background:#10141b;color:#d8dbe0;font-size:10px;font-weight:900}
+      .btn-secondary:disabled{opacity:.4;cursor:not-allowed}
+      .status{min-height:17px;margin-top:8px;color:#727a88;text-align:center;font-size:9px;line-height:1.4}
+      .modal{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(0,0,0,.78)}
+      .modal.show{display:flex}
+      .modal-box{width:100%;max-width:340px;padding:20px;border:1px solid #2a303b;border-radius:14px;background:#0d1016;text-align:center}
+      .modal-icon{width:48px;height:48px;margin:0 auto 10px;border:1px solid #353c49;border-radius:11px;display:flex;align-items:center;justify-content:center;color:#8ea0ff;font-size:19px;font-weight:900}
+      .modal-box h2{font-size:19px}
+      .modal-box p{margin-top:6px;color:#777f8c;font-size:11px;line-height:1.5}
+      .modal-reward{margin-top:10px;color:#ffd45a;font-size:12px;font-weight:900}
+      .modal-btn{width:100%;height:41px;margin-top:14px;border:0;border-radius:8px;background:#7d8cff;color:#fff;font-size:11px;font-weight:900}
+      .gameover-title{color:#ff6874;font-size:20px;font-weight:900}
+      .gameover-score{margin-top:7px;color:#8b93a1;font-size:11px}
+      .gameover-score strong{color:#fff}
+      .footer{padding:14px 0 4px;text-align:center;color:#4f5662;font-size:8px}
+      @media(max-width:480px){
+      .app{padding:11px}
+      .stats{gap:5px}
+      .stat{padding:8px 4px}
+      .stat-label{font-size:7px}
+      .stat-value{font-size:12px}
+      .game-card{padding:12px}
+      .question-title{font-size:18px}
+      .actions{grid-template-columns:1fr}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <div class="brand">
+          <h1>WHAT SONG?</h1>
+          <p>Tebak judul lagu dari audionya</p>
+        </div>
+        <div class="coin-box">
+          <span class="coin-icon">C</span>
+          <span id="coin">5</span>
+        </div>
+      </header>
+
+      <section class="stats">
+        <div class="stat">
+          <div class="stat-label">Level</div>
+          <div class="stat-value level" id="level">1</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Point</div>
+          <div class="stat-value" id="score">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">Streak</div>
+          <div class="stat-value streak" id="streak">0</div>
+        </div>
+        <div class="stat">
+          <div class="stat-label">LV Streak</div>
+          <div class="stat-value lvstreak" id="levelStreak">0</div>
+        </div>
+      </section>
+
+      <div class="level-info">
+        <span id="levelRange">0 / 100 XP</span>
+        <span id="nextLevel">Level 2</span>
+      </div>
+
+      <div class="progress">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+
+      <main class="game-card">
+        <div class="question-tag">TEBAK LAGU</div>
+
+        <div class="question-title">Lagu apakah ini?</div>
+
+        <div class="question-sub">
+          Dengarkan audionya lalu ketik judul lagu.
+        </div>
+
+        <div class="timer-row">
+          <span class="timer-label">Waktu tersisa</span>
+          <span class="timer-text" id="timerText">20s</span>
+        </div>
+
+        <div class="timer-track">
+          <div class="timer-bar" id="timerBar"></div>
+        </div>
+
+        <div class="lives" id="lives">
+          <span class="life">♥</span>
+          <span class="life">♥</span>
+          <span class="life">♥</span>
+        </div>
+
+        <div class="audio-box">
+          <div class="audio-title">
+            <div class="music-icon">♪</div>
+            <div>
+              <strong>Audio Lagu</strong>
+              <span id="audioStatus">Menunggu soal...</span>
+            </div>
+          </div>
+
+          <audio id="audio" controls preload="metadata">
+            Browser kamu tidak mendukung audio.
+          </audio>
+        </div>
+
+        <div class="answer-area">
+          <label class="answer-label" for="answerInput"> JUDUL LAGU </label>
+
+          <input
+            id="answerInput"
+            class="answer-input"
+            type="text"
+            autocomplete="off"
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="false"
+            placeholder="Ketik judul lagu..."
+            disabled
+          />
+
+          <button class="btn-answer" id="answerBtn" type="button" disabled>
+            JAWAB
+          </button>
+        </div>
+
+        <div class="result" id="result">
+          <div class="result-title" id="resultTitle"></div>
+
+          <div class="result-answer" id="resultAnswer"></div>
+
+          <div class="result-explanation" id="resultExplanation"></div>
+        </div>
+
+        <div class="actions">
+          <button class="btn-secondary" id="hintBtn" type="button" disabled>
+            HINT · 2 COIN
+          </button>
+
+          <button class="btn-secondary" id="newBtn" type="button" disabled>
+            SOAL BARU · 1 COIN
+          </button>
+        </div>
+
+        <div class="status" id="status"></div>
+      </main>
+
+      <div class="footer">TEBAK LAGU · GAME BY DIMMZZZSUM_ENAK</div>
+    </div>
+
+    <div class="modal" id="levelModal">
+      <div class="modal-box">
+        <div class="modal-icon">UP</div>
+
+        <h2>Level Up!</h2>
+
+        <p>Kamu berhasil menyelesaikan level ini.</p>
+
+        <div class="modal-reward">+5 COIN</div>
+
+        <button class="modal-btn" id="levelModalBtn" type="button">
+          LANJUT
+        </button>
+      </div>
+    </div>
+
+    <div class="modal" id="gameOverModal">
+      <div class="modal-box">
+        <div class="gameover-title">GAME OVER</div>
+
+        <div class="gameover-score">
+          Point kamu:
+          <strong id="finalScore">0</strong>
+        </div>
+
+        <div class="gameover-score">
+          Level:
+          <strong id="finalLevel">1</strong>
+        </div>
+
+        <button class="modal-btn" id="restartBtn" type="button">
+          MAIN LAGI
+        </button>
+      </div>
+    </div>
+
+    <script>
+      (function(){
+      "use strict";
+
+      var P=[
+      104,116,116,112,115,58,47,47,
+      97,112,105,46,110,101,111,120,114,46,101,117,
+      47,97,112,105,47,119,104,97,116,115,111,110,103
+      ];
+
+      var Q=[
+      103,66,119,52,98,102,106,53,104,97,113,89
+      ];
+
+      var API_ENDPOINT=
+      String.fromCharCode.apply(null,P)+
+      "?apikey="+
+      String.fromCharCode.apply(null,Q);
+
+      var STORAGE_KEY="what_song_dimmzzsum_v6";
+      var GAME_TIME=20;
+      var CORRECT_DELAY=1200;
+      var WRONG_DELAY=1800;
+      var TIMEOUT_DELAY=1800;
+
+      var coinEl=document.getElementById("coin");
+      var levelEl=document.getElementById("level");
+      var scoreEl=document.getElementById("score");
+      var streakEl=document.getElementById("streak");
+      var levelStreakEl=document.getElementById("levelStreak");
+      var levelRangeEl=document.getElementById("levelRange");
+      var nextLevelEl=document.getElementById("nextLevel");
+      var progressBar=document.getElementById("progressBar");
+      var timerText=document.getElementById("timerText");
+      var timerBar=document.getElementById("timerBar");
+      var livesEl=document.getElementById("lives");
+      var audio=document.getElementById("audio");
+      var audioStatus=document.getElementById("audioStatus");
+      var answerInput=document.getElementById("answerInput");
+      var answerBtn=document.getElementById("answerBtn");
+      var hintBtn=document.getElementById("hintBtn");
+      var newBtn=document.getElementById("newBtn");
+      var result=document.getElementById("result");
+      var resultTitle=document.getElementById("resultTitle");
+      var resultAnswer=document.getElementById("resultAnswer");
+      var resultExplanation=document.getElementById("resultExplanation");
+      var statusEl=document.getElementById("status");
+      var levelModal=document.getElementById("levelModal");
+      var levelModalBtn=document.getElementById("levelModalBtn");
+      var gameOverModal=document.getElementById("gameOverModal");
+      var finalScore=document.getElementById("finalScore");
+      var finalLevel=document.getElementById("finalLevel");
+      var restartBtn=document.getElementById("restartBtn");
+
+      function two(n){
+      return n<10?"0"+n:String(n);
+      }
+
+      function dateKey(){
+      var d=new Date();
+      return d.getFullYear()+"-"+two(d.getMonth()+1)+"-"+two(d.getDate());
+      }
+
+      function defaultState(){
+      return{
+      date:dateKey(),
+      score:0,
+      streak:0,
+      levelStreak:0,
+      coin:5,
+      level:1
+      };
+      }
+
+      function loadState(){
+      try{
+      var x=JSON.parse(
+      localStorage.getItem(STORAGE_KEY)||"null"
+      );
+
+      if(!x||x.date!==dateKey()){
+      return defaultState();
+      }
+
+      return{
+      date:x.date,
+      score:Number(x.score)||0,
+      streak:Number(x.streak)||0,
+      levelStreak:Number(x.levelStreak)||0,
+      coin:Number(x.coin)||0,
+      level:Number(x.level)||1
+      };
+
+      }catch(e){
+      return defaultState();
+      }
+      }
+
+      var state=loadState();
+
+      var lives=3;
+      var correctTitle="";
+      var explanation="";
+      var timer=null;
+      var timeLeft=GAME_TIME;
+      var questionActive=false;
+      var questionLocked=false;
+      var transitionTimer=null;
+      var lastTitle="";
+      var requestId=0;
+      var hintUsed=false;
+      var gameOverState=false;
+
+      function saveState(){
+      try{
+      localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify(state)
+      );
+      }catch(e){}
+      }
+
+      function updateUI(){
+
+      coinEl.textContent=state.coin;
+      levelEl.textContent=state.level;
+      scoreEl.textContent=state.score;
+      streakEl.textContent=state.streak;
+      levelStreakEl.textContent=state.levelStreak;
+
+      var base=(state.level-1)*100;
+      var progress=state.score-base;
+
+      if(progress<0)progress=0;
+      if(progress>100)progress=100;
+
+      progressBar.style.width=progress+"%";
+      levelRangeEl.textContent=progress+" / 100 XP";
+      nextLevelEl.textContent="Level "+(state.level+1);
+      }
+
+      function updateLives(){
+
+      var hearts=
+      livesEl.getElementsByClassName("life");
+
+      for(var i=0;i<hearts.length;i++){
+
+      if(i<lives){
+      hearts[i].classList.remove("dead");
+      }else{
+      hearts[i].classList.add("dead");
+      }
+
+      }
+      }
+
+      function setStatus(message){
+      statusEl.textContent=message||"";
+      }
+
+      function normalize(text){
+
+      return String(text||"")
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g,"")
+      .replace(/[^a-z0-9\s]/g," ")
+      .replace(/\s+/g," ")
+      .trim();
+
+      }
+
+      function isCorrect(a,b){
+      return normalize(a)===normalize(b);
+      }
+
+      function randomInt(min,max){
+      return Math.floor(
+      Math.random()*(max-min+1)
+      )+min;
+      }
+
+      function stopTimer(){
+
+      if(timer!==null){
+      clearInterval(timer);
+      timer=null;
+      }
+
+      }
+
+      function updateTimer(){
+
+      timerText.textContent=timeLeft+"s";
+
+      var percent=
+      timeLeft/GAME_TIME*100;
+
+      if(percent<0)percent=0;
+
+      timerBar.style.width=percent+"%";
+
+      }
+
+      function startTimer(){
+
+      stopTimer();
+
+      timeLeft=GAME_TIME;
+
+      updateTimer();
+
+      timer=setInterval(function(){
+
+      if(!questionActive)return;
+
+      timeLeft--;
+
+      updateTimer();
+
+      if(timeLeft<=0){
+
+      stopTimer();
+
+      handleTimeout();
+
+      }
+
+      },1000);
+
+      }
+
+      function resetResult(){
+
+      result.classList.remove("show");
+
+      resultTitle.textContent="";
+      resultAnswer.textContent="";
+      resultExplanation.textContent="";
+
+      resultTitle.className="result-title";
+
+      }
+
+      function resetQuestionUI(){
+
+      answerInput.value="";
+      answerInput.disabled=true;
+
+      answerInput.classList.remove(
+      "correct",
+      "wrong"
+      );
+
+      answerBtn.disabled=true;
+      hintBtn.disabled=true;
+      newBtn.disabled=true;
+
+      resetResult();
+
+      setStatus("");
+
+      }
+
+      function setupAudio(url){
+
+      try{
+
+      audio.pause();
+
+      audio.removeAttribute("src");
+
+      audio.load();
+
+      if(url){
+
+      audio.src=url;
+      audio.load();
+
+      }
+
+      }catch(e){}
+
+      }
+
+      function enableQuestionUI(){
+
+      answerInput.disabled=false;
+      answerBtn.disabled=false;
+      hintBtn.disabled=false;
+      newBtn.disabled=false;
+
+      }
+
+      function disableQuestionUI(){
+
+      answerInput.disabled=true;
+      answerBtn.disabled=true;
+      hintBtn.disabled=true;
+      newBtn.disabled=true;
+
+      }
+
+      async function requestSong(){
+
+      var controller=
+      new AbortController();
+
+      var timeout=
+      setTimeout(function(){
+      controller.abort();
+      },15000);
+
+      try{
+
+      var response=
+      await fetch(
+      API_ENDPOINT,
+      {
+      method:"GET",
+      mode:"cors",
+      cache:"no-store",
+      signal:controller.signal,
+      headers:{
+      "Accept":"application/json"
+      }
+      }
+      );
+
+      clearTimeout(timeout);
+
+      if(!response.ok){
+
+      throw new Error(
+      "API HTTP "+response.status
+      );
+
+      }
+
+      var data;
+
+      try{
+
+      data=await response.json();
+
+      }catch(e){
+
+      throw new Error(
+      "Response API bukan JSON."
+      );
+
+      }
+
+      if(
+      !data||
+      data.status!==true||
+      !data.data
+      ){
+
+      throw new Error(
+      "API tidak mengembalikan soal."
+      );
+
+      }
+
+      if(
+      !data.data.title||
+      !data.data.path
+      ){
+
+      throw new Error(
+      "Data soal API tidak lengkap."
+      );
+
+      }
+
+      return data;
+
+      }catch(error){
+
+      clearTimeout(timeout);
+
+      if(
+      error&&
+      error.name==="AbortError"
+      ){
+
+      throw new Error(
+      "Request API timeout."
+      );
+
+      }
+
+      if(
+      error&&
+      String(error.message)
+      .toLowerCase()
+      .indexOf("failed to fetch")!==-1
+      ){
+
+      throw new Error(
+      "Koneksi API gagal atau CORS diblokir browser."
+      );
+
+      }
+
+      throw error;
+
+      }
+
+      }
+
+      async function loadQuestion(){
+
+      if(questionLocked||gameOverState)return;
+
+      var currentRequest=++requestId;
+
+      questionLocked=true;
+      questionActive=false;
+      hintUsed=false;
+
+      stopTimer();
+      resetQuestionUI();
+      setupAudio("");
+
+      audioStatus.textContent=
+      "Mengambil soal...";
+
+      setStatus(
+      "Mengambil soal baru..."
+      );
+
+      try{
+
+      var response=
+      await requestSong();
+
+      if(currentRequest!==requestId){
+      return;
+      }
+
+      var data=response.data;
+
+      var title=
+      String(data.title||"").trim();
+
+      var path=
+      String(data.path||"").trim();
+
+      if(
+      normalize(title)===
+      normalize(lastTitle)
+      ){
+
+      questionLocked=false;
+
+      setStatus(
+      "Mencari soal lain..."
+      );
+
+      setTimeout(
+      loadQuestion,
+      250
+      );
+
+      return;
+
+      }
+
+      lastTitle=title;
+      correctTitle=title;
+
+      explanation=
+      String(
+      data.explanation||
+      "Dengarkan audio dengan teliti."
+      );
+
+      setupAudio(path);
+
+      audioStatus.textContent=
+      "Audio siap dimainkan.";
+
+      questionActive=true;
+      questionLocked=false;
+
+      enableQuestionUI();
+
+      setStatus(
+      "Audio siap. Tebak judul lagunya."
+      );
+
+      startTimer();
+
+      try{
+      answerInput.focus();
+      }catch(e){}
+
+      }catch(error){
+
+      if(currentRequest!==requestId){
+      return;
+      }
+
+      questionLocked=false;
+      questionActive=false;
+
+      audioStatus.textContent=
+      "Gagal mengambil soal.";
+
+      setStatus(
+      error.message||
+      "Gagal mengambil soal."
+      );
+
+      }
+
+      }
+
+      function nextQuestion(){
+
+      clearTimeout(
+      transitionTimer
+      );
+
+      questionLocked=false;
+      questionActive=false;
+
+      loadQuestion();
+
+      }
+
+      function submitAnswer(){
+
+      if(!questionActive||questionLocked){
+      return;
+      }
+
+      var value=
+      answerInput.value.trim();
+
+      if(!value){
+
+      setStatus(
+      "Ketik judul lagu terlebih dahulu."
+      );
+
+      try{
+      answerInput.focus();
+      }catch(e){}
+
+      return;
+
+      }
+
+      questionActive=false;
+      questionLocked=true;
+
+      stopTimer();
+      disableQuestionUI();
+
+      if(
+      isCorrect(
+      value,
+      correctTitle
+      )
+      ){
+
+      handleCorrect();
+
+      }else{
+
+      handleWrong();
+
+      }
+
+      }
+
+      function handleCorrect(){
+
+      answerInput.classList.add(
+      "correct"
+      );
+
+      var gained=
+      randomInt(8,20)+
+      Math.floor(timeLeft/4)+
+      Math.min(state.streak,10);
+
+      var oldLevel=state.level;
+
+      state.score+=gained;
+      state.streak++;
+      state.coin++;
+
+      var streakCoin=0;
+
+      if(
+      state.streak>0&&
+      state.streak%5===0
+      ){
+
+      state.coin+=3;
+      streakCoin=3;
+
+      }
+
+      var newLevel=
+      Math.floor(
+      state.score/100
+      )+1;
+
+      var leveledUp=
+      newLevel>oldLevel;
+
+      if(leveledUp){
+
+      state.level=newLevel;
+      state.levelStreak++;
+      state.coin+=5;
+
+      }
+
+      saveState();
+      updateUI();
+
+      result.classList.add("show");
+
+      resultTitle.className=
+      "result-title good";
+
+      resultTitle.textContent=
+      "BENAR!";
+
+      resultAnswer.textContent=
+      "Jawaban: "+correctTitle;
+
+      resultExplanation.textContent=
+      "+"+gained+
+      " point · +1 coin"+
+      (
+      streakCoin
+      ?" · streak +3 coin"
+      :""
+      );
+
+      setStatus(
+      leveledUp
+      ?"Level naik! +5 coin."
+      :"Jawaban benar."
+      );
+
+      transitionTimer=
+      setTimeout(function(){
+
+      answerInput.classList.remove(
+      "correct"
+      );
+
+      if(leveledUp){
+
+      levelModal.classList.add(
+      "show"
+      );
+
+      }else{
+
+      nextQuestion();
+
+      }
+
+      },CORRECT_DELAY);
+
+      }
+
+      function handleWrong(){
+
+      lives--;
+      state.streak=0;
+
+      saveState();
+      updateUI();
+      updateLives();
+
+      answerInput.classList.add(
+      "wrong"
+      );
+
+      result.classList.add("show");
+
+      resultTitle.className=
+      "result-title bad";
+
+      resultTitle.textContent=
+      "SALAH!";
+
+      resultAnswer.textContent=
+      "Jawaban yang benar: "+
+      correctTitle;
+
+      resultExplanation.textContent=
+      explanation;
+
+      setStatus(
+      "Sisa nyawa: "+lives
+      );
+
+      transitionTimer=
+      setTimeout(function(){
+
+      answerInput.classList.remove(
+      "wrong"
+      );
+
+      if(lives<=0){
+
+      gameOver();
+
+      }else{
+
+      nextQuestion();
+
+      }
+
+      },WRONG_DELAY);
+
+      }
+
+      function handleTimeout(){
+
+      if(!questionActive){
+      return;
+      }
+
+      questionActive=false;
+      questionLocked=true;
+
+      lives--;
+      state.streak=0;
+
+      saveState();
+      updateUI();
+      updateLives();
+      disableQuestionUI();
+
+      result.classList.add("show");
+
+      resultTitle.className=
+      "result-title bad";
+
+      resultTitle.textContent=
+      "WAKTU HABIS!";
+
+      resultAnswer.textContent=
+      "Jawaban yang benar: "+
+      correctTitle;
+
+      resultExplanation.textContent=
+      explanation;
+
+      setStatus(
+      "Sisa nyawa: "+lives
+      );
+
+      transitionTimer=
+      setTimeout(function(){
+
+      if(lives<=0){
+
+      gameOver();
+
+      }else{
+
+      nextQuestion();
+
+      }
+
+      },TIMEOUT_DELAY);
+
+      }
+
+      function useHint(){
+
+      if(!questionActive||questionLocked){
+      return;
+      }
+
+      if(hintUsed){
+
+      setStatus(
+      "Hint sudah digunakan."
+      );
+
+      return;
+
+      }
+
+      if(state.coin<2){
+
+      setStatus(
+      "Coin tidak cukup."
+      );
+
+      return;
+
+      }
+
+      state.coin-=2;
+      hintUsed=true;
+
+      saveState();
+      updateUI();
+
+      var words=
+      correctTitle
+      .trim()
+      .split(/\s+/);
+
+      var hint="";
+
+      for(
+      var i=0;
+      i<words.length;
+      i++
+      ){
+
+      if(i)hint+=" ";
+
+      var word=words[i];
+
+      if(word.length<=1){
+
+      hint+=word.charAt(0);
+
+      }else{
+
+      hint+=
+      word.charAt(0)+
+      new Array(
+      word.length
+      ).join("_");
+
+      }
+
+      }
+
+      result.classList.add(
+      "show"
+      );
+
+      resultTitle.className=
+      "result-title";
+
+      resultTitle.textContent=
+      "HINT";
+
+      resultAnswer.textContent=
+      hint;
+
+      resultExplanation.textContent=
+      "Hint menggunakan 2 coin.";
+
+      hintBtn.disabled=true;
+
+      setStatus(
+      "-2 COIN"
+      );
+
+      }
+
+      function newQuestionButton(){
+
+      if(!questionActive){
+
+      setStatus(
+      "Tidak ada soal aktif."
+      );
+
+      return;
+
+      }
+
+      if(questionLocked){
+      return;
+      }
+
+      if(state.coin<1){
+
+      setStatus(
+      "Coin tidak cukup."
+      );
+
+      return;
+
+      }
+
+      state.coin--;
+
+      saveState();
+      updateUI();
+
+      questionActive=false;
+      questionLocked=false;
+
+      stopTimer();
+
+      setStatus(
+      "-1 COIN · Mengambil soal..."
+      );
+
+      loadQuestion();
+
+      }
+
+      function gameOver(){
+
+      stopTimer();
+
+      questionActive=false;
+      questionLocked=true;
+      gameOverState=true;
+
+      try{
+      audio.pause();
+      }catch(e){}
+
+      finalScore.textContent=
+      state.score;
+
+      finalLevel.textContent=
+      state.level;
+
+      gameOverModal.classList.add(
+      "show"
+      );
+
+      }
+
+      function restartGame(){
+
+      lives=3;
+      state.streak=0;
+      lastTitle="";
+      gameOverState=false;
+
+      saveState();
+      updateUI();
+      updateLives();
+
+      gameOverModal.classList.remove(
+      "show"
+      );
+
+      questionLocked=false;
+      questionActive=false;
+
+      loadQuestion();
+
+      }
+
+      levelModalBtn.onclick=
+      function(){
+
+      levelModal.classList.remove(
+      "show"
+      );
+
+      nextQuestion();
+
+      };
+
+      answerBtn.onclick=
+      submitAnswer;
+
+      answerInput.onkeydown=
+      function(e){
+
+      if(e.key==="Enter"){
+
+      e.preventDefault();
+
+      submitAnswer();
+
+      }
+
+      };
+
+      hintBtn.onclick=
+      useHint;
+
+      newBtn.onclick=
+      newQuestionButton;
+
+      restartBtn.onclick=
+      restartGame;
+
+      audio.onerror=
+      function(){
+
+      if(!questionActive)return;
+
+      audioStatus.textContent=
+      "Audio gagal dimuat.";
+
+      setStatus(
+      "Browser gagal memuat audio."
+      );
+
+      };
+
+      audio.onloadedmetadata=
+      function(){
+
+      audioStatus.textContent=
+      "Audio siap dimainkan.";
+
+      };
+
+      setInterval(
+      function(){
+
+      if(
+      state.date!==dateKey()
+      ){
+
+      state=defaultState();
+
+      lives=3;
+      lastTitle="";
+      gameOverState=false;
+
+      saveState();
+      updateUI();
+      updateLives();
+
+      nextQuestion();
+
+      setStatus(
+      "Hari baru. Progress direset."
+      );
+
+      }
+
+      },
+      30000
+      );
+
+      updateUI();
+      updateLives();
+      loadQuestion();
+
+      })();
+    </script>
+  </body>
+</html>
