@@ -1,1378 +1,910 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta name="theme-color" content="#edf1f6" />
-    <meta
-      name="description"
-      content="Download Bully Anniversary Edition dan Subtitle Indonesia"
-    />
-    <title>Bully Files — DIMMZZZSUM_ENAK</title>
-
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
-
-    <style>
-      :root{
-          --bg:#edf1f6;
-          --surface:#ffffff;
-          --surface-soft:#f7f8fa;
-          --line:#e3e6eb;
-          --text:#1c2430;
-          --muted:#737b87;
-          --blue:#315b9f;
-          --blue-dark:#24487f;
-          --blue-soft:#edf3fc;
-          --yellow:#d79a18;
-          --yellow-soft:#fff7df;
-          --green:#199b6c;
-          --green-soft:#eaf8f2;
-          --shadow:0 20px 60px rgba(25,35,50,.13);
-      }
-
-      *{
-          margin:0;
-          padding:0;
-          box-sizing:border-box;
-      }
-
-      html{
-          scroll-behavior:smooth;
-      }
-
-      body{
-          min-height:100vh;
-          font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-          color:var(--text);
-          background:url("https://images8.alphacoders.com/532/532322.jpg") center/cover fixed no-repeat;
-          padding:28px 16px;
-      }
-
-      body:before{
-          content:"";
-          position:fixed;
-          inset:0;
-          background:rgba(235,239,245,.78);
-          z-index:-1;
-      }
-
-      a{
-          color:inherit;
-          text-decoration:none;
-      }
-
-      .container{
-          width:min(1080px,100%);
-          margin:auto;
-          background:var(--surface);
-          border:1px solid rgba(255,255,255,.8);
-          border-radius:25px;
-          box-shadow:var(--shadow);
-          overflow:hidden;
-      }
-
-      .navbar{
-          min-height:76px;
-          padding:16px 24px;
-          display:flex;
-          align-items:center;
-          justify-content:space-between;
-          gap:18px;
-          border-bottom:1px solid var(--line);
-          background:rgba(255,255,255,.94);
-      }
-
-      .brand{
-          display:flex;
-          align-items:center;
-          gap:11px;
-          min-width:0;
-      }
-
-      .brand-icon{
-          width:42px;
-          height:42px;
-          flex:0 0 42px;
-          display:grid;
-          place-items:center;
-          border-radius:12px;
-          background:var(--blue);
-          color:#fff;
-          font-size:18px;
-          box-shadow:0 7px 16px rgba(49,91,159,.2);
-      }
-
-      .brand-text{
-          display:flex;
-          flex-direction:column;
-          line-height:1.1;
-      }
-
-      .brand-text strong{
-          font-size:15px;
-          font-weight:950;
-          letter-spacing:.8px;
-          color:var(--text);
-      }
-
-      .brand-text span{
-          margin-top:4px;
-          color:var(--muted);
-          font-size:8px;
-          font-weight:800;
-          letter-spacing:1px;
-      }
-
-      .nav-right{
-          display:flex;
-          align-items:center;
-          gap:9px;
-          flex-wrap:wrap;
-          justify-content:flex-end;
-      }
-
-      .nav-link{
-          display:inline-flex;
-          align-items:center;
-          gap:7px;
-          padding:9px 13px;
-          border:1px solid var(--line);
-          border-radius:10px;
-          color:var(--muted);
-          font-size:12px;
-          font-weight:800;
-          transition:.2s ease;
-      }
-
-      .nav-link:hover{
-          color:var(--blue);
-          border-color:#c8d5e9;
-          background:var(--blue-soft);
-      }
-
-      .hero{
-          position:relative;
-          padding:58px 34px 38px;
-          background:linear-gradient(180deg,#ffffff 0%,#f8fafc 100%);
-          overflow:hidden;
-      }
-
-      .hero:after{
-          content:"BULLY";
-          position:absolute;
-          right:-10px;
-          bottom:-35px;
-          font-size:150px;
-          line-height:1;
-          font-weight:1000;
-          color:rgba(49,91,159,.035);
-          pointer-events:none;
-      }
-
-      .hero-content{
-          position:relative;
-          z-index:1;
-          max-width:760px;
-      }
-
-      .badge{
-          display:inline-flex;
-          align-items:center;
-          gap:7px;
-          padding:7px 11px;
-          margin-bottom:17px;
-          border-radius:999px;
-          background:var(--blue-soft);
-          color:var(--blue);
-          font-size:11px;
-          font-weight:900;
-          letter-spacing:.3px;
-      }
-
-      .hero h1{
-          font-size:clamp(32px,6vw,58px);
-          line-height:1;
-          letter-spacing:-2.5px;
-          margin-bottom:16px;
-      }
-
-      .hero h1 span{
-          color:var(--blue);
-      }
-
-      .hero p{
-          max-width:680px;
-          color:var(--muted);
-          font-size:15px;
-          line-height:1.75;
-      }
-
-      .hero-actions{
-          margin-top:25px;
-          display:flex;
-          flex-wrap:wrap;
-          gap:10px;
-      }
-
-      .hero-btn{
-          display:inline-flex;
-          align-items:center;
-          justify-content:center;
-          gap:9px;
-          padding:12px 16px;
-          border-radius:12px;
-          font-size:12px;
-          font-weight:900;
-          transition:.2s ease;
-      }
-
-      .hero-btn.primary{
-          color:#fff;
-          background:var(--blue);
-          box-shadow:0 8px 20px rgba(49,91,159,.2);
-      }
-
-      .hero-btn.primary:hover{
-          background:var(--blue-dark);
-          transform:translateY(-1px);
-      }
-
-      .hero-btn.secondary{
-          color:var(--blue);
-          border:1px solid #ccd7e7;
-          background:#fff;
-      }
-
-      .hero-btn.secondary:hover{
-          background:var(--blue-soft);
-      }
-
-      .quick-info{
-          position:relative;
-          z-index:2;
-          display:grid;
-          grid-template-columns:repeat(3,1fr);
-          gap:12px;
-          padding:0 34px 30px;
-          background:#f8fafc;
-      }
-
-      .info-box{
-          display:flex;
-          align-items:center;
-          gap:12px;
-          padding:15px;
-          border:1px solid var(--line);
-          border-radius:14px;
-          background:#fff;
-      }
-
-      .info-icon{
-          flex:0 0 39px;
-          width:39px;
-          height:39px;
-          display:grid;
-          place-items:center;
-          border-radius:11px;
-          background:var(--blue-soft);
-          color:var(--blue);
-      }
-
-      .info-box strong{
-          display:block;
-          font-size:12px;
-          margin-bottom:3px;
-      }
-
-      .info-box span{
-          color:var(--muted);
-          font-size:11px;
-      }
-
-      .section{
-          padding:42px 34px;
-          border-top:1px solid var(--line);
-      }
-
-      .section-heading{
-          margin-bottom:22px;
-      }
-
-      .section-label{
-          display:inline-block;
-          margin-bottom:8px;
-          color:var(--blue);
-          font-size:10px;
-          font-weight:900;
-          letter-spacing:1.2px;
-          text-transform:uppercase;
-      }
-
-      .section-heading h2{
-          font-size:26px;
-          letter-spacing:-.8px;
-          margin-bottom:7px;
-      }
-
-      .section-heading p{
-          color:var(--muted);
-          font-size:13px;
-          line-height:1.7;
-      }
-
-      .download-list{
-          display:grid;
-          gap:12px;
-      }
-
-      .download-card{
-          display:flex;
-          align-items:center;
-          justify-content:space-between;
-          gap:18px;
-          padding:17px;
-          border:1px solid var(--line);
-          border-radius:16px;
-          background:var(--surface-soft);
-          transition:.2s ease;
-      }
-
-      .download-card:hover{
-          border-color:#cbd7e8;
-          background:#fff;
-          transform:translateY(-1px);
-      }
-
-      .download-info{
-          min-width:0;
-          display:flex;
-          align-items:center;
-          gap:13px;
-      }
-
-      .download-icon{
-          flex:0 0 43px;
-          width:43px;
-          height:43px;
-          display:grid;
-          place-items:center;
-          border-radius:12px;
-          background:var(--blue-soft);
-          color:var(--blue);
-          font-size:17px;
-      }
-
-      .download-info h3{
-          font-size:13px;
-          margin-bottom:4px;
-      }
-
-      .download-info p{
-          color:var(--muted);
-          font-size:11px;
-      }
-
-      .download-btn{
-          flex:0 0 auto;
-          min-width:120px;
-          padding:11px 14px;
-          border:0;
-          border-radius:10px;
-          background:var(--blue);
-          color:#fff;
-          font:inherit;
-          font-size:11px;
-          font-weight:900;
-          cursor:pointer;
-          transition:.2s ease;
-      }
-
-      .download-btn:hover{
-          background:var(--blue-dark);
-      }
-
-      .download-btn.loading{
-          background:#707a88;
-          cursor:wait;
-      }
-
-      .download-btn.ready{
-          background:var(--green);
-      }
-
-      .tutorial-box{
-          overflow:hidden;
-          border:1px solid var(--line);
-          border-radius:18px;
-          background:#11151b;
-          box-shadow:0 12px 35px rgba(20,25,35,.12);
-      }
-
-      .tutorial-video{
-          width:100%;
-          aspect-ratio:16/9;
-          background:#0b0d10;
-      }
-
-      .tutorial-video video{
-          width:100%;
-          height:100%;
-          display:block;
-          object-fit:contain;
-          background:#0b0d10;
-      }
-
-      .tutorial-caption{
-          padding:18px 20px;
-          background:#fff;
-      }
-
-      .tutorial-caption strong{
-          display:block;
-          font-size:14px;
-          margin-bottom:6px;
-      }
-
-      .tutorial-caption p{
-          color:var(--muted);
-          font-size:12px;
-          line-height:1.7;
-      }
-
-      .guide-list{
-          display:grid;
-          gap:12px;
-      }
-
-      .guide-step{
-          display:grid;
-          grid-template-columns:58px 1fr;
-          gap:16px;
-          padding:20px;
-          border:1px solid var(--line);
-          border-radius:16px;
-          background:#fff;
-      }
-
-      .step-number{
-          width:48px;
-          height:48px;
-          display:grid;
-          place-items:center;
-          border-radius:14px;
-          background:var(--blue);
-          color:#fff;
-          font-size:16px;
-          font-weight:900;
-      }
-
-      .step-content h3{
-          font-size:14px;
-          margin-bottom:7px;
-      }
-
-      .step-content p{
-          color:#606977;
-          font-size:12px;
-          line-height:1.8;
-      }
-
-      .step-content ul{
-          margin:9px 0 0 18px;
-          color:#606977;
-          font-size:12px;
-          line-height:1.8;
-      }
-
-      .note{
-          margin-top:18px;
-          padding:16px 17px;
-          border:1px solid #f0dfac;
-          border-radius:14px;
-          background:var(--yellow-soft);
-          color:#73591c;
-          font-size:12px;
-          line-height:1.7;
-      }
-
-      .note strong{
-          display:block;
-          margin-bottom:4px;
-          color:#674d0d;
-      }
-
-      .check-list{
-          display:grid;
-          grid-template-columns:repeat(2,1fr);
-          gap:12px;
-      }
-
-      .check-item{
-          display:flex;
-          gap:11px;
-          padding:15px;
-          border:1px solid var(--line);
-          border-radius:14px;
-          background:var(--surface-soft);
-      }
-
-      .check-item i{
-          margin-top:2px;
-          color:var(--green);
-      }
-
-      .check-item span{
-          color:#596270;
-          font-size:12px;
-          line-height:1.65;
-      }
-
-      .footer{
-          position:relative;
-          padding:32px 24px;
-          border-top:1px solid var(--line);
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          flex-direction:column;
-          gap:7px;
-          text-align:center;
-          background:#fafbfc;
-          overflow:hidden;
-      }
-
-      .footer:before{
-          content:"";
-          position:absolute;
-          width:220px;
-          height:70px;
-          left:50%;
-          top:50%;
-          transform:translate(-50%,-50%);
-          background:linear-gradient(
-              90deg,
-              rgba(255,0,80,.08),
-              rgba(0,170,255,.1),
-              rgba(140,0,255,.08)
-          );
-          filter:blur(35px);
-          animation:footerGlow 5s ease-in-out infinite alternate;
-          pointer-events:none;
-      }
-
-      .footer-brand{
-          position:relative;
-          font-size:14px;
-          font-weight:950;
-          letter-spacing:.8px;
-          color:var(--text);
-          text-transform:uppercase;
-      }
-
-      .footer-brand span{
-          position:relative;
-          display:inline-block;
-          background:linear-gradient(
-              90deg,
-              #ff315c,
-              #ff9f1c,
-              #15c7a5,
-              #3185ff,
-              #a044ff,
-              #ff315c
-          );
-          background-size:300% 100%;
-          -webkit-background-clip:text;
-          background-clip:text;
-          -webkit-text-fill-color:transparent;
-          animation:rgbShift 5s linear infinite;
-      }
-
-      .footer-brand span:before,
-      .footer-brand span:after{
-          content:attr(data-text);
-          position:absolute;
-          inset:0;
-          pointer-events:none;
-          opacity:0;
-      }
-
-      .footer-brand span:before{
-          color:#ff1744;
-          -webkit-text-fill-color:#ff1744;
-          animation:glitchRed 3.8s infinite;
-      }
-
-      .footer-brand span:after{
-          color:#00b8ff;
-          -webkit-text-fill-color:#00b8ff;
-          animation:glitchBlue 3.8s infinite;
-      }
-
-      .footer-copy{
-          position:relative;
-          color:var(--muted);
-          font-size:11px;
-          line-height:1.6;
-      }
-
-      .footer-line{
-          position:relative;
-          width:42px;
-          height:2px;
-          margin:3px 0;
-          border-radius:99px;
-          background:linear-gradient(
-              90deg,
-              #ff315c,
-              #ff9f1c,
-              #15c7a5,
-              #3185ff,
-              #a044ff
-          );
-          background-size:200% 100%;
-          animation:rgbLine 3s linear infinite;
-      }
-
-      @keyframes rgbShift{
-          0%{
-              background-position:0% 50%;
-          }
-          50%{
-              background-position:100% 50%;
-          }
-          100%{
-              background-position:0% 50%;
-          }
-      }
-
-      @keyframes rgbLine{
-          0%{
-              background-position:0% 50%;
-          }
-          100%{
-              background-position:200% 50%;
-          }
-      }
-
-      @keyframes footerGlow{
-          from{
-              opacity:.55;
-              transform:translate(-50%,-50%) scale(.9);
-          }
-          to{
-              opacity:1;
-              transform:translate(-50%,-50%) scale(1.15);
-          }
-      }
-
-      @keyframes glitchRed{
-          0%,88%,100%{
-              clip-path:inset(0 0 100% 0);
-              transform:translate(0);
-              opacity:0;
-          }
-          90%{
-              clip-path:inset(10% 0 70% 0);
-              transform:translate(-2px,-1px);
-              opacity:.7;
-          }
-          92%{
-              clip-path:inset(60% 0 15% 0);
-              transform:translate(2px,1px);
-              opacity:.55;
-          }
-      }
-
-      @keyframes glitchBlue{
-          0%,84%,100%{
-              clip-path:inset(100% 0 0 0);
-              transform:translate(0);
-              opacity:0;
-          }
-          86%{
-              clip-path:inset(65% 0 15% 0);
-              transform:translate(2px,1px);
-              opacity:.65;
-          }
-          88%{
-              clip-path:inset(15% 0 70% 0);
-              transform:translate(-2px,-1px);
-              opacity:.5;
-          }
-      }
-
-      .modal{
-          position:fixed;
-          inset:0;
-          z-index:100;
-          display:none;
-          place-items:center;
-          padding:20px;
-          background:rgba(10,14,20,.75);
-          backdrop-filter:blur(5px);
-      }
-
-      .modal.show{
-          display:grid;
-      }
-
-      .modal-box{
-          width:min(440px,100%);
-          padding:22px;
-          border-radius:18px;
-          background:#fff;
-          box-shadow:0 25px 80px rgba(0,0,0,.3);
-          text-align:center;
-      }
-
-      .modal-icon{
-          width:52px;
-          height:52px;
-          margin:0 auto 13px;
-          display:grid;
-          place-items:center;
-          border-radius:15px;
-          background:var(--blue-soft);
-          color:var(--blue);
-          font-size:20px;
-      }
-
-      .modal-box h3{
-          font-size:17px;
-          margin-bottom:7px;
-      }
-
-      .modal-box p{
-          color:var(--muted);
-          font-size:12px;
-          line-height:1.7;
-      }
-
-      .modal-close{
-          margin-top:17px;
-          width:100%;
-          border:0;
-          border-radius:11px;
-          padding:11px;
-          background:var(--blue);
-          color:#fff;
-          font:inherit;
-          font-size:12px;
-          font-weight:800;
-          cursor:pointer;
-      }
-
-      @media(max-width:760px){
-          body{
-              padding:12px;
-              background:url("https://images8.alphacoders.com/532/532322.jpg") center/cover fixed no-repeat;
-          }
-
-          .container{
-              border-radius:19px;
-          }
-
-          .navbar{
-              padding:13px 16px;
-          }
-
-          .brand-icon{
-              width:38px;
-              height:38px;
-              flex-basis:38px;
-              font-size:16px;
-          }
-
-          .brand-text strong{
-              font-size:13px;
-          }
-
-          .brand-text span{
-              font-size:7px;
-          }
-
-          .nav-link{
-              padding:8px 10px;
-          }
-
-          .nav-link span{
-              display:none;
-          }
-
-          .hero{
-              padding:40px 20px 30px;
-          }
-
-          .hero h1{
-              letter-spacing:-1.5px;
-          }
-
-          .hero p{
-              font-size:13px;
-          }
-
-          .hero-actions{
-              display:grid;
-              grid-template-columns:1fr;
-          }
-
-          .hero-btn{
-              width:100%;
-          }
-
-          .quick-info{
-              grid-template-columns:1fr;
-              padding:0 20px 22px;
-          }
-
-          .section{
-              padding:32px 20px;
-          }
-
-          .section-heading h2{
-              font-size:23px;
-          }
-
-          .download-card{
-              align-items:flex-start;
-              flex-direction:column;
-          }
-
-          .download-btn{
-              width:100%;
-          }
-
-          .guide-step{
-              grid-template-columns:46px 1fr;
-              padding:16px;
-          }
-
-          .step-number{
-              width:42px;
-              height:42px;
-          }
-
-          .check-list{
-              grid-template-columns:1fr;
-          }
-
-          .footer{
-              padding:28px 18px;
-          }
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="container">
-      <nav class="navbar">
-        <a href="#" class="brand">
-          <div class="brand-icon">
-            <i class="fa-solid fa-school"></i>
-          </div>
-
-          <div class="brand-text">
-            <strong>BULLY</strong>
-            <span>ANNIVERSARY EDITION</span>
-          </div>
-        </a>
-
-        <div class="nav-right">
-          <a href="#tutorial" class="nav-link">
-            <i class="fa-solid fa-play"></i>
-            <span>Tutorial</span>
-          </a>
-
-          <a href="#panduan" class="nav-link">
-            <i class="fa-solid fa-book-open"></i>
-            <span>Panduan</span>
-          </a>
-        </div>
-      </nav>
-
-      <header class="hero">
-        <div class="hero-content">
-          <div class="badge">
-            <i class="fa-solid fa-gamepad"></i>
-            BULLY ANNIVERSARY EDITION
-          </div>
-
-          <h1>Bully <span>Files</span></h1>
-
-          <p>
-            Kumpulan file Bully Anniversary Edition dan Subtitle Indonesia yang
-            sudah disiapkan dalam satu halaman. Download file yang dibutuhkan,
-            lalu ikuti tutorial pemasangan di bawah agar proses instalasi lebih
-            mudah.
-          </p>
-
-          <div class="hero-actions">
-            <a href="#tutorial" class="hero-btn primary">
-              <i class="fa-solid fa-circle-play"></i>
-              Lihat Tutorial
-            </a>
-
-            <a href="#panduan" class="hero-btn secondary">
-              <i class="fa-solid fa-list-check"></i>
-              Baca Panduan
-            </a>
-          </div>
-        </div>
-      </header>
-
-      <div class="quick-info">
-        <div class="info-box">
-          <div class="info-icon">
-            <i class="fa-solid fa-download"></i>
-          </div>
-
-          <div>
-            <strong>File Game</strong>
-            <span>Bully Anniversary Edition</span>
-          </div>
-        </div>
-
-        <div class="info-box">
-          <div class="info-icon">
-            <i class="fa-solid fa-language"></i>
-          </div>
-
-          <div>
-            <strong>Subtitle</strong>
-            <span>Bahasa Indonesia</span>
-          </div>
-        </div>
-
-        <a href="#tutorial" class="info-box">
-          <div class="info-icon">
-            <i class="fa-solid fa-video"></i>
-          </div>
-
-          <div>
-            <strong>Tutorial</strong>
-            <span>Video pemasangan</span>
-          </div>
-        </a>
-      </div>
-
-      <section class="section" id="download">
-        <div class="section-heading">
-          <span class="section-label">Download</span>
-
-          <h2>File yang Dibutuhkan</h2>
-
-          <p>
-            Download sesuai kebutuhan. Setelah file selesai diunduh, lanjutkan
-            dengan melihat video dan panduan pemasangan.
-          </p>
-        </div>
-
-        <div class="download-list">
-          <div class="download-card">
-            <div class="download-info">
-              <div class="download-icon">
-                <i class="fa-solid fa-gamepad"></i>
-              </div>
-
-              <div>
-                <h3>APK Bully Anniversary Edition</h3>
-                <p>File utama game</p>
-              </div>
-            </div>
-
-            <button
-              class="download-btn"
-              data-url="https://file.kiwi/2a49bfff#6WgA_59xywf3INMIMcO5Wg"
-            >
-              <i class="fa-solid fa-download"></i>
-              DOWNLOAD
-            </button>
-          </div>
-
-          <div class="download-card">
-            <div class="download-info">
-              <div class="download-icon">
-                <i class="fa-solid fa-box-archive"></i>
-              </div>
-
-              <div>
-                <h3>OBB File Bully Anniversary</h3>
-                <p>File ZIP game</p>
-              </div>
-            </div>
-
-            <button
-              class="download-btn"
-              data-url="https://www.mediafire.com/file/inm1xap5v0s3i1m/Bully-Aniversary-Original.zip/file"
-            >
-              <i class="fa-solid fa-download"></i>
-              DOWNLOAD
-            </button>
-          </div>
-
-          <div class="download-card">
-            <div class="download-info">
-              <div class="download-icon">
-                <i class="fa-solid fa-language"></i>
-              </div>
-
-              <div>
-                <h3>Subtitle Indonesia</h3>
-                <p>Terjemahan Bahasa Indonesia</p>
-              </div>
-            </div>
-
-            <button
-              class="download-btn"
-              data-url="https://www.mediafire.com/file/vdw92znw0t015jr/Subtitle-indonesia-Bully.zip/file"
-            >
-              <i class="fa-solid fa-download"></i>
-              DOWNLOAD
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="tutorial">
-        <div class="section-heading">
-          <span class="section-label">Video Tutorial</span>
-
-          <h2>Tutorial Pemasangan Bully</h2>
-
-          <p>
-            Tonton video berikut sebelum melakukan pemasangan supaya urutan
-            prosesnya lebih mudah dipahami.
-          </p>
-        </div>
-
-        <div class="tutorial-box">
-          <div class="tutorial-video">
-            <video controls playsinline preload="metadata">
-              <source
-                src="https://cdn.fileflap.net/1790264601870-1dc2a472aa8c4d1a98e5769e0ad9eabe.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=e978556554f80c9c00dca0f70b4b0461%2F20260924%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20260924T154426Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=455a2c78f89621376ee7c2d819985b52f2d063cc06d182a1c6b62c320c538df1"
-                type="video/mp4"
-              />
-
-              Browser kamu tidak mendukung pemutaran video.
-            </video>
-          </div>
-
-          <div class="tutorial-caption">
-            <strong>
-              <i class="fa-solid fa-circle-play"></i>
-              Cara Pemasangan Bully Anniversary Edition
-            </strong>
-
-            <p>
-              Putar video sampai selesai. Tutorial menjelaskan proses pemasangan
-              file game dan subtitle secara bertahap.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="panduan">
-        <div class="section-heading">
-          <span class="section-label">Panduan Lengkap</span>
-
-          <h2>Cara Memasang Bully</h2>
-
-          <p>
-            Ikuti langkah berikut secara berurutan. Jika kamu masih bingung,
-            gunakan video tutorial di atas sebagai panduan visual.
-          </p>
-        </div>
-
-        <div class="guide-list">
-          <article class="guide-step">
-            <div class="step-number">1</div>
-
-            <div class="step-content">
-              <h3>Download File yang Dibutuhkan</h3>
-
-              <p>
-                Pertama, download file Bully Anniversary Edition dari salah satu
-                link yang tersedia di halaman ini. Jika kamu ingin menggunakan
-                Subtitle Indonesia, download juga file subtitle-nya.
-              </p>
-
-              <ul>
-                <li>Pastikan proses download selesai sepenuhnya.</li>
-                <li>Jangan membuka file ZIP sebelum selesai diunduh.</li>
-                <li>Simpan file di folder yang mudah ditemukan.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="guide-step">
-            <div class="step-number">2</div>
-
-            <div class="step-content">
-              <h3>Ekstrak File ZIP</h3>
-
-              <p>
-                Setelah file selesai di-download, buka file ZIP menggunakan
-                aplikasi pengelola arsip yang tersedia di perangkatmu. Pilih
-                opsi untuk mengekstrak seluruh isi file ke sebuah folder.
-              </p>
-
-              <ul>
-                <li>Jangan hanya membuka isi ZIP tanpa mengekstraknya.</li>
-                <li>Tunggu sampai proses ekstraksi selesai.</li>
-                <li>Pastikan tidak ada pesan error saat ekstraksi.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="guide-step">
-            <div class="step-number">3</div>
-
-            <div class="step-content">
-              <h3>Periksa Isi Folder Hasil Ekstrak</h3>
-
-              <p>
-                Buka folder hasil ekstraksi dan periksa file yang ada di
-                dalamnya. Struktur file dapat berbeda tergantung paket yang
-                digunakan, jadi jangan mengubah nama file atau folder secara
-                sembarangan.
-              </p>
-
-              <ul>
-                <li>Pastikan file game sudah terlihat dengan lengkap.</li>
-                <li>
-                  Jika terdapat folder data atau OBB, biarkan sesuai
-                  strukturnya.
-                </li>
-                <li>Ikuti struktur folder yang diperlihatkan pada video.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="guide-step">
-            <div class="step-number">4</div>
-
-            <div class="step-content">
-              <h3>Pasang File Game</h3>
-
-              <p>
-                Jika paket yang kamu download menyediakan file APK, pasang APK
-                tersebut terlebih dahulu. Setelah itu, tempatkan file data atau
-                OBB pada lokasi yang sesuai dengan struktur paket dan ikuti
-                langkah yang ditunjukkan pada video tutorial.
-              </p>
-
-              <ul>
-                <li>Jangan memindahkan folder secara acak.</li>
-                <li>Jangan mengganti nama folder data atau OBB.</li>
-                <li>Pastikan seluruh proses pemindahan file selesai.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="guide-step">
-            <div class="step-number">5</div>
-
-            <div class="step-content">
-              <h3>Pasang Subtitle Indonesia</h3>
-
-              <p>
-                Jika kamu ingin menggunakan Bahasa Indonesia, ekstrak file
-                Subtitle Indonesia yang sudah di-download. Setelah itu, ikuti
-                lokasi pemasangan subtitle seperti yang ditunjukkan dalam video.
-              </p>
-
-              <ul>
-                <li>Ekstrak file subtitle terlebih dahulu.</li>
-                <li>
-                  Jangan mengubah nama file subtitle jika tidak diperlukan.
-                </li>
-                <li>Ikuti lokasi folder subtitle pada tutorial.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="guide-step">
-            <div class="step-number">6</div>
-
-            <div class="step-content">
-              <h3>Cek Kembali File</h3>
-
-              <p>
-                Sebelum menjalankan game, periksa kembali apakah semua file
-                sudah berada di tempat yang benar. Jika terdapat file yang belum
-                selesai dipindahkan, selesaikan terlebih dahulu agar game tidak
-                mengalami masalah saat dibuka.
-              </p>
-
-              <ul>
-                <li>Pastikan penyimpanan masih mencukupi.</li>
-                <li>Pastikan proses ekstraksi dan pemindahan selesai.</li>
-                <li>Pastikan file game tidak rusak atau terpotong.</li>
-              </ul>
-            </div>
-          </article>
-
-          <article class="guide-step">
-            <div class="step-number">7</div>
-
-            <div class="step-content">
-              <h3>Jalankan Bully</h3>
-
-              <p>
-                Setelah seluruh file terpasang, buka Bully dari perangkatmu.
-                Tunggu proses loading sampai masuk ke menu utama. Jika game
-                berjalan normal, berarti pemasangan sudah selesai.
-              </p>
-
-              <ul>
-                <li>Jangan langsung menutup game saat proses loading.</li>
-                <li>
-                  Tunggu beberapa saat pada proses pertama kali membuka game.
-                </li>
-                <li>Jika muncul masalah, cek kembali langkah sebelumnya.</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-
-        <div class="note">
-          <strong>
-            <i class="fa-solid fa-circle-info"></i>
-            Catatan penting
-          </strong>
-
-          Struktur file dan lokasi pemasangan dapat berbeda tergantung versi
-          atau paket game yang digunakan. Karena itu, gunakan video tutorial
-          sebagai acuan utama dan jangan memindahkan atau mengganti nama folder
-          secara sembarangan.
-        </div>
-      </section>
-
-      <section class="section">
-        <div class="section-heading">
-          <span class="section-label">Sebelum Bermain</span>
-
-          <h2>Checklist Pemasangan</h2>
-
-          <p>
-            Kalau semua poin berikut sudah beres, kamu bisa mencoba menjalankan
-            game.
-          </p>
-        </div>
-
-        <div class="check-list">
-          <div class="check-item">
-            <i class="fa-solid fa-circle-check"></i>
-            <span> File game sudah selesai di-download dan diekstrak. </span>
-          </div>
-
-          <div class="check-item">
-            <i class="fa-solid fa-circle-check"></i>
-            <span> File game sudah ditempatkan sesuai struktur folder. </span>
-          </div>
-
-          <div class="check-item">
-            <i class="fa-solid fa-circle-check"></i>
-            <span>
-              Subtitle Indonesia sudah dipasang jika ingin digunakan.
-            </span>
-          </div>
-
-          <div class="check-item">
-            <i class="fa-solid fa-circle-check"></i>
-            <span> Ruang penyimpanan perangkat masih mencukupi. </span>
-          </div>
-        </div>
-      </section>
-
-      <footer class="footer">
-        <div class="footer-brand">
-          <span data-text="© 2026 Bully Files · Made by DIMMZZZSUM_ENAK"
-            >© 2026 Bully Files · Made by DIMMZZZSUM_ENAK</span
-          >
-        </div>
-
-        <div class="footer-line"></div>
-      </footer>
-    </div>
-
-    <div class="modal" id="downloadModal">
-      <div class="modal-box">
-        <div class="modal-icon">
-          <i class="fa-solid fa-spinner fa-spin"></i>
-        </div>
-
-        <h3 id="modalTitle">Menyiapkan Download</h3>
-
-        <p id="modalText">
-          Tunggu sebentar, kamu akan diarahkan ke halaman download.
-        </p>
-
-        <button class="modal-close" id="modalClose">TUTUP</button>
-      </div>
-    </div>
-
-    <script>
-      const downloadButtons = document.querySelectorAll(".download-btn");
-      const modal = document.getElementById("downloadModal");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalText = document.getElementById("modalText");
-      const modalClose = document.getElementById("modalClose");
-
-      downloadButtons.forEach(button => {
-
-          button.addEventListener("click", () => {
-
-              const url = button.dataset.url;
-
-              if(!url) return;
-
-              button.classList.add("loading");
-
-              button.innerHTML =
-                  '<i class="fa-solid fa-spinner fa-spin"></i> CHECKING';
-
-              setTimeout(() => {
-
-                  button.classList.remove("loading");
-                  button.classList.add("ready");
-
-                  button.innerHTML =
-                      '<i class="fa-solid fa-check"></i> READY';
-
-                  modalTitle.textContent = "Download Siap";
-
-                  modalText.textContent =
-                      "Kamu akan diarahkan ke halaman download.";
-
-                  modal.classList.add("show");
-
-                  setTimeout(() => {
-                      window.location.href = url;
-                  },500);
-
-              },1450);
-
-          });
-
-      });
-
-      modalClose.addEventListener("click", () => {
-          modal.classList.remove("show");
-      });
-
-      modal.addEventListener("click", event => {
-
-          if(event.target === modal){
-              modal.classList.remove("show");
-          }
-
-      });
-    </script>
-  </body>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta name="theme-color" content="#edf1f6">
+	<meta name="description" content="Download Bully Anniversary Edition dan Subtitle Indonesia">
+	<title>Bully Files — DIMMZZZSUM_ENAK</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+	<style>
+	:root {
+		--bg: #edf1f6;
+		--surface: #fff;
+		--soft: #f7f8fa;
+		--line: #e1e5ea;
+		--text: #1c2430;
+		--muted: #737b87;
+		--blue: #315b9f;
+		--blue-dark: #24487f;
+		--blue-soft: #edf3fc;
+		--yellow-soft: #fff7df;
+		--yellow: #73591c;
+		--green: #199b6c;
+		--shadow: 0 8px 28px rgba(25, 35, 50, .09)
+	}
+	
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box
+	}
+	
+	html {
+		scroll-behavior: smooth
+	}
+	
+	body {
+		min-height: 100vh;
+		padding: 20px 12px;
+		font-family: Arial, Helvetica, sans-serif;
+		color: var(--text);
+		background: var(--bg);
+		line-height: 1.5
+	}
+	
+	a {
+		color: inherit;
+		text-decoration: none
+	}
+	
+	button {
+		font-family: inherit
+	}
+	
+	.container {
+		width: min(1060px, 100%);
+		margin: auto;
+		background: var(--surface);
+		border: 1px solid var(--line);
+		border-radius: 18px;
+		box-shadow: var(--shadow);
+		overflow: hidden
+	}
+	
+	.navbar {
+		min-height: 68px;
+		padding: 13px 20px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 15px;
+		border-bottom: 1px solid var(--line);
+		background: #fff
+	}
+	
+	.brand {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		min-width: 0
+	}
+	
+	.brand-icon {
+		width: 38px;
+		height: 38px;
+		flex: 0 0 38px;
+		display: grid;
+		place-items: center;
+		border-radius: 10px;
+		background: var(--blue);
+		color: #fff;
+		font-size: 16px
+	}
+	
+	.brand-text {
+		display: flex;
+		flex-direction: column;
+		line-height: 1.1
+	}
+	
+	.brand-text strong {
+		font-size: 14px;
+		font-weight: 800;
+		letter-spacing: .5px
+	}
+	
+	.brand-text span {
+		margin-top: 4px;
+		color: var(--muted);
+		font-size: 8px;
+		font-weight: 700;
+		letter-spacing: .8px
+	}
+	
+	.nav-right {
+		display: flex;
+		align-items: center;
+		gap: 7px
+	}
+	
+	.nav-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 8px 11px;
+		border: 1px solid var(--line);
+		border-radius: 9px;
+		color: var(--muted);
+		font-size: 11px;
+		font-weight: 700
+	}
+	
+	.nav-link:active {
+		background: var(--blue-soft);
+		color: var(--blue)
+	}
+	
+	.hero {
+		padding: 45px 30px 32px;
+		background: #f8fafc
+	}
+	
+	.hero-content {
+		max-width: 730px
+	}
+	
+	.badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 6px 10px;
+		margin-bottom: 14px;
+		border-radius: 20px;
+		background: var(--blue-soft);
+		color: var(--blue);
+		font-size: 10px;
+		font-weight: 800
+	}
+	
+	.hero h1 {
+		margin-bottom: 13px;
+		font-size: clamp(31px, 6vw, 54px);
+		line-height: 1;
+		letter-spacing: -2px
+	}
+	
+	.hero h1 span {
+		color: var(--blue)
+	}
+	
+	.hero p {
+		max-width: 670px;
+		color: var(--muted);
+		font-size: 14px;
+		line-height: 1.7
+	}
+	
+	.hero-actions {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 9px;
+		margin-top: 21px
+	}
+	
+	.hero-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		padding: 11px 14px;
+		border-radius: 10px;
+		font-size: 11px;
+		font-weight: 800
+	}
+	
+	.hero-btn.primary {
+		background: var(--blue);
+		color: #fff
+	}
+	
+	.hero-btn.secondary {
+		border: 1px solid #ccd7e7;
+		background: #fff;
+		color: var(--blue)
+	}
+	
+	.quick-info {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 10px;
+		padding: 0 30px 25px;
+		background: #f8fafc
+	}
+	
+	.info-box {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 13px;
+		border: 1px solid var(--line);
+		border-radius: 12px;
+		background: #fff
+	}
+	
+	.info-icon {
+		width: 36px;
+		height: 36px;
+		flex: 0 0 36px;
+		display: grid;
+		place-items: center;
+		border-radius: 9px;
+		background: var(--blue-soft);
+		color: var(--blue);
+		font-size: 14px
+	}
+	
+	.info-box strong {
+		display: block;
+		margin-bottom: 2px;
+		font-size: 11px
+	}
+	
+	.info-box span {
+		color: var(--muted);
+		font-size: 10px
+	}
+	
+	.section {
+		padding: 35px 30px;
+		border-top: 1px solid var(--line)
+	}
+	
+	.section-heading {
+		margin-bottom: 19px
+	}
+	
+	.section-label {
+		display: inline-block;
+		margin-bottom: 6px;
+		color: var(--blue);
+		font-size: 9px;
+		font-weight: 800;
+		letter-spacing: 1px;
+		text-transform: uppercase
+	}
+	
+	.section-heading h2 {
+		margin-bottom: 6px;
+		font-size: 24px;
+		letter-spacing: -.6px
+	}
+	
+	.section-heading p {
+		color: var(--muted);
+		font-size: 12px;
+		line-height: 1.7
+	}
+	
+	.download-list {
+		display: grid;
+		gap: 10px
+	}
+	
+	.download-card {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 15px;
+		padding: 14px;
+		border: 1px solid var(--line);
+		border-radius: 13px;
+		background: var(--soft)
+	}
+	
+	.download-info {
+		min-width: 0;
+		display: flex;
+		align-items: center;
+		gap: 11px
+	}
+	
+	.download-icon {
+		width: 40px;
+		height: 40px;
+		flex: 0 0 40px;
+		display: grid;
+		place-items: center;
+		border-radius: 10px;
+		background: var(--blue-soft);
+		color: var(--blue);
+		font-size: 15px
+	}
+	
+	.download-info h3 {
+		margin-bottom: 3px;
+		font-size: 12px
+	}
+	
+	.download-info p {
+		color: var(--muted);
+		font-size: 10px
+	}
+	
+	.download-btn {
+		min-width: 112px;
+		flex: 0 0 auto;
+		padding: 10px 12px;
+		border: 0;
+		border-radius: 9px;
+		background: var(--blue);
+		color: #fff;
+		font-size: 10px;
+		font-weight: 800;
+		cursor: pointer
+	}
+	
+	.download-btn.loading {
+		background: #707a88
+	}
+	
+	.download-btn.ready {
+		background: var(--green)
+	}
+	
+	.tutorial-box {
+		overflow: hidden;
+		border: 1px solid var(--line);
+		border-radius: 14px;
+		background: #11151b
+	}
+	
+	.tutorial-video {
+		width: 100%;
+		aspect-ratio: 16/9;
+		background: #0b0d10
+	}
+	
+	.tutorial-video video {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+		background: #0b0d10
+	}
+	
+	.tutorial-caption {
+		padding: 15px 17px;
+		background: #fff
+	}
+	
+	.tutorial-caption strong {
+		display: block;
+		margin-bottom: 5px;
+		font-size: 13px
+	}
+	
+	.tutorial-caption p {
+		color: var(--muted);
+		font-size: 11px;
+		line-height: 1.7
+	}
+	
+	.guide-list {
+		display: grid;
+		gap: 10px
+	}
+	
+	.guide-step {
+		display: grid;
+		grid-template-columns: 48px 1fr;
+		gap: 14px;
+		padding: 17px;
+		border: 1px solid var(--line);
+		border-radius: 13px;
+		background: #fff
+	}
+	
+	.step-number {
+		width: 42px;
+		height: 42px;
+		display: grid;
+		place-items: center;
+		border-radius: 11px;
+		background: var(--blue);
+		color: #fff;
+		font-size: 14px;
+		font-weight: 800
+	}
+	
+	.step-content h3 {
+		margin-bottom: 6px;
+		font-size: 13px
+	}
+	
+	.step-content p {
+		color: #606977;
+		font-size: 11px;
+		line-height: 1.75
+	}
+	
+	.step-content ul {
+		margin: 8px 0 0 17px;
+		color: #606977;
+		font-size: 11px;
+		line-height: 1.75
+	}
+	
+	.note {
+		margin-top: 15px;
+		padding: 14px 15px;
+		border: 1px solid #f0dfac;
+		border-radius: 11px;
+		background: var(--yellow-soft);
+		color: var(--yellow);
+		font-size: 11px;
+		line-height: 1.7
+	}
+	
+	.note strong {
+		display: block;
+		margin-bottom: 3px;
+		color: #674d0d
+	}
+	
+	.check-list {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 10px
+	}
+	
+	.check-item {
+		display: flex;
+		gap: 9px;
+		padding: 13px;
+		border: 1px solid var(--line);
+		border-radius: 11px;
+		background: var(--soft)
+	}
+	
+	.check-item i {
+		margin-top: 2px;
+		color: var(--green);
+		font-size: 12px
+	}
+	
+	.check-item span {
+		color: #596270;
+		font-size: 11px;
+		line-height: 1.6
+	}
+	
+	.footer {
+		padding: 26px 18px;
+		border-top: 1px solid var(--line);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 6px;
+		text-align: center;
+		background: #fafbfc
+	}
+	
+	.footer-brand {
+		font-size: 12px;
+		font-weight: 800;
+		letter-spacing: .5px
+	}
+	
+	.footer-brand span {
+		color: var(--blue)
+	}
+	
+	.footer-line {
+		width: 35px;
+		height: 2px;
+		border-radius: 2px;
+		background: var(--blue)
+	}
+	
+	.modal {
+		position: fixed;
+		inset: 0;
+		z-index: 100;
+		display: none;
+		align-items: center;
+		justify-content: center;
+		padding: 16px;
+		background: rgba(10, 14, 20, .7)
+	}
+	
+	.modal.show {
+		display: flex
+	}
+	
+	.modal-box {
+		width: min(400px, 100%);
+		padding: 20px;
+		border-radius: 14px;
+		background: #fff;
+		box-shadow: 0 15px 45px rgba(0, 0, 0, .25);
+		text-align: center
+	}
+	
+	.modal-icon {
+		width: 48px;
+		height: 48px;
+		margin: 0 auto 12px;
+		display: grid;
+		place-items: center;
+		border-radius: 12px;
+		background: var(--blue-soft);
+		color: var(--blue);
+		font-size: 18px
+	}
+	
+	.modal-box h3 {
+		margin-bottom: 6px;
+		font-size: 16px
+	}
+	
+	.modal-box p {
+		color: var(--muted);
+		font-size: 11px;
+		line-height: 1.7
+	}
+	
+	.modal-close {
+		width: 100%;
+		margin-top: 15px;
+		padding: 10px;
+		border: 0;
+		border-radius: 9px;
+		background: var(--blue);
+		color: #fff;
+		font-size: 11px;
+		font-weight: 800;
+		cursor: pointer
+	}
+	
+	@media(max-width:700px) {
+		body {
+			padding: 10px
+		}
+		.container {
+			border-radius: 15px
+		}
+		.navbar {
+			padding: 12px 14px
+		}
+		.brand-icon {
+			width: 36px;
+			height: 36px;
+			flex-basis: 36px
+		}
+		.brand-text strong {
+			font-size: 13px
+		}
+		.nav-link {
+			padding: 8px 9px
+		}
+		.nav-link span {
+			display: none
+		}
+		.hero {
+			padding: 35px 18px 27px
+		}
+		.hero h1 {
+			font-size: 38px;
+			letter-spacing: -1.5px
+		}
+		.hero p {
+			font-size: 12px
+		}
+		.hero-actions {
+			display: grid;
+			grid-template-columns: 1fr
+		}
+		.hero-btn {
+			width: 100%
+		}
+		.quick-info {
+			grid-template-columns: 1fr;
+			padding: 0 18px 20px
+		}
+		.section {
+			padding: 28px 18px
+		}
+		.section-heading h2 {
+			font-size: 21px
+		}
+		.download-card {
+			align-items: stretch;
+			flex-direction: column
+		}
+		.download-btn {
+			width: 100%
+		}
+		.guide-step {
+			grid-template-columns: 42px 1fr;
+			gap: 11px;
+			padding: 14px
+		}
+		.step-number {
+			width: 38px;
+			height: 38px
+		}
+		.check-list {
+			grid-template-columns: 1fr
+		}
+	}
+	
+	@media(max-width:380px) {
+		body {
+			padding: 6px
+		}
+		.brand-text span {
+			font-size: 7px
+		}
+		.hero h1 {
+			font-size: 34px
+		}
+		.section {
+			padding: 25px 14px
+		}
+		.quick-info {
+			padding-left: 14px;
+			padding-right: 14px
+		}
+	}
+	
+	@media(prefers-reduced-motion:reduce) {
+		html {
+			scroll-behavior: auto
+		}
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<nav class="navbar">
+			<a href="#" class="brand">
+				<div class="brand-icon"> <i class="fa-solid fa-school"></i> </div>
+				<div class="brand-text"> <strong>BULLY</strong> <span>ANNIVERSARY EDITION</span> </div>
+			</a>
+			<div class="nav-right">
+				<a href="#tutorial" class="nav-link"> <i class="fa-solid fa-play"></i> <span>Tutorial</span> </a>
+				<a href="#panduan" class="nav-link"> <i class="fa-solid fa-book-open"></i> <span>Panduan</span> </a>
+			</div>
+		</nav>
+		<header class="hero">
+			<div class="hero-content">
+				<div class="badge"> <i class="fa-solid fa-gamepad"></i> BULLY ANNIVERSARY EDITION </div>
+				<h1>Bully <span>Files</span></h1>
+				<p> Kumpulan file Bully Anniversary Edition dan Subtitle Indonesia yang sudah disiapkan dalam satu halaman. Download file yang dibutuhkan, lalu ikuti tutorial pemasangan di bawah. </p>
+				<div class="hero-actions">
+					<a href="#tutorial" class="hero-btn primary"> <i class="fa-solid fa-circle-play"></i> Lihat Tutorial </a>
+					<a href="#panduan" class="hero-btn secondary"> <i class="fa-solid fa-list-check"></i> Baca Panduan </a>
+				</div>
+			</div>
+		</header>
+		<div class="quick-info">
+			<div class="info-box">
+				<div class="info-icon"> <i class="fa-solid fa-download"></i> </div>
+				<div> <strong>File Game</strong> <span>Bully Anniversary Edition</span> </div>
+			</div>
+			<div class="info-box">
+				<div class="info-icon"> <i class="fa-solid fa-language"></i> </div>
+				<div> <strong>Subtitle</strong> <span>Bahasa Indonesia</span> </div>
+			</div>
+			<a href="#tutorial" class="info-box">
+				<div class="info-icon"> <i class="fa-solid fa-video"></i> </div>
+				<div> <strong>Tutorial</strong> <span>Video pemasangan</span> </div>
+			</a>
+		</div>
+		<section class="section" id="download">
+			<div class="section-heading"> <span class="section-label">Download</span>
+				<h2>File yang Dibutuhkan</h2>
+				<p> Download sesuai kebutuhan. Setelah file selesai diunduh, lanjutkan dengan melihat video dan panduan pemasangan. </p>
+			</div>
+			<div class="download-list">
+				<div class="download-card">
+					<div class="download-info">
+						<div class="download-icon"> <i class="fa-solid fa-gamepad"></i> </div>
+						<div>
+							<h3>APK Bully Anniversary Edition</h3>
+							<p>File utama game</p>
+						</div>
+					</div>
+					<button class="download-btn" data-url="https://file.kiwi/2a49bfff#6WgA_59xywf3INMIMcO5Wg"> <i class="fa-solid fa-download"></i> DOWNLOAD </button>
+				</div>
+				<div class="download-card">
+					<div class="download-info">
+						<div class="download-icon"> <i class="fa-solid fa-box-archive"></i> </div>
+						<div>
+							<h3>OBB File Bully Anniversary</h3>
+							<p>File ZIP game</p>
+						</div>
+					</div>
+					<button class="download-btn" data-url="https://www.mediafire.com/file/inm1xap5v0s3i1m/Bully-Aniversary-Original.zip/file"> <i class="fa-solid fa-download"></i> DOWNLOAD </button>
+				</div>
+				<div class="download-card">
+					<div class="download-info">
+						<div class="download-icon"> <i class="fa-solid fa-language"></i> </div>
+						<div>
+							<h3>Subtitle Indonesia</h3>
+							<p>Terjemahan Bahasa Indonesia</p>
+						</div>
+					</div>
+					<button class="download-btn" data-url="https://www.mediafire.com/file/vdw92znw0t015jr/Subtitle-indonesia-Bully.zip/file"> <i class="fa-solid fa-download"></i> DOWNLOAD </button>
+				</div>
+			</div>
+		</section>
+		<section class="section" id="tutorial">
+			<div class="section-heading"> <span class="section-label">Video Tutorial</span>
+				<h2>Tutorial Pemasangan Bully</h2>
+				<p> Tonton video berikut sebelum melakukan pemasangan supaya urutan prosesnya lebih mudah dipahami. </p>
+			</div>
+			<div class="tutorial-box">
+				<div class="tutorial-video">
+					<video controls playsinline preload="metadata">
+						<source src="https://cdn.fileflap.net/1790264601870-1dc2a472aa8c4d1a98e5769e0ad9eabe.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=e978556554f80c9c00dca0f70b4b0461%2F20260924%2Fauto%2Fs3%2Faws4_request&X-Amz-Date=20260924T154426Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=455a2c78f89621376ee7c2d819985b52f2d063cc06d182a1c6b62c320c538df1" type="video/mp4"> Browser kamu tidak mendukung pemutaran video. </video>
+				</div>
+				<div class="tutorial-caption"> <strong>
+        <i class="fa-solid fa-circle-play"></i>
+        Cara Pemasangan Bully Anniversary Edition
+      </strong>
+					<p> Putar video sampai selesai. Tutorial menjelaskan proses pemasangan file game dan subtitle secara bertahap. </p>
+				</div>
+			</div>
+		</section>
+		<section class="section" id="panduan">
+			<div class="section-heading"> <span class="section-label">Panduan Lengkap</span>
+				<h2>Cara Memasang Bully</h2>
+				<p> Ikuti langkah berikut secara berurutan. Jika masih bingung, gunakan video tutorial sebagai panduan visual. </p>
+			</div>
+			<div class="guide-list">
+				<article class="guide-step">
+					<div class="step-number">1</div>
+					<div class="step-content">
+						<h3>Download File yang Dibutuhkan</h3>
+						<p> Download file Bully Anniversary Edition dari link yang tersedia. Jika ingin menggunakan Subtitle Indonesia, download juga file subtitle. </p>
+						<ul>
+							<li>Pastikan proses download selesai sepenuhnya.</li>
+							<li>Jangan membuka file ZIP sebelum selesai diunduh.</li>
+							<li>Simpan file di folder yang mudah ditemukan.</li>
+						</ul>
+					</div>
+				</article>
+				<article class="guide-step">
+					<div class="step-number">2</div>
+					<div class="step-content">
+						<h3>Ekstrak File ZIP</h3>
+						<p> Buka file ZIP menggunakan aplikasi pengelola arsip yang tersedia di perangkat. Ekstrak seluruh isi file ke sebuah folder. </p>
+						<ul>
+							<li>Jangan hanya membuka isi ZIP tanpa mengekstraknya.</li>
+							<li>Tunggu sampai proses ekstraksi selesai.</li>
+							<li>Pastikan tidak ada pesan error saat ekstraksi.</li>
+						</ul>
+					</div>
+				</article>
+				<article class="guide-step">
+					<div class="step-number">3</div>
+					<div class="step-content">
+						<h3>Periksa Isi Folder Hasil Ekstrak</h3>
+						<p> Buka folder hasil ekstraksi dan periksa file yang ada di dalamnya. Jangan mengubah nama file atau folder secara sembarangan. </p>
+						<ul>
+							<li>Pastikan file game terlihat dengan lengkap.</li>
+							<li>Jika terdapat folder data atau OBB, biarkan sesuai strukturnya.</li>
+							<li>Ikuti struktur folder yang diperlihatkan pada video.</li>
+						</ul>
+					</div>
+				</article>
+				<article class="guide-step">
+					<div class="step-number">4</div>
+					<div class="step-content">
+						<h3>Pasang File Game</h3>
+						<p> Jika paket menyediakan file APK, pasang APK terlebih dahulu. Setelah itu tempatkan file data atau OBB pada lokasi yang sesuai dengan struktur paket. </p>
+						<ul>
+							<li>Jangan memindahkan folder secara acak.</li>
+							<li>Jangan mengganti nama folder data atau OBB.</li>
+							<li>Pastikan proses pemindahan file selesai.</li>
+						</ul>
+					</div>
+				</article>
+				<article class="guide-step">
+					<div class="step-number">5</div>
+					<div class="step-content">
+						<h3>Pasang Subtitle Indonesia</h3>
+						<p> Jika ingin menggunakan Bahasa Indonesia, ekstrak file Subtitle Indonesia lalu ikuti lokasi pemasangan subtitle yang ditunjukkan dalam video. </p>
+						<ul>
+							<li>Ekstrak file subtitle terlebih dahulu.</li>
+							<li>Jangan mengubah nama file subtitle jika tidak diperlukan.</li>
+							<li>Ikuti lokasi folder subtitle pada tutorial.</li>
+						</ul>
+					</div>
+				</article>
+				<article class="guide-step">
+					<div class="step-number">6</div>
+					<div class="step-content">
+						<h3>Cek Kembali File</h3>
+						<p> Sebelum menjalankan game, periksa kembali apakah semua file sudah berada di tempat yang benar. </p>
+						<ul>
+							<li>Pastikan penyimpanan masih mencukupi.</li>
+							<li>Pastikan proses ekstraksi dan pemindahan selesai.</li>
+							<li>Pastikan file game tidak rusak atau terpotong.</li>
+						</ul>
+					</div>
+				</article>
+				<article class="guide-step">
+					<div class="step-number">7</div>
+					<div class="step-content">
+						<h3>Jalankan Bully</h3>
+						<p> Setelah seluruh file terpasang, buka Bully dari perangkat. Tunggu proses loading sampai masuk ke menu utama. </p>
+						<ul>
+							<li>Jangan langsung menutup game saat proses loading.</li>
+							<li>Tunggu beberapa saat saat pertama kali membuka game.</li>
+							<li>Jika muncul masalah, cek kembali langkah sebelumnya.</li>
+						</ul>
+					</div>
+				</article>
+			</div>
+			<div class="note"> <strong>
+      <i class="fa-solid fa-circle-info"></i>
+      Catatan penting
+    </strong> Struktur file dan lokasi pemasangan dapat berbeda tergantung versi atau paket game yang digunakan. Gunakan video tutorial sebagai acuan utama dan jangan memindahkan atau mengganti nama folder secara sembarangan. </div>
+		</section>
+		<section class="section">
+			<div class="section-heading"> <span class="section-label">Sebelum Bermain</span>
+				<h2>Checklist Pemasangan</h2>
+				<p> Kalau semua poin berikut sudah beres, kamu bisa mencoba menjalankan game. </p>
+			</div>
+			<div class="check-list">
+				<div class="check-item"> <i class="fa-solid fa-circle-check"></i> <span>File game sudah selesai di-download dan diekstrak.</span> </div>
+				<div class="check-item"> <i class="fa-solid fa-circle-check"></i> <span>File game sudah ditempatkan sesuai struktur folder.</span> </div>
+				<div class="check-item"> <i class="fa-solid fa-circle-check"></i> <span>Subtitle Indonesia sudah dipasang jika ingin digunakan.</span> </div>
+				<div class="check-item"> <i class="fa-solid fa-circle-check"></i> <span>Ruang penyimpanan perangkat masih mencukupi.</span> </div>
+			</div>
+		</section>
+		<footer class="footer">
+			<div class="footer-brand"> <span>© 2026 Bully Files · Made by DIMMZZZSUM_ENAK</span> </div>
+			<div class="footer-line"></div>
+		</footer>
+	</div>
+	<div class="modal" id="downloadModal">
+		<div class="modal-box">
+			<div class="modal-icon"> <i class="fa-solid fa-spinner fa-spin"></i> </div>
+			<h3 id="modalTitle">Menyiapkan Download</h3>
+			<p id="modalText"> Tunggu sebentar, kamu akan diarahkan ke halaman download. </p>
+			<button class="modal-close" id="modalClose"> TUTUP </button>
+		</div>
+	</div>
+	<script>
+	(function() {
+		var buttons = document.querySelectorAll(".download-btn");
+		var modal = document.getElementById("downloadModal");
+		var modalTitle = document.getElementById("modalTitle");
+		var modalText = document.getElementById("modalText");
+		var modalClose = document.getElementById("modalClose");
+		for(var i = 0; i < buttons.length; i++) {
+			buttons[i].addEventListener("click", function() {
+				var button = this;
+				var url = button.getAttribute("data-url");
+				if(!url) return;
+				button.className = "download-btn loading";
+				button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> CHECKING';
+				window.setTimeout(function() {
+					button.className = "download-btn ready";
+					button.innerHTML = '<i class="fa-solid fa-check"></i> READY';
+					modalTitle.textContent = "Download Siap";
+					modalText.textContent = "Kamu akan diarahkan ke halaman download.";
+					modal.className = "modal show";
+					window.setTimeout(function() {
+						window.location.href = url;
+					}, 400);
+				}, 700);
+			});
+		}
+		modalClose.addEventListener("click", function() {
+			modal.className = "modal";
+		});
+		modal.addEventListener("click", function(event) {
+			if(event.target === modal) {
+				modal.className = "modal";
+			}
+		});
+	})();
+	</script>
+</body>
 </html>
