@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="id">
   <head>
@@ -444,22 +443,28 @@
       left:50%;
       bottom:18px;
       z-index:100;
-      max-width:calc(100% - 24px);
-      padding:10px 13px;
-      border:1px solid #292929;
-      border-radius:7px;
-      background:#151515;
+      width:max-content;
+      max-width:calc(100% - 28px);
+      padding:11px 14px;
+      border:1px solid #3a2929;
+      border-radius:9px;
+      background:#171010;
       color:#eee;
       font-size:11px;
-      transform:translateX(-50%);
+      line-height:1.45;
+      text-align:center;
+      box-shadow:0 8px 30px rgba(0,0,0,.35);
+      transform:translate(-50%,12px);
       opacity:0;
       visibility:hidden;
-      transition:opacity .2s ease
+      pointer-events:none;
+      transition:opacity .2s ease,transform .2s ease,visibility .2s ease
       }
 
       .toast.show{
       opacity:1;
-      visibility:visible
+      visibility:visible;
+      transform:translate(-50%,0)
       }
 
       @media(max-width:850px){
@@ -673,7 +678,7 @@
       </p>
     </footer>
 
-    <div class="toast" id="toast"></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <script>
       const API_ENDPOINT=[
@@ -709,6 +714,8 @@
       const fileName=document.getElementById("fileName");
       const toast=document.getElementById("toast");
 
+      let toastTimer=null;
+
       let currentResult={
       url:"",
       filename:"",
@@ -720,7 +727,6 @@
       };
 
       let requestCounter=0;
-      let toastTimer=null;
 
       function showToast(message){
 
@@ -730,17 +736,47 @@
       toast.classList.add("show");
 
       toastTimer=setTimeout(function(){
-
       toast.classList.remove("show");
+      },3200);
 
-      },2500);
+      }
 
+      function normalizePlayerName(value){
+      return String(value||"")
+      .replace(/\s+/g," ")
+      .trim();
+      }
+
+      function isValidPlayerName(name){
+      if(!name){
+      return false;
+      }
+
+      if(name.length>50){
+      return false;
+      }
+
+      const words=name.split(/\s+/).filter(Boolean);
+
+      if(words.length>4){
+      return false;
+      }
+
+      if(/[!?;:,]/.test(name)){
+      return false;
+      }
+
+      if(/https?:\/\/|www\.|\.com\b|\.net\b|\.id\b/i.test(name)){
+      return false;
+      }
+
+      return true;
       }
 
       function showError(message){
 
-      errorBox.textContent=message;
-      errorBox.classList.add("active");
+      errorBox.textContent="";
+      errorBox.classList.remove("active");
 
       }
 
@@ -946,30 +982,22 @@
 
       hideError();
 
-      const name=playerName.value.trim();
+      const name=normalizePlayerName(playerName.value);
+
+      playerName.value=name;
 
       if(!name){
-
-      showError(
-      "Silakan masukkan nama player terlebih dahulu."
-      );
-
       playerName.focus();
-
+      showToast("Masukkan nama player terlebih dahulu.");
       return;
-
       }
 
-      if(name.length>50){
-
-      showError(
-      "Nama maksimal 50 karakter."
-      );
-
+      if(!isValidPlayerName(name)){
       playerName.focus();
-
+      showToast(
+      "Masukkan nama player saja, bukan teks panjang / copas / copy-an / url."
+      );
       return;
-
       }
 
       const thisRequest=++requestCounter;
@@ -1081,10 +1109,6 @@
 
       displayResult(thisRequest);
 
-      showToast(
-      "Lobby "+name+" berhasil dibuat."
-      );
-
       }catch(error){
 
       if(thisRequest!==requestCounter){
@@ -1098,10 +1122,6 @@
       showError(
       "Gagal membuat gambar. "+
       (error.message||"Terjadi kesalahan.")
-      );
-
-      showToast(
-      "Gagal memproses gambar."
       );
 
       }finally{
@@ -1120,11 +1140,7 @@
       async function(){
 
       if(!currentResult.url){
-
-      showToast("Belum ada gambar.");
-
       return;
-
       }
 
       const oldText=downloadBtn.innerHTML;
@@ -1199,20 +1215,7 @@
 
       },1000);
 
-      showToast(
-      "Download gambar berhasil dimulai."
-      );
-
       }catch(error){
-
-      window.open(
-      currentResult.url,
-      "_blank"
-      );
-
-      showToast(
-      "Gambar dibuka di tab baru."
-      );
 
       }finally{
 
@@ -1240,10 +1243,6 @@
       behavior:"auto",
       block:"center"
       });
-
-      showToast(
-      "Siap membuat gambar lobby baru."
-      );
 
       }
       );
@@ -1273,4 +1272,3 @@
     </script>
   </body>
 </html>
-```
