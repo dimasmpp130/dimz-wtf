@@ -16,660 +16,616 @@
     />
 
     <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
       }
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Helvetica, Arial, sans-serif;
-        background: #0f0f17;
-        color: #fff;
-        min-height: 100vh;
-        overflow-x: hidden;
+      body{
+        font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+        background:#0f0f17;
+        color:#fff;
+        min-height:100vh;
+        overflow-x:hidden;
       }
 
-      body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
+      body::before{
+        content:"";
+        position:fixed;
+        inset:0;
         background:
-          radial-gradient(
-            circle at 20% 20%,
-            rgba(131, 58, 180, 0.18),
-            transparent 30%
-          ),
-          radial-gradient(
-            circle at 80% 30%,
-            rgba(225, 48, 108, 0.15),
-            transparent 30%
-          ),
-          radial-gradient(
-            circle at 50% 80%,
-            rgba(253, 29, 29, 0.1),
-            transparent 30%
-          );
-        pointer-events: none;
-        z-index: -2;
+          radial-gradient(circle at 20% 20%,rgba(131,58,180,.18),transparent 30%),
+          radial-gradient(circle at 80% 30%,rgba(225,48,108,.15),transparent 30%),
+          radial-gradient(circle at 50% 80%,rgba(253,29,29,.1),transparent 30%);
+        pointer-events:none;
+        z-index:-2;
       }
 
-      .container {
-        width: min(1050px, calc(100% - 30px));
-        margin: 0 auto;
-        padding: 30px 0 40px;
+      .container{
+        width:min(1050px,calc(100% - 30px));
+        margin:0 auto;
+        padding:30px 0 40px;
       }
 
-      header {
-        text-align: center;
-        margin-bottom: 30px;
+      header{
+        text-align:center;
+        margin-bottom:30px;
       }
 
-      .logo {
-        width: 78px;
-        height: 78px;
-        margin: 0 auto 18px;
-        border-radius: 22px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 38px;
-        background: linear-gradient(
-          135deg,
-          #833ab4,
-          #fd1d1d,
-          #fcb045
-        );
+      .logo{
+        width:78px;
+        height:78px;
+        margin:0 auto 18px;
+        border-radius:22px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:38px;
+        background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
         box-shadow:
-          0 10px 35px rgba(225, 48, 108, 0.28),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+          0 10px 35px rgba(225,48,108,.28),
+          inset 0 0 0 1px rgba(255,255,255,.15);
       }
 
-      header h1 {
-        font-size: clamp(28px, 5vw, 42px);
-        font-weight: 800;
-        letter-spacing: -1px;
-        margin-bottom: 8px;
+      header h1{
+        font-size:clamp(28px,5vw,42px);
+        font-weight:800;
+        letter-spacing:-1px;
+        margin-bottom:8px;
       }
 
-      header h1 span {
-        background: linear-gradient(
-          90deg,
-          #833ab4,
-          #fd1d1d,
-          #fcb045
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
+      header h1 span{
+        background:linear-gradient(90deg,#833ab4,#fd1d1d,#fcb045);
+        -webkit-background-clip:text;
+        background-clip:text;
+        color:transparent;
       }
 
-      header p {
-        color: #aaa;
-        font-size: 15px;
+      header p{
+        color:#aaa;
+        font-size:15px;
       }
 
-      .creator {
-        margin-top: 7px;
-        color: #777;
-        font-size: 13px;
+      .creator{
+        margin-top:7px;
+        color:#777;
+        font-size:13px;
       }
 
-      .main-card {
-        background: rgba(25, 25, 38, 0.96);
-        border: 1px solid rgba(255, 255, 255, 0.07);
-        border-radius: 24px;
-        padding: 25px;
-        box-shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
+      .main-card{
+        background:rgba(25,25,38,.96);
+        border:1px solid rgba(255,255,255,.07);
+        border-radius:24px;
+        padding:25px;
+        box-shadow:0 20px 70px rgba(0,0,0,.35);
       }
 
-      .input-group {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 18px;
+      .input-group{
+        display:flex;
+        gap:10px;
+        margin-bottom:18px;
       }
 
-      .input-wrapper {
-        position: relative;
-        flex: 1;
+      .input-wrapper{
+        position:relative;
+        flex:1;
       }
 
-      .input-wrapper > i {
-        position: absolute;
-        left: 17px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #999;
-        pointer-events: none;
-        z-index: 2;
+      .input-wrapper>i{
+        position:absolute;
+        left:17px;
+        top:50%;
+        transform:translateY(-50%);
+        color:#999;
+        pointer-events:none;
+        z-index:2;
       }
 
-      #urlInput {
-        width: 100%;
-        height: 56px;
-        border-radius: 15px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        outline: none;
-        background: #151520;
-        color: #fff;
-        padding: 0 108px 0 48px;
-        font-size: 15px;
-        transition: 0.25s;
+      #urlInput{
+        width:100%;
+        height:56px;
+        border-radius:15px;
+        border:1px solid rgba(255,255,255,.08);
+        outline:none;
+        background:#151520;
+        color:#fff;
+        padding:0 108px 0 48px;
+        font-size:15px;
+        transition:.25s;
       }
 
-      #urlInput:focus {
-        border-color: #833ab4;
-        box-shadow: 0 0 0 3px rgba(131, 58, 180, 0.13);
+      #urlInput:focus{
+        border-color:#833ab4;
+        box-shadow:0 0 0 3px rgba(131,58,180,.13);
       }
 
-      .input-actions {
-        position: absolute;
-        top: 50%;
-        right: 9px;
-        transform: translateY(-50%);
-        display: flex;
-        align-items: center;
-        gap: 4px;
-        z-index: 3;
+      .input-actions{
+        position:absolute;
+        top:50%;
+        right:9px;
+        transform:translateY(-50%);
+        display:flex;
+        align-items:center;
+        gap:4px;
+        z-index:3;
       }
 
-      .input-action {
-        width: 38px;
-        height: 38px;
-        border: none;
-        border-radius: 10px;
-        background: transparent;
-        color: #888;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: 0.2s;
+      .input-action{
+        width:38px;
+        height:38px;
+        border:none;
+        border-radius:10px;
+        background:transparent;
+        color:#888;
+        cursor:pointer;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        transition:.2s;
       }
 
-      .input-action:hover {
-        background: rgba(255, 255, 255, 0.07);
-        color: #fff;
+      .input-action:hover{
+        background:rgba(255,255,255,.07);
+        color:#fff;
       }
 
-      .input-action:active {
-        transform: scale(0.94);
+      .input-action:active{
+        transform:scale(.94);
       }
 
-      #clearInput {
-        display: none;
+      #clearInput{
+        display:none;
       }
 
-      #downloadButton {
-        height: 56px;
-        padding: 0 25px;
-        border: none;
-        border-radius: 15px;
-        color: white;
-        font-size: 15px;
-        font-weight: 700;
-        cursor: pointer;
-        background: linear-gradient(
-          135deg,
-          #833ab4,
-          #fd1d1d
-        );
-        transition: 0.25s;
-        white-space: nowrap;
+      #downloadButton{
+        height:56px;
+        padding:0 25px;
+        border:none;
+        border-radius:15px;
+        color:#fff;
+        font-size:15px;
+        font-weight:700;
+        cursor:pointer;
+        background:linear-gradient(135deg,#833ab4,#fd1d1d);
+        transition:.25s;
+        white-space:nowrap;
       }
 
-      #downloadButton:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(225, 48, 108, 0.25);
+      #downloadButton:hover{
+        transform:translateY(-2px);
+        box-shadow:0 10px 25px rgba(225,48,108,.25);
       }
 
-      #downloadButton:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-        transform: none;
-        box-shadow: none;
+      #downloadButton:disabled{
+        opacity:.6;
+        cursor:not-allowed;
+        transform:none;
+        box-shadow:none;
       }
 
-      .supported {
-        text-align: center;
-        color: #777;
-        font-size: 12px;
-        margin-bottom: 20px;
+      .supported{
+        text-align:center;
+        color:#777;
+        font-size:12px;
+        margin-bottom:20px;
       }
 
-      .supported span {
-        color: #aaa;
+      .supported span{
+        color:#aaa;
       }
 
-      .message {
-        display: none;
-        padding: 14px 16px;
-        border-radius: 13px;
-        margin-bottom: 20px;
-        font-size: 14px;
-        line-height: 1.5;
+      .message{
+        display:none;
+        padding:14px 16px;
+        border-radius:13px;
+        margin-bottom:20px;
+        font-size:14px;
+        line-height:1.5;
       }
 
-      .message.show {
-        display: block;
+      .message.show{
+        display:block;
       }
 
-      .message.error {
-        background: rgba(244, 67, 54, 0.1);
-        border: 1px solid rgba(244, 67, 54, 0.2);
-        color: #ff8a80;
+      .message.error{
+        background:rgba(244,67,54,.1);
+        border:1px solid rgba(244,67,54,.2);
+        color:#ff8a80;
       }
 
-      .message.success {
-        background: rgba(76, 175, 80, 0.1);
-        border: 1px solid rgba(76, 175, 80, 0.2);
-        color: #81c784;
+      .message.success{
+        background:rgba(76,175,80,.1);
+        border:1px solid rgba(76,175,80,.2);
+        color:#81c784;
       }
 
-      .message.loading {
-        background: rgba(131, 58, 180, 0.1);
-        border: 1px solid rgba(131, 58, 180, 0.2);
-        color: #c9a1ff;
+      .message.loading{
+        background:rgba(131,58,180,.1);
+        border:1px solid rgba(131,58,180,.2);
+        color:#c9a1ff;
       }
 
-      .spinner {
-        display: inline-block;
-        width: 15px;
-        height: 15px;
-        border: 2px solid rgba(255, 255, 255, 0.2);
-        border-top-color: #fff;
-        border-radius: 50%;
-        animation: spin 0.7s linear infinite;
-        vertical-align: -3px;
-        margin-right: 7px;
+      .spinner{
+        display:inline-block;
+        width:15px;
+        height:15px;
+        border:2px solid rgba(255,255,255,.2);
+        border-top-color:#fff;
+        border-radius:50%;
+        animation:spin .7s linear infinite;
+        vertical-align:-3px;
+        margin-right:7px;
       }
 
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
+      @keyframes spin{
+        to{transform:rotate(360deg)}
       }
 
-      .result {
-        display: none;
+      .result{
+        display:none;
       }
 
-      .result.show {
-        display: block;
+      .result.show{
+        display:block;
       }
 
-      .profile {
-        display: flex;
-        align-items: center;
-        gap: 13px;
-        padding: 14px;
-        background: rgba(255, 255, 255, 0.025);
-        border-radius: 15px;
-        margin-bottom: 18px;
+      .profile{
+        display:flex;
+        align-items:center;
+        gap:13px;
+        padding:14px;
+        background:rgba(255,255,255,.025);
+        border-radius:15px;
+        margin-bottom:18px;
       }
 
-      .profile-avatar {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        object-fit: cover;
-        background: linear-gradient(
-          135deg,
-          #833ab4,
-          #fd1d1d
-        );
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 20px;
-        overflow: hidden;
-        flex-shrink: 0;
+      .profile-avatar{
+        width:48px;
+        height:48px;
+        border-radius:50%;
+        object-fit:cover;
+        background:linear-gradient(135deg,#833ab4,#fd1d1d);
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:20px;
+        overflow:hidden;
+        flex-shrink:0;
       }
 
-      .profile-avatar img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+      .profile-avatar img{
+        width:100%;
+        height:100%;
+        object-fit:cover;
       }
 
-      .profile-info {
-        flex: 1;
-        min-width: 0;
+      .profile-info{
+        flex:1;
+        min-width:0;
       }
 
-      .profile-name {
-        font-weight: 700;
-        font-size: 15px;
+      .profile-name{
+        font-weight:700;
+        font-size:15px;
       }
 
-      .profile-type {
-        color: #777;
-        font-size: 12px;
-        margin-top: 3px;
+      .profile-type{
+        color:#777;
+        font-size:12px;
+        margin-top:3px;
       }
 
-      .media-wrapper {
-        position: relative;
-        border-radius: 18px;
-        overflow: hidden;
-        background: #08080d;
-        margin-bottom: 15px;
+      .media-wrapper{
+        position:relative;
+        border-radius:18px;
+        overflow:hidden;
+        background:#08080d;
+        margin-bottom:15px;
       }
 
       .media-wrapper img,
-      .media-wrapper video {
-        display: block;
-        width: 100%;
-        max-height: 650px;
-        object-fit: contain;
-        background: #08080d;
+      .media-wrapper video{
+        display:block;
+        width:100%;
+        max-height:650px;
+        object-fit:contain;
+        background:#08080d;
       }
 
-      .media-wrapper > img {
-        min-height: 200px;
+      .media-wrapper>img{
+        min-height:200px;
       }
 
-      .media-wrapper > video {
-        max-height: 650px;
+      .carousel{
+        position:relative;
       }
 
-      .carousel {
-        position: relative;
+      .carousel-track{
+        display:flex;
+        transition:transform .3s ease;
       }
 
-      .carousel-track {
-        display: flex;
-        transition: transform 0.3s ease;
-      }
-
-      .carousel-item {
-        min-width: 100%;
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #08080d;
+      .carousel-item{
+        min-width:100%;
+        position:relative;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#08080d;
       }
 
       .carousel-item img,
-      .carousel-item video {
-        width: 100%;
-        max-height: 650px;
-        object-fit: contain;
-        display: block;
-        background: #08080d;
+      .carousel-item video{
+        width:100%;
+        max-height:650px;
+        object-fit:contain;
+        display:block;
+        background:#08080d;
       }
 
-      .carousel-item video {
-        min-height: 250px;
+      .carousel-item video{
+        min-height:250px;
       }
 
-      .media-type-badge {
-        position: absolute;
-        top: 13px;
-        left: 13px;
-        z-index: 3;
-        padding: 6px 10px;
-        border-radius: 20px;
-        background: rgba(0, 0, 0, 0.72);
-        color: #fff;
-        font-size: 11px;
-        font-weight: 700;
+      .media-type-badge{
+        position:absolute;
+        top:13px;
+        left:13px;
+        z-index:3;
+        padding:6px 10px;
+        border-radius:20px;
+        background:rgba(0,0,0,.72);
+        color:#fff;
+        font-size:11px;
+        font-weight:700;
       }
 
-      .carousel-nav {
-        position: absolute;
-        top: 50%;
-        left: 0;
-        right: 0;
-        display: flex;
-        justify-content: space-between;
-        padding: 0 14px;
-        transform: translateY(-50%);
-        pointer-events: none;
-        z-index: 5;
+      .carousel-nav{
+        position:absolute;
+        top:50%;
+        left:0;
+        right:0;
+        display:flex;
+        justify-content:space-between;
+        padding:0 14px;
+        transform:translateY(-50%);
+        pointer-events:none;
+        z-index:5;
       }
 
-      .carousel-btn {
-        width: 42px;
-        height: 42px;
-        border: none;
-        border-radius: 50%;
-        background: rgba(0, 0, 0, 0.58);
-        color: #fff;
-        cursor: pointer;
-        pointer-events: auto;
-        transition: 0.2s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+      .carousel-btn{
+        width:42px;
+        height:42px;
+        border:none;
+        border-radius:50%;
+        background:rgba(0,0,0,.58);
+        color:#fff;
+        cursor:pointer;
+        pointer-events:auto;
+        transition:.2s;
+        display:flex;
+        align-items:center;
+        justify-content:center;
       }
 
-      .carousel-btn:hover {
-        background: rgba(0, 0, 0, 0.8);
-        transform: scale(1.04);
+      .carousel-btn:hover{
+        background:rgba(0,0,0,.8);
+        transform:scale(1.04);
       }
 
-      .carousel-counter {
-        position: absolute;
-        top: 13px;
-        right: 13px;
-        padding: 6px 10px;
-        border-radius: 20px;
-        background: rgba(0, 0, 0, 0.58);
-        font-size: 12px;
-        z-index: 6;
+      .carousel-counter{
+        position:absolute;
+        top:13px;
+        right:13px;
+        padding:6px 10px;
+        border-radius:20px;
+        background:rgba(0,0,0,.58);
+        font-size:12px;
+        z-index:6;
       }
 
-      .media-action-area {
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-        margin: 0 0 18px;
+      .media-action-area{
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        margin:0 0 18px;
       }
 
-      .media-action-btn {
-        height: 46px;
-        min-width: 210px;
-        max-width: 300px;
-        padding: 0 22px;
-        border: none;
-        border-radius: 13px;
-        color: #fff;
-        font-size: 14px;
-        font-weight: 700;
-        cursor: pointer;
-        background: linear-gradient(
-          135deg,
-          #833ab4,
-          #fd1d1d
-        );
-        transition: 0.2s;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
+      .media-action-btn{
+        height:46px;
+        width:100%;
+        min-width:210px;
+        max-width:300px;
+        padding:0 22px;
+        border:none;
+        border-radius:13px;
+        color:#fff;
+        font-size:14px;
+        font-weight:700;
+        cursor:pointer;
+        background:linear-gradient(135deg,#833ab4,#fd1d1d);
+        transition:.2s;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
       }
 
-      .media-action-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 8px 22px rgba(225, 48, 108, 0.2);
+      .media-action-btn:hover{
+        transform:translateY(-1px);
+        box-shadow:0 8px 22px rgba(225,48,108,.2);
       }
 
-      .media-action-btn:disabled {
-        opacity: 0.55;
-        cursor: wait;
-        transform: none;
-        box-shadow: none;
+      .media-action-btn:disabled{
+        opacity:.55;
+        cursor:wait;
+        transform:none;
+        box-shadow:none;
       }
 
-      .download-area {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 18px;
+      .download-area{
+        display:flex;
+        justify-content:center;
+        margin-bottom:18px;
       }
 
-      .download-btn {
-        width: 100%;
-        max-width: 420px;
-        height: 48px;
-        border: none;
-        border-radius: 13px;
-        color: #fff;
-        font-weight: 700;
-        cursor: pointer;
-        background: linear-gradient(
-          135deg,
-          #833ab4,
-          #fd1d1d
-        );
-        transition: 0.2s;
+      .download-btn{
+        width:100%;
+        max-width:420px;
+        height:48px;
+        border:none;
+        border-radius:13px;
+        color:#fff;
+        font-weight:700;
+        cursor:pointer;
+        background:linear-gradient(135deg,#833ab4,#fd1d1d);
+        transition:.2s;
       }
 
-      .download-btn:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 8px 22px rgba(225, 48, 108, 0.18);
+      .download-btn:hover{
+        transform:translateY(-1px);
+        box-shadow:0 8px 22px rgba(225,48,108,.18);
       }
 
-      .download-btn:disabled {
-        opacity: 0.55;
-        cursor: wait;
-        transform: none;
+      .download-btn:disabled{
+        opacity:.55;
+        cursor:wait;
+        transform:none;
       }
 
-      .media-summary {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 2px 0 20px;
+      .media-summary{
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:8px;
+        margin:2px 0 20px;
       }
 
-      .summary-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 7px 11px;
-        border-radius: 20px;
-        background: rgba(255, 255, 255, 0.035);
-        border: 1px solid rgba(255, 255, 255, 0.055);
-        color: #aaa;
-        font-size: 11px;
+      .summary-item{
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding:7px 11px;
+        border-radius:20px;
+        background:rgba(255,255,255,.035);
+        border:1px solid rgba(255,255,255,.055);
+        color:#aaa;
+        font-size:11px;
       }
 
-      .summary-item i {
-        color: #e1306c;
+      .summary-item i{
+        color:#e1306c;
       }
 
-      .caption {
-        background: rgba(255, 255, 255, 0.025);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 15px;
-        padding: 16px;
-        color: #aaa;
-        font-size: 13px;
-        line-height: 1.6;
-        white-space: pre-wrap;
-        word-break: break-word;
+      .caption{
+        background:rgba(255,255,255,.025);
+        border:1px solid rgba(255,255,255,.05);
+        border-radius:15px;
+        padding:16px;
+        color:#aaa;
+        font-size:13px;
+        line-height:1.6;
+        white-space:pre-wrap;
+        word-break:break-word;
       }
 
-      .caption-title {
-        color: #fff;
-        font-weight: 700;
-        margin-bottom: 7px;
+      .caption-title{
+        color:#fff;
+        font-weight:700;
+        margin-bottom:7px;
       }
 
-      .info-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 12px;
-        margin-top: 22px;
+      .info-grid{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:12px;
+        margin-top:22px;
       }
 
-      .info-card {
-        background: rgba(255, 255, 255, 0.025);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 15px;
-        padding: 16px;
-        text-align: center;
+      .info-card{
+        background:rgba(255,255,255,.025);
+        border:1px solid rgba(255,255,255,.05);
+        border-radius:15px;
+        padding:16px;
+        text-align:center;
       }
 
-      .info-card i {
-        font-size: 20px;
-        margin-bottom: 8px;
-        color: #e1306c;
+      .info-card i{
+        font-size:20px;
+        margin-bottom:8px;
+        color:#e1306c;
       }
 
-      .info-card h3 {
-        font-size: 13px;
-        margin-bottom: 4px;
+      .info-card h3{
+        font-size:13px;
+        margin-bottom:4px;
       }
 
-      .info-card p {
-        font-size: 11px;
-        color: #777;
-        line-height: 1.4;
+      .info-card p{
+        font-size:11px;
+        color:#777;
+        line-height:1.4;
       }
 
-      footer {
-        text-align: center;
-        padding: 25px 0 5px;
-        color: #666;
-        font-size: 12px;
+      footer{
+        text-align:center;
+        padding:25px 0 5px;
+        color:#666;
+        font-size:12px;
       }
 
-      footer strong {
-        color: #aaa;
+      footer strong{
+        color:#aaa;
       }
 
-      footer .creator {
-        display: inline;
-        margin-top: 0;
+      footer .creator{
+        display:inline;
+        margin-top:0;
       }
 
-      @media (max-width: 700px) {
-        .container {
-          width: min(100% - 18px, 1050px);
-          padding-top: 18px;
+      @media(max-width:700px){
+        .container{
+          width:min(100% - 18px,1050px);
+          padding-top:18px;
         }
 
-        .main-card {
-          padding: 16px;
-          border-radius: 20px;
+        .main-card{
+          padding:16px;
+          border-radius:20px;
         }
 
-        .input-group {
-          flex-direction: column;
+        .input-group{
+          flex-direction:column;
         }
 
-        #downloadButton {
-          width: 100%;
+        #downloadButton{
+          width:100%;
         }
 
-        .info-grid {
-          grid-template-columns: 1fr;
+        .info-grid{
+          grid-template-columns:1fr;
         }
 
-        .download-btn {
-          max-width: 100%;
+        .download-btn{
+          max-width:100%;
         }
 
-        .media-action-btn {
-          width: 100%;
-          max-width: 100%;
+        .media-action-btn{
+          width:100%;
+          max-width:100%;
         }
 
         .carousel-item img,
         .carousel-item video,
         .media-wrapper img,
-        .media-wrapper video {
-          max-height: 520px;
+        .media-wrapper video{
+          max-height:520px;
         }
 
-        .carousel-btn {
-          width: 38px;
-          height: 38px;
+        .carousel-btn{
+          width:38px;
+          height:38px;
         }
       }
     </style>
@@ -792,83 +748,82 @@
         </div>
       </main>
 
-      <footer class="footer">
+      <footer>
         <p>
-          © <span id="currentYear"></span> Instagram Downloader | Made with
-          <span aria-label="love">♥</span> by
+          © <span id="currentYear"></span>
+          Instagram Downloader | Made with
+          <span aria-label="love">♥</span>
+          by
           <span class="creator">DIMMZZZSUM_ENAK</span>
         </p>
       </footer>
     </div>
 
     <script>
-      const _decode = arr =>
-        arr.map(n => String.fromCharCode(n)).join("");
+      const _decode=arr=>
+        arr.map(n=>String.fromCharCode(n)).join("");
 
-      const CONFIG = {
-        API_ENDPOINT: _decode([
+      const CONFIG={
+        API_ENDPOINT:_decode([
           104,116,116,112,115,58,47,47,
           97,112,105,46,110,101,111,120,
           114,46,101,117,47,97,112,105,
           47,105,103
         ]),
 
-        API_KEY: _decode([
+        API_KEY:_decode([
           103,66,119,52,98,102,106,53,
           104,97,113,89
         ]),
 
-        API_TIMEOUT: 30000,
-        DOWNLOAD_TIMEOUT: 60000
+        API_TIMEOUT:30000,
+        DOWNLOAD_TIMEOUT:60000
       };
 
-      const elements = {
-        urlInput: document.getElementById("urlInput"),
-        pasteInput: document.getElementById("pasteInput"),
-        clearInput: document.getElementById("clearInput"),
-        downloadButton: document.getElementById("downloadButton"),
-        message: document.getElementById("message"),
-        result: document.getElementById("result"),
-        profileAvatar: document.getElementById("profileAvatar"),
-        profileName: document.getElementById("profileName"),
-        profileType: document.getElementById("profileType"),
-        mediaContainer: document.getElementById("mediaContainer"),
-        mediaActionArea: document.getElementById("mediaActionArea"),
-        mediaSummary: document.getElementById("mediaSummary"),
-        downloadArea: document.getElementById("downloadArea"),
-        captionBox: document.getElementById("captionBox"),
-        captionText: document.getElementById("captionText"),
-        currentYear: document.getElementById("currentYear")
+      const elements={
+        urlInput:document.getElementById("urlInput"),
+        pasteInput:document.getElementById("pasteInput"),
+        clearInput:document.getElementById("clearInput"),
+        downloadButton:document.getElementById("downloadButton"),
+        message:document.getElementById("message"),
+        result:document.getElementById("result"),
+        profileAvatar:document.getElementById("profileAvatar"),
+        profileName:document.getElementById("profileName"),
+        profileType:document.getElementById("profileType"),
+        mediaContainer:document.getElementById("mediaContainer"),
+        mediaActionArea:document.getElementById("mediaActionArea"),
+        mediaSummary:document.getElementById("mediaSummary"),
+        downloadArea:document.getElementById("downloadArea"),
+        captionBox:document.getElementById("captionBox"),
+        captionText:document.getElementById("captionText"),
+        currentYear:document.getElementById("currentYear")
       };
 
-      elements.currentYear.textContent =
+      elements.currentYear.textContent=
         new Date().getFullYear();
 
-      let currentData = null;
-      let carouselIndex = 0;
+      let currentData=null;
+      let carouselIndex=0;
 
-      function updateClearButton() {
-        elements.clearInput.style.display =
+      function updateClearButton(){
+        elements.clearInput.style.display=
           elements.urlInput.value.trim()
             ? "inline-flex"
             : "none";
       }
 
-      async function pasteFromClipboard() {
-        try {
-          if (
+      async function pasteFromClipboard(){
+        try{
+          if(
             navigator.clipboard &&
-            typeof navigator.clipboard.readText === "function"
-          ) {
-            const text =
+            typeof navigator.clipboard.readText==="function"
+          ){
+            const text=
               await navigator.clipboard.readText();
 
-            if (text) {
-              elements.urlInput.value =
-                text.trim();
-
+            if(text){
+              elements.urlInput.value=text.trim();
               updateClearButton();
-
               elements.urlInput.focus();
 
               showMessage(
@@ -876,11 +831,7 @@
                 "success"
               );
 
-              setTimeout(
-                hideMessage,
-                1500
-              );
-
+              setTimeout(hideMessage,1500);
               return;
             }
           }
@@ -888,10 +839,11 @@
           elements.urlInput.focus();
 
           showMessage(
-            "Clipboard tidak tersedia di browser ini. Tekan lama kolom lalu pilih Paste.",
+            "Clipboard tidak tersedia. Tekan lama kolom lalu pilih Paste.",
             "error"
           );
-        } catch {
+
+        }catch{
           elements.urlInput.focus();
 
           showMessage(
@@ -901,113 +853,100 @@
         }
       }
 
-      function clearInput() {
-        elements.urlInput.value = "";
+      function clearInput(){
+        elements.urlInput.value="";
         updateClearButton();
         elements.urlInput.focus();
       }
 
-      function showMessage(text, type = "loading") {
-        elements.message.className =
+      function showMessage(text,type="loading"){
+        elements.message.className=
           `message show ${type}`;
 
-        elements.message.innerHTML =
-          text;
+        elements.message.innerHTML=text;
       }
 
-      function hideMessage() {
-        elements.message.className =
-          "message";
-
-        elements.message.innerHTML =
-          "";
+      function hideMessage(){
+        elements.message.className="message";
+        elements.message.innerHTML="";
       }
 
-      function showLoading(text = "Memproses...") {
+      function showLoading(text="Memproses..."){
         showMessage(
           `<span class="spinner"></span>${escapeHtml(text)}`,
           "loading"
         );
       }
 
-      function escapeHtml(value) {
-        return String(value ?? "")
-          .replace(/&/g, "&amp;")
-          .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
-          .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#039;");
+      function escapeHtml(value){
+        return String(value??"")
+          .replace(/&/g,"&amp;")
+          .replace(/</g,"&lt;")
+          .replace(/>/g,"&gt;")
+          .replace(/"/g,"&quot;")
+          .replace(/'/g,"&#039;");
       }
 
-      function isValidInstagramUrl(value) {
-        try {
-          const url = new URL(value);
-          const hostname =
-            url.hostname.toLowerCase();
+      function isValidInstagramUrl(value){
+        try{
+          const url=new URL(value);
+          const hostname=url.hostname.toLowerCase();
 
-          const validHost =
-            hostname === "instagram.com" ||
-            hostname === "www.instagram.com" ||
-            hostname === "m.instagram.com";
+          const validHost=
+            hostname==="instagram.com" ||
+            hostname==="www.instagram.com" ||
+            hostname==="m.instagram.com";
 
-          if (!validHost) {
-            return false;
-          }
+          if(!validHost)return false;
 
-          const pathname =
-            url.pathname.toLowerCase();
+          const pathname=url.pathname.toLowerCase();
 
-          return (
+          return(
             pathname.startsWith("/reel/") ||
             pathname.startsWith("/reels/") ||
             pathname.startsWith("/p/") ||
             pathname.startsWith("/tv/") ||
             pathname.startsWith("/stories/")
           );
-        } catch {
+
+        }catch{
           return false;
         }
       }
 
-      async function getJson(
-        url,
-        timeout = CONFIG.API_TIMEOUT
-      ) {
-        const controller =
-          new AbortController();
+      async function getJson(url,timeout=CONFIG.API_TIMEOUT){
 
-        const timer =
-          setTimeout(
-            () => controller.abort(),
-            timeout
-          );
+        const controller=new AbortController();
 
-        try {
-          const response =
-            await fetch(url, {
-              method: "GET",
-              headers: {
-                Accept: "application/json"
-              },
-              signal: controller.signal,
-              cache: "no-store"
-            });
+        const timer=setTimeout(
+          ()=>controller.abort(),
+          timeout
+        );
 
-          const text =
-            await response.text();
+        try{
+
+          const response=await fetch(url,{
+            method:"GET",
+            headers:{
+              Accept:"application/json"
+            },
+            signal:controller.signal,
+            cache:"no-store"
+          });
+
+          const text=await response.text();
 
           let data;
 
-          try {
-            data =
-              JSON.parse(text);
-          } catch {
+          try{
+            data=JSON.parse(text);
+          }catch{
             throw new Error(
               `Respons API bukan JSON yang valid. HTTP ${response.status}`
             );
           }
 
-          if (!response.ok) {
+          if(!response.ok){
             throw new Error(
               data?.message ||
               data?.msg ||
@@ -1017,37 +956,38 @@
           }
 
           return data;
-        } catch (error) {
-          if (error.name === "AbortError") {
+
+        }catch(error){
+
+          if(error.name==="AbortError"){
             throw new Error(
               "Request timeout. Silakan coba lagi."
             );
           }
 
-          if (
+          if(
             error instanceof TypeError &&
             /fetch/i.test(error.message)
-          ) {
+          ){
             throw new Error(
-              "Browser gagal mengakses server API atau media."
+              "Browser gagal mengakses server API."
             );
           }
 
           throw error;
-        } finally {
+
+        }finally{
           clearTimeout(timer);
         }
       }
 
-      function extractUrl(item) {
-        if (
-          !item ||
-          typeof item !== "object"
-        ) {
+      function extractUrl(item){
+
+        if(!item||typeof item!=="object"){
           return null;
         }
 
-        const possibleKeys = [
+        const keys=[
           "url",
           "download",
           "downloadUrl",
@@ -1060,27 +1000,27 @@
           "mediaUrl"
         ];
 
-        for (const key of possibleKeys) {
-          if (
-            typeof item[key] === "string" &&
+        for(const key of keys){
+
+          if(
+            typeof item[key]==="string" &&
             item[key].trim()
-          ) {
+          ){
             return item[key].trim();
           }
+
         }
 
         return null;
       }
 
-      function extractThumbnail(item) {
-        if (
-          !item ||
-          typeof item !== "object"
-        ) {
+      function extractThumbnail(item){
+
+        if(!item||typeof item!=="object"){
           return null;
         }
 
-        const possibleKeys = [
+        const keys=[
           "thumb",
           "thumbnail",
           "thumbnail_url",
@@ -1093,143 +1033,134 @@
           "image_url"
         ];
 
-        for (const key of possibleKeys) {
-          if (
-            typeof item[key] === "string" &&
+        for(const key of keys){
+
+          if(
+            typeof item[key]==="string" &&
             item[key].trim()
-          ) {
+          ){
             return item[key].trim();
           }
+
         }
 
         return null;
       }
 
-      function mediaKey(mediaUrl) {
-        try {
-          const url =
-            new URL(mediaUrl);
+      function mediaKey(mediaUrl){
 
-          return (
-            url.protocol +
-            "//" +
-            url.hostname.toLowerCase() +
-            url.pathname +
+        try{
+
+          const url=new URL(mediaUrl);
+
+          return(
+            url.protocol+
+            "//"+
+            url.hostname.toLowerCase()+
+            url.pathname+
             url.search
           ).toLowerCase();
-        } catch {
-          return String(mediaUrl || "")
+
+        }catch{
+
+          return String(mediaUrl||"")
             .trim()
             .toLowerCase();
+
         }
       }
 
-      function isVideoUrl(url) {
+      function isVideoUrl(url){
         return /\.(mp4|m4v|mov|webm|mkv)(?:\?|#|$)/i
-          .test(String(url || ""));
+          .test(String(url||""));
       }
 
-      function isImageUrl(url) {
+      function isImageUrl(url){
         return /\.(jpg|jpeg|png|webp|gif|avif|heic)(?:\?|#|$)/i
-          .test(String(url || ""));
+          .test(String(url||""));
       }
 
-      function detectMediaType(item, url) {
-        const type = String(
-          item?.type ||
-          item?.mime ||
-          item?.mediaType ||
-          item?.media_type ||
-          item?.format ||
+      function detectMediaType(item,url){
+
+        const type=String(
+          item?.type||
+          item?.mime||
+          item?.mediaType||
+          item?.media_type||
+          item?.format||
           ""
         ).toLowerCase();
 
-        if (
-          type.includes("video") ||
-          type.includes("mp4") ||
-          type.includes("m4v") ||
-          type.includes("mov") ||
+        if(
+          type.includes("video")||
+          type.includes("mp4")||
+          type.includes("m4v")||
+          type.includes("mov")||
           type.includes("webm")
-        ) {
+        ){
           return "video";
         }
 
-        if (
-          type.includes("image") ||
-          type.includes("photo") ||
-          type.includes("jpg") ||
-          type.includes("jpeg") ||
-          type.includes("png") ||
-          type.includes("webp") ||
+        if(
+          type.includes("image")||
+          type.includes("photo")||
+          type.includes("jpg")||
+          type.includes("jpeg")||
+          type.includes("png")||
+          type.includes("webp")||
           type.includes("gif")
-        ) {
+        ){
           return "photo";
         }
 
-        if (isVideoUrl(url)) {
+        if(isVideoUrl(url))return "video";
+        if(isImageUrl(url))return "photo";
+
+        if(
+          item?.isVideo===true||
+          item?.is_video===true||
+          item?.video===true
+        ){
           return "video";
         }
 
-        if (isImageUrl(url)) {
+        if(
+          item?.isImage===true||
+          item?.is_image===true||
+          item?.photo===true
+        ){
           return "photo";
         }
 
-        if (
-          item?.isVideo === true ||
-          item?.is_video === true ||
-          item?.video === true
-        ) {
-          return "video";
-        }
-
-        if (
-          item?.isImage === true ||
-          item?.is_image === true ||
-          item?.photo === true
-        ) {
-          return "photo";
-        }
-
-        const alternateVideo = [
+        const alternateVideo=[
           item?.video_url,
           item?.videoUrl,
           item?.video,
           item?.download_video,
           item?.downloadVideo
         ].find(
-          value =>
-            typeof value === "string" &&
+          value=>
+            typeof value==="string" &&
             isVideoUrl(value)
         );
 
-        if (alternateVideo) {
-          return "video";
-        }
+        if(alternateVideo)return "video";
 
         return "photo";
       }
 
-      function dedupeMedia(items) {
-        const seen =
-          new Set();
+      function dedupeMedia(items){
 
-        const result =
-          [];
+        const seen=new Set();
+        const result=[];
 
-        for (const item of items || []) {
-          if (
-            !item ||
-            !item.url
-          ) {
-            continue;
-          }
+        for(const item of items||[]){
 
-          const key =
-            mediaKey(item.url);
+          if(!item||!item.url)continue;
 
-          if (seen.has(key)) {
-            continue;
-          }
+          const key=mediaKey(item.url);
+
+          if(seen.has(key))continue;
 
           seen.add(key);
           result.push(item);
@@ -1238,145 +1169,128 @@
         return result;
       }
 
-      function parseNeoXR(data) {
-        if (
-          !data ||
-          data.status !== true
-        ) {
+      function parseNeoXR(data){
+
+        if(!data||data.status!==true){
           throw new Error(
-            data?.message ||
-            data?.msg ||
-            data?.error ||
+            data?.message||
+            data?.msg||
+            data?.error||
             "Gagal memproses URL Instagram."
           );
         }
 
-        let rawItems = [];
+        let rawItems=[];
 
-        if (Array.isArray(data.data)) {
-          rawItems =
-            data.data;
-        } else if (
-          Array.isArray(data.result)
-        ) {
-          rawItems =
-            data.result;
-        } else if (
-          Array.isArray(data.media)
-        ) {
-          rawItems =
-            data.media;
-        } else {
-          if (
+        if(Array.isArray(data.data)){
+          rawItems=data.data;
+
+        }else if(Array.isArray(data.result)){
+          rawItems=data.result;
+
+        }else if(Array.isArray(data.media)){
+          rawItems=data.media;
+
+        }else{
+
+          if(
             data.data &&
-            typeof data.data === "object"
-          ) {
-            rawItems =
-              [data.data];
-          } else if (
+            typeof data.data==="object"
+          ){
+            rawItems=[data.data];
+
+          }else if(
             data.result &&
-            typeof data.result === "object"
-          ) {
-            rawItems =
-              [data.result];
-          } else {
+            typeof data.result==="object"
+          ){
+            rawItems=[data.result];
+
+          }else{
             throw new Error(
               "Format respons API tidak dikenali."
             );
           }
         }
 
-        const media =
-          [];
+        const media=[];
 
-        for (const item of rawItems) {
-          if (
-            !item ||
-            typeof item !== "object"
-          ) {
+        for(const item of rawItems){
+
+          if(
+            !item||
+            typeof item!=="object"
+          ){
             continue;
           }
 
-          const url =
-            extractUrl(item);
+          const url=extractUrl(item);
 
-          if (!url) {
-            continue;
-          }
+          if(!url)continue;
 
-          const type =
-            detectMediaType(
-              item,
-              url
-            );
+          const type=
+            detectMediaType(item,url);
 
           media.push({
             url,
             type,
             filename:
-              item.filename ||
-              item.fileName ||
-              item.name ||
+              item.filename||
+              item.fileName||
+              item.name||
               null,
             thumb:
               extractThumbnail(item)
           });
         }
 
-        const finalMedia =
+        const finalMedia=
           dedupeMedia(media);
 
-        const username =
-          data.username ||
-          data.user?.username ||
-          data.author?.username ||
-          data.owner?.username ||
+        const username=
+          data.username||
+          data.user?.username||
+          data.author?.username||
+          data.owner?.username||
           "";
 
-        const profile =
-          data.profile ||
-          data.profilePic ||
-          data.profile_pic ||
-          data.avatar ||
-          data.user?.profile_pic_url ||
-          data.user?.profilePic ||
-          data.author?.profile_pic_url ||
+        const profile=
+          data.profile||
+          data.profilePic||
+          data.profile_pic||
+          data.avatar||
+          data.user?.profile_pic_url||
+          data.user?.profilePic||
+          data.author?.profile_pic_url||
           "";
 
-        const caption =
-          data.caption ||
-          data.description ||
-          data.text ||
+        const caption=
+          data.caption||
+          data.description||
+          data.text||
           "";
 
-        return {
-          media:
-            finalMedia,
+        return{
+          media:finalMedia,
 
-          photos:
-            finalMedia.filter(
-              item =>
-                item.type === "photo"
-            ),
+          photos:finalMedia.filter(
+            item=>item.type==="photo"
+          ),
 
-          videos:
-            finalMedia.filter(
-              item =>
-                item.type === "video"
-            ),
+          videos:finalMedia.filter(
+            item=>item.type==="video"
+          ),
 
           username,
           profile,
           caption,
-          provider: "-"
+          provider:"NeoXR"
         };
       }
 
-      async function tryNeoXR(instagramUrl) {
-        const endpoint =
-          new URL(
-            CONFIG.API_ENDPOINT
-          );
+      async function tryNeoXR(instagramUrl){
+
+        const endpoint=
+          new URL(CONFIG.API_ENDPOINT);
 
         endpoint.searchParams.set(
           "url",
@@ -1388,34 +1302,29 @@
           CONFIG.API_KEY
         );
 
-        const data =
+        const data=
           await getJson(
             endpoint.toString(),
             CONFIG.API_TIMEOUT
           );
 
-        return parseNeoXR(
-          data
-        );
+        return parseNeoXR(data);
       }
 
-      async function processInstagramUrl(
-        instagramUrl
-      ) {
+      async function processInstagramUrl(instagramUrl){
+
         showLoading(
           "Mengambil semua media dari Instagram..."
         );
 
-        const result =
-          await tryNeoXR(
-            instagramUrl
-          );
+        const result=
+          await tryNeoXR(instagramUrl);
 
-        if (
-          !result ||
-          !result.media ||
+        if(
+          !result||
+          !result.media||
           !result.media.length
-        ) {
+        ){
           throw new Error(
             "Postingan tidak mengembalikan media yang dapat didownload."
           );
@@ -1426,149 +1335,169 @@
 
       async function fetchMediaBlob(
         url,
-        timeout = CONFIG.DOWNLOAD_TIMEOUT
-      ) {
-        const controller =
+        timeout=CONFIG.DOWNLOAD_TIMEOUT
+      ){
+
+        const controller=
           new AbortController();
 
-        const timer =
-          setTimeout(
-            () => controller.abort(),
-            timeout
-          );
+        const timer=setTimeout(
+          ()=>controller.abort(),
+          timeout
+        );
 
-        try {
-          const response =
-            await fetch(
-              url,
-              {
-                method: "GET",
-                signal: controller.signal,
-                cache: "no-store"
-              }
-            );
+        try{
 
-          if (!response.ok) {
+          const response=
+            await fetch(url,{
+              method:"GET",
+              signal:controller.signal,
+              cache:"no-store",
+              mode:"cors"
+            });
+
+          if(!response.ok){
             throw new Error(
               `Download gagal. HTTP ${response.status}`
             );
           }
 
-          return await response.blob();
-        } catch (error) {
-          if (
-            error.name === "AbortError"
-          ) {
+          const blob=
+            await response.blob();
+
+          if(!blob||!blob.size){
+            throw new Error(
+              "File media kosong."
+            );
+          }
+
+          return blob;
+
+        }catch(error){
+
+          if(error.name==="AbortError"){
             throw new Error(
               "Download timeout."
             );
           }
 
           throw error;
-        } finally {
+
+        }finally{
           clearTimeout(timer);
         }
       }
 
-      function saveBlob(
-        blob,
+      function directDownload(
+        url,
         filename
-      ) {
-        const objectUrl =
-          URL.createObjectURL(
-            blob
+      ){
+
+        return new Promise(resolve=>{
+
+          const link=
+            document.createElement("a");
+
+          link.href=url;
+          link.download=filename;
+          link.target="_blank";
+          link.rel="noopener noreferrer";
+          link.style.display="none";
+
+          document.body.appendChild(link);
+
+          link.click();
+
+          setTimeout(()=>{
+            link.remove();
+            resolve();
+          },300);
+
+        });
+      }
+
+      function saveBlob(blob,filename){
+
+        if(!blob||!blob.size){
+          throw new Error(
+            "File hasil download kosong."
           );
+        }
 
-        const link =
-          document.createElement(
-            "a"
-          );
+        const objectUrl=
+          URL.createObjectURL(blob);
 
-        link.href =
-          objectUrl;
+        const link=
+          document.createElement("a");
 
-        link.download =
-          filename;
+        link.href=objectUrl;
+        link.download=filename;
+        link.style.display="none";
 
-        link.style.display =
-          "none";
-
-        document.body.appendChild(
-          link
-        );
+        document.body.appendChild(link);
 
         link.click();
 
         link.remove();
 
-        setTimeout(
-          () => {
-            URL.revokeObjectURL(
-              objectUrl
-            );
-          },
-          2000
-        );
+        setTimeout(()=>{
+          URL.revokeObjectURL(objectUrl);
+        },3000);
       }
 
       function getExtension(
         url,
-        fallback = "jpg"
-      ) {
-        try {
-          const pathname =
+        fallback="jpg"
+      ){
+
+        try{
+
+          const pathname=
             new URL(url).pathname;
 
-          const match =
+          const match=
             pathname.match(
               /\.([a-zA-Z0-9]+)$/
             );
 
-          if (match) {
-            return match[1]
-              .toLowerCase();
+          if(match){
+            return match[1].toLowerCase();
           }
-        } catch {}
+
+        }catch{}
 
         return fallback;
       }
 
       function generateFilename(
         type,
-        index = 1,
-        url = ""
-      ) {
-        if (
-          type === "video"
-        ) {
-          let extension =
-            getExtension(
-              url,
-              "mp4"
-            );
+        index=1,
+        url=""
+      ){
 
-          if (
+        if(type==="video"){
+
+          let extension=
+            getExtension(url,"mp4");
+
+          if(
             ![
               "mp4",
               "m4v",
               "mov",
               "webm"
             ].includes(extension)
-          ) {
-            extension =
-              "mp4";
+          ){
+            extension="mp4";
           }
 
           return `instagram_video_${index}_${Date.now()}.${extension}`;
         }
 
-        let extension =
-          getExtension(
-            url,
-            "jpg"
-          );
+        let extension=
+          getExtension(url,"jpg");
 
-        if (
+        if(
           ![
             "jpg",
             "jpeg",
@@ -1577,9 +1506,8 @@
             "gif",
             "avif"
           ].includes(extension)
-        ) {
-          extension =
-            "jpg";
+        ){
+          extension="jpg";
         }
 
         return `instagram_photo_${index}.${extension}`;
@@ -1589,57 +1517,97 @@
         media,
         index,
         button
-      ) {
-        if (!media?.url) {
+      ){
+
+        if(!media?.url){
+
+          showMessage(
+            "URL media tidak tersedia.",
+            "error"
+          );
+
           return;
         }
 
-        const originalText =
+        const originalText=
           button.innerHTML;
 
-        button.disabled =
-          true;
+        button.disabled=true;
 
-        button.innerHTML =
-          `<span class="spinner"></span>Memproses...`;
+        button.innerHTML=
+          `<span class="spinner"></span>Menyiapkan...`;
 
-        try {
-          const blob =
-            await fetchMediaBlob(
-              media.url
+        const filename=
+          generateFilename(
+            media.type,
+            index,
+            media.url
+          );
+
+        try{
+
+          let downloaded=false;
+
+          try{
+
+            const blob=
+              await fetchMediaBlob(
+                media.url
+              );
+
+            saveBlob(
+              blob,
+              filename
             );
 
-          saveBlob(
-            blob,
-            generateFilename(
-              media.type,
-              index,
-              media.url
-            )
-          );
+            downloaded=true;
 
-          button.innerHTML =
-            `<i class="fas fa-check"></i> Berhasil`;
+          }catch(fetchError){
 
-          setTimeout(
-            () => {
-              button.innerHTML =
+            console.warn(
+              "Blob download gagal, mencoba direct download:",
+              fetchError
+            );
+
+            await directDownload(
+              media.url,
+              filename
+            );
+
+            downloaded=true;
+          }
+
+          if(downloaded){
+
+            button.innerHTML=
+              `<i class="fas fa-check"></i> Berhasil`;
+
+            showMessage(
+              `${media.type==="video"?"Video":"Foto"} siap didownload.`,
+              "success"
+            );
+
+            setTimeout(()=>{
+
+              button.innerHTML=
                 originalText;
 
-              button.disabled =
-                false;
-            },
-            1800
-          );
-        } catch (error) {
-          button.disabled =
-            false;
+              button.disabled=false;
 
-          button.innerHTML =
+            },1800);
+          }
+
+        }catch(error){
+
+          button.disabled=false;
+
+          button.innerHTML=
             originalText;
 
           showMessage(
-            `Gagal download media: ${escapeHtml(error.message)}`,
+            `Gagal download media: ${escapeHtml(
+              error.message||"Terjadi kesalahan."
+            )}`,
             "error"
           );
         }
@@ -1648,268 +1616,270 @@
       async function downloadAllMedia(
         media,
         button
-      ) {
-        if (
-          !media ||
+      ){
+
+        if(
+          !media||
           !media.length
-        ) {
+        ){
           return;
         }
 
-        const originalText =
+        const originalText=
           button.innerHTML;
 
-        button.disabled =
-          true;
+        button.disabled=true;
 
-        let success =
-          0;
+        let success=0;
 
-        try {
-          for (
-            let i = 0;
-            i < media.length;
+        try{
+
+          for(
+            let i=0;
+            i<media.length;
             i++
-          ) {
-            const current =
+          ){
+
+            const current=
               media[i];
 
-            button.innerHTML =
-              `<span class="spinner"></span>Media ${i + 1}/${media.length}`;
+            button.innerHTML=
+              `<span class="spinner"></span>Media ${i+1}/${media.length}`;
 
-            try {
-              const blob =
-                await fetchMediaBlob(
-                  current.url
+            const filename=
+              generateFilename(
+                current.type,
+                i+1,
+                current.url
+              );
+
+            try{
+
+              let done=false;
+
+              try{
+
+                const blob=
+                  await fetchMediaBlob(
+                    current.url
+                  );
+
+                saveBlob(
+                  blob,
+                  filename
                 );
 
-              saveBlob(
-                blob,
-                generateFilename(
-                  current.type,
-                  i + 1,
-                  current.url
+                done=true;
+
+              }catch(fetchError){
+
+                console.warn(
+                  `Blob gagal untuk media ${i+1}, mencoba direct download.`,
+                  fetchError
+                );
+
+                await directDownload(
+                  current.url,
+                  filename
+                );
+
+                done=true;
+              }
+
+              if(done){
+                success++;
+              }
+
+            }catch(error){
+
+              console.warn(
+                `Media ${i+1} gagal didownload:`,
+                error
+              );
+            }
+
+            await new Promise(
+              resolve=>
+                setTimeout(
+                  resolve,
+                  500
                 )
-              );
-
-              success++;
-
-              await new Promise(
-                resolve =>
-                  setTimeout(
-                    resolve,
-                    350
-                  )
-              );
-            } catch {}
+            );
           }
 
-          if (success > 0) {
+          if(success>0){
+
             showMessage(
               `${success} dari ${media.length} media berhasil diproses.`,
               "success"
             );
 
-            button.innerHTML =
+            button.innerHTML=
               `<i class="fas fa-check"></i> ${success} Media Berhasil`;
-          } else {
+
+          }else{
+
             throw new Error(
               "Tidak ada media yang berhasil didownload."
             );
           }
-        } catch (error) {
+
+        }catch(error){
+
           showMessage(
-            `Gagal download media: ${escapeHtml(error.message)}`,
+            `Gagal download media: ${escapeHtml(
+              error.message||"Terjadi kesalahan."
+            )}`,
             "error"
           );
-        } finally {
-          setTimeout(
-            () => {
-              button.disabled =
-                false;
 
-              button.innerHTML =
-                originalText;
-            },
-            2200
-          );
+        }finally{
+
+          setTimeout(()=>{
+
+            button.disabled=false;
+
+            button.innerHTML=
+              originalText;
+
+          },2200);
         }
       }
 
-      function displayProfile(
-        data
-      ) {
-        const username =
-          data.username ||
+      function displayProfile(data){
+
+        const username=
+          data.username||
           "Instagram Media";
 
-        elements.profileName.textContent =
+        elements.profileName.textContent=
           username;
 
-        elements.profileType.textContent =
-          data.provider ||
+        elements.profileType.textContent=
+          data.provider||
           "Instagram";
 
-        elements.profileAvatar.innerHTML =
+        elements.profileAvatar.innerHTML=
           `<i class="fas fa-user"></i>`;
 
-        if (data.profile) {
-          const image =
-            document.createElement(
-              "img"
+        if(data.profile){
+
+          const image=
+            document.createElement("img");
+
+          image.src=data.profile;
+          image.alt=username;
+
+          image.onload=()=>{
+
+            elements.profileAvatar.innerHTML="";
+
+            elements.profileAvatar.appendChild(
+              image
             );
+          };
 
-          image.src =
-            data.profile;
+          image.onerror=()=>{
 
-          image.alt =
-            username;
-
-          image.onload =
-            () => {
-              elements.profileAvatar.innerHTML =
-                "";
-
-              elements.profileAvatar.appendChild(
-                image
-              );
-            };
-
-          image.onerror =
-            () => {
-              elements.profileAvatar.innerHTML =
-                `<i class="fas fa-user"></i>`;
-            };
+            elements.profileAvatar.innerHTML=
+              `<i class="fas fa-user"></i>`;
+          };
         }
       }
 
-      function displayCaption(
-        caption
-      ) {
-        if (
+      function displayCaption(caption){
+
+        if(
           caption &&
           String(caption).trim()
-        ) {
-          elements.captionBox.style.display =
+        ){
+
+          elements.captionBox.style.display=
             "block";
 
-          elements.captionText.textContent =
+          elements.captionText.textContent=
             caption;
-        } else {
-          elements.captionBox.style.display =
+
+        }else{
+
+          elements.captionBox.style.display=
             "none";
 
-          elements.captionText.textContent =
-            "";
+          elements.captionText.textContent="";
         }
       }
 
       function createMediaElement(
         media,
         index
-      ) {
-        const item =
-          document.createElement(
-            "div"
-          );
+      ){
 
-        item.className =
-          "carousel-item";
+        const item=
+          document.createElement("div");
 
-        const badge =
-          document.createElement(
-            "div"
-          );
+        item.className="carousel-item";
 
-        badge.className =
+        const badge=
+          document.createElement("div");
+
+        badge.className=
           "media-type-badge";
 
-        if (
-          media.type === "video"
-        ) {
-          badge.innerHTML =
-            `<i class="fas fa-video"></i> Video`;
-        } else {
-          badge.innerHTML =
-            `<i class="fas fa-image"></i> Foto`;
-        }
+        badge.innerHTML=
+          media.type==="video"
+            ? `<i class="fas fa-video"></i> Video`
+            : `<i class="fas fa-image"></i> Foto`;
 
-        item.appendChild(
-          badge
-        );
+        item.appendChild(badge);
 
-        if (
-          media.type === "video"
-        ) {
-          const video =
-            document.createElement(
-              "video"
-            );
+        if(media.type==="video"){
 
-          video.controls =
-            true;
+          const video=
+            document.createElement("video");
 
-          video.playsInline =
-            true;
-
-          video.setAttribute(
-            "playsinline",
-            ""
-          );
-
+          video.controls=true;
+          video.playsInline=true;
+          video.setAttribute("playsinline","");
           video.setAttribute(
             "webkit-playsinline",
             ""
           );
+          video.preload="metadata";
+          video.src=media.url;
 
-          video.preload =
-            "metadata";
-
-          video.src =
-            media.url;
-
-          if (media.thumb) {
-            video.poster =
-              media.thumb;
+          if(media.thumb){
+            video.poster=media.thumb;
           }
 
-          item.appendChild(
-            video
-          );
-        } else {
-          const image =
-            document.createElement(
-              "img"
-            );
+          item.appendChild(video);
 
-          image.src =
-            media.url;
+        }else{
 
-          image.alt =
-            `Instagram Photo ${index + 1}`;
+          const image=
+            document.createElement("img");
 
-          image.loading =
-            index === 0
+          image.src=media.url;
+
+          image.alt=
+            `Instagram Photo ${index+1}`;
+
+          image.loading=
+            index===0
               ? "eager"
               : "lazy";
 
-          item.appendChild(
-            image
-          );
+          item.appendChild(image);
         }
 
         return item;
       }
 
-      function displaySingleMedia(
-        media
-      ) {
-        const wrapper =
-          document.createElement(
-            "div"
-          );
+      function displaySingleMedia(media){
 
-        wrapper.className =
+        const wrapper=
+          document.createElement("div");
+
+        wrapper.className=
           "media-wrapper";
 
         wrapper.appendChild(
@@ -1924,30 +1894,24 @@
         );
       }
 
-      function displayCarousel(
-        media
-      ) {
-        carouselIndex =
-          0;
+      function displayCarousel(media){
 
-        const wrapper =
-          document.createElement(
-            "div"
-          );
+        carouselIndex=0;
 
-        wrapper.className =
+        const wrapper=
+          document.createElement("div");
+
+        wrapper.className=
           "media-wrapper carousel";
 
-        const track =
-          document.createElement(
-            "div"
-          );
+        const track=
+          document.createElement("div");
 
-        track.className =
+        track.className=
           "carousel-track";
 
         media.forEach(
-          (item, index) => {
+          (item,index)=>{
             track.appendChild(
               createMediaElement(
                 item,
@@ -1957,77 +1921,56 @@
           }
         );
 
-        wrapper.appendChild(
-          track
-        );
+        wrapper.appendChild(track);
 
-        const counter =
-          document.createElement(
-            "div"
-          );
+        const counter=
+          document.createElement("div");
 
-        counter.className =
+        counter.className=
           "carousel-counter";
 
-        counter.id =
+        counter.id=
           "carouselCounter";
 
-        counter.textContent =
+        counter.textContent=
           `1 / ${media.length}`;
 
-        wrapper.appendChild(
-          counter
-        );
+        wrapper.appendChild(counter);
 
-        if (
-          media.length > 1
-        ) {
-          const navigation =
-            document.createElement(
-              "div"
-            );
+        if(media.length>1){
 
-          navigation.className =
+          const navigation=
+            document.createElement("div");
+
+          navigation.className=
             "carousel-nav";
 
-          const previous =
-            document.createElement(
-              "button"
-            );
+          const previous=
+            document.createElement("button");
 
-          previous.type =
-            "button";
+          previous.type="button";
+          previous.className="carousel-btn";
 
-          previous.className =
-            "carousel-btn";
-
-          previous.innerHTML =
+          previous.innerHTML=
             `<i class="fas fa-chevron-left"></i>`;
 
-          const next =
-            document.createElement(
-              "button"
-            );
+          const next=
+            document.createElement("button");
 
-          next.type =
-            "button";
+          next.type="button";
+          next.className="carousel-btn";
 
-          next.className =
-            "carousel-btn";
-
-          next.innerHTML =
+          next.innerHTML=
             `<i class="fas fa-chevron-right"></i>`;
 
           previous.addEventListener(
             "click",
-            () => {
+            ()=>{
               carouselIndex--;
 
-              if (
-                carouselIndex < 0
-              ) {
-                carouselIndex =
-                  media.length - 1;
+              if(carouselIndex<0){
+                carouselIndex=
+                  media.length-1;
               }
 
               updateCarousel(
@@ -2040,14 +1983,13 @@
 
           next.addEventListener(
             "click",
-            () => {
+            ()=>{
               carouselIndex++;
 
-              if (
-                carouselIndex >= media.length
-              ) {
-                carouselIndex =
-                  0;
+              if(
+                carouselIndex>=media.length
+              ){
+                carouselIndex=0;
               }
 
               updateCarousel(
@@ -2058,17 +2000,10 @@
             }
           );
 
-          navigation.appendChild(
-            previous
-          );
+          navigation.appendChild(previous);
+          navigation.appendChild(next);
 
-          navigation.appendChild(
-            next
-          );
-
-          wrapper.appendChild(
-            navigation
-          );
+          wrapper.appendChild(navigation);
         }
 
         elements.mediaContainer.appendChild(
@@ -2080,64 +2015,54 @@
         track,
         counter,
         total
-      ) {
-        track.style.transform =
-          `translateX(-${carouselIndex * 100}%)`;
+      ){
 
-        counter.textContent =
-          `${carouselIndex + 1} / ${total}`;
+        track.style.transform=
+          `translateX(-${carouselIndex*100}%)`;
+
+        counter.textContent=
+          `${carouselIndex+1} / ${total}`;
 
         updateCurrentMediaButtons();
       }
 
-      function updateCurrentMediaButtons() {
-        elements.mediaActionArea.innerHTML =
-          "";
+      function updateCurrentMediaButtons(){
 
-        if (
-          !currentData ||
-          !currentData.media ||
+        elements.mediaActionArea.innerHTML="";
+
+        if(
+          !currentData||
+          !currentData.media||
           !currentData.media.length
-        ) {
+        ){
           return;
         }
 
-        const media =
+        const media=
           currentData.media[
             carouselIndex
           ];
 
-        if (!media) {
-          return;
-        }
+        if(!media)return;
 
-        const button =
-          document.createElement(
-            "button"
-          );
+        const button=
+          document.createElement("button");
 
-        button.type =
-          "button";
-
-        button.className =
+        button.type="button";
+        button.className=
           "media-action-btn";
 
-        if (
-          media.type === "video"
-        ) {
-          button.innerHTML =
-            `<i class="fas fa-video"></i> Download Video Ini`;
-        } else {
-          button.innerHTML =
-            `<i class="fas fa-image"></i> Download Foto Ini`;
-        }
+        button.innerHTML=
+          media.type==="video"
+            ? `<i class="fas fa-video"></i> Download Video Ini`
+            : `<i class="fas fa-image"></i> Download Foto Ini`;
 
         button.addEventListener(
           "click",
-          () => {
+          ()=>{
             downloadMedia(
               media,
-              carouselIndex + 1,
+              carouselIndex+1,
               button
             );
           }
@@ -2148,46 +2073,36 @@
         );
       }
 
-      function displayMediaSummary(
-        data
-      ) {
-        elements.mediaSummary.innerHTML =
-          "";
+      function displayMediaSummary(data){
 
-        const total =
-          data.media.length;
+        elements.mediaSummary.innerHTML="";
 
-        const photos =
-          data.photos.length;
+        const total=data.media.length;
+        const photos=data.photos.length;
+        const videos=data.videos.length;
 
-        const videos =
-          data.videos.length;
+        const totalItem=
+          document.createElement("div");
 
-        const totalItem =
-          document.createElement(
-            "div"
-          );
-
-        totalItem.className =
+        totalItem.className=
           "summary-item";
 
-        totalItem.innerHTML =
+        totalItem.innerHTML=
           `<i class="fas fa-layer-group"></i> ${total} Media`;
 
         elements.mediaSummary.appendChild(
           totalItem
         );
 
-        if (photos) {
-          const photoItem =
-            document.createElement(
-              "div"
-            );
+        if(photos){
 
-          photoItem.className =
+          const photoItem=
+            document.createElement("div");
+
+          photoItem.className=
             "summary-item";
 
-          photoItem.innerHTML =
+          photoItem.innerHTML=
             `<i class="fas fa-image"></i> ${photos} Foto`;
 
           elements.mediaSummary.appendChild(
@@ -2195,16 +2110,15 @@
           );
         }
 
-        if (videos) {
-          const videoItem =
-            document.createElement(
-              "div"
-            );
+        if(videos){
 
-          videoItem.className =
+          const videoItem=
+            document.createElement("div");
+
+          videoItem.className=
             "summary-item";
 
-          videoItem.innerHTML =
+          videoItem.innerHTML=
             `<i class="fas fa-video"></i> ${videos} Video`;
 
           elements.mediaSummary.appendChild(
@@ -2213,35 +2127,26 @@
         }
       }
 
-      function displayDownloadButtons(
-        data
-      ) {
-        elements.downloadArea.innerHTML =
-          "";
+      function displayDownloadButtons(data){
 
-        if (
-          !data.media.length
-        ) {
-          return;
-        }
+        elements.downloadArea.innerHTML="";
 
-        const allButton =
-          document.createElement(
-            "button"
-          );
+        if(!data.media.length)return;
 
-        allButton.type =
-          "button";
+        const allButton=
+          document.createElement("button");
 
-        allButton.className =
+        allButton.type="button";
+
+        allButton.className=
           "download-btn";
 
-        allButton.innerHTML =
+        allButton.innerHTML=
           `<i class="fas fa-cloud-download-alt"></i> Download Semua Media`;
 
         allButton.addEventListener(
           "click",
-          () => {
+          ()=>{
             downloadAllMedia(
               data.media,
               allButton
@@ -2254,82 +2159,61 @@
         );
       }
 
-      function displayResult(
-        data
-      ) {
-        currentData =
-          data;
+      function displayResult(data){
 
-        carouselIndex =
-          0;
+        currentData=data;
+        carouselIndex=0;
 
-        elements.mediaContainer.innerHTML =
-          "";
+        elements.mediaContainer.innerHTML="";
+        elements.mediaActionArea.innerHTML="";
+        elements.mediaSummary.innerHTML="";
+        elements.downloadArea.innerHTML="";
 
-        elements.mediaActionArea.innerHTML =
-          "";
+        elements.result.classList.add("show");
 
-        elements.mediaSummary.innerHTML =
-          "";
+        displayProfile(data);
 
-        elements.downloadArea.innerHTML =
-          "";
+        if(data.media.length===1){
 
-        elements.result.classList.add(
-          "show"
-        );
-
-        displayProfile(
-          data
-        );
-
-        if (
-          data.media.length === 1
-        ) {
           displaySingleMedia(
             data.media[0]
           );
-        } else {
+
+        }else{
+
           displayCarousel(
             data.media
           );
         }
 
         updateCurrentMediaButtons();
-
-        displayMediaSummary(
-          data
-        );
-
-        displayDownloadButtons(
-          data
-        );
-
-        displayCaption(
-          data.caption
-        );
+        displayMediaSummary(data);
+        displayDownloadButtons(data);
+        displayCaption(data.caption);
       }
 
-      async function handleDownload() {
-        const instagramUrl =
+      async function handleDownload(){
+
+        const instagramUrl=
           elements.urlInput.value.trim();
 
-        if (!instagramUrl) {
+        if(!instagramUrl){
+
           showMessage(
             "Silakan masukkan link Instagram terlebih dahulu.",
             "error"
           );
 
           elements.urlInput.focus();
-
           return;
         }
 
-        if (
+        if(
           !isValidInstagramUrl(
             instagramUrl
           )
-        ) {
+        ){
+
           showMessage(
             "Link Instagram tidak valid. Gunakan link /p, /reel, /reels, /tv, atau /stories.",
             "error"
@@ -2338,57 +2222,46 @@
           return;
         }
 
-        elements.downloadButton.disabled =
-          true;
+        elements.downloadButton.disabled=true;
 
-        elements.result.classList.remove(
-          "show"
-        );
+        elements.result.classList.remove("show");
 
-        elements.mediaContainer.innerHTML =
-          "";
+        elements.mediaContainer.innerHTML="";
+        elements.mediaActionArea.innerHTML="";
+        elements.mediaSummary.innerHTML="";
+        elements.downloadArea.innerHTML="";
+        elements.captionBox.style.display="none";
 
-        elements.mediaActionArea.innerHTML =
-          "";
+        try{
 
-        elements.mediaSummary.innerHTML =
-          "";
-
-        elements.downloadArea.innerHTML =
-          "";
-
-        elements.captionBox.style.display =
-          "none";
-
-        try {
-          const data =
+          const data=
             await processInstagramUrl(
               instagramUrl
             );
 
-          displayResult(
-            data
-          );
+          displayResult(data);
 
           hideMessage();
 
-          setTimeout(
-            () => {
-              elements.result.scrollIntoView({
-                behavior: "smooth",
-                block: "start"
-              });
-            },
-            150
-          );
-        } catch (error) {
+          setTimeout(()=>{
+            elements.result.scrollIntoView({
+              behavior:"smooth",
+              block:"start"
+            });
+          },150);
+
+        }catch(error){
+
           showMessage(
-            `Gagal memproses: ${escapeHtml(error.message)}`,
+            `Gagal memproses: ${escapeHtml(
+              error.message
+            )}`,
             "error"
           );
-        } finally {
-          elements.downloadButton.disabled =
-            false;
+
+        }finally{
+
+          elements.downloadButton.disabled=false;
         }
       }
 
@@ -2414,10 +2287,8 @@
 
       elements.urlInput.addEventListener(
         "keydown",
-        event => {
-          if (
-            event.key === "Enter"
-          ) {
+        event=>{
+          if(event.key==="Enter"){
             handleDownload();
           }
         }
@@ -2425,16 +2296,13 @@
 
       elements.urlInput.addEventListener(
         "paste",
-        () => {
-          setTimeout(
-            () => {
-              elements.urlInput.value =
-                elements.urlInput.value.trim();
+        ()=>{
+          setTimeout(()=>{
+            elements.urlInput.value=
+              elements.urlInput.value.trim();
 
-              updateClearButton();
-            },
-            50
-          );
+            updateClearButton();
+          },50);
         }
       );
 
