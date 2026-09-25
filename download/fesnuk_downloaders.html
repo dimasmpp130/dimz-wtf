@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
+	<meta name="theme-color" content="#080b10">
+	<meta name="description" content="Facebook Downloader MP4">
+	<title>Facebook Downloader - DIMMZZZSUM_ENAK</title>
+	<style>
+	* {
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0
+	}
+	
+	:root {
+		--bg: #080b0f;
+		--card: #11161c;
+		--card2: #0d1217;
+		--border: #252d36;
+		--blue: #1877f2;
+		--blue2: #1264d8;
+		--text: #fff;
+		--muted: #929aa4;
+		--green: #55d98b;
+	}
+	
+	html {
+		-webkit-text-size-adjust: 100%;
+	}
+	
+	body {
+		min-height: 100vh;
+		font-family: Arial, Helvetica, sans-serif;
+		background: var(--bg);
+		color: var(--text);
+	}
+	
+	button,
+	textarea,
+	select {
+		font: inherit;
+	}
+	
+	button {
+		-webkit-tap-highlight-color: transparent;
+	}
+	
+	.container {
+		width: 94%;
+		max-width: 1000px;
+		margin: auto;
+	}
+	
+	header {
+		height: 65px;
+		border-bottom: 1px solid #1a2026;
+		background: #090c10;
+	}
+	
+	.header-inner {
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+	}
+	
+	.logo {
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		font-size: 17px;
+		font-weight: 700;
+	}
+	
+	.logo-icon {
+		width: 37px;
+		height: 37px;
+		border-radius: 10px;
+		background: var(--blue);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.logo-icon svg {
+		width: 22px;
+		height: 22px;
+		fill: #fff;
+	}
+	
+	.badge {
+		padding: 6px 9px;
+		border: 1px solid #1d426e;
+		border-radius: 20px;
+		background: #0b1726;
+		color: #76b1ff;
+		font-size: 9px;
+		font-weight: 700;
+	}
+	
+	.hero {
+		text-align: center;
+		padding: 40px 0 25px;
+	}
+	
+	.hero h1 {
+		font-size: 34px;
+		line-height: 1.1;
+		font-weight: 800;
+	}
+	
+	.hero h1 span {
+		color: var(--blue);
+	}
+	
+	.hero p {
+		max-width: 650px;
+		margin: 12px auto 0;
+		color: var(--muted);
+		font-size: 13px;
+		line-height: 1.5;
+	}
+	
+	.downloader-card {
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: 17px;
+		padding: 14px;
+	}
+	
+	.input-wrap {
+		position: relative;
+	}
+	
+	#urlInput {
+		display: block;
+		width: 100%;
+		height: 88px;
+		resize: none;
+		padding: 15px 48px 15px 15px;
+		border: 1px solid #2b333c;
+		border-radius: 12px;
+		outline: none;
+		background: #080b0f;
+		color: #fff;
+		font-size: 14px;
+		line-height: 1.5;
+	}
+	
+	#urlInput:focus {
+		border-color: #236fcf;
+	}
+	
+	#urlInput::placeholder {
+		color: #68717b;
+	}
+	
+	.clear-btn {
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		width: 31px;
+		height: 31px;
+		border: 0;
+		border-radius: 8px;
+		background: #1b2026;
+		color: #a0a8b0;
+		font-size: 21px;
+		line-height: 1;
+		cursor: pointer;
+	}
+	
+	.action-row {
+		display: flex;
+		gap: 9px;
+		margin-top: 10px;
+	}
+	
+	.btn {
+		height: 45px;
+		border: 0;
+		border-radius: 11px;
+		padding: 0 18px;
+		font-size: 13px;
+		font-weight: 700;
+		cursor: pointer;
+	}
+	
+	.btn-primary {
+		flex: 1;
+		background: var(--blue);
+		color: #fff;
+	}
+	
+	.btn-secondary {
+		background: #1a2026;
+		border: 1px solid #29313a;
+		color: #ddd;
+	}
+	
+	.btn:disabled {
+		opacity: .55;
+		cursor: not-allowed;
+	}
+	
+	.status {
+		display: none;
+		margin-top: 11px;
+		padding: 12px 13px;
+		border-radius: 10px;
+		font-size: 12px;
+		line-height: 1.5;
+	}
+	
+	.status.show {
+		display: block;
+	}
+	
+	.status.loading {
+		background: #0c1116;
+		border: 1px solid #29313a;
+		color: #ddd;
+	}
+	
+	.status.success {
+		background: #07130c;
+		border: 1px solid #19432d;
+		color: var(--green);
+	}
+	
+	.status.error {
+		background: #150909;
+		border: 1px solid #4a2020;
+		color: #ff8585;
+	}
+	
+	#result {
+		display: none;
+		margin-top: 18px;
+	}
+	
+	.result-card {
+		overflow: hidden;
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: 16px;
+	}
+	
+	.preview {
+		display: grid;
+		grid-template-columns: 270px 1fr;
+	}
+	
+	.thumbnail-box {
+		min-height: 175px;
+		background: #1264d8;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.thumbnail-box img {
+		width: 100%;
+		height: 100%;
+		min-height: 175px;
+		object-fit: cover;
+		display: none;
+	}
+	
+	.thumbnail-placeholder {
+		height: 175px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: #fff;
+		font-size: 42px;
+		font-weight: 700;
+	}
+	
+	.info {
+		padding: 20px;
+	}
+	
+	.platform {
+		display: inline-block;
+		padding: 5px 8px;
+		border-radius: 6px;
+		background: #0c1c31;
+		border: 1px solid #173d68;
+		color: #71adff;
+		font-size: 9px;
+		font-weight: 700;
+		text-transform: uppercase;
+	}
+	
+	.title {
+		margin-top: 12px;
+		font-size: 18px;
+		font-weight: 700;
+		line-height: 1.4;
+	}
+	
+	.meta {
+		display: flex;
+		gap: 7px;
+		margin-top: 11px;
+		color: #818a94;
+		font-size: 10px;
+	}
+	
+	.download-grid {
+		padding: 14px;
+	}
+	
+	.download-box {
+		padding: 15px;
+		border: 1px solid #29313a;
+		border-radius: 12px;
+		background: #0b0f13;
+	}
+	
+	.download-box.mp4 {
+		border-color: #173d68;
+	}
+	
+	.download-title {
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		font-size: 14px;
+		font-weight: 700;
+	}
+	
+	.download-icon {
+		width: 32px;
+		height: 32px;
+		border-radius: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: #111b27;
+		color: #4b96f7;
+	}
+	
+	.download-desc {
+		margin: 10px 0;
+		color: #777f89;
+		font-size: 10px;
+	}
+	
+	.quality-select {
+		width: 100%;
+		height: 41px;
+		border: 1px solid #29323b;
+		border-radius: 9px;
+		outline: none;
+		background: #151a20;
+		color: #ddd;
+		padding: 0 9px;
+		margin-bottom: 9px;
+	}
+	
+	.download-btn {
+		width: 100%;
+		height: 43px;
+		border: 0;
+		border-radius: 9px;
+		background: var(--blue);
+		color: #fff;
+		font-size: 12px;
+		font-weight: 700;
+		cursor: pointer;
+	}
+	
+	.note {
+		padding: 0 10px;
+		margin-top: 11px;
+		color: #626a73;
+		font-size: 10px;
+		line-height: 1.5;
+		text-align: center;
+	}
+	
+	.info-card {
+		margin-top: 16px;
+		padding: 16px;
+		background: var(--card);
+		border: 1px solid var(--border);
+		border-radius: 16px;
+	}
+	
+	.info-title {
+		font-size: 15px;
+		font-weight: 700;
+		margin-bottom: 13px;
+	}
+	
+	.info-list {
+		display: grid;
+		gap: 9px;
+	}
+	
+	.info-item {
+		display: flex;
+		gap: 10px;
+		padding: 11px;
+		background: var(--card2);
+		border: 1px solid #202831;
+		border-radius: 10px;
+	}
+	
+	.info-number {
+		flex: 0 0 25px;
+		height: 25px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 7px;
+		background: #102b4d;
+		color: #6eacff;
+		font-size: 11px;
+		font-weight: 700;
+	}
+	
+	.info-content {
+		min-width: 0;
+	}
+	
+	.info-content strong {
+		display: block;
+		font-size: 12px;
+		margin-bottom: 3px;
+	}
+	
+	.info-content span {
+		display: block;
+		color: #777f89;
+		font-size: 10px;
+		line-height: 1.5;
+	}
+	
+	.info-note {
+		margin-top: 11px;
+		padding-top: 11px;
+		border-top: 1px solid #20262d;
+		color: #656e77;
+		font-size: 10px;
+		line-height: 1.5;
+	}
+	
+	footer {
+		padding: 35px 0 22px;
+		text-align: center;
+		color: #555d66;
+		font-size: 10px;
+	}
+	
+	.creator {
+		color: #777;
+	}
+	
+	.loader {
+		display: inline-block;
+		width: 14px;
+		height: 14px;
+		margin-right: 6px;
+		vertical-align: -2px;
+		border: 2px solid #596570;
+		border-top-color: #fff;
+		border-radius: 50%;
+		animation: spin .7s linear infinite;
+	}
+	
+	@keyframes spin {
+		to {
+			transform: rotate(360deg)
+		}
+	}
+	
+	.toast {
+		position: fixed;
+		left: 50%;
+		bottom: 18px;
+		max-width: 90%;
+		padding: 10px 13px;
+		border: 1px solid #343c45;
+		border-radius: 9px;
+		background: #171c22;
+		color: #fff;
+		font-size: 11px;
+		text-align: center;
+		transform: translate(-50%, 80px);
+		opacity: 0;
+		pointer-events: none;
+		transition: .2s;
+	}
+	
+	.toast.show {
+		transform: translate(-50%, 0);
+		opacity: 1;
+	}
+	
+	@media(max-width:600px) {
+		.container {
+			width: 93%;
+		}
+		header {
+			height: 59px;
+		}
+		.logo {
+			font-size: 15px;
+		}
+		.logo-icon {
+			width: 34px;
+			height: 34px;
+		}
+		.logo-icon svg {
+			width: 20px;
+			height: 20px;
+		}
+		.badge {
+			display: none;
+		}
+		.hero {
+			padding: 32px 0 20px;
+		}
+		.hero h1 {
+			font-size: 29px;
+		}
+		.hero p {
+			font-size: 12px;
+		}
+		.downloader-card {
+			padding: 11px;
+			border-radius: 14px;
+		}
+		.action-row {
+			flex-direction: row;
+		}
+		.btn {
+			height: 43px;
+		}
+		.preview {
+			display: block;
+		}
+		.thumbnail-box {
+			min-height: 170px;
+		}
+		.thumbnail-placeholder {
+			height: 170px;
+		}
+		.thumbnail-box img {
+			min-height: 170px;
+		}
+		.info {
+			padding: 15px;
+		}
+		.title {
+			font-size: 16px;
+		}
+		.download-grid {
+			padding: 11px;
+		}
+		.info-card {
+			padding: 13px;
+			border-radius: 14px;
+		}
+		.info-item {
+			padding: 10px;
+		}
+	}
+	
+	@media(max-width:360px) {
+		.logo {
+			font-size: 14px;
+		}
+		.hero h1 {
+			font-size: 26px;
+		}
+		.action-row {
+			gap: 7px;
+		}
+		.btn {
+			padding: 0 13px;
+			font-size: 12px;
+		}
+	}
+	</style>
+</head>
+<body>
+	<header>
+		<div class="container header-inner">
+			<div class="logo">
+				<div class="logo-icon">
+					<svg viewBox="0 0 24 24" aria-hidden="true">
+						<path d="M14.2 24H10.4V15.4H8V12h2.4V9.9c0-2.4 1.4-3.8 4-3.8h2.5v3.3h-1.7c-1.2 0-1.4.5-1.4 1.4V12h3l-.5 3.4h-2.5V24Z" /> </svg>
+				</div> <span>Facebook Downloader</span> </div>
+			<div class="badge">FACEBOOK MP4</div>
+		</div>
+	</header>
+	<main class="container">
+		<section class="hero">
+			<h1>FB Video <span>Saver HD</span></h1>
+			<p>Simpan video Facebook kualitas HD tanpa perlu login.</p>
+		</section>
+		<section class="downloader-card">
+			<div class="input-wrap">
+				<textarea id="urlInput" placeholder="Tempel link Facebook di sini..." autocomplete="off" spellcheck="false"></textarea>
+				<button class="clear-btn" id="clearBtn" type="button" title="Bersihkan">×</button>
+			</div>
+			<div class="action-row">
+				<button class="btn btn-primary" id="checkBtn" type="button"> <span id="checkText">DOWNLOAD</span> </button>
+				<button class="btn btn-secondary" id="pasteBtn" type="button">PASTE</button>
+			</div>
+			<div id="status" class="status"></div>
+		</section>
+		<section id="result">
+			<div class="result-card">
+				<div class="preview">
+					<div class="thumbnail-box"> <img id="thumbnail" alt="Preview video Facebook">
+						<div id="thumbnailPlaceholder" class="thumbnail-placeholder">f</div>
+					</div>
+					<div class="info">
+						<div class="platform">Facebook</div>
+						<div id="videoTitle" class="title">Facebook Video</div>
+						<div class="meta"> <span id="videoPlatform">
+Platform: Facebook
+</span> <span>•</span> <span id="qualityCount">
+Kualitas tersedia
+</span> </div>
+					</div>
+				</div>
+				<div class="download-grid">
+					<div class="download-box mp4">
+						<div class="download-title">
+							<div class="download-icon"> ▶ </div> <span>Video MP4</span> </div>
+						<div class="download-desc"> Pilih kualitas video yang tersedia. </div>
+						<select id="mp4Quality" class="quality-select">
+							<option value=""> Kualitas terbaik </option>
+						</select>
+						<button class="download-btn" id="mp4Btn" type="button"> Download MP4 </button>
+					</div>
+				</div>
+			</div>
+			<div class="note"> Terima kasih telah menggunakan website ini.
+				<br> Jangan lupa share ke teman-teman kalian yaa. </div>
+		</section>
+		<section class="info-card">
+			<div class="info-title"> Informasi Downloader </div>
+			<div class="info-list">
+				<div class="info-item">
+					<div class="info-number"> 1 </div>
+					<div class="info-content"> <strong>Tempel Link Facebook</strong> <span>
+Salin link video Facebook yang ingin kamu download lalu tempel pada kolom di atas.
+</span> </div>
+				</div>
+				<div class="info-item">
+					<div class="info-number"> 2 </div>
+					<div class="info-content"> <strong>Tekan Download</strong> <span>
+Tekan tombol DOWNLOAD dan tunggu sampai link video berhasil diproses.
+</span> </div>
+				</div>
+				<div class="info-item">
+					<div class="info-number"> 3 </div>
+					<div class="info-content"> <strong>Pilih Kualitas Video</strong> <span>
+Pilih kualitas video yang tersedia, kemudian tekan Download MP4.
+</span> </div>
+				</div>
+				<div class="info-item">
+					<div class="info-number"> 4 </div>
+					<div class="info-content"> <strong>Tidak Perlu Login</strong> <span>
+Downloader ini dapat digunakan tanpa memasukkan akun Facebook.
+</span> </div>
+				</div>
+			</div>
+			<div class="info-note"> Gunakan downloader ini hanya untuk video yang kamu miliki atau memiliki izin untuk mengunduhnya. </div>
+		</section>
+		<footer> © 2026 Facebook Downloader | Made with ♥ by <span class="creator">DIMMZZZSUM_ENAK</span> </footer>
+	</main>
+	<div id="toast" class="toast"></div>
+	<script>
+	"use strict";
+	const API_URL = [
+		104, 116, 116, 112, 115, 58, 47, 47,
+		97, 112, 105, 46, 110, 101, 111, 120,
+		114, 46, 101, 117, 47, 97, 112, 105,
+		47, 102, 98
+	].map(function(n) {
+		return String.fromCharCode(n);
+	}).join("");
+	const API_KEY = [
+		103, 66, 119, 52, 98, 102, 106, 53,
+		104, 97, 113, 89
+	].map(function(n) {
+		return String.fromCharCode(n);
+	}).join("");
+	const urlInput = document.getElementById("urlInput");
+	const clearBtn = document.getElementById("clearBtn");
+	const pasteBtn = document.getElementById("pasteBtn");
+	const checkBtn = document.getElementById("checkBtn");
+	const checkText = document.getElementById("checkText");
+	const statusBox = document.getElementById("status");
+	const resultBox = document.getElementById("result");
+	const videoTitle = document.getElementById("videoTitle");
+	const videoPlatform = document.getElementById("videoPlatform");
+	const qualityCount = document.getElementById("qualityCount");
+	const mp4Quality = document.getElementById("mp4Quality");
+	const mp4Btn = document.getElementById("mp4Btn");
+	const toast = document.getElementById("toast");
+	let currentMedia = {
+		title: "Facebook Video",
+		qualities: []
+	};
+	let toastTimer = null;
+
+	function showToast(message) {
+		clearTimeout(toastTimer);
+		toast.textContent = message;
+		toast.classList.add("show");
+		toastTimer = setTimeout(function() {
+			toast.classList.remove("show");
+		}, 2500);
+	}
+
+	function setStatus(message, type) {
+		statusBox.className = "status show " + (type || "loading");
+		statusBox.innerHTML = message;
+	}
+
+	function clearStatus() {
+		statusBox.className = "status";
+		statusBox.textContent = "";
+	}
+
+	function isFacebookUrl(value) {
+		try {
+			const url = new URL(value);
+			const host = url.hostname.toLowerCase().replace(/^www\./, "");
+			return host === "facebook.com" || host === "m.facebook.com" || host === "mbasic.facebook.com" || host === "fb.watch";
+		} catch(e) {
+			return false;
+		}
+	}
+	async function requestAPI(facebookUrl) {
+		const endpoint = API_URL + "?url=" + encodeURIComponent(facebookUrl) + "&apikey=" + encodeURIComponent(API_KEY);
+		const response = await fetch(endpoint, {
+			method: "GET",
+			mode: "cors",
+			cache: "no-store",
+			headers: {
+				Accept: "application/json"
+			}
+		});
+		if(!response.ok) {
+			throw new Error("API HTTP " + response.status);
+		}
+		const text = await response.text();
+		let data;
+		try {
+			data = JSON.parse(text);
+		} catch(e) {
+			throw new Error("API mengembalikan data bukan JSON.");
+		}
+		return data;
+	}
+
+	function normalizeData(data) {
+		if(!data) {
+			throw new Error("Response API kosong.");
+		}
+		if(data.status !== true) {
+			throw new Error(data.message || data.error || "API gagal memproses video Facebook.");
+		}
+		if(!Array.isArray(data.data)) {
+			throw new Error("Format response API tidak sesuai.");
+		}
+		const qualities = data.data.map(function(item) {
+			if(!item || !item.url) {
+				return null;
+			}
+			return {
+				quality: String(item.quality || "Video").toUpperCase(),
+				url: item.url
+			};
+		}).filter(Boolean);
+		if(!qualities.length) {
+			throw new Error("API berhasil tetapi tidak memberikan link video.");
+		}
+		return {
+			title: "Facebook Video",
+			qualities: qualities
+		};
+	}
+
+	function populateQualities(media) {
+		mp4Quality.innerHTML = "";
+		const seen = new Set();
+		media.qualities.forEach(function(item, index) {
+			if(!item.url || seen.has(item.url)) {
+				return;
+			}
+			seen.add(item.url);
+			const option = document.createElement("option");
+			option.value = item.url;
+			option.textContent = item.quality || ("Video " + (index + 1));
+			mp4Quality.appendChild(option);
+		});
+		if(!mp4Quality.options.length) {
+			const option = document.createElement("option");
+			option.value = "";
+			option.textContent = "MP4 tidak tersedia";
+			mp4Quality.appendChild(option);
+		}
+		qualityCount.textContent = media.qualities.length + " kualitas tersedia";
+	}
+	async function checkVideo() {
+		const facebookUrl = urlInput.value.trim();
+		if(!facebookUrl) {
+			setStatus("Masukkan link Facebook terlebih dahulu.", "error");
+			urlInput.focus();
+			return;
+		}
+		if(!isFacebookUrl(facebookUrl)) {
+			setStatus("Link tidak terlihat seperti URL Facebook yang valid.", "error");
+			return;
+		}
+		checkBtn.disabled = true;
+		checkText.innerHTML = '<span class="loader"></span>Memproses...';
+		resultBox.style.display = "none";
+		setStatus("Memproses permintaan Anda...", "loading");
+		try {
+			const data = await requestAPI(facebookUrl);
+			const media = normalizeData(data);
+			currentMedia = media;
+			videoTitle.textContent = media.title;
+			videoPlatform.textContent = "Platform: Facebook";
+			populateQualities(media);
+			resultBox.style.display = "block";
+			setStatus("Video berhasil ditemukan. Pilih kualitas untuk mulai download.", "success");
+			resultBox.scrollIntoView({
+				behavior: "smooth",
+				block: "start"
+			});
+		} catch(error) {
+			setStatus("<strong>Gagal memproses video Facebook.</strong><br>" + escapeHtml(error.message || "Terjadi kesalahan.") + "<br><br><small>" + "Pastikan link Facebook masih dapat diakses dan API tersedia." + "</small>", "error");
+		} finally {
+			checkBtn.disabled = false;
+			checkText.textContent = "DOWNLOAD";
+		}
+	}
+
+	function escapeHtml(value) {
+		return String(value).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+	}
+
+	function safeFilename(name, extension) {
+		let clean = String(name || "facebook-video").replace(/[\\/:*?"<>|]/g, "").replace(/\s+/g, " ").trim();
+		if(!clean) {
+			clean = "facebook-video";
+		}
+		return clean.substring(0, 100) + "." + extension;
+	}
+	async function downloadMedia(mediaUrl, filename) {
+		if(!mediaUrl) {
+			throw new Error("Link download tidak tersedia.");
+		}
+		try {
+			const response = await fetch(mediaUrl, {
+				method: "GET",
+				mode: "cors",
+				cache: "no-store"
+			});
+			if(!response.ok) {
+				throw new Error("Media HTTP " + response.status);
+			}
+			const blob = await response.blob();
+			if(!blob.size) {
+				throw new Error("File video kosong.");
+			}
+			const objectUrl = URL.createObjectURL(blob);
+			const link = document.createElement("a");
+			link.href = objectUrl;
+			link.download = filename;
+			link.style.display = "none";
+			document.body.appendChild(link);
+			link.click();
+			setTimeout(function() {
+				link.remove();
+				URL.revokeObjectURL(objectUrl);
+			}, 1000);
+			return true;
+		} catch(error) {
+			try {
+				const link = document.createElement("a");
+				link.href = mediaUrl;
+				link.download = filename;
+				link.target = "_blank";
+				link.rel = "noopener";
+				document.body.appendChild(link);
+				link.click();
+				setTimeout(function() {
+					link.remove();
+				}, 800);
+				return true;
+			} catch(e) {
+				return false;
+			}
+		}
+	}
+	async function downloadMP4() {
+		const selected = mp4Quality.value;
+		if(!selected) {
+			showToast("Link MP4 tidak tersedia.");
+			return;
+		}
+		mp4Btn.disabled = true;
+		const oldText = mp4Btn.textContent;
+		mp4Btn.innerHTML = '<span class="loader"></span>Menyiapkan...';
+		try {
+			const selectedOption = mp4Quality.options[mp4Quality.selectedIndex];
+			const quality = selectedOption ? selectedOption.textContent : "Facebook";
+			const filename = safeFilename("Facebook Video " + quality, "mp4");
+			const success = await downloadMedia(selected, filename);
+			if(!success) {
+				throw new Error("Download diblokir browser.");
+			}
+			showToast("Download " + quality + " dimulai.");
+		} catch(error) {
+			showToast("Download diblokir browser. Coba lagi.");
+			try {
+				window.open(selected, "_blank", "noopener");
+			} catch(e) {}
+		} finally {
+			mp4Btn.disabled = false;
+			mp4Btn.textContent = oldText;
+		}
+	}
+	clearBtn.addEventListener("click", function() {
+		urlInput.value = "";
+		resultBox.style.display = "none";
+		currentMedia = {
+			title: "Facebook Video",
+			qualities: []
+		};
+		clearStatus();
+		urlInput.focus();
+	});
+	pasteBtn.addEventListener("click", async function() {
+		try {
+			const text = await navigator.clipboard.readText();
+			if(!text) {
+				showToast("Clipboard kosong.");
+				return;
+			}
+			urlInput.value = text;
+			showToast("Link berhasil ditempel.");
+		} catch(e) {
+			showToast("Clipboard tidak dapat diakses. Tempel manual.");
+		}
+	});
+	checkBtn.addEventListener("click", checkVideo);
+	mp4Btn.addEventListener("click", downloadMP4);
+	urlInput.addEventListener("keydown", function(event) {
+		if(event.ctrlKey && event.key === "Enter") {
+			checkVideo();
+		}
+	});
+	urlInput.addEventListener("paste", function() {
+		setTimeout(function() {
+			const value = urlInput.value.trim();
+			if(value && isFacebookUrl(value)) {
+				showToast("Link Facebook terdeteksi.");
+			}
+		}, 80);
+	});
+	</script>
+</body>
+</html>
