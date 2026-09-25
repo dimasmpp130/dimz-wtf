@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#f2f0e9" />
+    <meta
+      name="description"
+      content="Khodam Archive — generator khodam acak untuk hiburan."
+    />
+    <title>Khodam Generator — DIMMZZZSUM_ENAK</title>
+
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}
+
+      :root{
+        --bg:#f2f0e9;
+        --paper:#f8f7f2;
+        --soft:#eeece5;
+        --dark:#e4e1d7;
+        --ink:#20211d;
+        --muted:#777970;
+        --line:rgba(32,33,29,.13);
+        --olive:#65705a;
+        --olive-dark:#4d5745;
+        --red:#a95b4e;
+      }
+
+      html{scroll-behavior:smooth}
+
+      body{
+        min-height:100vh;
+        overflow-x:hidden;
+        background:var(--bg);
+        color:var(--ink);
+        font-family:Arial,Helvetica,sans-serif;
+      }
+
+      button,input{font:inherit}
+      button{-webkit-tap-highlight-color:transparent}
+
+      .page{
+        min-height:100vh;
+        overflow:hidden;
+      }
+
+      .container{
+        position:relative;
+        width:min(1040px,calc(100% - 40px));
+        margin:auto;
+        padding:28px 0 45px;
+      }
+
+      .header{
+        display:flex;
+        justify-content:center;
+        padding-bottom:17px;
+        border-bottom:1px solid var(--line);
+      }
+
+      .brand{
+        display:flex;
+        align-items:center;
+        gap:10px;
+      }
+
+      .brand-symbol{
+        width:35px;
+        height:35px;
+        display:grid;
+        place-items:center;
+        border-radius:50%;
+        background:var(--ink);
+        color:var(--paper);
+        font-size:17px;
+        font-weight:700;
+      }
+
+      .brand-title{
+        font-size:11px;
+        font-weight:700;
+        letter-spacing:.8px;
+      }
+
+      .brand-subtitle{
+        margin-top:3px;
+        color:var(--muted);
+        font-size:9px;
+      }
+
+      .hero{
+        display:grid;
+        grid-template-columns:minmax(0,1fr) 220px;
+        gap:55px;
+        align-items:end;
+        padding:65px 0 55px;
+      }
+
+      .eyebrow{
+        display:flex;
+        align-items:center;
+        gap:9px;
+        margin-bottom:17px;
+        color:var(--olive);
+        font-size:9px;
+        font-weight:700;
+        letter-spacing:1.2px;
+        text-transform:uppercase;
+      }
+
+      .eyebrow-line{
+        width:27px;
+        height:1px;
+        background:var(--olive);
+      }
+
+      h1{
+        max-width:700px;
+        font-size:clamp(48px,7vw,80px);
+        font-weight:700;
+        line-height:.94;
+        letter-spacing:-3px;
+      }
+
+      h1 em{
+        color:var(--olive);
+        font-style:italic;
+      }
+
+      .hero-description{
+        max-width:550px;
+        margin-top:23px;
+        color:var(--muted);
+        font-size:13px;
+        line-height:1.75;
+      }
+
+      .hero-side{
+        padding-left:18px;
+        border-left:1px solid var(--line);
+      }
+
+      .side-number{
+        margin-bottom:8px;
+        color:var(--olive);
+        font-size:9px;
+        font-weight:700;
+        letter-spacing:1.2px;
+      }
+
+      .side-title{
+        font-size:21px;
+        font-weight:700;
+        line-height:1.1;
+      }
+
+      .side-text{
+        margin-top:8px;
+        color:var(--muted);
+        font-size:10px;
+        line-height:1.65;
+      }
+
+      .archive-label{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        min-height:42px;
+        padding:9px 0;
+        border-top:1px solid var(--line);
+        border-bottom:1px solid var(--line);
+      }
+
+      .archive-label-left{
+        display:flex;
+        align-items:center;
+        gap:8px;
+        color:var(--muted);
+        font-size:9px;
+        font-weight:700;
+        letter-spacing:1.2px;
+        text-transform:uppercase;
+      }
+
+      .archive-dot{
+        width:6px;
+        height:6px;
+        border-radius:50%;
+        background:var(--olive);
+      }
+
+      .archive-label-right{
+        color:#aaa99f;
+        font-size:8px;
+        letter-spacing:1px;
+      }
+
+      .workspace{
+        display:grid;
+        grid-template-columns:125px minmax(0,1fr);
+        gap:25px;
+        margin-top:22px;
+      }
+
+      .workspace-index{
+        padding-top:12px;
+      }
+
+      .index-big{
+        font-size:40px;
+        font-weight:700;
+        line-height:1;
+      }
+
+      .index-label{
+        margin-top:7px;
+        color:var(--muted);
+        font-size:8px;
+        letter-spacing:1px;
+        text-transform:uppercase;
+      }
+
+      .index-line{
+        width:32px;
+        height:1px;
+        margin-top:18px;
+        background:var(--olive);
+      }
+
+      .paper-stack{
+        position:relative;
+        padding:6px 6px 0 0;
+      }
+
+      .paper-back{
+        position:absolute;
+        inset:6px 0 0 6px;
+        background:var(--dark);
+        border:1px solid rgba(32,33,29,.05);
+      }
+
+      .paper-card{
+        position:relative;
+        z-index:1;
+        padding:28px;
+        background:var(--paper);
+        border:1px solid rgba(32,33,29,.12);
+        box-shadow:0 8px 22px rgba(40,39,32,.05);
+      }
+
+      .card-top{
+        display:flex;
+        justify-content:space-between;
+        gap:15px;
+        padding-bottom:20px;
+        border-bottom:1px solid var(--line);
+      }
+
+      .card-kicker{
+        color:var(--olive);
+        font-size:8px;
+        font-weight:700;
+        letter-spacing:1.2px;
+        text-transform:uppercase;
+      }
+
+      .card-title{
+        margin-top:7px;
+        font-size:27px;
+        font-weight:700;
+        line-height:1.05;
+      }
+
+      .card-description{
+        max-width:400px;
+        margin-top:7px;
+        color:var(--muted);
+        font-size:10px;
+        line-height:1.6;
+      }
+
+      .card-stamp{
+        width:38px;
+        height:38px;
+        flex:0 0 38px;
+        display:grid;
+        place-items:center;
+        border:1px solid var(--line);
+        color:var(--olive);
+        font-size:10px;
+        font-weight:700;
+        transform:rotate(-4deg);
+      }
+
+      .form{
+        padding-top:22px;
+      }
+
+      .input-label{
+        display:block;
+        margin-bottom:7px;
+        color:#555750;
+        font-size:8px;
+        font-weight:700;
+        letter-spacing:1px;
+        text-transform:uppercase;
+      }
+
+      .form-row{
+        display:grid;
+        grid-template-columns:minmax(0,1fr) 140px;
+        gap:7px;
+      }
+
+      .input{
+        width:100%;
+        height:50px;
+        padding:0 14px;
+        outline:0;
+        border:1px solid rgba(32,33,29,.14);
+        border-radius:0;
+        background:var(--soft);
+        color:var(--ink);
+        font-size:13px;
+      }
+
+      .input::placeholder{
+        color:#a09f97;
+      }
+
+      .input:focus{
+        border-color:var(--olive);
+        background:#f5f3ec;
+      }
+
+      .generate{
+        height:50px;
+        border:0;
+        border-radius:0;
+        cursor:pointer;
+        background:var(--olive);
+        color:#fff;
+        font-size:9px;
+        font-weight:700;
+        letter-spacing:.7px;
+        text-transform:uppercase;
+      }
+
+      .generate:active{
+        background:var(--olive-dark);
+      }
+
+      .generate:disabled{
+        cursor:not-allowed;
+        opacity:.6;
+      }
+
+      .button-content{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:7px;
+      }
+
+      .loader{
+        display:none;
+        width:11px;
+        height:11px;
+        border:2px solid rgba(255,255,255,.35);
+        border-top-color:#fff;
+        border-radius:50%;
+      }
+
+      .loading .loader{
+        display:block;
+      }
+
+      .error{
+        display:none;
+        margin-top:9px;
+        padding:10px 12px;
+        border-left:2px solid var(--red);
+        background:#eee5df;
+        color:#914e44;
+        font-size:9px;
+        line-height:1.6;
+      }
+
+      .error.show{
+        display:block;
+      }
+
+      .result{
+        display:none;
+        margin-top:21px;
+      }
+
+      .result.show{
+        display:block;
+      }
+
+      .result-paper{
+        position:relative;
+        overflow:hidden;
+        padding:24px;
+        background:#e7e4d9;
+        border:1px solid rgba(32,33,29,.11);
+      }
+
+      .result-paper:before{
+        content:"";
+        position:absolute;
+        top:0;
+        right:0;
+        width:55px;
+        height:55px;
+        border-left:1px solid rgba(32,33,29,.06);
+        border-bottom:1px solid rgba(32,33,29,.06);
+        background:#f0eee7;
+        clip-path:polygon(100% 0,100% 100%,0 0);
+      }
+
+      .result-meta{
+        display:flex;
+        justify-content:space-between;
+        gap:12px;
+        margin-bottom:20px;
+      }
+
+      .result-label{
+        color:var(--olive);
+        font-size:8px;
+        font-weight:700;
+        letter-spacing:1.3px;
+        text-transform:uppercase;
+      }
+
+      .result-id{
+        color:#a09e94;
+        font-size:8px;
+      }
+
+      .result-name{
+        max-width:720px;
+        overflow-wrap:anywhere;
+        font-size:clamp(36px,6vw,62px);
+        font-weight:700;
+        line-height:.96;
+        letter-spacing:-1.5px;
+      }
+
+      .result-rule{
+        width:40px;
+        height:2px;
+        margin:19px 0 13px;
+        background:var(--olive);
+      }
+
+      .result-meaning{
+        max-width:650px;
+        color:#66685f;
+        font-size:12px;
+        line-height:1.75;
+      }
+
+      .result-bottom{
+        display:flex;
+        align-items:center;
+        gap:7px;
+        margin-top:19px;
+        padding-top:12px;
+        border-top:1px solid rgba(32,33,29,.09);
+        color:#929188;
+        font-size:8px;
+        letter-spacing:.4px;
+        text-transform:uppercase;
+      }
+
+      .result-dot{
+        width:5px;
+        height:5px;
+        flex:0 0 5px;
+        border-radius:50%;
+        background:var(--olive);
+      }
+
+      .info-grid{
+        display:grid;
+        grid-template-columns:repeat(3,1fr);
+        gap:1px;
+        margin-top:11px;
+        background:var(--line);
+        border:1px solid var(--line);
+      }
+
+      .info-card{
+        min-width:0;
+        padding:17px;
+        background:var(--paper);
+      }
+
+      .info-index{
+        margin-bottom:9px;
+        color:var(--olive);
+        font-size:8px;
+        font-weight:700;
+      }
+
+      .info-title{
+        margin-bottom:5px;
+        font-size:17px;
+        font-weight:700;
+        line-height:1.15;
+      }
+
+      .info-text{
+        color:var(--muted);
+        font-size:9px;
+        line-height:1.65;
+      }
+
+      footer{
+        margin-top:40px;
+        padding-top:15px;
+        border-top:1px solid var(--line);
+        color:#777970;
+        font-size:8px;
+        text-align:center;
+      }
+
+      footer .creator{
+        color:var(--ink);
+      }
+
+      @media(max-width:820px){
+        .container{
+          width:min(720px,calc(100% - 32px));
+        }
+
+        .hero{
+          grid-template-columns:1fr;
+          gap:25px;
+          padding:50px 0 42px;
+        }
+
+        .hero-side{
+          max-width:430px;
+        }
+
+        .workspace{
+          grid-template-columns:1fr;
+          gap:10px;
+        }
+
+        .workspace-index{
+          display:flex;
+          align-items:center;
+          gap:8px;
+          padding-top:0;
+        }
+
+        .index-big{
+          font-size:30px;
+        }
+
+        .index-label{
+          margin-top:0;
+        }
+
+        .index-line{
+          margin:0 0 0 3px;
+        }
+      }
+
+      @media(max-width:600px){
+        .container{
+          width:calc(100% - 26px);
+          padding:14px 0 28px;
+        }
+
+        .header{
+          padding-bottom:13px;
+        }
+
+        .brand-symbol{
+          width:33px;
+          height:33px;
+          flex-basis:33px;
+        }
+
+        .brand-title{
+          font-size:9px;
+        }
+
+        .brand-subtitle{
+          font-size:8px;
+        }
+
+        .hero{
+          gap:22px;
+          padding:39px 0 34px;
+        }
+
+        .eyebrow{
+          margin-bottom:14px;
+          font-size:8px;
+        }
+
+        h1{
+          font-size:clamp(43px,14vw,64px);
+          letter-spacing:-2px;
+        }
+
+        .hero-description{
+          margin-top:17px;
+          font-size:12px;
+          line-height:1.7;
+        }
+
+        .hero-side{
+          padding-left:14px;
+        }
+
+        .side-title{
+          font-size:19px;
+        }
+
+        .side-text{
+          font-size:10px;
+        }
+
+        .archive-label{
+          min-height:38px;
+        }
+
+        .archive-label-left,
+        .archive-label-right{
+          font-size:7px;
+        }
+
+        .workspace{
+          margin-top:17px;
+        }
+
+        .index-big{
+          font-size:27px;
+        }
+
+        .index-label{
+          font-size:7px;
+        }
+
+        .paper-stack{
+          padding:4px 4px 0 0;
+        }
+
+        .paper-back{
+          inset:4px 0 0 4px;
+        }
+
+        .paper-card{
+          padding:18px;
+        }
+
+        .card-top{
+          padding-bottom:17px;
+        }
+
+        .card-kicker{
+          font-size:7px;
+        }
+
+        .card-title{
+          margin-top:6px;
+          font-size:23px;
+        }
+
+        .card-description{
+          font-size:9px;
+        }
+
+        .card-stamp{
+          width:32px;
+          height:32px;
+          flex-basis:32px;
+          font-size:8px;
+        }
+
+        .form{
+          padding-top:18px;
+        }
+
+        .input-label{
+          font-size:7px;
+        }
+
+        .form-row{
+          grid-template-columns:1fr;
+          gap:7px;
+        }
+
+        .input,
+        .generate{
+          height:48px;
+        }
+
+        .input{
+          font-size:13px;
+        }
+
+        .generate{
+          width:100%;
+        }
+
+        .result{
+          margin-top:17px;
+        }
+
+        .result-paper{
+          padding:18px;
+        }
+
+        .result-meta{
+          margin-bottom:16px;
+        }
+
+        .result-name{
+          font-size:clamp(32px,10.5vw,50px);
+          letter-spacing:-1px;
+        }
+
+        .result-rule{
+          margin:16px 0 11px;
+        }
+
+        .result-meaning{
+          font-size:11px;
+          line-height:1.7;
+        }
+
+        .result-bottom{
+          margin-top:16px;
+          padding-top:10px;
+          font-size:7px;
+        }
+
+        .info-grid{
+          grid-template-columns:1fr;
+        }
+
+        .info-card{
+          padding:16px;
+        }
+
+        .info-title{
+          font-size:18px;
+        }
+
+        .info-text{
+          font-size:10px;
+        }
+
+        footer{
+          margin-top:32px;
+          font-size:7px;
+        }
+      }
+
+      @media(max-width:380px){
+        .container{
+          width:calc(100% - 20px);
+        }
+
+        .paper-card{
+          padding:15px;
+        }
+
+        .hero{
+          padding-top:32px;
+        }
+
+        h1{
+          font-size:clamp(40px,14.5vw,56px);
+        }
+
+        .card-stamp{
+          display:none;
+        }
+
+        .result-paper{
+          padding:15px;
+        }
+
+        .result-name{
+          font-size:clamp(29px,10.5vw,43px);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="page">
+      <main class="container">
+        <header class="header">
+          <div class="brand">
+            <div class="brand-symbol">K</div>
+            <div>
+              <div class="brand-title">KHODAM GENERATOR</div>
+              <div class="brand-subtitle">Created by DIMMZZZSUM_ENAK</div>
+            </div>
+          </div>
+        </header>
+
+        <section class="hero">
+          <div>
+            <div class="eyebrow">
+              <span class="eyebrow-line"></span>
+              Random · Just for fun
+            </div>
+
+            <h1>Temukan <em>khodam</em> kamu.</h1>
+
+            <p class="hero-description">
+              Masukkan nama dan biarkan sistem otomatis memilih satu hasil
+              secara acak. Setiap hasil dilengkapi deskripsi singkat.
+            </p>
+          </div>
+
+          <aside class="hero-side">
+            <div class="side-number">CATATAN</div>
+            <div class="side-title">Sekadar hiburan.</div>
+            <div class="side-text">
+              Hasil dibuat secara acak dan tidak dimaksudkan sebagai informasi
+              nyata atau penilaian terhadap seseorang.
+            </div>
+          </aside>
+        </section>
+
+        <div class="archive-label">
+          <div class="archive-label-left">
+            <span class="archive-dot"></span>
+            Khodam Generator
+          </div>
+          <div class="archive-label-right">RANDOM RESULT</div>
+        </div>
+
+        <section class="workspace">
+          <aside class="workspace-index">
+            <div class="index-big">01</div>
+            <div class="index-label">Generate</div>
+            <div class="index-line"></div>
+          </aside>
+
+          <div>
+            <div class="paper-stack">
+              <div class="paper-back"></div>
+
+              <div class="paper-card">
+                <div class="card-top">
+                  <div>
+                    <div class="card-kicker">Khodam Generator</div>
+                    <div class="card-title">Masukkan nama</div>
+                    <div class="card-description">
+                      Gunakan nama apa saja untuk mendapatkan hasil acak dari
+                      generator.
+                    </div>
+                  </div>
+
+                  <div class="card-stamp">K</div>
+                </div>
+
+                <div class="form">
+                  <label class="input-label" for="nameInput">Nama</label>
+
+                  <div class="form-row">
+                    <input
+                      id="nameInput"
+                      class="input"
+                      type="text"
+                      maxlength="40"
+                      autocomplete="off"
+                      placeholder="Tulis nama di sini"
+                    />
+
+                    <button id="generateBtn" class="generate" type="button">
+                      <span class="button-content">
+                        <span id="loader" class="loader"></span>
+                        <span id="buttonText">Cek Khodam</span>
+                      </span>
+                    </button>
+                  </div>
+
+                  <div id="errorBox" class="error" role="alert"></div>
+
+                  <div id="result" class="result" aria-live="polite">
+                    <div class="result-paper">
+                      <div class="result-meta">
+                        <div class="result-label">Hasil</div>
+                        <div class="result-id">RANDOM</div>
+                      </div>
+
+                      <div id="khodamName" class="result-name">-</div>
+
+                      <div class="result-rule"></div>
+
+                      <div id="meaning" class="result-meaning">-</div>
+
+                      <div class="result-bottom">
+                        <span class="result-dot"></span>
+                        <span id="resultUser">Hasil acak untuk kamu</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="info-grid">
+              <div class="info-card">
+                <div class="info-index">01 / INPUT</div>
+                <div class="info-title">Masukkan Nama</div>
+                <div class="info-text">
+                  Tulis nama yang ingin kamu gunakan untuk menjalankan
+                  generator.
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-index">02 / PROCESS</div>
+                <div class="info-title">Jalankan</div>
+                <div class="info-text">
+                  Tekan tombol dan sistem akan mengambil hasil secara acak.
+                </div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-index">03 / RESULT</div>
+                <div class="info-title">Lihat Hasil</div>
+                <div class="info-text">
+                  Hasil dan deskripsi singkat akan tampil di kartu hasil.
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer>
+          © 2026 Khodam Generator · Made by
+          <span class="creator">DIMMZZZSUM_ENAK</span>
+        </footer>
+      </main>
+    </div>
+
+    <script>
+      const API_URL="https://api.neoxr.eu/api/khodam?apikey=gBw4bfj5haqY";
+
+      const nameInput=document.getElementById("nameInput");
+      const generateBtn=document.getElementById("generateBtn");
+      const buttonText=document.getElementById("buttonText");
+      const result=document.getElementById("result");
+      const khodamName=document.getElementById("khodamName");
+      const meaning=document.getElementById("meaning");
+      const errorBox=document.getElementById("errorBox");
+      const resultUser=document.getElementById("resultUser");
+
+      function setLoading(state){
+        generateBtn.disabled=state;
+        generateBtn.classList.toggle("loading",state);
+        buttonText.textContent=state?"Memuat...":"Cek Khodam";
+      }
+
+      function showError(message){
+        errorBox.textContent=message;
+        errorBox.classList.add("show");
+      }
+
+      function hideError(){
+        errorBox.textContent="";
+        errorBox.classList.remove("show");
+      }
+
+      function showResult(data,username){
+        khodamName.textContent=data.name||"Tidak diketahui";
+        meaning.textContent=data.meaning||"Belum ada deskripsi untuk hasil ini.";
+        resultUser.textContent=username+" · hasil acak";
+
+        result.classList.add("show");
+      }
+
+      async function generateKhodam(){
+        const name=nameInput.value.trim();
+
+        hideError();
+
+        if(!name){
+          showError("Silakan masukkan nama terlebih dahulu.");
+          nameInput.focus();
+          return;
+        }
+
+        setLoading(true);
+        result.classList.remove("show");
+
+        try{
+          const response=await fetch(API_URL,{
+            method:"GET",
+            cache:"no-store",
+            headers:{
+              Accept:"application/json"
+            }
+          });
+
+          if(!response.ok){
+            throw new Error("HTTP "+response.status);
+          }
+
+          const json=await response.json();
+
+          if(
+            !json ||
+            json.status!==true ||
+            !json.data ||
+            !json.data.name
+          ){
+            throw new Error("Invalid API response");
+          }
+
+          showResult(json.data,name);
+
+          setTimeout(function(){
+            result.scrollIntoView({
+              behavior:"smooth",
+              block:"nearest"
+            });
+          },50);
+
+        }catch(error){
+          console.error("Khodam Generator:",error);
+          showError("Hasil belum dapat dimuat. Coba lagi beberapa saat.");
+        }finally{
+          setLoading(false);
+        }
+      }
+
+      generateBtn.addEventListener("click",generateKhodam);
+
+      nameInput.addEventListener("keydown",function(event){
+        if(event.key==="Enter"){
+          generateKhodam();
+        }
+      });
+
+      nameInput.addEventListener("input",hideError);
+    </script>
+  </body>
+</html>
