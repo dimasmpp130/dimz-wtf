@@ -38,8 +38,6 @@ Project ini terus dikembangkan dengan tampilan yang sederhana, responsif, cepat,
 | 🛠️ Utilities   | Berbagai tools kecil yang berguna sehari-hari    |
 | 🎮 Gaming Tools | Tools dan utilities bertema gaming               |
 | 📱 Responsive   | Nyaman digunakan dari smartphone maupun desktop  |
-| 🌙 Dark UI      | Tampilan modern dengan dark interface            |
-| ⚡ Lightweight   | Dibuat agar tetap ringan dan mudah digunakan     |
 
 ---
 
@@ -53,8 +51,6 @@ Beberapa tools yang tersedia di DIMZ WTF:
 * 👻 **Khodam Generator**
 * 🎮 **Gaming Tools**
 * 🧮 **Win Rate Calculator**
-* 🔗 **Link & Utility Tools**
-* 🧩 **Various Web Utilities**
 
 > Daftar tools akan terus bertambah seiring pengembangan project.
 
@@ -80,9 +76,7 @@ Project ini dibuat menggunakan teknologi web yang sederhana dan mudah dikembangk
 HTML
 CSS
 JavaScript
-Font Awesome
-REST API
-Vercel
+Hosing
 GitHub
 ```
 
@@ -116,16 +110,14 @@ dimz-wtf/
 │
 ├── index.html
 │
-├── tools/
+├── download/
 │   ├── instagram_downloader.html
 │   ├── youtube_downloader.html
-│   ├── brat_generator.html
-│   ├── khodam_generator.html
 │   └── ...
 │
-├── assets/
-│   ├── images/
-│   ├── icons/
+├── media/
+│   ├── avatar.png
+│   ├── anime-loop.mp4
 │   └── ...
 │
 ├── README.md
@@ -149,39 +141,19 @@ Setiap halaman diusahakan tetap nyaman digunakan tanpa membutuhkan aplikasi tamb
 
 ---
 
-## 🔧 Development
-
-Clone repository:
-
-```bash
-git clone https://github.com/dimasmpp130/dimz-wtf.git
-```
-
-Masuk ke directory:
-
-```bash
-cd dimz-wtf
-```
-
-Kemudian buka project menggunakan browser atau local development server.
-
----
-
 ## 🤝 Contributing
 
 Punya ide tools atau menemukan bug?
 
 Silakan buat **Issue** atau **Pull Request** di repository ini.
 
-Ide, masukan, dan kontribusi yang membantu pengembangan project sangat terbuka.
+Ide, masukan, dan kontribusi yang membantu pengembangan project.
 
 ---
 
 ## ⚠️ Disclaimer
 
-Beberapa tools di dalam project ini dapat menggunakan layanan atau API pihak ketiga.
-
-Gunakan setiap tools secara bertanggung jawab dan pastikan kamu memiliki hak atau izin yang diperlukan terhadap konten yang diproses.
+Beberapa tools di dalam project ini dapat menggunakan layanan atau pihak ketiga.
 
 DIMZ WTF tidak bertanggung jawab atas penggunaan layanan pihak ketiga di luar kendali project.
 
@@ -193,7 +165,7 @@ DIMZ WTF tidak bertanggung jawab atas penggunaan layanan pihak ketiga di luar ke
 
 ### DIMMZZZSUM_ENAK
 
-**Web Creator • Developer • Digital Tools**
+**Newbie • Not Sepuh • Pelajar Gabut**
 
 Building random things on the internet.
 
