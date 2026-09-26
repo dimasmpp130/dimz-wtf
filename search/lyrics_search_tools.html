@@ -677,29 +677,6 @@
         opacity:.55;
       }
 
-      .toast{
-        position:fixed;
-        left:50%;
-        bottom:18px;
-        z-index:2000;
-        max-width:90%;
-        padding:11px 15px;
-        border:1px solid #34394a;
-        border-radius:12px;
-        background:#171a24;
-        color:#e9ebf3;
-        font-size:10px;
-        transform:translate(-50%,20px);
-        opacity:0;
-        pointer-events:none;
-        transition:opacity .2s,transform .2s;
-      }
-
-      .toast.show{
-        opacity:1;
-        transform:translate(-50%,0);
-      }
-
       @keyframes wave{
         from{transform:scaleY(.55)}
         to{transform:scaleY(1)}
@@ -805,6 +782,7 @@
       <nav class="nav">
         <div class="brand">
           <div class="brand-mark">♪</div>
+
           <div>
             <div class="brand-name">MUSIC FINDER</div>
             <div class="brand-sub">Created by DIMMZZZSUM_ENAK</div>
@@ -948,29 +926,11 @@
       </div>
     </div>
 
-    <div id="toast" class="toast"></div>
-
     <script>
       "use strict";
 
-      const _d=(a,k)=>String.fromCharCode(...a.map((n,i)=>n^k[i%k.length]));
-
-      const _k=[
-        19,55,42,28,91,47,8,73,
-        12,39,61,22,87,14,50,31
-      ];
-
-      const API_URL=_d([
-        123,67,94,108,40,21,39,102,
-        109,87,84,56,57,107,93,103,
-        97,25,79,105,116,78,120,32,
-        35,75,68,100,62,109
-      ],_k);
-
-      const API_KEY=_d([
-        116,117,93,40,57,73,98,124,
-        100,70,76,79
-      ],_k);
+      const DIMZZ_URL="https://dimz-wtf.vercel.app/api/rxoen-pages";
+      const LIRIK_PATH="lyric";
 
       const searchInput=document.getElementById("searchInput");
       const searchBtn=document.getElementById("searchBtn");
@@ -983,10 +943,8 @@
       const modalArtist=document.getElementById("modalArtist");
       const modalContent=document.getElementById("modalContent");
       const sourceBtn=document.getElementById("sourceBtn");
-      const toast=document.getElementById("toast");
 
       let currentSource="";
-      let toastTimer=null;
 
       function escapeHTML(value){
         return String(value??"")
@@ -1017,28 +975,20 @@
         };
       }
 
-      function showToast(message){
-        clearTimeout(toastTimer);
+      async function callServer(query){
+        const endpoint=new URL(DIMZZ_URL);
 
-        toast.textContent=message;
-        toast.classList.add("show");
-
-        toastTimer=setTimeout(()=>{
-          toast.classList.remove("show");
-        },2400);
-      }
-
-      async function callAPI(query){
-        const params=new URLSearchParams({
-          q:query,
-          apikey:API_KEY
-        });
+        endpoint.searchParams.set("path",LIRIK_PATH);
+        endpoint.searchParams.set("q",query);
 
         const response=await fetch(
-          `${API_URL}?${params.toString()}`,
+          endpoint.toString(),
           {
             method:"GET",
-            cache:"no-store"
+            cache:"no-store",
+            headers:{
+              "Accept":"application/json"
+            }
           }
         );
 
@@ -1049,7 +999,9 @@
         const json=await response.json();
 
         if(!json||json.status!==true){
-          throw new Error("API failed");
+          throw new Error(
+            json?.message||"Server failed"
+          );
         }
 
         return json;
@@ -1080,8 +1032,32 @@
               <span></span>
               <span></span>
             </div>
-            <strong style="margin-top:14px">Mencari lagu...</strong>
-            <span>Sedang mencari lagu yang cocok.</span>
+
+            <strong style="margin-top:14px">
+              Mencari lagu...
+            </strong>
+
+            <span>
+              Sedang mencari lagu yang cocok.
+            </span>
+          </div>
+        `;
+      }
+
+      function messageHTML(symbol,title,message){
+        return `
+          <div class="empty">
+            <div class="empty-symbol">
+              ${escapeHTML(symbol)}
+            </div>
+
+            <strong>
+              ${escapeHTML(title)}
+            </strong>
+
+            <span>
+              ${escapeHTML(message)}
+            </span>
           </div>
         `;
       }
@@ -1090,37 +1066,45 @@
         const query=searchInput.value.trim();
 
         if(!query){
-          showToast("Ketik judul lagu atau nama artis dulu.");
+          resultsCount.textContent="INPUT KOSONG";
+
+          resultsGrid.innerHTML=messageHTML(
+            "!",
+            "Masukkan pencarian",
+            "Ketik judul lagu atau nama artis terlebih dahulu."
+          );
+
           searchInput.focus();
           return;
         }
 
         setSearchLoading(true);
+
         resultsCount.textContent="MENCARI";
         resultsGrid.innerHTML=loadingHTML();
 
         try{
-          const response=await callAPI(query);
+          const response=await callServer(query);
 
           const data=Array.isArray(response.data)
             ?response.data
             :[];
 
           if(!data.length){
-            resultsGrid.innerHTML=`
-              <div class="empty">
-                <div class="empty-symbol">?</div>
-                <strong>Tidak menemukan lagu</strong>
-                <span>Coba judul atau nama artis lainnya.</span>
-              </div>
-            `;
+            resultsGrid.innerHTML=messageHTML(
+              "?",
+              "Tidak menemukan lagu",
+              "Coba judul atau nama artis lainnya."
+            );
 
             resultsCount.textContent="0 HASIL";
             return;
           }
 
           renderResults(data);
-          resultsCount.textContent=`${Math.min(data.length,10)} HASIL`;
+
+          resultsCount.textContent=
+            `${Math.min(data.length,10)} HASIL`;
 
           setTimeout(()=>{
             document.querySelector(".results").scrollIntoView({
@@ -1132,16 +1116,13 @@
         }catch(error){
           console.error(error);
 
-          resultsGrid.innerHTML=`
-            <div class="empty">
-              <div class="empty-symbol">!</div>
-              <strong>Gagal mengambil data</strong>
-              <span>Periksa koneksi atau API lalu coba lagi.</span>
-            </div>
-          `;
+          resultsGrid.innerHTML=messageHTML(
+            "!",
+            "Gagal mengambil data",
+            "Periksa koneksi atau Server lalu coba lagi."
+          );
 
           resultsCount.textContent="ERROR";
-          showToast("Gagal mengambil hasil pencarian.");
 
         }finally{
           setSearchLoading(false);
@@ -1159,17 +1140,21 @@
           const parsed=parseTitle(title);
 
           const card=document.createElement("article");
+
           card.className="card";
 
           card.innerHTML=`
             <div class="card-top">
               <div class="music-avatar">♪</div>
+
               <div class="card-index">
                 ${String(index+1).padStart(2,"0")}
               </div>
             </div>
 
-            <div class="card-source">GENIUS RESULT</div>
+            <div class="card-source">
+              GENIUS RESULT
+            </div>
 
             <div class="card-title">
               ${escapeHTML(parsed.song)}
@@ -1180,7 +1165,10 @@
             </div>
 
             <div class="card-bottom">
-              <button class="open-btn" type="button">
+              <button
+                class="open-btn"
+                type="button"
+              >
                 LIHAT DETAIL
               </button>
 
@@ -1204,11 +1192,30 @@
             "click",
             ()=>{
               if(!url){
-                showToast("Sumber lirik tidak tersedia.");
+                modalTitle.textContent=parsed.song;
+                modalArtist.textContent=parsed.artist;
+
+                modalContent.innerHTML=messageHTML(
+                  "!",
+                  "Sumber tidak tersedia",
+                  "Sumber lirik untuk lagu ini tidak tersedia."
+                );
+
+                sourceBtn.disabled=true;
+
+                modal.classList.add("active");
+                modal.setAttribute("aria-hidden","false");
+                document.body.style.overflow="hidden";
+
+                currentSource="";
                 return;
               }
 
-              openModal(title,parsed,url);
+              openModal(
+                title,
+                parsed,
+                url
+              );
             }
           );
 
@@ -1218,11 +1225,18 @@
         resultsGrid.appendChild(fragment);
       }
 
-      async function openModal(originalTitle,parsed,source){
+      async function openModal(
+        originalTitle,
+        parsed,
+        source
+      ){
         currentSource=source;
 
-        modalTitle.textContent=parsed.song||originalTitle;
-        modalArtist.textContent=parsed.artist||"Unknown Artist";
+        modalTitle.textContent=
+          parsed.song||originalTitle;
+
+        modalArtist.textContent=
+          parsed.artist||"Unknown Artist";
 
         modalContent.innerHTML=`
           <div class="detail-loading">
@@ -1252,11 +1266,14 @@
         document.body.style.overflow="hidden";
 
         try{
-          const response=await callAPI(source);
+          const response=await callServer(source);
           const data=response.data||{};
 
-          const detailTitle=data.title||originalTitle;
-          const parsedDetail=parseTitle(detailTitle);
+          const detailTitle=
+            data.title||originalTitle;
+
+          const parsedDetail=
+            parseTitle(detailTitle);
 
           modalTitle.textContent=
             parsedDetail.song||detailTitle;
@@ -1352,7 +1369,7 @@
               </div>
 
               <div class="source-message">
-                Detail tidak berhasil dimuat dari API.
+                Detail tidak berhasil dimuat dari Server.
                 Coba buka sumber lagu secara langsung.
               </div>
             </div>
@@ -1368,43 +1385,69 @@
         document.body.style.overflow="";
       }
 
-      document.querySelectorAll(".quick-btn").forEach(button=>{
-        button.addEventListener("click",()=>{
-          searchInput.value=button.dataset.query;
-          searchSongs();
-        });
-      });
+      document.querySelectorAll(".quick-btn").forEach(
+        button=>{
+          button.addEventListener(
+            "click",
+            ()=>{
+              searchInput.value=
+                button.dataset.query;
 
-      searchBtn.addEventListener("click",searchSongs);
-
-      searchInput.addEventListener("keydown",event=>{
-        if(event.key==="Enter"){
-          event.preventDefault();
-          searchSongs();
-        }
-      });
-
-      closeBottomBtn.addEventListener("click",closeModal);
-      modalBg.addEventListener("click",closeModal);
-
-      sourceBtn.addEventListener("click",()=>{
-        if(currentSource){
-          window.open(
-            currentSource,
-            "_blank",
-            "noopener,noreferrer"
+              searchSongs();
+            }
           );
         }
-      });
+      );
 
-      document.addEventListener("keydown",event=>{
-        if(
-          event.key==="Escape" &&
-          modal.classList.contains("active")
-        ){
-          closeModal();
+      searchBtn.addEventListener(
+        "click",
+        searchSongs
+      );
+
+      searchInput.addEventListener(
+        "keydown",
+        event=>{
+          if(event.key==="Enter"){
+            event.preventDefault();
+            searchSongs();
+          }
         }
-      });
+      );
+
+      closeBottomBtn.addEventListener(
+        "click",
+        closeModal
+      );
+
+      modalBg.addEventListener(
+        "click",
+        closeModal
+      );
+
+      sourceBtn.addEventListener(
+        "click",
+        ()=>{
+          if(currentSource){
+            window.open(
+              currentSource,
+              "_blank",
+              "noopener,noreferrer"
+            );
+          }
+        }
+      );
+
+      document.addEventListener(
+        "keydown",
+        event=>{
+          if(
+            event.key==="Escape" &&
+            modal.classList.contains("active")
+          ){
+            closeModal();
+          }
+        }
+      );
 
       searchInput.focus();
     </script>
