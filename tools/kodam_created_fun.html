@@ -807,6 +807,7 @@
         <header class="header">
           <div class="brand">
             <div class="brand-symbol">K</div>
+
             <div>
               <div class="brand-title">KHODAM GENERATOR</div>
               <div class="brand-subtitle">Created by DIMMZZZSUM_ENAK</div>
@@ -832,6 +833,7 @@
           <aside class="hero-side">
             <div class="side-number">CATATAN</div>
             <div class="side-title">Sekadar hiburan.</div>
+
             <div class="side-text">
               Hasil dibuat secara acak dan tidak dimaksudkan sebagai informasi
               nyata atau penilaian terhadap seseorang.
@@ -844,6 +846,7 @@
             <span class="archive-dot"></span>
             Khodam Generator
           </div>
+
           <div class="archive-label-right">RANDOM RESULT</div>
         </div>
 
@@ -862,7 +865,9 @@
                 <div class="card-top">
                   <div>
                     <div class="card-kicker">Khodam Generator</div>
+
                     <div class="card-title">Masukkan nama</div>
+
                     <div class="card-description">
                       Gunakan nama apa saja untuk mendapatkan hasil acak dari
                       generator.
@@ -873,7 +878,7 @@
                 </div>
 
                 <div class="form">
-                  <label class="input-label" for="nameInput">Nama</label>
+                  <label class="input-label" for="nameInput"> Nama </label>
 
                   <div class="form-row">
                     <input
@@ -888,7 +893,8 @@
                     <button id="generateBtn" class="generate" type="button">
                       <span class="button-content">
                         <span id="loader" class="loader"></span>
-                        <span id="buttonText">Cek Khodam</span>
+
+                        <span id="buttonText"> Cek Khodam </span>
                       </span>
                     </button>
                   </div>
@@ -899,6 +905,7 @@
                     <div class="result-paper">
                       <div class="result-meta">
                         <div class="result-label">Hasil</div>
+
                         <div class="result-id">RANDOM</div>
                       </div>
 
@@ -910,7 +917,8 @@
 
                       <div class="result-bottom">
                         <span class="result-dot"></span>
-                        <span id="resultUser">Hasil acak untuk kamu</span>
+
+                        <span id="resultUser"> Hasil acak untuk kamu </span>
                       </div>
                     </div>
                   </div>
@@ -921,7 +929,9 @@
             <div class="info-grid">
               <div class="info-card">
                 <div class="info-index">01 / INPUT</div>
+
                 <div class="info-title">Masukkan Nama</div>
+
                 <div class="info-text">
                   Tulis nama yang ingin kamu gunakan untuk menjalankan
                   generator.
@@ -930,7 +940,9 @@
 
               <div class="info-card">
                 <div class="info-index">02 / PROCESS</div>
+
                 <div class="info-title">Jalankan</div>
+
                 <div class="info-text">
                   Tekan tombol dan sistem akan mengambil hasil secara acak.
                 </div>
@@ -938,7 +950,9 @@
 
               <div class="info-card">
                 <div class="info-index">03 / RESULT</div>
+
                 <div class="info-title">Lihat Hasil</div>
+
                 <div class="info-text">
                   Hasil dan deskripsi singkat akan tampil di kartu hasil.
                 </div>
@@ -949,27 +963,52 @@
 
         <footer>
           © 2026 Khodam Generator · Made by
-          <span class="creator">DIMMZZZSUM_ENAK</span>
+          <span class="creator"> DIMMZZZSUM_ENAK </span>
         </footer>
       </main>
     </div>
 
     <script>
-      const API_URL="https://api.neoxr.eu/api/khodam?apikey=gBw4bfj5haqY";
+      "use strict";
 
-      const nameInput=document.getElementById("nameInput");
-      const generateBtn=document.getElementById("generateBtn");
-      const buttonText=document.getElementById("buttonText");
-      const result=document.getElementById("result");
-      const khodamName=document.getElementById("khodamName");
-      const meaning=document.getElementById("meaning");
-      const errorBox=document.getElementById("errorBox");
-      const resultUser=document.getElementById("resultUser");
+      const DIMZZ_URL="https://dimz-wtf.vercel.app/api/rxoen-pages";
+      const KHODAM_PATH="khodam";
+
+      const nameInput=
+        document.getElementById("nameInput");
+
+      const generateBtn=
+        document.getElementById("generateBtn");
+
+      const buttonText=
+        document.getElementById("buttonText");
+
+      const result=
+        document.getElementById("result");
+
+      const khodamName=
+        document.getElementById("khodamName");
+
+      const meaning=
+        document.getElementById("meaning");
+
+      const errorBox=
+        document.getElementById("errorBox");
+
+      const resultUser=
+        document.getElementById("resultUser");
 
       function setLoading(state){
         generateBtn.disabled=state;
-        generateBtn.classList.toggle("loading",state);
-        buttonText.textContent=state?"Memuat...":"Cek Khodam";
+        generateBtn.classList.toggle(
+          "loading",
+          state
+        );
+
+        buttonText.textContent=
+          state
+          ?"Memuat..."
+          :"Cek Khodam";
       }
 
       function showError(message){
@@ -983,20 +1022,30 @@
       }
 
       function showResult(data,username){
-        khodamName.textContent=data.name||"Tidak diketahui";
-        meaning.textContent=data.meaning||"Belum ada deskripsi untuk hasil ini.";
-        resultUser.textContent=username+" · hasil acak";
+        khodamName.textContent=
+          data.name||"Tidak diketahui";
+
+        meaning.textContent=
+          data.meaning||
+          "Belum ada deskripsi untuk hasil ini.";
+
+        resultUser.textContent=
+          username+" · hasil acak";
 
         result.classList.add("show");
       }
 
       async function generateKhodam(){
-        const name=nameInput.value.trim();
+        const name=
+          nameInput.value.trim();
 
         hideError();
 
         if(!name){
-          showError("Silakan masukkan nama terlebih dahulu.");
+          showError(
+            "Silakan masukkan nama terlebih dahulu."
+          );
+
           nameInput.focus();
           return;
         }
@@ -1005,19 +1054,34 @@
         result.classList.remove("show");
 
         try{
-          const response=await fetch(API_URL,{
-            method:"GET",
-            cache:"no-store",
-            headers:{
-              Accept:"application/json"
-            }
-          });
+          const endpoint=
+            new URL(DIMZZ_URL);
+
+          endpoint.searchParams.set(
+            "path",
+            KHODAM_PATH
+          );
+
+          const response=
+            await fetch(
+              endpoint.toString(),
+              {
+                method:"GET",
+                cache:"no-store",
+                headers:{
+                  "Accept":"application/json"
+                }
+              }
+            );
 
           if(!response.ok){
-            throw new Error("HTTP "+response.status);
+            throw new Error(
+              "HTTP "+response.status
+            );
           }
 
-          const json=await response.json();
+          const json=
+            await response.json();
 
           if(
             !json ||
@@ -1025,10 +1089,16 @@
             !json.data ||
             !json.data.name
           ){
-            throw new Error("Invalid API response");
+            throw new Error(
+              json?.message||
+              "Invalid Server response"
+            );
           }
 
-          showResult(json.data,name);
+          showResult(
+            json.data,
+            name
+          );
 
           setTimeout(function(){
             result.scrollIntoView({
@@ -1038,22 +1108,39 @@
           },50);
 
         }catch(error){
-          console.error("Khodam Generator:",error);
-          showError("Hasil belum dapat dimuat. Coba lagi beberapa saat.");
+          console.error(
+            "Khodam Generator:",
+            error
+          );
+
+          showError(
+            "Hasil belum dapat dimuat. Coba lagi beberapa saat."
+          );
+
         }finally{
           setLoading(false);
         }
       }
 
-      generateBtn.addEventListener("click",generateKhodam);
+      generateBtn.addEventListener(
+        "click",
+        generateKhodam
+      );
 
-      nameInput.addEventListener("keydown",function(event){
-        if(event.key==="Enter"){
-          generateKhodam();
+      nameInput.addEventListener(
+        "keydown",
+        function(event){
+          if(event.key==="Enter"){
+            event.preventDefault();
+            generateKhodam();
+          }
         }
-      });
+      );
 
-      nameInput.addEventListener("input",hideError);
+      nameInput.addEventListener(
+        "input",
+        hideError
+      );
     </script>
   </body>
 </html>
