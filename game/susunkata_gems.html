@@ -998,7 +998,7 @@
 
         "use strict";
 
-        var API_URL =
+        var DIMZZ_URL =
           "https://dimz-wtf.vercel.app/api/rxoen-pages";
 
         var WHATWORD_PATH =
@@ -1777,7 +1777,7 @@
            */
 
           var endpoint =
-            new URL(API_URL);
+            new URL(DIMZZ_URL);
 
 
           endpoint.searchParams.set(
@@ -1841,10 +1841,10 @@
                       json.status === false
                     ){
 
-                      apiError(
+                      serverError(
                         json.message ||
                         json.error ||
-                        "API gagal mengambil soal."
+                        "Server gagal mengambil soal."
                       );
 
                       return;
@@ -1926,16 +1926,16 @@
 
                     }else{
 
-                      apiError(
-                        "Data soal dari API tidak valid."
+                      serverError(
+                        "Data soal dari Server tidak valid."
                       );
 
                     }
 
                   }catch(e){
 
-                    apiError(
-                      "Response API bukan JSON yang valid."
+                    serverError(
+                      "Response Server bukan JSON yang valid."
                     );
 
                   }
@@ -1950,17 +1950,17 @@
                       );
 
 
-                    apiError(
+                    serverError(
                       errorData.message ||
                       errorData.error ||
-                      "API HTTP "+
+                      "Server HTTP "+
                       xhr.status
                     );
 
                   }catch(e){
 
-                    apiError(
-                      "API HTTP "+
+                    serverError(
+                      "Server HTTP "+
                       xhr.status
                     );
 
@@ -1976,8 +1976,8 @@
 
                 setLoadingUI(false);
 
-                apiError(
-                  "Tidak dapat menghubungi proxy API."
+                serverError(
+                  "Tidak dapat menghubungi proxy Server."
                 );
 
               };
@@ -1988,8 +1988,8 @@
 
                 setLoadingUI(false);
 
-                apiError(
-                  "Request API timeout."
+                serverError(
+                  "Request Server timeout."
                 );
 
               };
@@ -2001,7 +2001,7 @@
 
             setLoadingUI(false);
 
-            apiError(
+            serverError(
               "Request tidak dapat dijalankan."
             );
 
@@ -2010,7 +2010,7 @@
         }
 
 
-        function apiError(
+        function serverError(
           message
         ){
 
