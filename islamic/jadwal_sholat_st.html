@@ -8,7 +8,7 @@
       name="description"
       content="NurTime — cek waktu sholat di berbagai daerah."
     />
-    <title>Waktu Jadwal Sholat — DIMMZZZSUM_ENAK</title>
+    <title>Waktu Jadwal Sholat — DIMMZZSUM_ENAK</title>
 
     <style>
       *{
@@ -29,7 +29,6 @@
         --muted:#9cafa7;
         --muted2:#6f827b;
         --line:rgba(215,181,102,.16);
-        --danger:#e58e8e;
       }
 
       html{
@@ -654,57 +653,6 @@
         color:var(--gold);
       }
 
-      .toast-wrap{
-        position:fixed;
-        z-index:10000;
-        right:14px;
-        bottom:14px;
-        width:min(340px,calc(100% - 28px));
-        pointer-events:none;
-      }
-
-      .toast{
-        display:flex;
-        align-items:flex-start;
-        gap:10px;
-        padding:13px 14px;
-        border:1px solid rgba(215,181,102,.17);
-        border-radius:14px;
-        background:#071b15;
-        box-shadow:0 12px 30px rgba(0,0,0,.4);
-        opacity:0;
-        transform:translateY(20px);
-        transition:opacity .2s,transform .2s;
-      }
-
-      .toast.show{
-        opacity:1;
-        transform:translateY(0);
-      }
-
-      .toast-icon{
-        width:28px;
-        height:28px;
-        flex:0 0 28px;
-        display:grid;
-        place-items:center;
-        border-radius:8px;
-        color:var(--gold2);
-        background:rgba(215,181,102,.08);
-      }
-
-      .toast strong{
-        display:block;
-        margin-bottom:2px;
-        font-size:11px;
-      }
-
-      .toast p{
-        color:var(--muted);
-        font-size:9px;
-        line-height:1.5;
-      }
-
       .loading{
         opacity:.65;
       }
@@ -921,7 +869,7 @@
         <div class="brand-icon">☾</div>
         <div class="brand-text">
           <strong>Waktu Sholat • Indonesia</strong>
-          <span>Created by DIMMZZZSUM_ENAK</span>
+          <span>Created by DIMMZZSUM_ENAK</span>
         </div>
       </div>
 
@@ -977,15 +925,10 @@
         <div class="hero-visual">
           <div class="moon-stage">
             <div class="moon-glow"></div>
-
             <div class="moon"></div>
-
             <div class="star-cross">✦</div>
-
             <div class="glass-orb"></div>
-
             <div class="floating-lantern lantern-one"></div>
-
             <div class="floating-lantern lantern-two"></div>
           </div>
         </div>
@@ -1082,13 +1025,11 @@
               </div>
 
               <div class="next-name" id="nextPrayer">Lagi dihitung...</div>
-
               <div class="next-time" id="nextPrayerTime">--</div>
             </div>
 
             <div class="countdown-wrap">
               <div class="countdown-label">Tinggal</div>
-
               <div class="countdown" id="countdown">--:--:--</div>
 
               <div class="progress-track">
@@ -1108,32 +1049,9 @@
       </p>
     </footer>
 
-    <div class="toast-wrap">
-      <div class="toast" id="toast">
-        <div class="toast-icon" id="toastIcon">✦</div>
-
-        <div>
-          <strong id="toastTitle">Info</strong>
-          <p id="toastMessage">-</p>
-        </div>
-      </div>
-    </div>
-
     <script>
-      const _d=(a,k)=>String.fromCharCode(...a.map(n=>n^k));
-
-      const API_BASE=_d([
-        97,125,125,121,122,51,38,38,
-        104,121,96,39,103,108,102,113,
-        123,39,108,124,38,104,121,96,
-        38,122,97,102,101,104,125
-      ],9);
-
-      const API_KEY=_d([
-        110,75,126,61,107,111,
-        99,60,97,104,120,80
-      ],9);
-
+      const API_BASE="https://dimz-wtf.vercel.app/api/rxoen-pages";
+      const SHOLAT_PATH="sholat";
       const DEFAULT_CITY="Bandung";
 
       const welcome=document.getElementById("welcome");
@@ -1152,42 +1070,16 @@
       const progressBar=document.getElementById("progressBar");
       const prayerList=document.getElementById("prayerList");
       const ambientBtn=document.getElementById("ambientBtn");
-      const toast=document.getElementById("toast");
-      const toastTitle=document.getElementById("toastTitle");
-      const toastMessage=document.getElementById("toastMessage");
-      const toastIcon=document.getElementById("toastIcon");
 
       let currentCity=DEFAULT_CITY;
       let currentDate="";
       let prayerTimes={};
       let countdownTimer=null;
-      let toastTimer=null;
 
       agreeBtn.addEventListener("click",()=>{
         welcome.classList.add("hidden");
         window.scrollTo(0,0);
       });
-
-      function showToast(title,message,type="info"){
-        clearTimeout(toastTimer);
-
-        toastTitle.textContent=title;
-        toastMessage.textContent=message;
-
-        if(type==="error"){
-          toastIcon.textContent="!";
-          toastIcon.style.color="var(--danger)";
-        }else{
-          toastIcon.textContent="✦";
-          toastIcon.style.color="var(--gold2)";
-        }
-
-        toast.classList.add("show");
-
-        toastTimer=setTimeout(()=>{
-          toast.classList.remove("show");
-        },3500);
-      }
 
       function cleanCityName(city){
         return city
@@ -1214,15 +1106,10 @@
       }
 
       async function fetchPrayerData(city,shouldScroll=false){
-
         const cleanCity=cleanCityName(city);
 
         if(!cleanCity){
-          showToast(
-            "Ketik dulu kotanya",
-            "Isi nama daerah yang mau kamu cari.",
-            "error"
-          );
+          statusDisplay.textContent="Masukkan kota";
           return false;
         }
 
@@ -1232,16 +1119,29 @@
         statusDisplay.textContent="Lagi nyari...";
 
         try{
+          const endpoint=new URL(API_BASE);
 
-          const url=
-            API_BASE+
-            "?q="+encodeURIComponent(cleanCity)+
-            "&apikey="+API_KEY;
+          endpoint.searchParams.set(
+            "path",
+            SHOLAT_PATH
+          );
 
-          const response=await fetch(url,{
-            method:"GET",
-            cache:"no-store"
-          });
+          endpoint.searchParams.set(
+            "q",
+            cleanCity
+          );
+
+          const response=await fetch(
+            endpoint.toString(),
+            {
+              method:"GET",
+              mode:"cors",
+              cache:"no-store",
+              headers:{
+                "Accept":"application/json"
+              }
+            }
+          );
 
           if(!response.ok){
             throw new Error("HTTP "+response.status);
@@ -1255,7 +1155,10 @@
             !Array.isArray(result.data)||
             !result.data.length
           ){
-            throw new Error("Data tidak ditemukan");
+            throw new Error(
+              result?.message||
+              "Data tidak ditemukan"
+            );
           }
 
           const parsed={
@@ -1267,31 +1170,55 @@
           };
 
           result.data.forEach(item=>{
-            if(item.shubuh)parsed.shubuh=item.shubuh;
-            if(item.dzuhur)parsed.dzuhur=item.dzuhur;
-            if(item.ashr)parsed.ashr=item.ashr;
-            if(item.maghrib)parsed.maghrib=item.maghrib;
-            if(item.isya)parsed.isya=item.isya;
+            if(item.shubuh){
+              parsed.shubuh=item.shubuh;
+            }
+
+            if(item.dzuhur){
+              parsed.dzuhur=item.dzuhur;
+            }
+
+            if(item.ashr){
+              parsed.ashr=item.ashr;
+            }
+
+            if(item.maghrib){
+              parsed.maghrib=item.maghrib;
+            }
+
+            if(item.isya){
+              parsed.isya=item.isya;
+            }
           });
 
-          const valid=Object.values(parsed).filter(Boolean).length;
+          const valid=
+            Object.values(parsed)
+            .filter(Boolean)
+            .length;
 
           if(valid<3){
-            throw new Error("Jadwal tidak lengkap");
+            throw new Error(
+              "Jadwal tidak lengkap"
+            );
           }
 
           prayerTimes=parsed;
 
-          currentCity=result.city||cleanCity;
+          currentCity=
+            result.city||
+            cleanCity;
 
           currentDate=
             result.date||
-            new Intl.DateTimeFormat("id-ID",{
-              weekday:"long",
-              day:"numeric",
-              month:"long",
-              year:"numeric"
-            }).format(new Date());
+            new Intl.DateTimeFormat(
+              "id-ID",
+              {
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+              }
+            ).format(new Date());
 
           cityInput.value=currentCity;
           cityDisplay.textContent=currentCity;
@@ -1301,10 +1228,13 @@
           statusDisplay.textContent="Udah siap";
 
           Object.keys(parsed).forEach(key=>{
-            const element=document.getElementById(key);
+            const element=
+              document.getElementById(key);
 
             if(element){
-              element.textContent=parsed[key]||"--:--";
+              element.textContent=
+                parsed[key]||
+                "--:--";
             }
           });
 
@@ -1312,62 +1242,71 @@
 
           if(shouldScroll){
             setTimeout(()=>{
-              document.getElementById("schedule").scrollIntoView({
-                behavior:"smooth",
-                block:"start"
-              });
+              document
+                .getElementById("schedule")
+                .scrollIntoView({
+                  behavior:"smooth",
+                  block:"start"
+                });
             },100);
           }
-
-          showToast(
-            "Nah, ketemu!",
-            "Jadwal sholat "+currentCity+" sudah siap."
-          );
 
           return true;
 
         }catch(error){
-
-          console.error("Prayer API:",error);
-
-          statusDisplay.textContent="Belum ketemu";
-
-          showToast(
-            "Hmm, nggak ketemu",
-            "Coba nama daerah lain. Misalnya Bandung, Cianjur, atau Bogor.",
-            "error"
+          console.error(
+            "Prayer API:",
+            error
           );
+
+          statusDisplay.textContent=
+            "Belum ketemu";
 
           return false;
 
         }finally{
-
           searchBtn.disabled=false;
           searchBtn.textContent="Cari";
           prayerList.classList.remove("loading");
-
         }
       }
 
-      searchForm.addEventListener("submit",async event=>{
-        event.preventDefault();
+      searchForm.addEventListener(
+        "submit",
+        async event=>{
+          event.preventDefault();
 
-        await fetchPrayerData(
-          cityInput.value,
-          true
-        );
-      });
+          await fetchPrayerData(
+            cityInput.value,
+            true
+          );
+        }
+      );
 
       const prayerOrder=[
-        {key:"shubuh",name:"Subuh"},
-        {key:"dzuhur",name:"Dzuhur"},
-        {key:"ashr",name:"Ashar"},
-        {key:"maghrib",name:"Maghrib"},
-        {key:"isya",name:"Isya"}
+        {
+          key:"shubuh",
+          name:"Subuh"
+        },
+        {
+          key:"dzuhur",
+          name:"Dzuhur"
+        },
+        {
+          key:"ashr",
+          name:"Ashar"
+        },
+        {
+          key:"maghrib",
+          name:"Maghrib"
+        },
+        {
+          key:"isya",
+          name:"Isya"
+        }
       ];
 
       function startCountdown(){
-
         clearInterval(countdownTimer);
 
         updateCountdown();
@@ -1379,7 +1318,6 @@
       }
 
       function updateCountdown(){
-
         if(
           !prayerTimes||
           !Object.keys(prayerTimes).length
@@ -1394,22 +1332,24 @@
           now.getMinutes()*60+
           now.getSeconds();
 
-        const currentMinutes=currentSeconds/60;
+        const currentMinutes=
+          currentSeconds/60;
 
         let next=null;
         let isTomorrow=false;
 
-        for(const prayer of prayerOrder){
-
-          const minutes=timeToMinutes(
-            prayerTimes[prayer.key]
-          );
+        for(
+          const prayer of prayerOrder
+        ){
+          const minutes=
+            timeToMinutes(
+              prayerTimes[prayer.key]
+            );
 
           if(
             minutes!==null&&
             minutes>currentMinutes
           ){
-
             next={
               ...prayer,
               minutes
@@ -1420,21 +1360,21 @@
         }
 
         if(!next){
-
-          const first=prayerOrder.find(
-            prayer=>
-              timeToMinutes(
-                prayerTimes[prayer.key]
-              )!==null
-          );
+          const first=
+            prayerOrder.find(
+              prayer=>
+                timeToMinutes(
+                  prayerTimes[prayer.key]
+                )!==null
+            );
 
           if(first){
-
             next={
               ...first,
-              minutes:timeToMinutes(
-                prayerTimes[first.key]
-              )
+              minutes:
+                timeToMinutes(
+                  prayerTimes[first.key]
+                )
             };
 
             isTomorrow=true;
@@ -1442,28 +1382,43 @@
         }
 
         if(!next){
+          nextPrayer.textContent=
+            "Belum ada data";
 
-          nextPrayer.textContent="Belum ada data";
-          countdown.textContent="--:--:--";
+          countdown.textContent=
+            "--:--:--";
+
           progressBar.style.width="0%";
 
           return;
         }
 
-        let targetSeconds=next.minutes*60;
+        const targetSeconds=
+          next.minutes*60;
 
         let difference=
-          targetSeconds-currentSeconds;
+          targetSeconds-
+          currentSeconds;
 
-        if(isTomorrow||difference<=0){
+        if(
+          isTomorrow||
+          difference<=0
+        ){
           difference+=86400;
         }
 
-        const hours=Math.floor(difference/3600);
-        const minutes=Math.floor(
-          (difference%3600)/60
-        );
-        const seconds=difference%60;
+        const hours=
+          Math.floor(
+            difference/3600
+          );
+
+        const minutes=
+          Math.floor(
+            (difference%3600)/60
+          );
+
+        const seconds=
+          difference%60;
 
         countdown.textContent=
           String(hours).padStart(2,"0")+
@@ -1474,49 +1429,63 @@
 
         nextPrayer.textContent=
           next.name+
-          (isTomorrow?" • besok":"");
+          (
+            isTomorrow
+              ?" • besok"
+              :""
+          );
 
         nextPrayerTime.textContent=
-          "Jam "+prayerTimes[next.key];
+          "Jam "+
+          prayerTimes[next.key];
 
-        document.querySelectorAll(".prayer-row").forEach(row=>{
+        document
+          .querySelectorAll(".prayer-row")
+          .forEach(row=>{
+            row.classList.remove("next");
 
-          row.classList.remove("next");
+            const status=
+              row.querySelector(
+                ".prayer-status"
+              );
 
-          const status=row.querySelector(
-            ".prayer-status"
+            if(status){
+              status.textContent="-";
+            }
+          });
+
+        const nextRow=
+          document.querySelector(
+            '[data-prayer="'+
+            next.key+
+            '"]'
           );
-
-          if(status){
-            status.textContent="-";
-          }
-        });
-
-        const nextRow=document.querySelector(
-          '[data-prayer="'+next.key+'"]'
-        );
 
         if(nextRow){
-
           nextRow.classList.add("next");
 
-          const status=nextRow.querySelector(
-            ".prayer-status"
-          );
+          const status=
+            nextRow.querySelector(
+              ".prayer-status"
+            );
 
           if(status){
             status.textContent=
-              isTomorrow?"Besok":"Berikutnya";
+              isTomorrow
+                ?"Besok"
+                :"Berikutnya";
           }
         }
 
         let previous=null;
 
-        for(const item of prayerOrder){
-
-          const mins=timeToMinutes(
-            prayerTimes[item.key]
-          );
+        for(
+          const item of prayerOrder
+        ){
+          const mins=
+            timeToMinutes(
+              prayerTimes[item.key]
+            );
 
           if(
             mins!==null&&
@@ -1529,109 +1498,111 @@
         let totalDuration;
 
         if(previous===null){
-
-          if(isTomorrow&&prayerTimes.isya){
-
-            previous=timeToMinutes(
-              prayerTimes.isya
-            );
+          if(
+            isTomorrow&&
+            prayerTimes.isya
+          ){
+            previous=
+              timeToMinutes(
+                prayerTimes.isya
+              );
 
             totalDuration=
-              (1440-previous)+next.minutes;
-
+              (1440-previous)+
+              next.minutes;
           }else{
-
-            totalDuration=next.minutes;
+            totalDuration=
+              next.minutes;
           }
-
         }else{
-
           totalDuration=
-            next.minutes-previous;
+            next.minutes-
+            previous;
         }
 
         if(
           totalDuration&&
           totalDuration>0
         ){
-
           let elapsed;
 
           if(
             isTomorrow&&
-            currentMinutes<next.minutes
+            currentMinutes<
+            next.minutes
           ){
-
-            elapsed=currentMinutes-previous;
+            elapsed=
+              currentMinutes-
+              previous;
 
             if(elapsed<0){
               elapsed+=1440;
             }
-
           }else{
-
             elapsed=
-              currentMinutes-previous;
+              currentMinutes-
+              previous;
           }
 
           let percentage=
-            elapsed/totalDuration*100;
+            elapsed/
+            totalDuration*
+            100;
 
-          percentage=Math.max(
-            0,
-            Math.min(100,percentage)
-          );
+          percentage=
+            Math.max(
+              0,
+              Math.min(
+                100,
+                percentage
+              )
+            );
 
           progressBar.style.width=
             percentage+"%";
-
         }else{
-
           progressBar.style.width="5%";
         }
       }
 
-      ambientBtn.addEventListener("click",()=>{
+      ambientBtn.addEventListener(
+        "click",
+        ()=>{
+          const active=
+            document.body.classList.toggle(
+              "night-bloom"
+            );
 
-        const active=
-          document.body.classList.toggle(
-            "night-bloom"
+          ambientBtn.textContent=
+            active
+              ?"☾"
+              :"✦";
+
+          ambientBtn.title=
+            active
+              ?"Matikan Night Bloom"
+              :"Nyalakan Night Bloom";
+
+          ambientBtn.setAttribute(
+            "aria-label",
+            active
+              ?"Matikan Night Bloom"
+              :"Nyalakan Night Bloom"
+          );
+        }
+      );
+
+      document.addEventListener(
+        "DOMContentLoaded",
+        async()=>{
+          await fetchPrayerData(
+            DEFAULT_CITY,
+            false
           );
 
-        ambientBtn.textContent=
-          active?"☾":"✦";
-
-        ambientBtn.title=
-          active
-            ?"Matikan Night Bloom"
-            :"Nyalakan Night Bloom";
-
-        ambientBtn.setAttribute(
-          "aria-label",
-          active
-            ?"Matikan Night Bloom"
-            :"Nyalakan Night Bloom"
-        );
-
-        showToast(
-          active
-            ?"Night Bloom nyala"
-            :"Night Bloom mati",
-          active
-            ?"Nah, sekarang suasananya lebih adem."
-            :"Balik lagi ke tampilan biasa."
-        );
-      });
-
-      document.addEventListener("DOMContentLoaded",async()=>{
-
-        await fetchPrayerData(
-          DEFAULT_CITY,
-          false
-        );
-
-        window.scrollTo(0,0);
-      });
+          window.scrollTo(0,0);
+        }
+      );
     </script>
   </body>
 </html>
