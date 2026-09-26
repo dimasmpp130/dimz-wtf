@@ -204,9 +204,8 @@
     <script>
       "use strict";
 
-      var API_URL=String.fromCharCode(
-      104,116,116,112,115,58,47,47,97,112,105,46,110,101,111,120,114,46,101,117,47,97,112,105,47,119,104,97,116,102,108,97,103,63,97,112,105,107,101,121,61,103,66,119,52,98,102,106,53,104,97,113,89
-      );
+      var DIMZZ_URL="https://dimz-wtf.vercel.app/api/rxoen-pages";
+      var WHATFLAG_PATH="whatflag";
 
       var GAME_TIME=20;
       var NEW_QUESTION_COST=1;
@@ -290,6 +289,7 @@
       function loadState(){
       try{
       var s=JSON.parse(localStorage.getItem("whatflag_progress")||"null");
+
       if(s&&s.date===today()){
       score=Number(s.score)||0;
       streak=Number(s.streak)||0;
@@ -302,6 +302,7 @@
       }catch(e){
       resetDaily();
       }
+
       updateUI();
       }
 
@@ -317,6 +318,7 @@
       function checkNewDay(){
       try{
       var s=JSON.parse(localStorage.getItem("whatflag_progress")||"null");
+
       if(s&&s.date!==today()){
       resetDaily();
       lives=MAX_LIVES;
@@ -339,9 +341,11 @@
 
       var start=(level-1)*LEVEL_POINTS;
       var progress=score-start;
+
       if(progress<0)progress=0;
 
       var percent=(progress/LEVEL_POINTS)*100;
+
       if(percent>100)percent=100;
 
       levelFillEl.style.width=percent+"%";
@@ -352,9 +356,11 @@
 
       function renderLives(){
       var html="";
+
       for(var i=0;i<MAX_LIVES;i++){
       html+=i<lives?"♥":'<span class="lost">♥</span>';
       }
+
       livesEl.innerHTML=html;
       }
 
@@ -367,6 +373,7 @@
 
       function startTimer(){
       stopTimer();
+
       timer=GAME_TIME;
       updateTimer();
 
@@ -402,26 +409,48 @@
       xhr.open("GET",url,true);
       xhr.timeout=12000;
 
+      xhr.setRequestHeader(
+      "Accept",
+      "application/json"
+      );
+
       xhr.onreadystatechange=function(){
       if(xhr.readyState!==4)return;
 
       if(xhr.status>=200&&xhr.status<300){
+
       try{
       callback(null,JSON.parse(xhr.responseText));
       }catch(e){
-      callback(new Error("Response API tidak valid."));
+      callback(new Error("Response Server tidak valid."));
       }
+
       }else{
-      callback(new Error("API gagal ("+xhr.status+")."));
+
+      try{
+      var errorData=JSON.parse(xhr.responseText);
+
+      callback(
+      new Error(
+      errorData.message||
+      errorData.error||
+      "Server gagal ("+xhr.status+")."
+      )
+      );
+
+      }catch(e){
+      callback(new Error("Server gagal ("+xhr.status+")."));
+      }
+
       }
       };
 
       xhr.onerror=function(){
-      callback(new Error("Gagal terhubung ke API."));
+      callback(new Error("Gagal terhubung ke Server."));
       };
 
       xhr.ontimeout=function(){
-      callback(new Error("Request API timeout."));
+      callback(new Error("Request Server timeout."));
       };
 
       xhr.send();
@@ -445,17 +474,53 @@
       updateTimer();
       setButtons(true);
 
-      xhrGet(API_URL,function(error,response){
+      var endpoint=new URL(DIMZZ_URL);
+
+      endpoint.searchParams.set(
+      "path",
+      WHATFLAG_PATH
+      );
+
+      xhrGet(
+      endpoint.toString(),
+      function(error,response){
+
       loading=false;
 
       if(error){
-      flagBox.innerHTML='<div class="loading">Gagal memuat soal.</div>';
+      flagBox.innerHTML=
+      '<div class="loading">'+
+      "Gagal memuat soal."+
+      "</div>";
+
       setButtons(false);
       return;
       }
 
-      if(!response||!response.status||!response.data){
-      flagBox.innerHTML='<div class="loading">Soal tidak tersedia.</div>';
+      if(
+      !response||
+      response.status===false
+      ){
+      flagBox.innerHTML=
+      '<div class="loading">'+
+      (
+      response&&
+      (response.message||response.error)
+      ?
+      (response.message||response.error)
+      :
+      "Soal tidak tersedia."
+      )+
+      "</div>";
+
+      setButtons(false);
+      return;
+      }
+
+      if(!response.data){
+      flagBox.innerHTML=
+      '<div class="loading">Soal tidak tersedia.</div>';
+
       setButtons(false);
       return;
       }
@@ -466,7 +531,9 @@
       currentAnswer=data.name||"";
 
       if(!currentFlag||!currentAnswer){
-      flagBox.innerHTML='<div class="loading">Data bendera tidak lengkap.</div>';
+      flagBox.innerHTML=
+      '<div class="loading">Data bendera tidak lengkap.</div>';
+
       setButtons(false);
       return;
       }
@@ -475,20 +542,24 @@
       createChoices(currentAnswer);
 
       questionLocked=false;
+
       setButtons(false);
       startTimer();
-      });
+      }
+      );
       }
 
       function showFlag(url){
       flagBox.innerHTML="";
 
       var img=document.createElement("img");
+
       img.alt="Bendera negara";
       img.src=url;
 
       img.onerror=function(){
-      flagBox.innerHTML='<div class="loading">Bendera gagal dimuat.</div>';
+      flagBox.innerHTML=
+      '<div class="loading">Bendera gagal dimuat.</div>';
       };
 
       flagBox.appendChild(img);
@@ -506,7 +577,9 @@
       shuffle(pool);
 
       var choices=pool.slice(0,3);
+
       choices.push(correct);
+
       shuffle(choices);
 
       for(var i=0;i<choices.length;i++){
@@ -530,11 +603,17 @@
 
       function shuffle(array){
       for(var i=array.length-1;i>0;i--){
-      var j=Math.floor(Math.random()*(i+1));
+
+      var j=Math.floor(
+      Math.random()*(i+1)
+      );
+
       var temp=array[i];
+
       array[i]=array[j];
       array[j]=temp;
       }
+
       return array;
       }
 
@@ -550,18 +629,29 @@
       buttons[i].classList.add("disabled");
       }
 
-      var correct=answer.toLowerCase()===currentAnswer.toLowerCase();
+      var correct=
+      answer.toLowerCase()===
+      currentAnswer.toLowerCase();
 
       if(correct){
+
       button.classList.add("correct");
+
       handleCorrect();
+
       }else{
+
       button.classList.add("wrong");
 
       for(var j=0;j<buttons.length;j++){
-      if(buttons[j].dataset.answer.toLowerCase()===currentAnswer.toLowerCase()){
+
+      if(
+      buttons[j].dataset.answer.toLowerCase()===
+      currentAnswer.toLowerCase()
+      ){
       buttons[j].classList.add("correct");
       }
+
       }
 
       handleWrong();
@@ -571,7 +661,11 @@
       function handleCorrect(){
       streak++;
 
-      var gained=randomInt(8,20)+Math.floor(timer/4)+Math.min(10,streak);
+      var gained=
+      randomInt(8,20)+
+      Math.floor(timer/4)+
+      Math.min(10,streak);
+
       var oldLevel=level;
 
       score+=gained;
@@ -579,22 +673,34 @@
 
       if(streak%5===0)coin+=3;
 
-      level=Math.floor(score/LEVEL_POINTS)+1;
+      level=
+      Math.floor(score/LEVEL_POINTS)+1;
 
-      showResult(true,currentAnswer,"Jawaban kamu benar. +"+gained+" point.");
+      showResult(
+      true,
+      currentAnswer,
+      "Jawaban kamu benar. +"+gained+" point."
+      );
 
       updateUI();
       saveState();
 
       if(level>oldLevel){
+
       levelStreak++;
       coin+=5;
+
       updateUI();
       saveState();
 
-      nextTimeout=setTimeout(showLevelUp,800);
+      nextTimeout=
+      setTimeout(showLevelUp,800);
+
       }else{
-      nextTimeout=setTimeout(loadQuestion,600);
+
+      nextTimeout=
+      setTimeout(loadQuestion,600);
+
       }
       }
 
@@ -602,14 +708,24 @@
       lives--;
       streak=0;
 
-      showResult(false,currentAnswer,"Jawaban kamu salah.");
+      showResult(
+      false,
+      currentAnswer,
+      "Jawaban kamu salah."
+      );
 
       updateUI();
       saveState();
 
-      nextTimeout=setTimeout(function(){
-      if(lives<=0)showGameOver();
-      else loadQuestion();
+      nextTimeout=
+      setTimeout(function(){
+
+      if(lives<=0){
+      showGameOver();
+      }else{
+      loadQuestion();
+      }
+
       },1200);
       }
 
@@ -617,97 +733,166 @@
       if(questionLocked)return;
 
       questionLocked=true;
+
       lives--;
       streak=0;
 
-      var buttons=answersEl.querySelectorAll(".answer");
+      var buttons=
+      answersEl.querySelectorAll(".answer");
 
       for(var i=0;i<buttons.length;i++){
+
       buttons[i].classList.add("disabled");
 
-      if(buttons[i].dataset.answer.toLowerCase()===currentAnswer.toLowerCase()){
+      if(
+      buttons[i].dataset.answer.toLowerCase()===
+      currentAnswer.toLowerCase()
+      ){
       buttons[i].classList.add("correct");
       }
+
       }
 
-      showResult(false,currentAnswer,"Waktu habis.");
+      showResult(
+      false,
+      currentAnswer,
+      "Waktu habis."
+      );
 
       updateUI();
       saveState();
 
-      nextTimeout=setTimeout(function(){
-      if(lives<=0)showGameOver();
-      else loadQuestion();
+      nextTimeout=
+      setTimeout(function(){
+
+      if(lives<=0){
+      showGameOver();
+      }else{
+      loadQuestion();
+      }
+
       },1200);
       }
 
-      function showResult(isCorrect,answer,message){
-      resultEl.className="result show "+(isCorrect?"correct-result":"wrong-result");
+      function showResult(
+      isCorrect,
+      answer,
+      message
+      ){
 
-      resultTitleEl.textContent=isCorrect?"BENAR":"JAWABAN";
+      resultEl.className=
+      "result show "+
+      (isCorrect?
+      "correct-result":
+      "wrong-result");
+
+      resultTitleEl.textContent=
+      isCorrect?
+      "BENAR":
+      "JAWABAN";
+
       correctAnswerEl.textContent=answer;
       explanationEl.textContent=message;
       }
 
       hintBtn.onclick=function(){
-      if(questionLocked||hintUsed||coin<HINT_COST)return;
+
+      if(
+      questionLocked||
+      hintUsed||
+      coin<HINT_COST
+      )return;
 
       coin-=HINT_COST;
       hintUsed=true;
 
-      var buttons=Array.prototype.slice.call(
+      var buttons=
+      Array.prototype.slice.call(
       answersEl.querySelectorAll(".answer")
       );
 
-      var wrongButtons=buttons.filter(function(btn){
-      return btn.dataset.answer.toLowerCase()!==currentAnswer.toLowerCase();
+      var wrongButtons=
+      buttons.filter(function(btn){
+
+      return btn.dataset.answer.toLowerCase()!==
+      currentAnswer.toLowerCase();
+
       });
 
       shuffle(wrongButtons);
 
-      for(var i=0;i<Math.min(2,wrongButtons.length);i++){
-      wrongButtons[i].classList.add("hidden-choice");
+      for(
+      var i=0;
+      i<Math.min(2,wrongButtons.length);
+      i++
+      ){
+
+      wrongButtons[i].
+      classList.add("hidden-choice");
+
       }
 
       updateUI();
       saveState();
+
       hintBtn.disabled=true;
       };
 
       newBtn.onclick=function(){
-      if(questionLocked||coin<NEW_QUESTION_COST)return;
+
+      if(
+      questionLocked||
+      coin<NEW_QUESTION_COST
+      )return;
 
       coin-=NEW_QUESTION_COST;
+
       updateUI();
       saveState();
+
       loadQuestion();
       };
 
       function showLevelUp(){
-      popupLevel.textContent="Level "+level;
+
+      popupLevel.textContent=
+      "Level "+level;
+
       levelPopup.classList.add("show");
       }
 
       continueBtn.onclick=function(){
+
       levelPopup.classList.remove("show");
+
       loadQuestion();
       };
 
       function showGameOver(){
+
       stopTimer();
+
       gameOverEl.classList.add("show");
       }
 
       restartBtn.onclick=function(){
+
       gameOverEl.classList.remove("show");
+
       lives=MAX_LIVES;
       streak=0;
+
       updateUI();
+
       loadQuestion();
       };
 
       function randomInt(min,max){
-      return Math.floor(Math.random()*(max-min+1))+min;
+
+      return Math.floor(
+      Math.random()*(max-min+1)
+      )+min;
+
       }
 
       loadState();
