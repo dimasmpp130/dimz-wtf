@@ -681,21 +681,7 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <script>
-      const API_ENDPOINT=[
-      104,116,116,112,115,58,47,47,
-      97,112,105,46,110,101,111,120,
-      114,46,101,117,47,97,112,105,
-      47,102,102,108,111,98,98,121
-      ].map(function(n){
-      return String.fromCharCode(n);
-      }).join("");
-
-      const API_KEY=[
-      103,66,119,52,98,102,106,53,
-      104,97,113,89
-      ].map(function(n){
-      return String.fromCharCode(n);
-      }).join("");
+      const DIMZZ_URL = "https://dimz-wtf.vercel.app/api/rxoen-pages";
 
       const form=document.getElementById("lobbyForm");
       const playerName=document.getElementById("playerName");
@@ -950,7 +936,7 @@
       resultEmpty.style.display="flex";
 
       showError(
-      "Gambar berhasil dibuat oleh API, tetapi gambar tidak dapat ditampilkan."
+      "Gambar berhasil dibuat oleh Server, tetapi gambar tidak dapat ditampilkan."
       );
 
       };
@@ -1014,11 +1000,11 @@
 
       const params=new URLSearchParams();
 
+      params.set("path","fflobby");
       params.set("text",name);
-      params.set("apikey",API_KEY);
 
       const requestUrl=
-      API_ENDPOINT+"?"+params.toString();
+      DIMZZ_URL+"?"+params.toString();
 
       const response=await fetch(
       requestUrl,
@@ -1036,7 +1022,7 @@
       if(!response.ok){
 
       throw new Error(
-      "API HTTP "+response.status
+      "Server HTTP "+response.status
       );
 
       }
@@ -1050,7 +1036,7 @@
       }catch{
 
       throw new Error(
-      "Response API bukan JSON."
+      "Response Server bukan JSON."
       );
 
       }
@@ -1064,7 +1050,7 @@
       throw new Error(
       result.message||
       result.msg||
-      "API gagal membuat gambar."
+      "Server gagal membuat gambar."
       );
 
       }
@@ -1074,7 +1060,7 @@
       if(!imageUrl){
 
       throw new Error(
-      "API tidak mengembalikan URL gambar."
+      "Server tidak mengembalikan URL gambar."
       );
 
       }
@@ -1086,7 +1072,7 @@
       }catch{
 
       throw new Error(
-      "URL gambar dari API tidak valid."
+      "URL gambar dari Server tidak valid."
       );
 
       }
