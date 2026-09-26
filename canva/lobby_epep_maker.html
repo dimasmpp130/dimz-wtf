@@ -681,579 +681,624 @@
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
     <script>
-      const DIMZZ_URL = "https://dimz-wtf.vercel.app/api/rxoen-pages";
+      const DIMZZ_URL =
+        "https://dimz-wtf.vercel.app/api/salam-booyah";
 
-      const form=document.getElementById("lobbyForm");
-      const playerName=document.getElementById("playerName");
-      const generateBtn=document.getElementById("generateBtn");
-      const generateText=document.getElementById("generateText");
-      const resultCard=document.getElementById("resultCard");
-      const resultEmpty=document.getElementById("resultEmpty");
-      const loading=document.getElementById("loading");
-      const resultContent=document.getElementById("resultContent");
-      const resultImage=document.getElementById("resultImage");
-      const errorBox=document.getElementById("errorBox");
-      const downloadBtn=document.getElementById("downloadBtn");
-      const newBtn=document.getElementById("newBtn");
-      const fileFormat=document.getElementById("fileFormat");
-      const fileSize=document.getElementById("fileSize");
-      const fileName=document.getElementById("fileName");
-      const toast=document.getElementById("toast");
+      const form =
+        document.getElementById("lobbyForm");
 
-      let toastTimer=null;
+      const playerName =
+        document.getElementById("playerName");
 
-      let currentResult={
-      url:"",
-      filename:"",
-      originalName:"",
-      size:"",
-      mime:"",
-      extension:"",
-      requestedName:""
+      const generateBtn =
+        document.getElementById("generateBtn");
+
+      const generateText =
+        document.getElementById("generateText");
+
+      const resultCard =
+        document.getElementById("resultCard");
+
+      const resultEmpty =
+        document.getElementById("resultEmpty");
+
+      const loading =
+        document.getElementById("loading");
+
+      const resultContent =
+        document.getElementById("resultContent");
+
+      const resultImage =
+        document.getElementById("resultImage");
+
+      const errorBox =
+        document.getElementById("errorBox");
+
+      const downloadBtn =
+        document.getElementById("downloadBtn");
+
+      const newBtn =
+        document.getElementById("newBtn");
+
+      const fileFormat =
+        document.getElementById("fileFormat");
+
+      const fileSize =
+        document.getElementById("fileSize");
+
+      const fileName =
+        document.getElementById("fileName");
+
+      const toast =
+        document.getElementById("toast");
+
+      let toastTimer = null;
+
+      let currentResult = {
+        url: "",
+        filename: "",
+        originalName: "",
+        size: "",
+        mime: "",
+        extension: "",
+        requestedName: ""
       };
 
-      let requestCounter=0;
+      let requestCounter = 0;
 
-      function showToast(message){
+      function showToast(message) {
+        clearTimeout(toastTimer);
 
-      clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.classList.add("show");
 
-      toast.textContent=message;
-      toast.classList.add("show");
-
-      toastTimer=setTimeout(function(){
-      toast.classList.remove("show");
-      },3200);
-
+        toastTimer = setTimeout(function () {
+          toast.classList.remove("show");
+        }, 3200);
       }
 
-      function normalizePlayerName(value){
-      return String(value||"")
-      .replace(/\s+/g," ")
-      .trim();
+      function normalizePlayerName(value) {
+        return String(value || "")
+          .replace(/\s+/g, " ")
+          .trim();
       }
 
-      function isValidPlayerName(name){
-      if(!name){
-      return false;
+      function isValidPlayerName(name) {
+        if (!name) {
+          return false;
+        }
+
+        if (name.length > 50) {
+          return false;
+        }
+
+        const words =
+          name.split(/\s+/).filter(Boolean);
+
+        if (words.length > 4) {
+          return false;
+        }
+
+        if (/[!?;:,]/.test(name)) {
+          return false;
+        }
+
+        if (
+          /https?:\/\/|www\.|\.com\b|\.net\b|\.id\b/i.test(name)
+        ) {
+          return false;
+        }
+
+        return true;
       }
 
-      if(name.length>50){
-      return false;
+      function showError(message) {
+        errorBox.textContent = message;
+        errorBox.classList.add("active");
       }
 
-      const words=name.split(/\s+/).filter(Boolean);
-
-      if(words.length>4){
-      return false;
+      function hideError() {
+        errorBox.textContent = "";
+        errorBox.classList.remove("active");
       }
 
-      if(/[!?;:,]/.test(name)){
-      return false;
+      function resetResult() {
+        resultImage.onload = null;
+        resultImage.onerror = null;
+        resultImage.removeAttribute("src");
+
+        currentResult = {
+          url: "",
+          filename: "",
+          originalName: "",
+          size: "",
+          mime: "",
+          extension: "",
+          requestedName: ""
+        };
+
+        fileFormat.textContent = "JPG";
+        fileSize.textContent = "-";
+        fileName.textContent = "-";
+
+        resultContent.classList.remove("active");
+        loading.classList.remove("active");
+        resultEmpty.style.display = "flex";
       }
 
-      if(/https?:\/\/|www\.|\.com\b|\.net\b|\.id\b/i.test(name)){
-      return false;
+      function setLoading(state) {
+        generateBtn.disabled = state;
+
+        if (state) {
+          generateText.textContent =
+            "⏳ Sedang Memproses...";
+
+          resultEmpty.style.display = "none";
+          resultContent.classList.remove("active");
+          loading.classList.add("active");
+        } else {
+          generateText.textContent =
+            "⚡ Buat Gambar";
+
+          loading.classList.remove("active");
+        }
       }
 
-      return true;
+      function extractImageUrl(result) {
+        if (!result) {
+          return "";
+        }
+
+        if (
+          result.data &&
+          typeof result.data === "object" &&
+          !Array.isArray(result.data) &&
+          typeof result.data.url === "string" &&
+          result.data.url.trim()
+        ) {
+          return result.data.url.trim();
+        }
+
+        if (
+          Array.isArray(result.data) &&
+          result.data.length
+        ) {
+          const first = result.data[0];
+
+          if (
+            first &&
+            typeof first === "object" &&
+            typeof first.url === "string" &&
+            first.url.trim()
+          ) {
+            return first.url.trim();
+          }
+        }
+
+        if (
+          typeof result.url === "string" &&
+          result.url.trim()
+        ) {
+          return result.url.trim();
+        }
+
+        if (
+          result.data &&
+          typeof result.data === "object"
+        ) {
+          const keys = [
+            "download",
+            "download_url",
+            "image",
+            "image_url",
+            "link"
+          ];
+
+          for (let i = 0; i < keys.length; i++) {
+            const key = keys[i];
+
+            if (
+              typeof result.data[key] === "string" &&
+              result.data[key].trim()
+            ) {
+              return result.data[key].trim();
+            }
+          }
+        }
+
+        return "";
       }
 
-      function showError(message){
-
-      errorBox.textContent="";
-      errorBox.classList.remove("active");
-
-      }
-
-      function hideError(){
-
-      errorBox.textContent="";
-      errorBox.classList.remove("active");
-
-      }
-
-      function resetResult(){
-
-      resultImage.onload=null;
-      resultImage.onerror=null;
-      resultImage.removeAttribute("src");
-
-      currentResult={
-      url:"",
-      filename:"",
-      originalName:"",
-      size:"",
-      mime:"",
-      extension:"",
-      requestedName:""
-      };
-
-      fileFormat.textContent="JPG";
-      fileSize.textContent="-";
-      fileName.textContent="-";
-
-      resultContent.classList.remove("active");
-      loading.classList.remove("active");
-      resultEmpty.style.display="flex";
-
-      }
-
-      function setLoading(state){
-
-      generateBtn.disabled=state;
-
-      if(state){
-
-      generateText.textContent="⏳ Sedang Memproses...";
-
-      resultEmpty.style.display="none";
-      resultContent.classList.remove("active");
-      loading.classList.add("active");
-
-      }else{
-
-      generateText.textContent="⚡ Buat Gambar";
-
-      loading.classList.remove("active");
-
-      }
-
-      }
-
-      function extractImageUrl(result){
-
-      if(!result){
-      return "";
-      }
-
-      if(
-      result.data &&
-      typeof result.data==="object" &&
-      !Array.isArray(result.data) &&
-      typeof result.data.url==="string" &&
-      result.data.url.trim()
-      ){
-
-      return result.data.url.trim();
-
-      }
-
-      if(
-      Array.isArray(result.data) &&
-      result.data.length
-      ){
-
-      const first=result.data[0];
-
-      if(
-      first &&
-      typeof first==="object" &&
-      typeof first.url==="string" &&
-      first.url.trim()
-      ){
-
-      return first.url.trim();
-
-      }
-
-      }
-
-      if(
-      typeof result.url==="string" &&
-      result.url.trim()
-      ){
-
-      return result.url.trim();
-
-      }
-
-      if(
-      result.data &&
-      typeof result.data==="object"
-      ){
-
-      const keys=[
-      "download",
-      "download_url",
-      "image",
-      "image_url",
-      "link"
-      ];
-
-      for(let i=0;i<keys.length;i++){
-
-      const key=keys[i];
-
-      if(
-      typeof result.data[key]==="string" &&
-      result.data[key].trim()
-      ){
-
-      return result.data[key].trim();
-
-      }
-
-      }
-
-      }
-
-      return "";
-
-      }
-
-      function displayResult(requestId){
-
-      if(requestId!==requestCounter){
-      return;
-      }
-
-      resultImage.onload=function(){
-
-      if(requestId!==requestCounter){
-      return;
-      }
-
-      loading.classList.remove("active");
-      resultEmpty.style.display="none";
-      resultContent.classList.add("active");
-
-      resultCard.scrollIntoView({
-      behavior:"auto",
-      block:"start"
-      });
-
-      };
-
-      resultImage.onerror=function(){
-
-      if(requestId!==requestCounter){
-      return;
-      }
-
-      loading.classList.remove("active");
-      resultContent.classList.remove("active");
-      resultEmpty.style.display="flex";
-
-      showError(
-      "Gambar berhasil dibuat oleh Server, tetapi gambar tidak dapat ditampilkan."
-      );
-
-      };
-
-      resultImage.src=currentResult.url;
-
-      resultImage.alt=
-      "Free Fire Lobby - "+
-      currentResult.requestedName;
-
-      fileFormat.textContent=
-      (currentResult.extension||"jpg").toUpperCase();
-
-      fileSize.textContent=
-      currentResult.size||"-";
-
-      fileName.textContent=
-      currentResult.filename||
-      currentResult.originalName||
-      (currentResult.requestedName+".jpg");
-
+      function displayResult(requestId) {
+        if (requestId !== requestCounter) {
+          return;
+        }
+
+        resultImage.onload = function () {
+          if (requestId !== requestCounter) {
+            return;
+          }
+
+          loading.classList.remove("active");
+          resultEmpty.style.display = "none";
+          resultContent.classList.add("active");
+
+          resultCard.scrollIntoView({
+            behavior: "auto",
+            block: "start"
+          });
+        };
+
+        resultImage.onerror = function () {
+          if (requestId !== requestCounter) {
+            return;
+          }
+
+          loading.classList.remove("active");
+          resultContent.classList.remove("active");
+          resultEmpty.style.display = "flex";
+
+          showError(
+            "Gambar berhasil dibuat oleh Server, tetapi gambar tidak dapat ditampilkan."
+          );
+        };
+
+        resultImage.src = currentResult.url;
+
+        resultImage.alt =
+          "Free Fire Lobby - " +
+          currentResult.requestedName;
+
+        fileFormat.textContent =
+          (currentResult.extension || "jpg").toUpperCase();
+
+        fileSize.textContent =
+          currentResult.size || "-";
+
+        fileName.textContent =
+          currentResult.filename ||
+          currentResult.originalName ||
+          (currentResult.requestedName + ".jpg");
       }
 
       form.addEventListener(
-      "submit",
-      async function(event){
+        "submit",
+        async function (event) {
+          event.preventDefault();
 
-      event.preventDefault();
+          hideError();
 
-      hideError();
+          const name =
+            normalizePlayerName(playerName.value);
 
-      const name=normalizePlayerName(playerName.value);
+          playerName.value = name;
 
-      playerName.value=name;
+          if (!name) {
+            playerName.focus();
 
-      if(!name){
-      playerName.focus();
-      showToast("Masukkan nama player terlebih dahulu.");
-      return;
-      }
+            showToast(
+              "Masukkan nama player terlebih dahulu."
+            );
 
-      if(!isValidPlayerName(name)){
-      playerName.focus();
-      showToast(
-      "Masukkan nama player saja, bukan teks panjang / copas / copy-an / url."
-      );
-      return;
-      }
+            return;
+          }
 
-      const thisRequest=++requestCounter;
+          if (!isValidPlayerName(name)) {
+            playerName.focus();
 
-      resetResult();
-      setLoading(true);
+            showToast(
+              "Masukkan nama player saja, bukan teks panjang / copas / copy-an / url."
+            );
 
-      resultCard.scrollIntoView({
-      behavior:"auto",
-      block:"start"
-      });
+            return;
+          }
 
-      try{
+          const thisRequest =
+            ++requestCounter;
 
-      const params=new URLSearchParams();
+          resetResult();
+          setLoading(true);
 
-      params.set("path","fflobby");
-      params.set("text",name);
+          resultCard.scrollIntoView({
+            behavior: "auto",
+            block: "start"
+          });
 
-      const requestUrl=
-      DIMZZ_URL+"?"+params.toString();
+          try {
+            const params =
+              new URLSearchParams();
 
-      const response=await fetch(
-      requestUrl,
-      {
-      method:"GET",
-      headers:{
-      "Accept":"application/json,text/plain,*/*"
-      },
-      cache:"no-store"
-      }
-      );
+            params.set("path", "fflobby");
+            params.set("text", name);
 
-      const rawText=await response.text();
+            const requestUrl =
+              DIMZZ_URL +
+              "?" +
+              params.toString();
 
-      if(!response.ok){
+            const response =
+              await fetch(
+                requestUrl,
+                {
+                  method: "GET",
+                  headers: {
+                    "Accept":
+                      "application/json,text/plain,*/*"
+                  },
+                  cache: "no-store"
+                }
+              );
 
-      throw new Error(
-      "Server HTTP "+response.status
-      );
+            const rawText =
+              await response.text();
 
-      }
+            if (!response.ok) {
+              throw new Error(
+                "Server HTTP " +
+                response.status
+              );
+            }
 
-      let result;
+            let result;
 
-      try{
+            try {
+              result = JSON.parse(rawText);
+            } catch {
+              throw new Error(
+                "Response Server bukan JSON."
+              );
+            }
 
-      result=JSON.parse(rawText);
+            if (
+              thisRequest !== requestCounter
+            ) {
+              return;
+            }
 
-      }catch{
+            if (result.status === false) {
+              throw new Error(
+                result.message ||
+                result.msg ||
+                "Server gagal membuat gambar."
+              );
+            }
 
-      throw new Error(
-      "Response Server bukan JSON."
-      );
+            const imageUrl =
+              extractImageUrl(result);
 
-      }
+            if (!imageUrl) {
+              throw new Error(
+                "Server tidak mengembalikan URL gambar."
+              );
+            }
 
-      if(thisRequest!==requestCounter){
-      return;
-      }
+            try {
+              new URL(imageUrl);
+            } catch {
+              throw new Error(
+                "URL gambar dari Server tidak valid."
+              );
+            }
 
-      if(result.status===false){
+            const data =
+              result.data &&
+              typeof result.data === "object" &&
+              !Array.isArray(result.data)
+                ? result.data
+                : {};
 
-      throw new Error(
-      result.message||
-      result.msg||
-      "Server gagal membuat gambar."
-      );
+            currentResult = {
+              url: imageUrl,
+              filename:
+                data.filename ||
+                "free-fire-lobby.jpg",
+              originalName:
+                data.original_name || "",
+              size:
+                data.size || "",
+              mime:
+                data.mime || "image/jpeg",
+              extension:
+                data.extension || "jpg",
+              requestedName: name
+            };
 
-      }
+            displayResult(thisRequest);
+          } catch (error) {
+            if (
+              thisRequest !== requestCounter
+            ) {
+              return;
+            }
 
-      const imageUrl=extractImageUrl(result);
+            resultEmpty.style.display = "flex";
+            resultContent.classList.remove(
+              "active"
+            );
+            loading.classList.remove("active");
 
-      if(!imageUrl){
-
-      throw new Error(
-      "Server tidak mengembalikan URL gambar."
-      );
-
-      }
-
-      try{
-
-      new URL(imageUrl);
-
-      }catch{
-
-      throw new Error(
-      "URL gambar dari Server tidak valid."
-      );
-
-      }
-
-      const data=
-      result.data &&
-      typeof result.data==="object" &&
-      !Array.isArray(result.data)
-      ?result.data:{};
-
-      currentResult={
-      url:imageUrl,
-      filename:data.filename||"free-fire-lobby.jpg",
-      originalName:data.original_name||"",
-      size:data.size||"",
-      mime:data.mime||"image/jpeg",
-      extension:data.extension||"jpg",
-      requestedName:name
-      };
-
-      displayResult(thisRequest);
-
-      }catch(error){
-
-      if(thisRequest!==requestCounter){
-      return;
-      }
-
-      resultEmpty.style.display="flex";
-      resultContent.classList.remove("active");
-      loading.classList.remove("active");
-
-      showError(
-      "Gagal membuat gambar. "+
-      (error.message||"Terjadi kesalahan.")
-      );
-
-      }finally{
-
-      if(thisRequest===requestCounter){
-      setLoading(false);
-      }
-
-      }
-
-      }
+            showError(
+              "Gagal membuat gambar. " +
+              (
+                error.message ||
+                "Terjadi kesalahan."
+              )
+            );
+          } finally {
+            if (
+              thisRequest === requestCounter
+            ) {
+              setLoading(false);
+            }
+          }
+        }
       );
 
       downloadBtn.addEventListener(
-      "click",
-      async function(){
+        "click",
+        async function () {
+          if (!currentResult.url) {
+            showToast(
+              "Belum ada gambar untuk didownload."
+            );
+            return;
+          }
 
-      if(!currentResult.url){
-      return;
-      }
+          const oldText =
+            downloadBtn.innerHTML;
 
-      const oldText=downloadBtn.innerHTML;
+          downloadBtn.disabled = true;
+          downloadBtn.innerHTML =
+            "⏳ Menyiapkan...";
 
-      downloadBtn.disabled=true;
-      downloadBtn.innerHTML="⏳ Menyiapkan...";
+          hideError();
 
-      try{
+          try {
+            const params =
+              new URLSearchParams();
 
-      const response=await fetch(
-      currentResult.url,
-      {
-      method:"GET",
-      cache:"no-store"
-      }
-      );
+            params.set("path", "fflobby");
+            params.set("download", "1");
+            params.set(
+              "url",
+              currentResult.url
+            );
 
-      if(!response.ok){
+            const downloadUrl =
+              DIMZZ_URL +
+              "?" +
+              params.toString();
 
-      throw new Error(
-      "Download gagal."
-      );
+            const response =
+              await fetch(
+                downloadUrl,
+                {
+                  method: "GET",
+                  cache: "no-store"
+                }
+              );
 
-      }
+            if (!response.ok) {
+              let message =
+                "Download gagal.";
 
-      const blob=await response.blob();
+              try {
+                const data =
+                  await response.json();
 
-      if(!blob||blob.size===0){
+                if (data?.message) {
+                  message =
+                    data.message;
+                }
+              } catch {}
 
-      throw new Error(
-      "File gambar kosong."
-      );
+              throw new Error(message);
+            }
 
-      }
+            const blob =
+              await response.blob();
 
-      const blobUrl=
-      URL.createObjectURL(blob);
+            if (
+              !blob ||
+              blob.size === 0
+            ) {
+              throw new Error(
+                "File gambar kosong."
+              );
+            }
 
-      let downloadName=
-      currentResult.filename;
+            const blobUrl =
+              URL.createObjectURL(blob);
 
-      if(
-      !downloadName||
-      downloadName==="-"
-      ){
+            let downloadName =
+              currentResult.filename;
 
-      const safeName=
-      currentResult.requestedName
-      .replace(/[^a-z0-9_-]/gi,"_");
+            if (
+              !downloadName ||
+              downloadName === "-"
+            ) {
+              const safeName =
+                currentResult.requestedName
+                  .replace(
+                    /[^a-z0-9_-]/gi,
+                    "_"
+                  );
 
-      downloadName=
-      safeName+".jpg";
+              downloadName =
+                safeName + ".jpg";
+            }
 
-      }
+            const link =
+              document.createElement("a");
 
-      const link=
-      document.createElement("a");
+            link.href = blobUrl;
+            link.download = downloadName;
+            link.rel =
+              "noopener noreferrer";
 
-      link.href=blobUrl;
-      link.download=downloadName;
-      link.rel="noopener noreferrer";
+            document.body.appendChild(link);
 
-      document.body.appendChild(link);
+            link.click();
 
-      link.click();
+            link.remove();
 
-      link.remove();
+            setTimeout(function () {
+              URL.revokeObjectURL(
+                blobUrl
+              );
+            }, 1000);
 
-      setTimeout(function(){
+            showToast(
+              "Gambar berhasil didownload."
+            );
+          } catch (error) {
+            showError(
+              error.message ||
+              "Download gagal."
+            );
 
-      URL.revokeObjectURL(blobUrl);
-
-      },1000);
-
-      }catch(error){
-
-      }finally{
-
-      downloadBtn.disabled=false;
-      downloadBtn.innerHTML=oldText;
-
-      }
-
-      }
+            showToast(
+              "Download gagal."
+            );
+          } finally {
+            downloadBtn.disabled = false;
+            downloadBtn.innerHTML =
+              oldText;
+          }
+        }
       );
 
       newBtn.addEventListener(
-      "click",
-      function(){
+        "click",
+        function () {
+          requestCounter++;
 
-      requestCounter++;
+          resetResult();
+          hideError();
 
-      resetResult();
-      hideError();
+          playerName.value = "";
+          playerName.focus();
 
-      playerName.value="";
-      playerName.focus();
-
-      playerName.scrollIntoView({
-      behavior:"auto",
-      block:"center"
-      });
-
-      }
+          playerName.scrollIntoView({
+            behavior: "auto",
+            block: "center"
+          });
+        }
       );
 
       playerName.addEventListener(
-      "keydown",
-      function(event){
+        "keydown",
+        function (event) {
+          if (event.key === "Enter") {
+            event.preventDefault();
 
-      if(event.key==="Enter"){
-
-      event.preventDefault();
-
-      if(form.requestSubmit){
-
-      form.requestSubmit();
-
-      }else{
-
-      generateBtn.click();
-
-      }
-
-      }
-
-      }
+            if (form.requestSubmit) {
+              form.requestSubmit();
+            } else {
+              generateBtn.click();
+            }
+          }
+        }
       );
     </script>
   </body>
