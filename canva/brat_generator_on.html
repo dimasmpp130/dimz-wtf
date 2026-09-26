@@ -679,7 +679,6 @@
                 id="downloadBtn"
                 class="action-btn download-btn"
                 href="#"
-                target="_blank"
                 rel="noopener noreferrer"
                 download
               >
@@ -737,9 +736,7 @@
     </main>
 
     <script>
-      const API_KEY = "gBw4bfj5haqY";
-      const API_IMAGE = "https://api.neoxr.eu/api/brat";
-      const API_VIDEO = "https://api.neoxr.eu/api/bratvid";
+      const DIMZZ_URL = "https://dimz-wtf.vercel.app/api/rxoen-pages";
 
       const textInput = document.getElementById("textInput");
       const charCount = document.getElementById("charCount");
@@ -829,17 +826,17 @@
       }
 
       function buildApiUrl(text){
-        const api =
+        const endpoint =
           currentMode === "video"
-            ? API_VIDEO
-            : API_IMAGE;
+            ? "bratvid"
+            : "brat";
 
         const params = new URLSearchParams();
 
         params.set("text", text);
-        params.set("apikey", API_KEY);
+        params.set("path", endpoint);
 
-        return api + "?" + params.toString();
+        return DIMZZ_URL + "?" + params.toString();
       }
 
       function formatBytes(bytes){
@@ -865,7 +862,7 @@
 
         if(!url){
           throw new Error(
-            "API berhasil merespons, tetapi URL hasil tidak ditemukan."
+            "Berhasil merespons, tetapi URL hasil tidak ditemukan."
           );
         }
 
@@ -993,7 +990,7 @@
 
           if(!response.ok){
             throw new Error(
-              "Server API mengembalikan HTTP " +
+              "Server mengembalikan HTTP " +
               response.status + "."
             );
           }
@@ -1003,7 +1000,7 @@
 
           if(!result){
             throw new Error(
-              "Respons API kosong."
+              "Respons kosong."
             );
           }
 
@@ -1012,13 +1009,13 @@
               result.message ||
               result.msg ||
               result.error ||
-              "API gagal membuat hasil."
+              "Gagal membuat hasil."
             );
           }
 
           if(!result.data){
             throw new Error(
-              "Data hasil tidak ditemukan pada respons API."
+              "Data hasil tidak ditemukan pada respons."
             );
           }
 
@@ -1032,11 +1029,11 @@
 
           if(error.name === "AbortError"){
             showError(
-              "Proses terlalu lama atau koneksi ke API terputus. Silakan coba lagi."
+              "Proses terlalu lama atau koneksi ke Server terputus. Silakan coba lagi."
             );
           }else if(error instanceof TypeError){
             showError(
-              "Tidak dapat mengakses API dari browser. Kemungkinan server API tidak mengizinkan CORS atau koneksi sedang bermasalah."
+              "Tidak dapat mengakses Server dari browser. Kemungkinan server tidak mengizinkan CORS atau koneksi sedang bermasalah."
             );
           }else{
             showError(
