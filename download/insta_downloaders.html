@@ -764,18 +764,7 @@
         arr.map(n=>String.fromCharCode(n)).join("");
 
       const CONFIG={
-        API_ENDPOINT:_decode([
-          104,116,116,112,115,58,47,47,
-          97,112,105,46,110,101,111,120,
-          114,46,101,117,47,97,112,105,
-          47,105,103
-        ]),
-
-        API_KEY:_decode([
-          103,66,119,52,98,102,106,53,
-          104,97,113,89
-        ]),
-
+        API_ENDPOINT: "https://dimz-wtf.vercel.app/api/rxoen-pages",
         API_TIMEOUT:30000,
         DOWNLOAD_TIMEOUT:60000
       };
@@ -1293,13 +1282,13 @@
           new URL(CONFIG.API_ENDPOINT);
 
         endpoint.searchParams.set(
-          "url",
-          instagramUrl
+          "path",
+          "ig"
         );
 
         endpoint.searchParams.set(
-          "apikey",
-          CONFIG.API_KEY
+          "url",
+          instagramUrl
         );
 
         const data=
