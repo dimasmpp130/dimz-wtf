@@ -815,8 +815,7 @@
           </h3>
 
           <p>
-            Gunakan downloader ini hanya untuk konten yang kamu punya hak atau
-            izin untuk download.
+            Jika downloader ini membantu, bagikan ke teman, grup, atau komunitas kamu. Biar mereka juga bisa download video YouTube dengan mudah dan gratis.
           </p>
         </div>
       </div>
@@ -831,11 +830,11 @@
       "use strict";
 
       const CONFIG={
-        API_URL:"https://api.neoxr.eu/api/youtube",
-        API_KEY:"gBw4bfj5haqY",
+        DIMZZ_URL:"https://dimz-wtf.vercel.app/api/rxoen-pages",
+        YOUTUBE_PATH:"youtube",
         AUDIO_QUALITY:"128kbps",
         VIDEO_QUALITIES:["360p","480p","720p"],
-        API_TIMEOUT:60000
+        DOWN_TIMEOUT:60000
       };
 
       let currentVideo=null;
@@ -1153,18 +1152,33 @@
         quality
       ){
 
-        const endpoint=
-          CONFIG.API_URL+
-          "?url="+encodeURIComponent(youtubeUrl)+
-          "&type="+encodeURIComponent(type)+
-          "&quality="+encodeURIComponent(quality)+
-          "&apikey="+encodeURIComponent(CONFIG.API_KEY);
+        const endpoint = new URL(CONFIG.DIMZZ_URL);
+        
+        endpoint.searchParams.set(
+          "path",
+          CONFIG.YOUTUBE_PATH
+        );
+        
+        endpoint.searchParams.set(
+          "url",
+          youtubeUrl
+        );
+        
+        endpoint.searchParams.set(
+          "type",
+          type
+        );
+        
+        endpoint.searchParams.set(
+          "quality",
+          quality
+         );
 
         const controller=new AbortController();
 
         const timer=setTimeout(
           ()=>controller.abort(),
-          CONFIG.API_TIMEOUT
+          CONFIG.DOWN_TIMEOUT
         );
 
         try{
@@ -1187,7 +1201,7 @@
             data=JSON.parse(raw);
           }catch{
             throw new Error(
-              "API mengembalikan respons bukan JSON."
+              "Server mengembalikan respons bukan JSON."
             );
           }
 
@@ -1195,7 +1209,7 @@
             throw new Error(
               data.message||
               data.error||
-              "API HTTP "+response.status
+              "Server HTTP "+response.status
             );
           }
 
@@ -1203,7 +1217,7 @@
             throw new Error(
               data.message||
               data.error||
-              "API gagal memproses video."
+              "Server gagal memproses video."
             );
           }
 
@@ -1212,7 +1226,7 @@
             typeof data.data!=="object"
           ){
             throw new Error(
-              "Respons API tidak memiliki data media."
+              "Respons Server tidak memiliki data media."
             );
           }
 
@@ -1259,7 +1273,7 @@
             !data.data.url
           ){
             throw new Error(
-              "API tidak memberikan link MP3."
+              "Server tidak memberikan link MP3."
             );
           }
 
@@ -1632,7 +1646,7 @@
         ){
 
           throw new Error(
-            "URL media dari API tidak valid."
+            "URL media dari Server tidak valid."
           );
 
         }
