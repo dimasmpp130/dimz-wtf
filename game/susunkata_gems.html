@@ -364,7 +364,6 @@
 
         border:0;
         background:transparent;
-
       }
 
       .life::before{
@@ -842,7 +841,8 @@
 
         <div class="coin">
           COIN
-          <b id="coin">5</b>
+
+          <b id="coin"> 5 </b>
         </div>
       </header>
 
@@ -996,1508 +996,2033 @@
 
       (function(){
 
-      "use strict";
+        "use strict";
 
-      var API_URL=String.fromCharCode(104,116,116,112,115,58,47,47,97,112,105,46,110,101,111,120,114,46,101,117,47,97,112,105,47,119,104,97,116,119,111,114,100,63,97,112,105,107,101,121,61,103,66,119,52,98,102,106,53,104,97,113,89);
+        var API_URL =
+          "https://dimz-wtf.vercel.app/api/rxoen-pages";
 
-      var QUESTION_TIME =
-      20;
+        var WHATWORD_PATH =
+          "whatword";
 
-      var MAX_LIVES =
-      3;
 
-      var NEW_QUESTION_COST =
-      1;
+        var QUESTION_TIME =
+          20;
 
-      var HINT_COST =
-      2;
 
-      var LEVEL_POINTS =
-      100;
+        var MAX_LIVES =
+          3;
 
-      var el = {
 
-      loading:
-      document.getElementById("loading"),
+        var NEW_QUESTION_COST =
+          1;
 
-      category:
-      document.getElementById("category"),
 
-      categoryIcon:
-      document.getElementById("categoryIcon"),
+        var HINT_COST =
+          2;
 
-      question:
-      document.getElementById("question"),
 
-      timerNumber:
-      document.getElementById("timerNumber"),
+        var LEVEL_POINTS =
+          100;
 
-      timerFill:
-      document.getElementById("timerFill"),
 
-      lives:
-      document.getElementById("lives"),
+        var el = {
 
-      answer:
-      document.getElementById("answer"),
+          loading:
+            document.getElementById(
+              "loading"
+            ),
 
-      submitBtn:
-      document.getElementById("submitBtn"),
+          category:
+            document.getElementById(
+              "category"
+            ),
 
-      hintBtn:
-      document.getElementById("hintBtn"),
+          categoryIcon:
+            document.getElementById(
+              "categoryIcon"
+            ),
 
-      nextBtn:
-      document.getElementById("nextBtn"),
+          question:
+            document.getElementById(
+              "question"
+            ),
 
-      status:
-      document.getElementById("status"),
+          timerNumber:
+            document.getElementById(
+              "timerNumber"
+            ),
 
-      score:
-      document.getElementById("score"),
+          timerFill:
+            document.getElementById(
+              "timerFill"
+            ),
 
-      streak:
-      document.getElementById("streak"),
+          lives:
+            document.getElementById(
+              "lives"
+            ),
 
-      level:
-      document.getElementById("level"),
+          answer:
+            document.getElementById(
+              "answer"
+            ),
 
-      levelStreak:
-      document.getElementById("levelStreak"),
+          submitBtn:
+            document.getElementById(
+              "submitBtn"
+            ),
 
-      coin:
-      document.getElementById("coin"),
+          hintBtn:
+            document.getElementById(
+              "hintBtn"
+            ),
 
-      levelFill:
-      document.getElementById("levelFill"),
+          nextBtn:
+            document.getElementById(
+              "nextBtn"
+            ),
 
-      levelProgressText:
-      document.getElementById(
-      "levelProgressText"
-      ),
+          status:
+            document.getElementById(
+              "status"
+            ),
 
-      gameCard:
-      document.getElementById("gameCard"),
+          score:
+            document.getElementById(
+              "score"
+            ),
 
-      horror:
-      document.getElementById("horror"),
+          streak:
+            document.getElementById(
+              "streak"
+            ),
 
-      correctAnswer:
-      document.getElementById("correctAnswer"),
+          level:
+            document.getElementById(
+              "level"
+            ),
 
-      restartBtn:
-      document.getElementById("restartBtn"),
+          levelStreak:
+            document.getElementById(
+              "levelStreak"
+            ),
 
-      levelUp:
-      document.getElementById("levelUp"),
+          coin:
+            document.getElementById(
+              "coin"
+            ),
 
-      levelUpNumber:
-      document.getElementById(
-      "levelUpNumber"
-      )
+          levelFill:
+            document.getElementById(
+              "levelFill"
+            ),
 
-      };
+          levelProgressText:
+            document.getElementById(
+              "levelProgressText"
+            ),
 
-      var state = {
+          gameCard:
+            document.getElementById(
+              "gameCard"
+            ),
 
-      answer:"",
+          horror:
+            document.getElementById(
+              "horror"
+            ),
 
-      category:"",
+          correctAnswer:
+            document.getElementById(
+              "correctAnswer"
+            ),
 
-      question:"",
+          restartBtn:
+            document.getElementById(
+              "restartBtn"
+            ),
 
-      lives:MAX_LIVES,
+          levelUp:
+            document.getElementById(
+              "levelUp"
+            ),
 
-      score:0,
+          levelUpNumber:
+            document.getElementById(
+              "levelUpNumber"
+            )
 
-      streak:0,
+        };
 
-      levelStreak:0,
 
-      coin:5,
+        var state = {
 
-      level:1,
+          answer:"",
 
-      time:QUESTION_TIME,
+          category:"",
 
-      timer:null,
+          question:"",
 
-      loading:false,
+          lives:MAX_LIVES,
 
-      answered:false,
+          score:0,
 
-      hintUsed:false,
+          streak:0,
 
-      currentDate:""
+          levelStreak:0,
 
-      };
+          coin:5,
 
-      function getDateKey(){
+          level:1,
 
-      var now =
-      new Date();
+          time:QUESTION_TIME,
 
-      var y =
-      now.getFullYear();
+          timer:null,
 
-      var m =
-      String(
-      now.getMonth()+1
-      );
+          loading:false,
 
-      var d =
-      String(
-      now.getDate()
-      );
+          answered:false,
 
-      if(m.length < 2){
-      m="0"+m;
-      }
+          hintUsed:false,
 
-      if(d.length < 2){
-      d="0"+d;
-      }
+          currentDate:""
 
-      return (
-      y+"-"+m+"-"+d
-      );
+        };
 
-      }
 
-      function loadSave(){
+        function getDateKey(){
 
-      try{
+          var now =
+            new Date();
 
-      var raw =
-      localStorage.getItem(
-      "whatword_save"
-      );
+          var y =
+            now.getFullYear();
 
-      if(!raw){
+          var m =
+            String(
+              now.getMonth()+1
+            );
 
-      state.currentDate =
-      getDateKey();
+          var d =
+            String(
+              now.getDate()
+            );
 
-      saveGame();
 
-      updateStats();
+          if(m.length < 2){
+            m="0"+m;
+          }
 
-      return;
 
-      }
+          if(d.length < 2){
+            d="0"+d;
+          }
 
-      var saved =
-      JSON.parse(raw);
 
-      var today =
-      getDateKey();
+          return (
+            y+"-"+m+"-"+d
+          );
 
-      if(
-      saved.date &&
-      saved.date !== today
-      ){
+        }
 
-      state.score=0;
 
-      state.streak=0;
+        function loadSave(){
 
-      state.levelStreak=0;
+          try{
 
-      state.level=1;
+            var raw =
+              localStorage.getItem(
+                "whatword_save"
+              );
 
-      state.coin=5;
 
-      state.currentDate=
-      today;
+            if(!raw){
 
-      saveGame();
+              state.currentDate =
+                getDateKey();
 
-      }else{
+              saveGame();
 
-      state.score =
-      Number(saved.score) || 0;
+              updateStats();
 
-      state.streak =
-      Number(saved.streak) || 0;
+              return;
 
-      state.levelStreak =
-      Number(saved.levelStreak) || 0;
+            }
 
-      state.coin =
-      typeof saved.coin === "number"
-      ? saved.coin
-      : 5;
 
-      state.level =
-      Math.floor(
-      state.score /
-      LEVEL_POINTS
-      )+1;
+            var saved =
+              JSON.parse(
+                raw
+              );
 
-      state.currentDate =
-      today;
 
-      }
+            var today =
+              getDateKey();
 
-      }catch(e){
 
-      state.score=0;
+            if(
+              saved.date &&
+              saved.date !== today
+            ){
 
-      state.streak=0;
+              state.score=0;
 
-      state.levelStreak=0;
+              state.streak=0;
 
-      state.coin=5;
+              state.levelStreak=0;
 
-      state.level=1;
+              state.level=1;
 
-      state.currentDate=
-      getDateKey();
+              state.coin=5;
 
-      }
+              state.currentDate=
+                today;
 
-      updateStats();
+              saveGame();
 
-      }
+            }else{
 
-      function saveGame(){
+              state.score =
+                Number(
+                  saved.score
+                ) || 0;
 
-      try{
 
-      localStorage.setItem(
+              state.streak =
+                Number(
+                  saved.streak
+                ) || 0;
 
-      "whatword_save",
 
-      JSON.stringify({
+              state.levelStreak =
+                Number(
+                  saved.levelStreak
+                ) || 0;
 
-      date:
-      state.currentDate ||
-      getDateKey(),
 
-      score:
-      state.score,
+              state.coin =
+                typeof saved.coin === "number"
+                ? saved.coin
+                : 5;
 
-      streak:
-      state.streak,
 
-      levelStreak:
-      state.levelStreak,
+              state.level =
+                Math.floor(
+                  state.score /
+                  LEVEL_POINTS
+                )+1;
 
-      coin:
-      state.coin,
 
-      level:
-      state.level
+              state.currentDate =
+                today;
 
-      })
+            }
 
-      );
+          }catch(e){
 
-      }catch(e){}
+            state.score=0;
 
-      }
+            state.streak=0;
 
-      function checkNewDay(){
+            state.levelStreak=0;
 
-      var today =
-      getDateKey();
+            state.coin=5;
 
-      if(
-      state.currentDate &&
-      state.currentDate !== today
-      ){
+            state.level=1;
 
-      state.currentDate =
-      today;
+            state.currentDate=
+              getDateKey();
 
-      state.score=0;
+          }
 
-      state.streak=0;
 
-      state.levelStreak=0;
+          updateStats();
 
-      state.coin=5;
+        }
 
-      state.level=1;
 
-      saveGame();
+        function saveGame(){
 
-      updateStats();
+          try{
 
-      }
+            localStorage.setItem(
 
-      }
+              "whatword_save",
 
-      setInterval(checkNewDay,60000);
+              JSON.stringify({
 
-      function updateStats(){
+                date:
+                  state.currentDate ||
+                  getDateKey(),
 
-      var calculatedLevel =
-      Math.floor(
-      state.score /
-      LEVEL_POINTS
-      )+1;
+                score:
+                  state.score,
 
-      if(
-      calculatedLevel >
-      state.level
-      ){
-      state.level =
-      calculatedLevel;
+                streak:
+                  state.streak,
 
-      state.levelStreak++;
+                levelStreak:
+                  state.levelStreak,
 
-      state.coin += 5;
+                coin:
+                  state.coin,
 
-      saveGame();
+                level:
+                  state.level
 
-      showLevelUp(
-      calculatedLevel
-      );
+              })
 
-      }else{
+            );
 
-      state.level =
-      calculatedLevel;
+          }catch(e){}
 
-      }
+        }
 
-      var levelStart =
-      (state.level-1) *
-      LEVEL_POINTS;
 
-      var levelPoint =
-      state.score -
-      levelStart;
+        function checkNewDay(){
 
-      var percent =
-      (levelPoint /
-      LEVEL_POINTS) *
-      100;
+          var today =
+            getDateKey();
 
-      if(percent < 0){
-      percent=0;
-      }
 
-      if(percent > 100){
-      percent=100;
-      }
+          if(
+            state.currentDate &&
+            state.currentDate !== today
+          ){
 
-      el.score.textContent =
-      state.score;
+            state.currentDate =
+              today;
 
-      el.streak.textContent =
-      state.streak;
+            state.score=0;
 
-      el.level.textContent =
-      state.level;
+            state.streak=0;
 
-      el.levelStreak.textContent =
-      state.levelStreak;
+            state.levelStreak=0;
 
-      el.coin.textContent =
-      state.coin;
+            state.coin=5;
 
-      el.levelFill.style.width =
-      percent+"%";
+            state.level=1;
 
-      el.levelProgressText.textContent =
-      levelPoint+
-      " / "+
-      LEVEL_POINTS;
 
-      }
+            saveGame();
 
-      var levelUpTimer =
-      null;
+            updateStats();
 
-      function showLevelUp(level){
+          }
 
-      el.levelUpNumber.textContent =
-      "LEVEL "+level;
+        }
 
-      el.levelUp.className =
-      "level-up show";
 
-      if(levelUpTimer){
+        setInterval(
+          checkNewDay,
+          60000
+        );
 
-      clearTimeout(
-      levelUpTimer
-      );
 
-      }
+        function updateStats(){
 
-      levelUpTimer =
-      setTimeout(function(){
+          var calculatedLevel =
+            Math.floor(
+              state.score /
+              LEVEL_POINTS
+            )+1;
 
-      el.levelUp.className =
-      "level-up";
 
-      },1800);
+          if(
+            calculatedLevel >
+            state.level
+          ){
 
-      }
+            state.level =
+              calculatedLevel;
 
-      function getCategoryIcon(category){
+            state.levelStreak++;
 
-      var c =
-      String(category || "")
-      .toLowerCase();
+            state.coin += 5;
 
-      if(c.indexOf("buah") !== -1)
-      return "B";
+            saveGame();
 
-      if(c.indexOf("hewan") !== -1)
-      return "H";
+            showLevelUp(
+              calculatedLevel
+            );
 
-      if(c.indexOf("binatang") !== -1)
-      return "H";
+          }else{
 
-      if(c.indexOf("makanan") !== -1)
-      return "M";
+            state.level =
+              calculatedLevel;
 
-      if(c.indexOf("minuman") !== -1)
-      return "D";
+          }
 
-      if(c.indexOf("kendaraan") !== -1)
-      return "K";
 
-      if(c.indexOf("transport") !== -1)
-      return "T";
+          var levelStart =
+            (state.level-1) *
+            LEVEL_POINTS;
 
-      if(c.indexOf("negara") !== -1)
-      return "N";
 
-      if(c.indexOf("kota") !== -1)
-      return "K";
+          var levelPoint =
+            state.score -
+            levelStart;
 
-      if(c.indexOf("profesi") !== -1)
-      return "P";
 
-      if(c.indexOf("pekerjaan") !== -1)
-      return "P";
+          var percent =
+            (levelPoint /
+            LEVEL_POINTS) *
+            100;
 
-      if(c.indexOf("benda") !== -1)
-      return "B";
 
-      if(c.indexOf("warna") !== -1)
-      return "W";
+          if(percent < 0){
+            percent=0;
+          }
 
-      if(c.indexOf("olahraga") !== -1)
-      return "O";
 
-      if(c.indexOf("teknologi") !== -1)
-      return "T";
+          if(percent > 100){
+            percent=100;
+          }
 
-      if(c.indexOf("film") !== -1)
-      return "F";
 
-      if(c.indexOf("musik") !== -1)
-      return "M";
+          el.score.textContent =
+            state.score;
 
-      if(c.indexOf("sekolah") !== -1)
-      return "S";
+          el.streak.textContent =
+            state.streak;
 
-      return "?";
+          el.level.textContent =
+            state.level;
 
-      }
+          el.levelStreak.textContent =
+            state.levelStreak;
 
-      function adjustQuestion(){
+          el.coin.textContent =
+            state.coin;
 
-      var text =
-      el.question.textContent || "";
+          el.levelFill.style.width =
+            percent+"%";
 
-      el.question.className =
-      "question";
+          el.levelProgressText.textContent =
+            levelPoint+
+            " / "+
+            LEVEL_POINTS;
 
-      if(
-      text.length > 25
-      ){
+        }
 
-      el.question.className +=
-      " long";
 
-      }
+        var levelUpTimer =
+          null;
 
-      if(
-      text.length > 40
-      ){
 
-      el.question.className +=
-      " very-long";
+        function showLevelUp(level){
 
-      }
+          el.levelUpNumber.textContent =
+            "LEVEL "+level;
 
-      }
 
-      function setLoadingUI(busy){
-      state.loading=busy;
-      el.loading.className=busy?"loading":"loading hide";
-      el.submitBtn.disabled=busy;
-      el.hintBtn.disabled=busy;
-      el.nextBtn.disabled=busy;
-      }
+          el.levelUp.className =
+            "level-up show";
 
-      function getQuestion(){
 
-      if(state.loading){
+          if(levelUpTimer){
 
-      return;
+            clearTimeout(
+              levelUpTimer
+            );
 
-      }
+          }
 
-      state.loading=true;
 
-      state.answered=false;
+          levelUpTimer =
+            setTimeout(
+              function(){
 
-      state.hintUsed=false;
+                el.levelUp.className =
+                  "level-up";
 
-      stopTimer();
+              },
+              1800
+            );
 
-      el.loading.className =
-      "loading";
+        }
 
-      el.answer.value =
-      "";
 
-      el.submitBtn.disabled =
-      true;
+        function getCategoryIcon(
+          category
+        ){
 
-      el.hintBtn.disabled =
-      true;
+          var c =
+            String(
+              category || ""
+            ).toLowerCase();
 
-      el.nextBtn.disabled =
-      true;
 
-      el.status.className =
-      "status";
+          if(
+            c.indexOf("buah") !== -1
+          )
+            return "B";
 
-      el.status.textContent =
-      "Nyari soal...";
 
-      var xhr =
-      new XMLHttpRequest();
+          if(
+            c.indexOf("hewan") !== -1
+          )
+            return "H";
 
-      xhr.open(
-      "GET",
-      API_URL,
-      true
-      );
 
-      xhr.timeout =
-      15000;
+          if(
+            c.indexOf("binatang") !== -1
+          )
+            return "H";
 
-      xhr.onreadystatechange =
-      function(){
 
-      if(
-      xhr.readyState !== 4
-      ){
+          if(
+            c.indexOf("makanan") !== -1
+          )
+            return "M";
 
-      return;
 
-      }
+          if(
+            c.indexOf("minuman") !== -1
+          )
+            return "D";
 
-      setLoadingUI(false);
 
-      if(
-      xhr.status >= 200 &&
-      xhr.status < 300
-      ){
+          if(
+            c.indexOf("kendaraan") !== -1
+          )
+            return "K";
 
-      try{
 
-      var json =
-      JSON.parse(
-      xhr.responseText
-      );
+          if(
+            c.indexOf("transport") !== -1
+          )
+            return "T";
 
-      if(
-      json &&
-      json.status &&
-      json.data &&
-      json.data.pertanyaan &&
-      json.data.jawaban
-      ){
 
-      state.category =
-      String(
-      json.data.tipe ||
-      "Umum"
-      );
+          if(
+            c.indexOf("negara") !== -1
+          )
+            return "N";
 
-      state.question =
-      String(
-      json.data.pertanyaan ||
-      ""
-      );
 
-      state.answer =
-      String(
-      json.data.jawaban ||
-      ""
-      )
-      .trim()
-      .toUpperCase();
+          if(
+            c.indexOf("kota") !== -1
+          )
+            return "K";
 
-      el.category.textContent =
-      state.category.toUpperCase();
 
-      el.categoryIcon.textContent =
-      getCategoryIcon(
-      state.category
-      );
+          if(
+            c.indexOf("profesi") !== -1
+          )
+            return "P";
 
-      el.question.textContent =
-      state.question;
 
-      adjustQuestion();
+          if(
+            c.indexOf("pekerjaan") !== -1
+          )
+            return "P";
 
-      resetTimer();
 
-      el.status.className =
-      "status"; 
+          if(
+            c.indexOf("benda") !== -1
+          )
+            return "B";
 
-      el.status.textContent =
-      "Tebak katanya sebelum waktu habis.";
 
-      }else{
+          if(
+            c.indexOf("warna") !== -1
+          )
+            return "W";
 
-      apiError();
 
-      }
+          if(
+            c.indexOf("olahraga") !== -1
+          )
+            return "O";
 
-      }catch(e){ 
 
-      apiError();
+          if(
+            c.indexOf("teknologi") !== -1
+          )
+            return "T";
 
-      }
 
-      }else{
+          if(
+            c.indexOf("film") !== -1
+          )
+            return "F";
 
-      apiError();
 
-      }
+          if(
+            c.indexOf("musik") !== -1
+          )
+            return "M";
 
-      };
 
-      xhr.onerror =
-      function(){
+          if(
+            c.indexOf("sekolah") !== -1
+          )
+            return "S";
 
-      setLoadingUI(false);
 
-      apiError();
+          return "?";
 
-      };
+        }
 
-      xhr.ontimeout =
-      function(){
 
-      setLoadingUI(false);
+        function adjustQuestion(){
 
-      apiError();
+          var text =
+            el.question.textContent ||
+            "";
 
-      };
 
-      xhr.send();
+          el.question.className =
+            "question";
 
-      }
 
-      function apiError(){
+          if(
+            text.length > 25
+          ){
 
-      el.status.className =
-      "status bad";
+            el.question.className +=
+              " long";
 
-      el.status.textContent =
-      "Gagal ambil soal. Coba lagi.";
+          }
 
-      }
 
-      function resetTimer(){
+          if(
+            text.length > 40
+          ){
 
-      stopTimer();
+            el.question.className +=
+              " very-long";
 
-      state.time =
-      QUESTION_TIME;
+          }
 
-      updateTimer();
+        }
 
-      state.timer =
-      setInterval(
-      function(){
 
-      state.time--;
+        function setLoadingUI(
+          busy
+        ){
 
-      updateTimer();
+          state.loading=busy;
 
-      if(
-      state.time <= 0
-      ){
 
-      stopTimer();
+          el.loading.className =
+            busy
+            ? "loading"
+            : "loading hide";
 
-      if(
-      !state.answered
-      ){
 
-      timeOut();
+          el.submitBtn.disabled =
+            busy;
 
-      }
+          el.hintBtn.disabled =
+            busy;
 
-      }
+          el.nextBtn.disabled =
+            busy;
 
-      },
-      1000
-      );
+        }
 
-      }
+        function getQuestion(){
 
-      function stopTimer(){
+          if(state.loading){
 
-      if(state.timer){
+            return;
 
-      clearInterval(
-      state.timer
-      );
+          }
 
-      state.timer=null;
 
-      }
+          state.loading=true;
 
-      }
+          state.answered=false;
 
-      function updateTimer(){
+          state.hintUsed=false;
 
-      var percent =
-      (state.time /
-      QUESTION_TIME) *
-      100;
 
-      if(percent < 0){
+          stopTimer();
 
-      percent=0;
 
-      }
+          el.loading.className =
+            "loading";
 
-      el.timerFill.style.width =
-      percent+"%";
 
-      el.timerFill.className =
-      "timer-fill";
+          el.answer.value =
+            "";
 
-      el.timerNumber.className =
-      "timer-number";
 
-      if(
-      state.time <= 7
-      ){
+          el.submitBtn.disabled =
+            true;
 
-      el.timerFill.className +=
-      " danger";
+          el.hintBtn.disabled =
+            true;
 
-      el.timerNumber.className +=
-      " danger";
+          el.nextBtn.disabled =
+            true;
 
-      }else if(
-      state.time <= 10
-      ){
 
-      el.timerFill.className +=
-      " warning";
+          el.status.className =
+            "status";
 
-      el.timerNumber.className +=
-      " warning";
 
-      }
+          el.status.textContent =
+            "Nyari soal...";
 
-      el.timerNumber.textContent =
-      state.time+"s";
 
-      }
+          /*
+           * Buat URL proxy.
+           *
+           * Hasil akhirnya:
+           *
+           * https://dimz-wtf.vercel.app/api/rxoen-pages?path=whatword
+           */
 
-      function updateLives(){
+          var endpoint =
+            new URL(API_URL);
 
-      var children =
-      el.lives.children;
 
-      for(
-      var i=0;
-      i<children.length;
-      i++
-      ){
+          endpoint.searchParams.set(
+            "path",
+            WHATWORD_PATH
+          );
 
-      if(
-      i < state.lives
-      ){
 
-      children[i].className =
-      "life";
+          var xhr =
+            new XMLHttpRequest();
 
-      }else{
 
-      children[i].className =
-      "life off";
+          try{
 
-      }
+            xhr.open(
+              "GET",
+              endpoint.toString(),
+              true
+            );
 
-      }
 
-      }
+            xhr.timeout =
+              15000;
 
-      function loseLife(){
 
-      state.lives--;
+            xhr.onreadystatechange =
+              function(){
 
-      updateLives();
+                if(
+                  xhr.readyState !== 4
+                ){
 
-      if(
-      state.lives <= 0
-      ){
+                  return;
 
-      gameOver();
+                }
 
-      return false;
 
-      }
+                setLoadingUI(false);
 
-      return true;
 
-      }
+                if(
+                  xhr.status >= 200 &&
+                  xhr.status < 300
+                ){
 
-      function normalizeWord(word){
+                  try{
 
-      return String(
-      word || ""
-      )
-      .toUpperCase()
-      .replace(
-      /[^A-Z0-9]/g,
-      ""
-      );
+                    var json =
+                      JSON.parse(
+                        xhr.responseText
+                      );
 
-      }
 
-      function levenshtein(a,b){
-      a=normalizeWord(a);
-      b=normalizeWord(b);
-      if(a===b)return 0;
-      if(!a.length)return b.length;
-      if(!b.length)return a.length;
-      if(a.length>b.length){
-      var t=a;a=b;b=t;
-      }
-      var prev=[],cur=[],i,j;
-      for(i=0;i<=a.length;i++)prev[i]=i;
-      for(i=1;i<=b.length;i++){
-      cur[0]=i;
-      for(j=1;j<=a.length;j++){
-      cur[j]=b.charAt(i-1)===a.charAt(j-1)?prev[j-1]:Math.min(prev[j]+1,cur[j-1]+1,prev[j-1]+1);
-      }
-      var tmp=prev;prev=cur;cur=tmp;
-      }
-      return prev[a.length];
-      }
+                    /*
+                     * Proxy bisa mengembalikan
+                     * status:false jika NeoXR gagal.
+                     */
 
-      function isAlmostCorrect(
-      input,
-      answer
-      ){
+                    if(
+                      json &&
+                      json.status === false
+                    ){
 
-      var a =
-      normalizeWord(input);
+                      apiError(
+                        json.message ||
+                        json.error ||
+                        "API gagal mengambil soal."
+                      );
 
-      var b =
-      normalizeWord(answer);
+                      return;
 
-      if(!a || !b){
+                    }
 
-      return false;
 
-      }
+                    /*
+                     * Format response
+                     * WHATWORD yang digunakan:
+                     *
+                     * {
+                     *   status:true,
+                     *   data:{
+                     *     tipe:"...",
+                     *     pertanyaan:"...",
+                     *     jawaban:"..."
+                     *   }
+                     * }
+                     */
 
-      if(a === b){
+                    if(
+                      json &&
+                      json.status &&
+                      json.data &&
+                      json.data.pertanyaan &&
+                      json.data.jawaban
+                    ){
 
-      return false;
+                      state.category =
+                        String(
+                          json.data.tipe ||
+                          "Umum"
+                        );
 
-      }
 
-      var maxDiff;
+                      state.question =
+                        String(
+                          json.data.pertanyaan ||
+                          ""
+                        );
 
-      if(b.length <= 4){
 
-      maxDiff=1;
+                      state.answer =
+                        String(
+                          json.data.jawaban ||
+                          ""
+                        )
+                        .trim()
+                        .toUpperCase();
 
-      }else{
 
-      maxDiff=2;
+                      el.category.textContent =
+                        state.category.toUpperCase();
 
-      }
 
-      return (
-      levenshtein(a,b)
-      <= maxDiff
-      );
+                      el.categoryIcon.textContent =
+                        getCategoryIcon(
+                          state.category
+                        );
 
-      }
 
-      function submitAnswer(){
+                      el.question.textContent =
+                        state.question;
 
-      if(
-      state.loading ||
-      state.answered
-      ){
 
-      return;
+                      adjustQuestion();
 
-      }
 
-      var value =
-      String(
-      el.answer.value || ""
-      )
-      .trim()
-      .toUpperCase();
+                      resetTimer();
 
-      if(!value){
 
-      el.answer.focus();
+                      el.status.className =
+                        "status";
 
-      return;
 
-      }
+                      el.status.textContent =
+                        "Tebak katanya sebelum waktu habis.";
 
-      var normalized =
-      normalizeWord(value);
+                    }else{
 
-      var correct =
-      normalizeWord(
-      state.answer
-      );
+                      apiError(
+                        "Data soal dari API tidak valid."
+                      );
 
-      if(
-      normalized === correct
-      ){
+                    }
 
-      correctAnswer();
+                  }catch(e){
 
-      return;
+                    apiError(
+                      "Response API bukan JSON yang valid."
+                    );
 
-      }
+                  }
 
-      if(
-      isAlmostCorrect(
-      value,
-      state.answer
-      )
-      ){
+                }else{
 
-      almostAnswer();
+                  try{
 
-      return;
+                    var errorData =
+                      JSON.parse(
+                        xhr.responseText
+                      );
 
-      }
 
-      wrongAnswer();
+                    apiError(
+                      errorData.message ||
+                      errorData.error ||
+                      "API HTTP "+
+                      xhr.status
+                    );
 
-      }
+                  }catch(e){
 
-      function correctAnswer(){
+                    apiError(
+                      "API HTTP "+
+                      xhr.status
+                    );
 
-      state.answered=true;
+                  }
 
-      stopTimer();
+                }
 
-      var randomPoint =
-      Math.floor(
-      Math.random()*13
-      )+8;
+              };
 
-      var timeBonus =
-      Math.floor(
-      state.time/4
-      );
 
-      var streakBonus =
-      Math.min(
-      state.streak,
-      10
-      );
+            xhr.onerror =
+              function(){
 
-      var gained =
-      randomPoint+
-      timeBonus+
-      streakBonus;
+                setLoadingUI(false);
 
-      state.score +=
-      gained;
+                apiError(
+                  "Tidak dapat menghubungi proxy API."
+                );
 
-      state.coin +=
-      1;
+              };
 
-      state.streak++;
 
-      if(
-      state.streak > 0 &&
-      state.streak % 5 === 0
-      ){
+            xhr.ontimeout =
+              function(){
 
-      state.coin += 3;
+                setLoadingUI(false);
 
-      }
+                apiError(
+                  "Request API timeout."
+                );
 
-      updateStats();
+              };
 
-      saveGame();
 
-      el.status.className =
-      "status good";
+            xhr.send();
 
-      el.status.textContent =
-      "Benar! +"+
-      gained+
-      " point • +1 coin";
+          }catch(e){
 
-      el.answer.value =
-      "";
+            setLoadingUI(false);
 
-      setTimeout(
-      function(){
+            apiError(
+              "Request tidak dapat dijalankan."
+            );
 
-      getQuestion();
+          }
 
-      },
-      600
-      );
+        }
 
-      }
 
-      function almostAnswer(){
+        function apiError(
+          message
+        ){
 
-      state.streak=0;
+          el.status.className =
+            "status bad";
 
-      saveGame();
 
-      updateStats();
+          el.status.textContent =
+            message ||
+            "Gagal ambil soal. Coba lagi.";
 
-      resetTimer();
+        }
 
-      el.answer.value =
-      "";
 
-      var messages=[
+        function resetTimer(){
 
-      "Dikit lagi.",
+          stopTimer();
 
-      "Sedikit lagi, hampir benar.",
 
-      "Udah deket banget.",
+          state.time =
+            QUESTION_TIME;
 
-      "Nyaris! Coba perbaiki sedikit.",
 
-      "Hampir kena."
+          updateTimer();
 
-      ];
 
-      var message =
-      messages[
-      Math.floor(
-      Math.random()*
-      messages.length
-      )
-      ];
+          state.timer =
+            setInterval(
+              function(){
 
-      el.status.className =
-      "status warn";
+                state.time--;
 
-      el.status.textContent =
-      message;
 
-      el.answer.focus();
+                updateTimer();
 
-      }
 
-      function wrongAnswer(){
+                if(
+                  state.time <= 0
+                ){
 
-      el.gameCard.className =
-      "card shake";
+                  stopTimer();
 
-      setTimeout(
-      function(){
 
-      el.gameCard.className =
-      "card";
+                  if(
+                    !state.answered
+                  ){
 
-      },
-      220
-      );
+                    timeOut();
 
-      var alive =
-      loseLife();
+                  }
 
-      if(!alive){
+                }
 
-      return;
+              },
+              1000
+            );
 
-      }
+        }
 
-      state.streak=0;
 
-      saveGame();
+        function stopTimer(){
 
-      updateStats();
+          if(state.timer){
 
-      resetTimer();
+            clearInterval(
+              state.timer
+            );
 
-      el.answer.value =
-      "";
 
-      var messages=[
+            state.timer=null;
 
-      "Salah wkwk.",
+          }
 
-      "Bukan itu jawabannya.",
+        }
 
-      "Masih salah, coba lagi.",
 
-      "Yakin itu?",
+        function updateTimer(){
 
-      "Belum tepat.",
+          var percent =
+            (state.time /
+            QUESTION_TIME) *
+            100;
 
-      "Coba pikir lagi."
 
-      ];
+          if(percent < 0){
 
-      var message =
-      messages[
-      Math.floor(
-      Math.random()*
-      messages.length
-      )
-      ];
+            percent=0;
 
-      el.status.className =
-      "status bad";
+          }
 
-      el.status.textContent =
-      message;
 
-      el.answer.focus();
+          el.timerFill.style.width =
+            percent+"%";
 
-      }
 
-      function timeOut(){
+          el.timerFill.className =
+            "timer-fill";
 
-      var alive =
-      loseLife();
 
-      if(!alive){
+          el.timerNumber.className =
+            "timer-number";
 
-      return;
 
-      }
+          if(
+            state.time <= 7
+          ){
 
-      state.streak=0;
+            el.timerFill.className +=
+              " danger";
 
-      saveGame();
+            el.timerNumber.className +=
+              " danger";
 
-      updateStats();
+          }else if(
+            state.time <= 10
+          ){
 
-      el.status.className =
-      "status bad";
+            el.timerFill.className +=
+              " warning";
 
-      el.status.textContent =
-      "Waktu habis.";
+            el.timerNumber.className +=
+              " warning";
 
-      resetTimer();
+          }
 
-      }
 
-      function buildHint(answer){
+          el.timerNumber.textContent =
+            state.time+"s";
 
-      var word =
-      normalizeWord(answer);
+        }
 
-      var length =
-      word.length;
 
-      var revealCount;
+        function updateLives(){
 
-      if(
-      length <= 4
-      ){
+          var children =
+            el.lives.children;
 
-      revealCount=2;
 
-      }else if(
-      length <= 6
-      ){
+          for(
+            var i=0;
+            i<children.length;
+            i++
+          ){
 
-      revealCount=2;
+            if(
+              i < state.lives
+            ){
 
-      }else if(
-      length <= 8
-      ){
+              children[i].className =
+                "life";
 
-      revealCount=3;
+            }else{
 
-      }else{
+              children[i].className =
+                "life off";
 
-      revealCount =
-      Math.max(
-      3,
-      Math.floor(
-      length*0.4
-      )
-      );
+            }
 
-      }
+          }
 
-      if(
-      revealCount >= length
-      ){
+        }
 
-      revealCount =
-      Math.max(
-      2,
-      length-1
-      );
 
-      }
+        function loseLife(){
 
-      var positions=[];
+          state.lives--;
 
-      for(
-      var i=0;
-      i<length;
-      i++
-      ){
+          updateLives();
 
-      positions.push(i);
 
-      }
+          if(
+            state.lives <= 0
+          ){
 
-      for(
-      var j=positions.length-1;
-      j>0;
-      j--
-      ){
+            gameOver();
 
-      var k =
-      Math.floor(
-      Math.random()*(j+1)
-      );
+            return false;
 
-      var temp =
-      positions[j];
+          }
 
-      positions[j]=
-      positions[k];
 
-      positions[k]=
-      temp;
+          return true;
 
-      }
+        }
 
-      var reveal={};
 
-      for(
-      var x=0;
-      x<revealCount;
-      x++
-      ){
+        function normalizeWord(
+          word
+        ){
 
-      reveal[
-      positions[x]
-      ]=true;
+          return String(
+            word || ""
+          )
+          .toUpperCase()
+          .replace(
+            /[^A-Z0-9]/g,
+            ""
+          );
 
-      }
+        }
 
-      var result="";
 
-      for(
-      var p=0;
-      p<length;
-      p++
-      ){
+        function levenshtein(
+          a,
+          b
+        ){
 
-      if(
-      reveal[p]
-      ){
+          a=normalizeWord(a);
 
-      result +=
-      word.charAt(p);
+          b=normalizeWord(b);
 
-      }else{
 
-      result +=
-      "_";
+          if(a===b)
+            return 0;
 
-      }
 
-      if(
-      p < length-1
-      ){
+          if(!a.length)
+            return b.length;
 
-      result +=
-      " ";
 
-      }
+          if(!b.length)
+            return a.length;
 
-      }
 
-      return result;
+          if(a.length>b.length){
 
-      }
+            var t=a;
 
-      function useHint(){
+            a=b;
 
-      if(
-      state.loading ||
-      state.answered
-      ){
+            b=t;
 
-      return;
+          }
 
-      }
 
-      if(
-      state.hintUsed
-      ){
+          var prev=[],
+              cur=[],
+              i,
+              j;
 
-      return;
 
-      }
+          for(
+            i=0;
+            i<=a.length;
+            i++
+          ){
 
-      if(
-      state.coin < HINT_COST
-      ){
+            prev[i]=i;
 
-      return;
+          }
 
-      }
 
-      state.coin -=
-      HINT_COST;
+          for(
+            i=1;
+            i<=b.length;
+            i++
+          ){
 
-      state.hintUsed=true;
+            cur[0]=i;
 
-      saveGame();
 
-      updateStats();
+            for(
+              j=1;
+              j<=a.length;
+              j++
+            ){
 
-      var hint =
-      buildHint(
-      state.answer
-      );
+              cur[j] =
+                b.charAt(i-1) ===
+                a.charAt(j-1)
+                ? prev[j-1]
+                : Math.min(
+                    prev[j]+1,
+                    cur[j-1]+1,
+                    prev[j-1]+1
+                  );
 
-      el.status.className =
-      "status info";
+            }
 
-      el.status.innerHTML =
-      "Petunjuk: "+
-      '<span class="hint-word">'+
-      hint+
-      "</span>";
 
-      el.hintBtn.disabled =
-      true;
+            var tmp=prev;
 
-      }
+            prev=cur;
 
-      function nextQuestion(){
+            cur=tmp;
 
-      if(state.loading){
+          }
 
-      return;
 
-      }
+          return prev[a.length];
 
-      if(
-      state.coin <
-      NEW_QUESTION_COST
-      ){
+        }
 
-      return;
 
-      }
+        function isAlmostCorrect(
+          input,
+          answer
+        ){
 
-      state.coin -=
-      NEW_QUESTION_COST;
+          var a =
+            normalizeWord(
+              input
+            );
 
-      saveGame();
 
-      updateStats();
+          var b =
+            normalizeWord(
+              answer
+            );
 
-      getQuestion();
 
-      }
+          if(!a || !b){
 
-      function gameOver(){
+            return false;
 
-      stopTimer();
+          }
 
-      state.answered=true;
 
-      el.correctAnswer.textContent =
-      state.answer || "-";
+          if(a===b){
 
-      el.horror.className =
-      "horror show";
+            return false;
 
-      }
+          }
 
-      function restart(){
 
-      el.horror.className =
-      "horror";
+          var maxDiff;
 
-      state.lives =
-      MAX_LIVES;
 
-      state.streak=0;
+          if(
+            b.length <= 4
+          ){
 
-      state.answered=false;
+            maxDiff=1;
 
-      updateLives();
+          }else{
 
-      saveGame();
+            maxDiff=2;
 
-      updateStats();
+          }
 
-      getQuestion();
 
-      }
-      el.submitBtn.onclick =
-      submitAnswer;
+          return (
+            levenshtein(a,b)
+            <= maxDiff
+          );
 
-      el.hintBtn.onclick =
-      useHint;
+        }
 
-      el.nextBtn.onclick =
-      nextQuestion;
 
-      el.restartBtn.onclick =
-      restart;
+        function submitAnswer(){
 
-      el.answer.onkeydown =
-      function(e){
+          if(
+            state.loading ||
+            state.answered
+          ){
 
-      if(
-      e.key === "Enter"
-      ){
+            return;
 
-      submitAnswer();
+          }
 
-      }
 
-      };
+          var value =
+            String(
+              el.answer.value || ""
+            )
+            .trim()
+            .toUpperCase();
 
-      loadSave();
 
-      updateLives();
+          if(!value){
 
-      updateStats();
+            el.answer.focus();
 
-      getQuestion();
+            return;
+
+          }
+
+
+          var normalized =
+            normalizeWord(
+              value
+            );
+
+
+          var correct =
+            normalizeWord(
+              state.answer
+            );
+
+
+          if(
+            normalized === correct
+          ){
+
+            correctAnswer();
+
+            return;
+
+          }
+
+
+          if(
+            isAlmostCorrect(
+              value,
+              state.answer
+            )
+          ){
+
+            almostAnswer();
+
+            return;
+
+          }
+
+
+          wrongAnswer();
+
+        }
+
+
+        function correctAnswer(){
+
+          state.answered=true;
+
+
+          stopTimer();
+
+
+          var randomPoint =
+            Math.floor(
+              Math.random()*13
+            )+8;
+
+
+          var timeBonus =
+            Math.floor(
+              state.time/4
+            );
+
+
+          var streakBonus =
+            Math.min(
+              state.streak,
+              10
+            );
+
+
+          var gained =
+            randomPoint+
+            timeBonus+
+            streakBonus;
+
+
+          state.score +=
+            gained;
+
+
+          state.coin +=
+            1;
+
+
+          state.streak++;
+
+
+          if(
+            state.streak > 0 &&
+            state.streak % 5 === 0
+          ){
+
+            state.coin += 3;
+
+          }
+
+
+          updateStats();
+
+          saveGame();
+
+
+          el.status.className =
+            "status good";
+
+
+          el.status.textContent =
+            "Benar! +"+
+            gained+
+            " point • +1 coin";
+
+
+          el.answer.value =
+            "";
+
+
+          setTimeout(
+            function(){
+
+              getQuestion();
+
+            },
+            600
+          );
+
+        }
+
+
+        function almostAnswer(){
+
+          state.streak=0;
+
+
+          saveGame();
+
+          updateStats();
+
+
+          resetTimer();
+
+
+          el.answer.value =
+            "";
+
+
+          var messages=[
+
+            "Dikit lagi.",
+
+            "Sedikit lagi, hampir benar.",
+
+            "Udah deket banget.",
+
+            "Nyaris! Coba perbaiki sedikit.",
+
+            "Hampir kena."
+
+          ];
+
+
+          var message =
+            messages[
+              Math.floor(
+                Math.random()*
+                messages.length
+              )
+            ];
+
+
+          el.status.className =
+            "status warn";
+
+
+          el.status.textContent =
+            message;
+
+
+          el.answer.focus();
+
+        }
+
+
+        function wrongAnswer(){
+
+          el.gameCard.className =
+            "card shake";
+
+
+          setTimeout(
+            function(){
+
+              el.gameCard.className =
+                "card";
+
+            },
+            220
+          );
+
+
+          var alive =
+            loseLife();
+
+
+          if(!alive){
+
+            return;
+
+          }
+
+
+          state.streak=0;
+
+
+          saveGame();
+
+          updateStats();
+
+
+          resetTimer();
+
+
+          el.answer.value =
+            "";
+
+
+          var messages=[
+
+            "Salah wkwk.",
+
+            "Bukan itu jawabannya.",
+
+            "Masih salah, coba lagi.",
+
+            "Yakin itu?",
+
+            "Belum tepat.",
+
+            "Coba pikir lagi."
+
+          ];
+
+
+          var message =
+            messages[
+              Math.floor(
+                Math.random()*
+                messages.length
+              )
+            ];
+
+
+          el.status.className =
+            "status bad";
+
+
+          el.status.textContent =
+            message;
+
+
+          el.answer.focus();
+
+        }
+
+
+        function timeOut(){
+
+          var alive =
+            loseLife();
+
+
+          if(!alive){
+
+            return;
+
+          }
+
+
+          state.streak=0;
+
+
+          saveGame();
+
+          updateStats();
+
+
+          el.status.className =
+            "status bad";
+
+
+          el.status.textContent =
+            "Waktu habis.";
+
+
+          resetTimer();
+
+        }
+
+
+        function buildHint(
+          answer
+        ){
+
+          var word =
+            normalizeWord(
+              answer
+            );
+
+
+          var length =
+            word.length;
+
+
+          var revealCount;
+
+
+          if(
+            length <= 4
+          ){
+
+            revealCount=2;
+
+          }else if(
+            length <= 6
+          ){
+
+            revealCount=2;
+
+          }else if(
+            length <= 8
+          ){
+
+            revealCount=3;
+
+          }else{
+
+            revealCount =
+              Math.max(
+                3,
+                Math.floor(
+                  length*0.4
+                )
+              );
+
+          }
+
+
+          if(
+            revealCount >= length
+          ){
+
+            revealCount =
+              Math.max(
+                2,
+                length-1
+              );
+
+          }
+
+
+          var positions=[];
+
+
+          for(
+            var i=0;
+            i<length;
+            i++
+          ){
+
+            positions.push(i);
+
+          }
+
+
+          for(
+            var j=positions.length-1;
+            j>0;
+            j--
+          ){
+
+            var k =
+              Math.floor(
+                Math.random()*(j+1)
+              );
+
+
+            var temp =
+              positions[j];
+
+
+            positions[j]=
+              positions[k];
+
+
+            positions[k]=
+              temp;
+
+          }
+
+
+          var reveal={};
+
+
+          for(
+            var x=0;
+            x<revealCount;
+            x++
+          ){
+
+            reveal[
+              positions[x]
+            ]=true;
+
+          }
+
+
+          var result="";
+
+
+          for(
+            var p=0;
+            p<length;
+            p++
+          ){
+
+            if(
+              reveal[p]
+            ){
+
+              result +=
+                word.charAt(p);
+
+            }else{
+
+              result +=
+                "_";
+
+            }
+
+
+            if(
+              p < length-1
+            ){
+
+              result +=
+                " ";
+
+            }
+
+          }
+
+
+          return result;
+
+        }
+
+
+        function useHint(){
+
+          if(
+            state.loading ||
+            state.answered
+          ){
+
+            return;
+
+          }
+
+
+          if(
+            state.hintUsed
+          ){
+
+            return;
+
+          }
+
+
+          if(
+            state.coin < HINT_COST
+          ){
+
+            return;
+
+          }
+
+
+          state.coin -=
+            HINT_COST;
+
+
+          state.hintUsed=true;
+
+
+          saveGame();
+
+          updateStats();
+
+
+          var hint =
+            buildHint(
+              state.answer
+            );
+
+
+          el.status.className =
+            "status info";
+
+
+          el.status.innerHTML =
+            "Petunjuk: "+
+            '<span class="hint-word">'+
+            hint+
+            "</span>";
+
+
+          el.hintBtn.disabled =
+            true;
+
+        }
+
+
+        function nextQuestion(){
+
+          if(state.loading){
+
+            return;
+
+          }
+
+
+          if(
+            state.coin <
+            NEW_QUESTION_COST
+          ){
+
+            return;
+
+          }
+
+
+          state.coin -=
+            NEW_QUESTION_COST;
+
+
+          saveGame();
+
+          updateStats();
+
+
+          getQuestion();
+
+        }
+
+
+        function gameOver(){
+
+          stopTimer();
+
+
+          state.answered=true;
+
+
+          el.correctAnswer.textContent =
+            state.answer || "-";
+
+
+          el.horror.className =
+            "horror show";
+
+        }
+
+
+        function restart(){
+
+          el.horror.className =
+            "horror";
+
+
+          state.lives =
+            MAX_LIVES;
+
+
+          state.streak=0;
+
+          state.answered=false;
+
+
+          updateLives();
+
+          saveGame();
+
+          updateStats();
+
+          getQuestion();
+
+        }
+
+
+        el.submitBtn.onclick =
+          submitAnswer;
+
+
+        el.hintBtn.onclick =
+          useHint;
+
+
+        el.nextBtn.onclick =
+          nextQuestion;
+
+
+        el.restartBtn.onclick =
+          restart;
+
+
+        el.answer.onkeydown =
+          function(e){
+
+            if(
+              e.key === "Enter"
+            ){
+
+              submitAnswer();
+
+            }
+
+          };
+
+
+        loadSave();
+
+        updateLives();
+
+        updateStats();
+
+        getQuestion();
 
       })();
     </script>
