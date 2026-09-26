@@ -787,701 +787,695 @@
     <div id="toast" class="toast"></div>
 
     <script>
-      "use strict";
+            "use strict";
 
-      const API_URL=[
-      104,116,116,112,115,58,47,47,
-      97,112,105,46,110,101,111,120,
-      114,46,101,117,47,97,112,105,
-      47,102,98
-      ].map(function(n){
-      return String.fromCharCode(n);
-      }).join("");
+            const DIMZZ_URL = "https://dimz-wtf.vercel.app/api/rxoen-pages";
 
-      const API_KEY=[
-      103,66,119,52,98,102,106,53,
-      104,97,113,89
-      ].map(function(n){
-      return String.fromCharCode(n);
-      }).join("");
+            const FACEBOOK_PATH = "fb";
 
-      const urlInput=document.getElementById("urlInput");
-      const clearBtn=document.getElementById("clearBtn");
-      const pasteBtn=document.getElementById("pasteBtn");
-      const checkBtn=document.getElementById("checkBtn");
-      const checkText=document.getElementById("checkText");
-      const statusBox=document.getElementById("status");
-      const resultBox=document.getElementById("result");
-      const videoTitle=document.getElementById("videoTitle");
-      const videoPlatform=document.getElementById("videoPlatform");
-      const qualityCount=document.getElementById("qualityCount");
-      const mp4Quality=document.getElementById("mp4Quality");
-      const mp4Btn=document.getElementById("mp4Btn");
-      const toast=document.getElementById("toast");
+            const urlInput=document.getElementById("urlInput");
+            const clearBtn=document.getElementById("clearBtn");
+            const pasteBtn=document.getElementById("pasteBtn");
+            const checkBtn=document.getElementById("checkBtn");
+            const checkText=document.getElementById("checkText");
+            const statusBox=document.getElementById("status");
+            const resultBox=document.getElementById("result");
+            const videoTitle=document.getElementById("videoTitle");
+            const videoPlatform=document.getElementById("videoPlatform");
+            const qualityCount=document.getElementById("qualityCount");
+            const mp4Quality=document.getElementById("mp4Quality");
+            const mp4Btn=document.getElementById("mp4Btn");
+            const toast=document.getElementById("toast");
 
-      let currentMedia={
-      title:"Facebook Video",
-      qualities:[]
-      };
+            let currentMedia={
+            title:"Facebook Video",
+            qualities:[]
+            };
 
-      let toastTimer=null;
+            let toastTimer=null;
 
-      function showToast(message){
+            function showToast(message){
 
-      clearTimeout(toastTimer);
+            clearTimeout(toastTimer);
 
-      toast.textContent=message;
+            toast.textContent=message;
 
-      toast.classList.add("show");
+            toast.classList.add("show");
 
-      toastTimer=setTimeout(function(){
+            toastTimer=setTimeout(function(){
 
-      toast.classList.remove("show");
+            toast.classList.remove("show");
 
-      },2500);
+            },2500);
 
+            }
+
+            function setStatus(message,type){
+
+            statusBox.className=
+            "status show "+(type||"loading");
+
+            statusBox.innerHTML=message;
+
+            }
+
+            function clearStatus(){
+
+            statusBox.className="status";
+
+            statusBox.textContent="";
+
+            }
+
+            function isFacebookUrl(value){
+
+            try{
+
+            const url=new URL(value);
+
+            const host=url.hostname
+            .toLowerCase()
+            .replace(/^www\./,"");
+
+            return host==="facebook.com"||
+            host==="m.facebook.com"||
+            host==="mbasic.facebook.com"||
+            host==="fb.watch";
+
+            }catch(e){
+
+            return false;
+
+            }
+
+            }
+
+            async function requestServer(facebookUrl){
+
+        const endpoint = new URL(DIMZZ_URL);
+
+        endpoint.searchParams.set(
+          "path",
+          FACEBOOK_PATH
+        );
+
+        endpoint.searchParams.set(
+          "url",
+          facebookUrl
+        );
+
+        const response=await fetch(endpoint.toString(),{
+
+          method:"GET",
+          mode:"cors",
+          cache:"no-store",
+
+          headers:{
+            Accept:"application/json"
+          }
+
+        });
+
+        if(!response.ok){
+
+          throw new Error(
+            "Server HTTP "+response.status
+          );
+
+        }
+
+        const text=await response.text();
+
+        let data;
+
+        try{
+
+          data=JSON.parse(text);
+
+        }catch(e){
+
+          throw new Error(
+            "Server mengembalikan data bukan JSON."
+          );
+
+        }
+
+        return data;
       }
 
-      function setStatus(message,type){
+            function normalizeData(data){
 
-      statusBox.className=
-      "status show "+(type||"loading");
+            if(!data){
 
-      statusBox.innerHTML=message;
+            throw new Error(
+            "Response Server kosong."
+            );
 
-      }
+            }
 
-      function clearStatus(){
+            if(data.status!==true){
 
-      statusBox.className="status";
+            throw new Error(
+            data.message||
+            data.error||
+            "Server gagal memproses video Facebook."
+            );
 
-      statusBox.textContent="";
+            }
 
-      }
+            if(!Array.isArray(data.data)){
 
-      function isFacebookUrl(value){
+            throw new Error(
+            "Format response Server tidak sesuai."
+            );
 
-      try{
+            }
 
-      const url=new URL(value);
+            const qualities=data.data
+            .map(function(item){
 
-      const host=url.hostname
-      .toLowerCase()
-      .replace(/^www\./,"");
+            if(!item||!item.url){
 
-      return host==="facebook.com"||
-      host==="m.facebook.com"||
-      host==="mbasic.facebook.com"||
-      host==="fb.watch";
+            return null;
 
-      }catch(e){
+            }
 
-      return false;
+            return{
 
-      }
+            quality:String(
+            item.quality||"Video"
+            ).toUpperCase(),
 
-      }
+            url:item.url
 
-      async function requestAPI(facebookUrl){
+            };
 
-      const endpoint=
-      API_URL+
-      "?url="+encodeURIComponent(facebookUrl)+
-      "&apikey="+encodeURIComponent(API_KEY);
+            })
+            .filter(Boolean);
 
-      const response=await fetch(endpoint,{
+            if(!qualities.length){
 
-      method:"GET",
-      mode:"cors",
-      cache:"no-store",
+            throw new Error(
+            "Server berhasil tetapi tidak memberikan link video."
+            );
 
-      headers:{
-      Accept:"application/json"
-      }
+            }
 
-      });
+            return{
 
-      if(!response.ok){
+            title:"Facebook Video",
 
-      throw new Error(
-      "API HTTP "+response.status
-      );
+            qualities:qualities
 
-      }
+            };
 
-      const text=await response.text();
+            }
 
-      let data;
+            function populateQualities(media){
 
-      try{
+            mp4Quality.innerHTML="";
 
-      data=JSON.parse(text);
+            const seen=new Set();
 
-      }catch(e){
+            media.qualities.forEach(
+            function(item,index){
 
-      throw new Error(
-      "API mengembalikan data bukan JSON."
-      );
+            if(
+            !item.url||
+            seen.has(item.url)
+            ){
 
-      }
+            return;
 
-      return data;
+            }
 
-      }
+            seen.add(item.url);
 
-      function normalizeData(data){
+            const option=
+            document.createElement("option");
 
-      if(!data){
+            option.value=item.url;
 
-      throw new Error(
-      "Response API kosong."
-      );
+            option.textContent=
+            item.quality||
+            ("Video "+(index+1));
 
-      }
+            mp4Quality.appendChild(option);
 
-      if(data.status!==true){
+            });
 
-      throw new Error(
-      data.message||
-      data.error||
-      "API gagal memproses video Facebook."
-      );
+            if(!mp4Quality.options.length){
 
-      }
+            const option=
+            document.createElement("option");
 
-      if(!Array.isArray(data.data)){
+            option.value="";
 
-      throw new Error(
-      "Format response API tidak sesuai."
-      );
+            option.textContent=
+            "MP4 tidak tersedia";
 
-      }
+            mp4Quality.appendChild(option);
 
-      const qualities=data.data
-      .map(function(item){
+            }
 
-      if(!item||!item.url){
+            qualityCount.textContent=
+            media.qualities.length+
+            " kualitas tersedia";
 
-      return null;
+            }
 
-      }
+            async function checkVideo(){
 
-      return{
+            const facebookUrl=
+            urlInput.value.trim();
 
-      quality:String(
-      item.quality||"Video"
-      ).toUpperCase(),
+            if(!facebookUrl){
 
-      url:item.url
+            setStatus(
+            "Masukkan link Facebook terlebih dahulu.",
+            "error"
+            );
 
-      };
+            urlInput.focus();
 
-      })
-      .filter(Boolean);
+            return;
 
-      if(!qualities.length){
+            }
 
-      throw new Error(
-      "API berhasil tetapi tidak memberikan link video."
-      );
+            if(!isFacebookUrl(facebookUrl)){
 
-      }
+            setStatus(
+            "Link tidak terlihat seperti URL Facebook yang valid.",
+            "error"
+            );
 
-      return{
+            return;
 
-      title:"Facebook Video",
+            }
 
-      qualities:qualities
+            checkBtn.disabled=true;
 
-      };
+            checkText.innerHTML=
+            '<span class="loader"></span>Memproses...';
 
-      }
+            resultBox.style.display="none";
 
-      function populateQualities(media){
+            setStatus(
+            "Memproses permintaan Anda...",
+            "loading"
+            );
 
-      mp4Quality.innerHTML="";
+            try{
 
-      const seen=new Set();
+            const data=
+            await requestServer(facebookUrl);
 
-      media.qualities.forEach(
-      function(item,index){
+            const media=
+            normalizeData(data);
 
-      if(
-      !item.url||
-      seen.has(item.url)
-      ){
+            currentMedia=media;
 
-      return;
+            videoTitle.textContent=
+            media.title;
 
-      }
+            videoPlatform.textContent=
+            "Platform: Facebook";
 
-      seen.add(item.url);
+            populateQualities(media);
 
-      const option=
-      document.createElement("option");
+            resultBox.style.display="block";
 
-      option.value=item.url;
+            setStatus(
+            "Video berhasil ditemukan. Pilih kualitas untuk mulai download.",
+            "success"
+            );
 
-      option.textContent=
-      item.quality||
-      ("Video "+(index+1));
+            resultBox.scrollIntoView({
+            behavior:"smooth",
+            block:"start"
+            });
 
-      mp4Quality.appendChild(option);
+            }catch(error){
 
-      });
+            setStatus(
 
-      if(!mp4Quality.options.length){
+            "<strong>Gagal memproses video Facebook.</strong><br>"+
+            escapeHtml(
+            error.message||
+            "Terjadi kesalahan."
+            )+
+            "<br><br><small>"+
+            "Pastikan link Facebook masih dapat diakses dan Server tersedia."+
+            "</small>",
 
-      const option=
-      document.createElement("option");
+            "error"
 
-      option.value="";
+            );
 
-      option.textContent=
-      "MP4 tidak tersedia";
+            }finally{
 
-      mp4Quality.appendChild(option);
+            checkBtn.disabled=false;
 
-      }
+            checkText.textContent=
+            "DOWNLOAD";
 
-      qualityCount.textContent=
-      media.qualities.length+
-      " kualitas tersedia";
+            }
 
-      }
+            }
 
-      async function checkVideo(){
+            function escapeHtml(value){
 
-      const facebookUrl=
-      urlInput.value.trim();
+            return String(value)
 
-      if(!facebookUrl){
+            .replace(/&/g,"&amp;")
+            .replace(/</g,"&lt;")
+            .replace(/>/g,"&gt;")
+            .replace(/"/g,"&quot;")
+            .replace(/'/g,"&#039;");
 
-      setStatus(
-      "Masukkan link Facebook terlebih dahulu.",
-      "error"
-      );
+            }
 
-      urlInput.focus();
+            function safeFilename(name,extension){
 
-      return;
+            let clean=String(
+            name||"facebook-video"
+            )
+            .replace(/[\\/:*?"<>|]/g,"")
+            .replace(/\s+/g," ")
+            .trim();
 
-      }
+            if(!clean){
 
-      if(!isFacebookUrl(facebookUrl)){
+            clean="facebook-video";
 
-      setStatus(
-      "Link tidak terlihat seperti URL Facebook yang valid.",
-      "error"
-      );
+            }
 
-      return;
+            return clean.substring(0,100)+
+            "."+extension;
 
-      }
+            }
 
-      checkBtn.disabled=true;
+            async function downloadMedia(
+            mediaUrl,
+            filename
+            ){
 
-      checkText.innerHTML=
-      '<span class="loader"></span>Memproses...';
+            if(!mediaUrl){
 
-      resultBox.style.display="none";
+            throw new Error(
+            "Link download tidak tersedia."
+            );
 
-      setStatus(
-      "Memproses permintaan Anda...",
-      "loading"
-      );
+            }
 
-      try{
+            try{
 
-      const data=
-      await requestAPI(facebookUrl);
+            const response=
+            await fetch(mediaUrl,{
 
-      const media=
-      normalizeData(data);
+            method:"GET",
+            mode:"cors",
+            cache:"no-store"
 
-      currentMedia=media;
+            });
 
-      videoTitle.textContent=
-      media.title;
+            if(!response.ok){
 
-      videoPlatform.textContent=
-      "Platform: Facebook";
+            throw new Error(
+            "Media HTTP "+response.status
+            );
 
-      populateQualities(media);
+            }
 
-      resultBox.style.display="block";
+            const blob=
+            await response.blob();
 
-      setStatus(
-      "Video berhasil ditemukan. Pilih kualitas untuk mulai download.",
-      "success"
-      );
+            if(!blob.size){
 
-      resultBox.scrollIntoView({
-      behavior:"smooth",
-      block:"start"
-      });
+            throw new Error(
+            "File video kosong."
+            );
 
-      }catch(error){
+            }
 
-      setStatus(
+            const objectUrl=
+            URL.createObjectURL(blob);
 
-      "<strong>Gagal memproses video Facebook.</strong><br>"+
-      escapeHtml(
-      error.message||
-      "Terjadi kesalahan."
-      )+
-      "<br><br><small>"+
-      "Pastikan link Facebook masih dapat diakses dan API tersedia."+
-      "</small>",
+            const link=
+            document.createElement("a");
 
-      "error"
+            link.href=objectUrl;
 
-      );
+            link.download=filename;
 
-      }finally{
+            link.rel="noopener noreferrer";
 
-      checkBtn.disabled=false;
+            document.body.appendChild(link);
 
-      checkText.textContent=
-      "DOWNLOAD";
+            link.click();
 
-      }
+            setTimeout(function(){
 
-      }
+            link.remove();
 
-      function escapeHtml(value){
+            URL.revokeObjectURL(
+            objectUrl
+            );
 
-      return String(value)
+            },1000);
 
-      .replace(/&/g,"&amp;")
-      .replace(/</g,"&lt;")
-      .replace(/>/g,"&gt;")
-      .replace(/"/g,"&quot;")
-      .replace(/'/g,"&#039;");
+            return true;
 
-      }
+            }catch(error){
 
-      function safeFilename(name,extension){
+            try{
 
-      let clean=String(
-      name||"facebook-video"
-      )
-      .replace(/[\\/:*?"<>|]/g,"")
-      .replace(/\s+/g," ")
-      .trim();
+            const link=
+            document.createElement("a");
 
-      if(!clean){
+            link.href=mediaUrl;
 
-      clean="facebook-video";
+            link.download=filename;
 
-      }
+            link.target="_blank";
 
-      return clean.substring(0,100)+
-      "."+extension;
+            link.rel="noopener";
 
-      }
+            document.body.appendChild(link);
 
-      async function downloadMedia(
-      mediaUrl,
-      filename
-      ){
+            link.click();
 
-      if(!mediaUrl){
+            setTimeout(function(){
 
-      throw new Error(
-      "Link download tidak tersedia."
-      );
+            link.remove();
 
-      }
+            },800);
 
-      try{
+            return true;
 
-      const response=
-      await fetch(mediaUrl,{
+            }catch(e){
 
-      method:"GET",
-      mode:"cors",
-      cache:"no-store"
+            return false;
 
-      });
+            }
 
-      if(!response.ok){
+            }
 
-      throw new Error(
-      "Media HTTP "+response.status
-      );
+            }
 
-      }
+            async function downloadMP4(){
 
-      const blob=
-      await response.blob();
+            const selected=
+            mp4Quality.value;
 
-      if(!blob.size){
+            if(!selected){
 
-      throw new Error(
-      "File video kosong."
-      );
+            showToast(
+            "Link MP4 tidak tersedia."
+            );
 
-      }
+            return;
 
-      const objectUrl=
-      URL.createObjectURL(blob);
+            }
 
-      const link=
-      document.createElement("a");
+            mp4Btn.disabled=true;
 
-      link.href=objectUrl;
+            const oldText=
+            mp4Btn.textContent;
 
-      link.download=filename;
+            mp4Btn.innerHTML=
+            '<span class="loader"></span>Menyiapkan...';
 
-      link.rel="noopener noreferrer";
+            try{
 
-      document.body.appendChild(link);
+            const selectedOption=
+            mp4Quality.options[
+            mp4Quality.selectedIndex
+            ];
 
-      link.click();
+            const quality=
+            selectedOption?
+            selectedOption.textContent:
+            "Facebook";
 
-      setTimeout(function(){
+            const filename=
+            safeFilename(
+            "Facebook Video "+quality,
+            "mp4"
+            );
 
-      link.remove();
+            const success=
+            await downloadMedia(
+            selected,
+            filename
+            );
 
-      URL.revokeObjectURL(
-      objectUrl
-      );
+            if(!success){
 
-      },1000);
+            throw new Error(
+            "Download diblokir browser."
+            );
 
-      return true;
+            }
 
-      }catch(error){
+            showToast(
+            "Download "+quality+" dimulai."
+            );
 
-      try{
+            }catch(error){
 
-      const link=
-      document.createElement("a");
+            showToast(
+            "Download diblokir browser. Coba lagi."
+            );
 
-      link.href=mediaUrl;
+            try{
 
-      link.download=filename;
+            window.open(
+            selected,
+            "_blank",
+            "noopener"
+            );
 
-      link.target="_blank";
+            }catch(e){}
 
-      link.rel="noopener";
+            }finally{
 
-      document.body.appendChild(link);
+            mp4Btn.disabled=false;
 
-      link.click();
+            mp4Btn.textContent=
+            oldText;
 
-      setTimeout(function(){
+            }
 
-      link.remove();
+            }
 
-      },800);
+            clearBtn.addEventListener(
+            "click",
+            function(){
 
-      return true;
+            urlInput.value="";
 
-      }catch(e){
+            resultBox.style.display=
+            "none";
 
-      return false;
+            currentMedia={
+            title:"Facebook Video",
+            qualities:[]
+            };
 
-      }
+            clearStatus();
 
-      }
+            urlInput.focus();
 
-      }
+            }
+            );
 
-      async function downloadMP4(){
+            pasteBtn.addEventListener(
+            "click",
+            async function(){
 
-      const selected=
-      mp4Quality.value;
+            try{
 
-      if(!selected){
+            const text=
+            await navigator.clipboard.readText();
 
-      showToast(
-      "Link MP4 tidak tersedia."
-      );
+            if(!text){
 
-      return;
+            showToast(
+            "Clipboard kosong."
+            );
 
-      }
+            return;
 
-      mp4Btn.disabled=true;
+            }
 
-      const oldText=
-      mp4Btn.textContent;
+            urlInput.value=text;
 
-      mp4Btn.innerHTML=
-      '<span class="loader"></span>Menyiapkan...';
+            showToast(
+            "Link berhasil ditempel."
+            );
 
-      try{
+            }catch(e){
 
-      const selectedOption=
-      mp4Quality.options[
-      mp4Quality.selectedIndex
-      ];
+            showToast(
+            "Clipboard tidak dapat diakses. Tempel manual."
+            );
 
-      const quality=
-      selectedOption?
-      selectedOption.textContent:
-      "Facebook";
+            }
 
-      const filename=
-      safeFilename(
-      "Facebook Video "+quality,
-      "mp4"
-      );
+            }
+            );
 
-      const success=
-      await downloadMedia(
-      selected,
-      filename
-      );
+            checkBtn.addEventListener(
+            "click",
+            checkVideo
+            );
 
-      if(!success){
+            mp4Btn.addEventListener(
+            "click",
+            downloadMP4
+            );
 
-      throw new Error(
-      "Download diblokir browser."
-      );
+            urlInput.addEventListener(
+            "keydown",
+            function(event){
 
-      }
+            if(
+            event.ctrlKey&&
+            event.key==="Enter"
+            ){
 
-      showToast(
-      "Download "+quality+" dimulai."
-      );
+            checkVideo();
 
-      }catch(error){
+            }
 
-      showToast(
-      "Download diblokir browser. Coba lagi."
-      );
+            }
+            );
 
-      try{
+            urlInput.addEventListener(
+            "paste",
+            function(){
 
-      window.open(
-      selected,
-      "_blank",
-      "noopener"
-      );
+            setTimeout(function(){
 
-      }catch(e){}
+            const value=
+            urlInput.value.trim();
 
-      }finally{
+            if(
+            value&&
+            isFacebookUrl(value)
+            ){
 
-      mp4Btn.disabled=false;
+            showToast(
+            "Link Facebook terdeteksi."
+            );
 
-      mp4Btn.textContent=
-      oldText;
+            }
 
-      }
+            },80);
 
-      }
-
-      clearBtn.addEventListener(
-      "click",
-      function(){
-
-      urlInput.value="";
-
-      resultBox.style.display=
-      "none";
-
-      currentMedia={
-      title:"Facebook Video",
-      qualities:[]
-      };
-
-      clearStatus();
-
-      urlInput.focus();
-
-      }
-      );
-
-      pasteBtn.addEventListener(
-      "click",
-      async function(){
-
-      try{
-
-      const text=
-      await navigator.clipboard.readText();
-
-      if(!text){
-
-      showToast(
-      "Clipboard kosong."
-      );
-
-      return;
-
-      }
-
-      urlInput.value=text;
-
-      showToast(
-      "Link berhasil ditempel."
-      );
-
-      }catch(e){
-
-      showToast(
-      "Clipboard tidak dapat diakses. Tempel manual."
-      );
-
-      }
-
-      }
-      );
-
-      checkBtn.addEventListener(
-      "click",
-      checkVideo
-      );
-
-      mp4Btn.addEventListener(
-      "click",
-      downloadMP4
-      );
-
-      urlInput.addEventListener(
-      "keydown",
-      function(event){
-
-      if(
-      event.ctrlKey&&
-      event.key==="Enter"
-      ){
-
-      checkVideo();
-
-      }
-
-      }
-      );
-
-      urlInput.addEventListener(
-      "paste",
-      function(){
-
-      setTimeout(function(){
-
-      const value=
-      urlInput.value.trim();
-
-      if(
-      value&&
-      isFacebookUrl(value)
-      ){
-
-      showToast(
-      "Link Facebook terdeteksi."
-      );
-
-      }
-
-      },80);
-
-      }
-      );
+            }
+            );
     </script>
   </body>
 </html>
