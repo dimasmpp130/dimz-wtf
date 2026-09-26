@@ -735,7 +735,7 @@
           <div class="info-card">
             <i class="fas fa-video"></i>
             <h3>Video</h3>
-            <p>Download video dengan kualitas asli dari hasil API.</p>
+            <p>Download video dengan kualitas asli dari hasil Server.</p>
           </div>
 
           <div class="info-card">
@@ -764,8 +764,8 @@
         arr.map(n=>String.fromCharCode(n)).join("");
 
       const CONFIG={
-        API_ENDPOINT: "https://dimz-wtf.vercel.app/api/rxoen-pages",
-        API_TIMEOUT:30000,
+        DIMZZ_URL: "https://dimz-wtf.vercel.app/api/rxoen-pages",
+        CLOCK_TIMEOUT:30000,
         DOWNLOAD_TIMEOUT:60000
       };
 
@@ -903,7 +903,7 @@
         }
       }
 
-      async function getJson(url,timeout=CONFIG.API_TIMEOUT){
+      async function getJson(url,timeout=CONFIG.CLOCK_TIMEOUT){
 
         const controller=new AbortController();
 
@@ -931,7 +931,7 @@
             data=JSON.parse(text);
           }catch{
             throw new Error(
-              `Respons API bukan JSON yang valid. HTTP ${response.status}`
+              `Respons Server bukan JSON yang valid. HTTP ${response.status}`
             );
           }
 
@@ -959,7 +959,7 @@
             /fetch/i.test(error.message)
           ){
             throw new Error(
-              "Browser gagal mengakses server API."
+              "Browser gagal mengakses server Server."
             );
           }
 
@@ -1196,7 +1196,7 @@
 
           }else{
             throw new Error(
-              "Format respons API tidak dikenali."
+              "Format respons Server tidak dikenali."
             );
           }
         }
@@ -1279,7 +1279,7 @@
       async function tryDimz(instagramUrl){
 
         const endpoint=
-          new URL(CONFIG.API_ENDPOINT);
+          new URL(CONFIG.DIMZZ_URL);
 
         endpoint.searchParams.set(
           "path",
@@ -1294,7 +1294,7 @@
         const data=
           await getJson(
             endpoint.toString(),
-            CONFIG.API_TIMEOUT
+            CONFIG.CLOCK_TIMEOUT
           );
 
         return parseDimz(data);
