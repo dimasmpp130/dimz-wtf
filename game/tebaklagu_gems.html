@@ -12,6 +12,7 @@
       content="TEBAK LAGU - Tebak judul lagu dari audio."
     />
     <title>TEBAK LAGU — DIMMZZZSUM_ENAK</title>
+
     <style>
       *{box-sizing:border-box;margin:0;padding:0}
       html,body{min-height:100%}
@@ -84,6 +85,7 @@
       .gameover-score{margin-top:7px;color:#8b93a1;font-size:11px}
       .gameover-score strong{color:#fff}
       .footer{padding:14px 0 4px;text-align:center;color:#4f5662;font-size:8px}
+
       @media(max-width:480px){
       .app{padding:11px}
       .stats{gap:5px}
@@ -96,6 +98,7 @@
       }
     </style>
   </head>
+
   <body>
     <div class="app">
       <header class="header">
@@ -103,6 +106,7 @@
           <h1>WHAT SONG?</h1>
           <p>Tebak judul lagu dari audionya</p>
         </div>
+
         <div class="coin-box">
           <span class="coin-icon">C</span>
           <span id="coin">5</span>
@@ -114,14 +118,17 @@
           <div class="stat-label">Level</div>
           <div class="stat-value level" id="level">1</div>
         </div>
+
         <div class="stat">
           <div class="stat-label">Point</div>
           <div class="stat-value" id="score">0</div>
         </div>
+
         <div class="stat">
           <div class="stat-label">Streak</div>
           <div class="stat-value streak" id="streak">0</div>
         </div>
+
         <div class="stat">
           <div class="stat-label">LV Streak</div>
           <div class="stat-value lvstreak" id="levelStreak">0</div>
@@ -164,6 +171,7 @@
         <div class="audio-box">
           <div class="audio-title">
             <div class="music-icon">♪</div>
+
             <div>
               <strong>Audio Lagu</strong>
               <span id="audioStatus">Menunggu soal...</span>
@@ -216,7 +224,7 @@
         <div class="status" id="status"></div>
       </main>
 
-      <div class="footer">TEBAK LAGU · GAME BY DIMMZZZSUM_ENAK</div>
+      <div class="footer">TEBAK LAGU · GAME BY DIMMZZSUM_ENAK</div>
     </div>
 
     <div class="modal" id="levelModal">
@@ -259,66 +267,124 @@
       (function(){
       "use strict";
 
-      var P=[
-      104,116,116,112,115,58,47,47,
-      97,112,105,46,110,101,111,120,114,46,101,117,
-      47,97,112,105,47,119,104,97,116,115,111,110,103
-      ];
+      var DIMZZ_URL=
+      "https://dimz-wtf.vercel.app/api/rxoen-pages";
 
-      var Q=[
-      103,66,119,52,98,102,106,53,104,97,113,89
-      ];
+      var SONG_PATH=
+      "whatsong";
 
-      var API_ENDPOINT=
-      String.fromCharCode.apply(null,P)+
-      "?apikey="+
-      String.fromCharCode.apply(null,Q);
+      var STORAGE_KEY=
+      "what_song_dimmzzsum_v6";
 
-      var STORAGE_KEY="what_song_dimmzzsum_v6";
       var GAME_TIME=20;
       var CORRECT_DELAY=1200;
       var WRONG_DELAY=1800;
       var TIMEOUT_DELAY=1800;
 
-      var coinEl=document.getElementById("coin");
-      var levelEl=document.getElementById("level");
-      var scoreEl=document.getElementById("score");
-      var streakEl=document.getElementById("streak");
-      var levelStreakEl=document.getElementById("levelStreak");
-      var levelRangeEl=document.getElementById("levelRange");
-      var nextLevelEl=document.getElementById("nextLevel");
-      var progressBar=document.getElementById("progressBar");
-      var timerText=document.getElementById("timerText");
-      var timerBar=document.getElementById("timerBar");
-      var livesEl=document.getElementById("lives");
-      var audio=document.getElementById("audio");
-      var audioStatus=document.getElementById("audioStatus");
-      var answerInput=document.getElementById("answerInput");
-      var answerBtn=document.getElementById("answerBtn");
-      var hintBtn=document.getElementById("hintBtn");
-      var newBtn=document.getElementById("newBtn");
-      var result=document.getElementById("result");
-      var resultTitle=document.getElementById("resultTitle");
-      var resultAnswer=document.getElementById("resultAnswer");
-      var resultExplanation=document.getElementById("resultExplanation");
-      var statusEl=document.getElementById("status");
-      var levelModal=document.getElementById("levelModal");
-      var levelModalBtn=document.getElementById("levelModalBtn");
-      var gameOverModal=document.getElementById("gameOverModal");
-      var finalScore=document.getElementById("finalScore");
-      var finalLevel=document.getElementById("finalLevel");
-      var restartBtn=document.getElementById("restartBtn");
+      var coinEl=
+      document.getElementById("coin");
+
+      var levelEl=
+      document.getElementById("level");
+
+      var scoreEl=
+      document.getElementById("score");
+
+      var streakEl=
+      document.getElementById("streak");
+
+      var levelStreakEl=
+      document.getElementById("levelStreak");
+
+      var levelRangeEl=
+      document.getElementById("levelRange");
+
+      var nextLevelEl=
+      document.getElementById("nextLevel");
+
+      var progressBar=
+      document.getElementById("progressBar");
+
+      var timerText=
+      document.getElementById("timerText");
+
+      var timerBar=
+      document.getElementById("timerBar");
+
+      var livesEl=
+      document.getElementById("lives");
+
+      var audio=
+      document.getElementById("audio");
+
+      var audioStatus=
+      document.getElementById("audioStatus");
+
+      var answerInput=
+      document.getElementById("answerInput");
+
+      var answerBtn=
+      document.getElementById("answerBtn");
+
+      var hintBtn=
+      document.getElementById("hintBtn");
+
+      var newBtn=
+      document.getElementById("newBtn");
+
+      var result=
+      document.getElementById("result");
+
+      var resultTitle=
+      document.getElementById("resultTitle");
+
+      var resultAnswer=
+      document.getElementById("resultAnswer");
+
+      var resultExplanation=
+      document.getElementById("resultExplanation");
+
+      var statusEl=
+      document.getElementById("status");
+
+      var levelModal=
+      document.getElementById("levelModal");
+
+      var levelModalBtn=
+      document.getElementById("levelModalBtn");
+
+      var gameOverModal=
+      document.getElementById("gameOverModal");
+
+      var finalScore=
+      document.getElementById("finalScore");
+
+      var finalLevel=
+      document.getElementById("finalLevel");
+
+      var restartBtn=
+      document.getElementById("restartBtn");
 
       function two(n){
-      return n<10?"0"+n:String(n);
+      return n<10?
+      "0"+n:
+      String(n);
       }
 
       function dateKey(){
+
       var d=new Date();
-      return d.getFullYear()+"-"+two(d.getMonth()+1)+"-"+two(d.getDate());
+
+      return d.getFullYear()+
+      "-"+
+      two(d.getMonth()+1)+
+      "-"+
+      two(d.getDate());
+
       }
 
       function defaultState(){
+
       return{
       date:dateKey(),
       score:0,
@@ -327,93 +393,173 @@
       coin:5,
       level:1
       };
+
       }
 
       function loadState(){
+
       try{
-      var x=JSON.parse(
-      localStorage.getItem(STORAGE_KEY)||"null"
+
+      var x=
+      JSON.parse(
+      localStorage.getItem(
+      STORAGE_KEY
+      )||"null"
       );
 
-      if(!x||x.date!==dateKey()){
+      if(
+      !x||
+      x.date!==dateKey()
+      ){
+
       return defaultState();
+
       }
 
       return{
+
       date:x.date,
-      score:Number(x.score)||0,
-      streak:Number(x.streak)||0,
-      levelStreak:Number(x.levelStreak)||0,
-      coin:Number(x.coin)||0,
-      level:Number(x.level)||1
+
+      score:
+      Number(x.score)||0,
+
+      streak:
+      Number(x.streak)||0,
+
+      levelStreak:
+      Number(x.levelStreak)||0,
+
+      coin:
+      Number(x.coin)||0,
+
+      level:
+      Number(x.level)||1
+
       };
 
       }catch(e){
+
       return defaultState();
+
       }
+
       }
 
       var state=loadState();
 
       var lives=3;
+
       var correctTitle="";
+
       var explanation="";
+
       var timer=null;
+
       var timeLeft=GAME_TIME;
+
       var questionActive=false;
+
       var questionLocked=false;
+
       var transitionTimer=null;
+
       var lastTitle="";
+
       var requestId=0;
+
       var hintUsed=false;
+
       var gameOverState=false;
 
       function saveState(){
+
       try{
+
       localStorage.setItem(
       STORAGE_KEY,
       JSON.stringify(state)
       );
+
       }catch(e){}
+
       }
 
       function updateUI(){
 
-      coinEl.textContent=state.coin;
-      levelEl.textContent=state.level;
-      scoreEl.textContent=state.score;
-      streakEl.textContent=state.streak;
-      levelStreakEl.textContent=state.levelStreak;
+      coinEl.textContent=
+      state.coin;
 
-      var base=(state.level-1)*100;
-      var progress=state.score-base;
+      levelEl.textContent=
+      state.level;
 
-      if(progress<0)progress=0;
-      if(progress>100)progress=100;
+      scoreEl.textContent=
+      state.score;
 
-      progressBar.style.width=progress+"%";
-      levelRangeEl.textContent=progress+" / 100 XP";
-      nextLevelEl.textContent="Level "+(state.level+1);
+      streakEl.textContent=
+      state.streak;
+
+      levelStreakEl.textContent=
+      state.levelStreak;
+
+      var base=
+      (state.level-1)*100;
+
+      var progress=
+      state.score-base;
+
+      if(progress<0)
+      progress=0;
+
+      if(progress>100)
+      progress=100;
+
+      progressBar.style.width=
+      progress+"%";
+
+      levelRangeEl.textContent=
+      progress+" / 100 XP";
+
+      nextLevelEl.textContent=
+      "Level "+(state.level+1);
+
       }
 
       function updateLives(){
 
       var hearts=
-      livesEl.getElementsByClassName("life");
+      livesEl.getElementsByClassName(
+      "life"
+      );
 
-      for(var i=0;i<hearts.length;i++){
+      for(
+      var i=0;
+      i<hearts.length;
+      i++
+      ){
 
       if(i<lives){
-      hearts[i].classList.remove("dead");
+
+      hearts[i].classList.remove(
+      "dead"
+      );
+
       }else{
-      hearts[i].classList.add("dead");
+
+      hearts[i].classList.add(
+      "dead"
+      );
+
       }
 
       }
+
       }
 
       function setStatus(message){
-      statusEl.textContent=message||"";
+
+      statusEl.textContent=
+      message||"";
+
       }
 
       function normalize(text){
@@ -421,42 +567,64 @@
       return String(text||"")
       .toLowerCase()
       .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g,"")
-      .replace(/[^a-z0-9\s]/g," ")
-      .replace(/\s+/g," ")
+      .replace(
+      /[\u0300-\u036f]/g,
+      ""
+      )
+      .replace(
+      /[^a-z0-9\s]/g,
+      " "
+      )
+      .replace(
+      /\s+/g,
+      " "
+      )
       .trim();
 
       }
 
       function isCorrect(a,b){
-      return normalize(a)===normalize(b);
+
+      return normalize(a)===
+      normalize(b);
+
       }
 
       function randomInt(min,max){
+
       return Math.floor(
-      Math.random()*(max-min+1)
+      Math.random()*
+      (max-min+1)
       )+min;
+
       }
 
       function stopTimer(){
 
       if(timer!==null){
+
       clearInterval(timer);
       timer=null;
+
       }
 
       }
 
       function updateTimer(){
 
-      timerText.textContent=timeLeft+"s";
+      timerText.textContent=
+      timeLeft+"s";
 
       var percent=
-      timeLeft/GAME_TIME*100;
+      timeLeft/
+      GAME_TIME*
+      100;
 
-      if(percent<0)percent=0;
+      if(percent<0)
+      percent=0;
 
-      timerBar.style.width=percent+"%";
+      timerBar.style.width=
+      percent+"%";
 
       }
 
@@ -464,13 +632,16 @@
 
       stopTimer();
 
-      timeLeft=GAME_TIME;
+      timeLeft=
+      GAME_TIME;
 
       updateTimer();
 
-      timer=setInterval(function(){
+      timer=setInterval(
+      function(){
 
-      if(!questionActive)return;
+      if(!questionActive)
+      return;
 
       timeLeft--;
 
@@ -484,26 +655,33 @@
 
       }
 
-      },1000);
+      },
+      1000
+      );
 
       }
 
       function resetResult(){
 
-      result.classList.remove("show");
+      result.classList.remove(
+      "show"
+      );
 
       resultTitle.textContent="";
       resultAnswer.textContent="";
       resultExplanation.textContent="";
 
-      resultTitle.className="result-title";
+      resultTitle.className=
+      "result-title";
 
       }
 
       function resetQuestionUI(){
 
       answerInput.value="";
-      answerInput.disabled=true;
+
+      answerInput.disabled=
+      true;
 
       answerInput.classList.remove(
       "correct",
@@ -526,7 +704,9 @@
 
       audio.pause();
 
-      audio.removeAttribute("src");
+      audio.removeAttribute(
+      "src"
+      );
 
       audio.load();
 
@@ -561,19 +741,32 @@
 
       async function requestSong(){
 
+      var endpoint=
+      new URL(DIMZZ_URL);
+
+      endpoint.searchParams.set(
+      "path",
+      SONG_PATH
+      );
+
       var controller=
       new AbortController();
 
       var timeout=
-      setTimeout(function(){
+      setTimeout(
+      function(){
+
       controller.abort();
-      },15000);
+
+      },
+      15000
+      );
 
       try{
 
       var response=
       await fetch(
-      API_ENDPOINT,
+      endpoint.toString(),
       {
       method:"GET",
       mode:"cors",
@@ -590,7 +783,8 @@
       if(!response.ok){
 
       throw new Error(
-      "API HTTP "+response.status
+      "Server HTTP "+
+      response.status
       );
 
       }
@@ -599,24 +793,40 @@
 
       try{
 
-      data=await response.json();
+      data=
+      await response.json();
 
       }catch(e){
 
       throw new Error(
-      "Response API bukan JSON."
+      "Response Server bukan JSON."
       );
 
       }
 
       if(
       !data||
-      data.status!==true||
+      data.status===false
+      ){
+
+      throw new Error(
+      data&&
+      (
+      data.message||
+      data.error
+      )
+      ||
+      "Server gagal mengambil soal."
+      );
+
+      }
+
+      if(
       !data.data
       ){
 
       throw new Error(
-      "API tidak mengembalikan soal."
+      "Server tidak mengembalikan soal."
       );
 
       }
@@ -627,7 +837,7 @@
       ){
 
       throw new Error(
-      "Data soal API tidak lengkap."
+      "Data soal Server tidak lengkap."
       );
 
       }
@@ -644,7 +854,7 @@
       ){
 
       throw new Error(
-      "Request API timeout."
+      "Request Server timeout."
       );
 
       }
@@ -653,11 +863,13 @@
       error&&
       String(error.message)
       .toLowerCase()
-      .indexOf("failed to fetch")!==-1
+      .indexOf(
+      "failed to fetch"
+      )!==-1
       ){
 
       throw new Error(
-      "Koneksi API gagal atau CORS diblokir browser."
+      "Koneksi Server gagal atau CORS diblokir browser."
       );
 
       }
@@ -670,16 +882,26 @@
 
       async function loadQuestion(){
 
-      if(questionLocked||gameOverState)return;
+      if(
+      questionLocked||
+      gameOverState
+      ){
 
-      var currentRequest=++requestId;
+      return;
+
+      }
+
+      var currentRequest=
+      ++requestId;
 
       questionLocked=true;
       questionActive=false;
       hintUsed=false;
 
       stopTimer();
+
       resetQuestionUI();
+
       setupAudio("");
 
       audioStatus.textContent=
@@ -694,17 +916,26 @@
       var response=
       await requestSong();
 
-      if(currentRequest!==requestId){
+      if(
+      currentRequest!==requestId
+      ){
+
       return;
+
       }
 
-      var data=response.data;
+      var data=
+      response.data;
 
       var title=
-      String(data.title||"").trim();
+      String(
+      data.title||""
+      ).trim();
 
       var path=
-      String(data.path||"").trim();
+      String(
+      data.path||""
+      ).trim();
 
       if(
       normalize(title)===
@@ -727,6 +958,7 @@
       }
 
       lastTitle=title;
+
       correctTitle=title;
 
       explanation=
@@ -752,13 +984,19 @@
       startTimer();
 
       try{
+
       answerInput.focus();
+
       }catch(e){}
 
       }catch(error){
 
-      if(currentRequest!==requestId){
+      if(
+      currentRequest!==requestId
+      ){
+
       return;
+
       }
 
       questionLocked=false;
@@ -791,8 +1029,13 @@
 
       function submitAnswer(){
 
-      if(!questionActive||questionLocked){
+      if(
+      !questionActive||
+      questionLocked
+      ){
+
       return;
+
       }
 
       var value=
@@ -805,7 +1048,9 @@
       );
 
       try{
+
       answerInput.focus();
+
       }catch(e){}
 
       return;
@@ -816,6 +1061,7 @@
       questionLocked=true;
 
       stopTimer();
+
       disableQuestionUI();
 
       if(
@@ -844,12 +1090,18 @@
       var gained=
       randomInt(8,20)+
       Math.floor(timeLeft/4)+
-      Math.min(state.streak,10);
+      Math.min(
+      state.streak,
+      10
+      );
 
-      var oldLevel=state.level;
+      var oldLevel=
+      state.level;
 
       state.score+=gained;
+
       state.streak++;
+
       state.coin++;
 
       var streakCoin=0;
@@ -860,6 +1112,7 @@
       ){
 
       state.coin+=3;
+
       streakCoin=3;
 
       }
@@ -874,8 +1127,11 @@
 
       if(leveledUp){
 
-      state.level=newLevel;
+      state.level=
+      newLevel;
+
       state.levelStreak++;
+
       state.coin+=5;
 
       }
@@ -883,7 +1139,9 @@
       saveState();
       updateUI();
 
-      result.classList.add("show");
+      result.classList.add(
+      "show"
+      );
 
       resultTitle.className=
       "result-title good";
@@ -892,25 +1150,32 @@
       "BENAR!";
 
       resultAnswer.textContent=
-      "Jawaban: "+correctTitle;
+      "Jawaban: "+
+      correctTitle;
 
       resultExplanation.textContent=
-      "+"+gained+
+      "+"+
+      gained+
       " point · +1 coin"+
       (
       streakCoin
-      ?" · streak +3 coin"
-      :""
+      ?
+      " · streak +3 coin"
+      :
+      ""
       );
 
       setStatus(
       leveledUp
-      ?"Level naik! +5 coin."
-      :"Jawaban benar."
+      ?
+      "Level naik! +5 coin."
+      :
+      "Jawaban benar."
       );
 
       transitionTimer=
-      setTimeout(function(){
+      setTimeout(
+      function(){
 
       answerInput.classList.remove(
       "correct"
@@ -928,13 +1193,16 @@
 
       }
 
-      },CORRECT_DELAY);
+      },
+      CORRECT_DELAY
+      );
 
       }
 
       function handleWrong(){
 
       lives--;
+
       state.streak=0;
 
       saveState();
@@ -945,7 +1213,9 @@
       "wrong"
       );
 
-      result.classList.add("show");
+      result.classList.add(
+      "show"
+      );
 
       resultTitle.className=
       "result-title bad";
@@ -961,11 +1231,13 @@
       explanation;
 
       setStatus(
-      "Sisa nyawa: "+lives
+      "Sisa nyawa: "+
+      lives
       );
 
       transitionTimer=
-      setTimeout(function(){
+      setTimeout(
+      function(){
 
       answerInput.classList.remove(
       "wrong"
@@ -981,7 +1253,9 @@
 
       }
 
-      },WRONG_DELAY);
+      },
+      WRONG_DELAY
+      );
 
       }
 
@@ -995,14 +1269,18 @@
       questionLocked=true;
 
       lives--;
+
       state.streak=0;
 
       saveState();
       updateUI();
       updateLives();
+
       disableQuestionUI();
 
-      result.classList.add("show");
+      result.classList.add(
+      "show"
+      );
 
       resultTitle.className=
       "result-title bad";
@@ -1018,11 +1296,13 @@
       explanation;
 
       setStatus(
-      "Sisa nyawa: "+lives
+      "Sisa nyawa: "+
+      lives
       );
 
       transitionTimer=
-      setTimeout(function(){
+      setTimeout(
+      function(){
 
       if(lives<=0){
 
@@ -1034,14 +1314,21 @@
 
       }
 
-      },TIMEOUT_DELAY);
+      },
+      TIMEOUT_DELAY
+      );
 
       }
 
       function useHint(){
 
-      if(!questionActive||questionLocked){
+      if(
+      !questionActive||
+      questionLocked
+      ){
+
       return;
+
       }
 
       if(hintUsed){
@@ -1065,6 +1352,7 @@
       }
 
       state.coin-=2;
+
       hintUsed=true;
 
       saveState();
@@ -1083,13 +1371,18 @@
       i++
       ){
 
-      if(i)hint+=" ";
+      if(i)
+      hint+=" ";
 
-      var word=words[i];
+      var word=
+      words[i];
 
-      if(word.length<=1){
+      if(
+      word.length<=1
+      ){
 
-      hint+=word.charAt(0);
+      hint+=
+      word.charAt(0);
 
       }else{
 
@@ -1140,7 +1433,9 @@
       }
 
       if(questionLocked){
+
       return;
+
       }
 
       if(state.coin<1){
@@ -1180,7 +1475,9 @@
       gameOverState=true;
 
       try{
+
       audio.pause();
+
       }catch(e){}
 
       finalScore.textContent=
@@ -1198,11 +1495,15 @@
       function restartGame(){
 
       lives=3;
+
       state.streak=0;
+
       lastTitle="";
+
       gameOverState=false;
 
       saveState();
+
       updateUI();
       updateLives();
 
@@ -1256,7 +1557,8 @@
       audio.onerror=
       function(){
 
-      if(!questionActive)return;
+      if(!questionActive)
+      return;
 
       audioStatus.textContent=
       "Audio gagal dimuat.";
@@ -1289,6 +1591,7 @@
       gameOverState=false;
 
       saveState();
+
       updateUI();
       updateLives();
 
