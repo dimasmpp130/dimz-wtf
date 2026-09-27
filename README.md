@@ -153,7 +153,7 @@ Ide, masukan, dan kontribusi yang membantu pengembangan project.
 
 ## ⚠️ Disclaimer
 
-Beberapa tools di dalam project ini dapat menggunakan layanan atau pihak ketiga.
+Beberapa tools di dalam project ini menggunakan layanan atau pihak ketiga.
 
 DIMZ WTF tidak bertanggung jawab atas penggunaan layanan pihak ketiga di luar kendali project.
 
