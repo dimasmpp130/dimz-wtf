@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"
+    />
+    <meta name="theme-color" content="#08080c" />
+    <meta
+      name="description"
+      content="EmojiView - lihat tampilan emoji dari berbagai platform."
+    />
+    <title>EmojiView — DIMMZZZSUM_ENAK</title>
+
+    <style>
+      *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0
+      }
+
+      :root{
+      --bg:#08080c;
+      --panel:#101016;
+      --panel2:#14141c;
+      --line:#252531;
+      --line2:#30303d;
+      --text:#f5f5f7;
+      --muted:#777783;
+      --purple:#856cff;
+      --purple2:#a18cff;
+      }
+
+      html{
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+      -webkit-tap-highlight-color:transparent
+      }
+
+      body{
+      min-height:100vh;
+      background:
+      radial-gradient(
+      circle at 50% -10%,
+      rgba(133,108,255,.17),
+      transparent 32%
+      ),
+      var(--bg)
+      }
+
+      button,
+      input{
+      font:inherit
+      }
+
+      button{
+      cursor:pointer;
+      -webkit-tap-highlight-color:transparent
+      }
+
+      .app{
+      width:100%;
+      max-width:980px;
+      margin:auto;
+      padding:14px 12px 40px
+      }
+
+      .header{
+      padding:7px 3px 18px
+      }
+
+      .brand{
+      display:flex;
+      align-items:center;
+      gap:10px
+      }
+
+      .logo{
+      width:44px;
+      height:44px;
+      border:1px solid var(--line2);
+      border-radius:14px;
+      background:
+      linear-gradient(
+      145deg,
+      #181821,
+      #0e0e14
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:23px;
+      box-shadow:
+      0 8px 25px rgba(0,0,0,.25)
+      }
+
+      .title{
+      font-size:23px;
+      font-weight:800;
+      letter-spacing:-.8px
+      }
+
+      .title span{
+      color:var(--purple2)
+      }
+
+      .sub{
+      margin-left:54px;
+      margin-top:5px;
+      font-size:11px;
+      color:var(--muted)
+      }
+
+      .hero{
+      position:relative;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:22px;
+      background:
+      linear-gradient(
+      145deg,
+      rgba(24,24,33,.96),
+      rgba(12,12,17,.98)
+      );
+      padding:17px;
+      box-shadow:
+      0 18px 45px rgba(0,0,0,.25)
+      }
+
+      .hero:before{
+      content:"";
+      position:absolute;
+      width:150px;
+      height:150px;
+      right:-80px;
+      top:-90px;
+      border-radius:50%;
+      background:rgba(133,108,255,.12);
+      pointer-events:none
+      }
+
+      .hero-title{
+      position:relative
+      }
+
+      .hero h1{
+      font-size:19px;
+      line-height:1.2;
+      letter-spacing:-.3px
+      }
+
+      .hero p{
+      position:relative;
+      margin-top:6px;
+      max-width:620px;
+      font-size:11px;
+      line-height:1.55;
+      color:var(--muted)
+      }
+
+      .search-box{
+      position:relative;
+      display:flex;
+      gap:8px;
+      margin-top:17px
+      }
+
+      .input-wrap{
+      position:relative;
+      flex:1;
+      min-width:0
+      }
+
+      .input{
+      width:100%;
+      height:55px;
+      padding:0 14px;
+      border:1px solid var(--line2);
+      border-radius:14px;
+      background:#09090e;
+      color:#fff;
+      outline:none;
+      font-size:27px;
+      text-align:center;
+      transition:border-color .15s,box-shadow .15s
+      }
+
+      .input::placeholder{
+      color:#4e4e58;
+      font-size:12px
+      }
+
+      .input:focus{
+      border-color:#7059dc;
+      box-shadow:
+      0 0 0 3px rgba(133,108,255,.08)
+      }
+
+      .convert{
+      height:55px;
+      padding:0 19px;
+      border:0;
+      border-radius:14px;
+      background:
+      linear-gradient(
+      135deg,
+      #927cff,
+      #7058e8
+      );
+      color:#fff;
+      font-size:11px;
+      font-weight:800;
+      box-shadow:
+      0 7px 20px rgba(111,87,230,.22)
+      }
+
+      .convert:active{
+      transform:scale(.98)
+      }
+
+      .convert:disabled{
+      opacity:.5;
+      cursor:not-allowed
+      }
+
+      .quick-title{
+      margin-top:15px;
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:.7px;
+      color:#686874
+      }
+
+      .quick{
+      display:flex;
+      gap:7px;
+      padding-top:8px;
+      overflow-x:auto;
+      scrollbar-width:none
+      }
+
+      .quick::-webkit-scrollbar{
+      display:none
+      }
+
+      .quick button{
+      width:40px;
+      height:37px;
+      flex:0 0 auto;
+      border:1px solid var(--line);
+      border-radius:11px;
+      background:#17171f;
+      color:#fff;
+      font-size:19px;
+      transition:
+      transform .1s,
+      border-color .15s,
+      background .15s
+      }
+
+      .quick button:active{
+      transform:scale(.91)
+      }
+
+      .quick button:hover{
+      border-color:#454052;
+      background:#1c1b25
+      }
+
+      .selected{
+      display:none;
+      align-items:center;
+      justify-content:space-between;
+      margin-top:12px;
+      padding:9px 11px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#0b0b10
+      }
+
+      .selected.show{
+      display:flex
+      }
+
+      .selected-left{
+      display:flex;
+      align-items:center;
+      gap:9px
+      }
+
+      .selected-label{
+      font-size:9px;
+      font-weight:800;
+      color:#62626d
+      }
+
+      .selected-emoji{
+      font-size:25px
+      }
+
+      .selected-status{
+      font-size:9px;
+      color:#656570
+      }
+
+      .heading{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin:20px 2px 9px
+      }
+
+      .heading-title{
+      font-size:14px;
+      font-weight:800
+      }
+
+      .count{
+      font-size:10px;
+      color:#666671
+      }
+
+      .status{
+      padding:22px 8px;
+      text-align:center;
+      font-size:11px;
+      line-height:1.5;
+      color:#686873
+      }
+
+      .status.loading{
+      color:#9a89ff
+      }
+
+      .status.error{
+      color:#ff7474
+      }
+
+      .status.success{
+      color:#777783
+      }
+
+      .grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:10px
+      }
+
+      .card{
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:
+      linear-gradient(
+      145deg,
+      #14141b,
+      #0e0e13
+      );
+      box-shadow:
+      0 8px 22px rgba(0,0,0,.15)
+      }
+
+      .card-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:11px 11px 9px
+      }
+
+      .platform{
+      font-size:11px;
+      font-weight:800;
+      text-transform:capitalize
+      }
+
+      .indicator{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--purple)
+      }
+
+      .image{
+      height:145px;
+      margin:0 9px;
+      border:1px solid #20202a;
+      border-radius:11px;
+      background:
+      radial-gradient(
+      circle,
+      #15151d,
+      #09090e
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden
+      }
+
+      .image img{
+      display:block;
+      width:100%;
+      height:100%;
+      object-fit:contain
+      }
+
+      .image-error{
+      font-size:10px;
+      color:#5e5e68;
+      text-align:center
+      }
+
+      .actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+      padding:9px
+      }
+
+      .action{
+      height:35px;
+      border:1px solid #292934;
+      border-radius:10px;
+      background:#18181f;
+      color:#d9d9df;
+      font-size:9px;
+      font-weight:800
+      }
+
+      .action:active{
+      transform:scale(.97)
+      }
+
+      .download{
+      border-color:#765fe4;
+      background:#765fe4;
+      color:#fff
+      }
+
+      .share{
+      border-color:#2d2d38;
+      background:#19191f;
+      color:#ddd
+      }
+
+      .action:disabled{
+      opacity:.5;
+      cursor:not-allowed
+      }
+
+      .empty{
+      grid-column:1/-1;
+      padding:30px 14px;
+      border:1px dashed #292933;
+      border-radius:15px;
+      text-align:center;
+      color:#656570;
+      font-size:11px;
+      line-height:1.5
+      }
+
+      .empty-icon{
+      font-size:25px;
+      margin-bottom:7px
+      }
+
+      .footer{
+      padding-top:26px;
+      text-align:center;
+      font-size:9px;
+      color:#3f3f48
+      }
+
+      @media(min-width:650px){
+
+      .grid{
+      grid-template-columns:repeat(4,minmax(0,1fr))
+      }
+
+      .image{
+      height:155px
+      }
+
+      }
+
+      @media(max-width:370px){
+
+      .app{
+      padding-left:9px;
+      padding-right:9px
+      }
+
+      .hero{
+      padding:14px
+      }
+
+      .convert{
+      padding:0 14px
+      }
+
+      .image{
+      height:125px
+      }
+
+      .actions{
+      gap:5px
+      }
+
+      .action{
+      font-size:8px
+      }
+
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="app">
+      <header class="header">
+        <div class="brand">
+          <div class="logo">😊</div>
+
+          <div class="title">Emoji<span>View</span></div>
+        </div>
+
+        <div class="sub">Bandingkan tampilan emoji di berbagai platform.</div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-title">
+          <h1>Emoji Converter</h1>
+
+          <p>
+            Unduh emoji gratis & cek perbedaan desainnya di Apple, Google, Samsung, Microsoft, WhatsApp. Atau dibagikan ke WhatsApp.
+          </p>
+        </div>
+
+        <div class="search-box">
+          <div class="input-wrap">
+            <input
+              id="emojiInput"
+              class="input"
+              type="text"
+              placeholder="Masukkan emoji di sini..."
+              maxlength="16"
+              autocomplete="off"
+              autocorrect="off"
+              autocapitalize="off"
+              spellcheck="false"
+              aria-label="Masukkan emoji"
+            />
+          </div>
+
+          <button id="convertBtn" class="convert" type="button">CONVERT</button>
+        </div>
+
+        <div class="quick-title">CONTOH EMOJI</div>
+
+        <div class="quick">
+          <button type="button">😁</button>
+          <button type="button">😂</button>
+          <button type="button">🤣</button>
+          <button type="button">😍</button>
+          <button type="button">🥰</button>
+          <button type="button">😎</button>
+          <button type="button">😭</button>
+          <button type="button">😡</button>
+          <button type="button">🤔</button>
+          <button type="button">🥺</button>
+          <button type="button">🔥</button>
+          <button type="button">❤️</button>
+        </div>
+
+        <div id="selected" class="selected">
+          <div class="selected-left">
+            <div id="selectedEmoji" class="selected-emoji"></div>
+
+            <div>
+              <div class="selected-label">TERPILIH</div>
+
+              <div id="selectedStatus" class="selected-status">
+                Siap untuk dikonversi
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="heading">
+        <div class="heading-title">Platform</div>
+
+        <div id="count" class="count">0 hasil</div>
+      </div>
+
+      <div id="status" class="status">Belum ada emoji yang dipilih/ditulis.</div>
+
+      <section id="result" class="grid"></section>
+
+      <div class="footer">EmojiView Converter | CREATED BY DIMMZZZSUM_ENAK</div>
+    </main>
+
+    <script>
+      const DIMZZ_URL =
+      "https://dimz-wtf.vercel.app/api/kaomoji-engine";
+
+      const input =
+      document.getElementById("emojiInput");
+
+      const convertBtn =
+      document.getElementById("convertBtn");
+
+      const selected =
+      document.getElementById("selected");
+
+      const selectedEmoji =
+      document.getElementById("selectedEmoji");
+
+      const selectedStatus =
+      document.getElementById("selectedStatus");
+
+      const count =
+      document.getElementById("count");
+
+      const status =
+      document.getElementById("status");
+
+      const result =
+      document.getElementById("result");
+
+      const quickButtons =
+      document.querySelectorAll(".quick button");
+
+
+      function setStatus(message,type){
+
+      status.textContent =
+      message;
+
+      status.className =
+      "status";
+
+      if(type){
+      status.classList.add(type);
+      }
+
+      }
+
+
+      function platformName(name){
+
+      return String(name)
+      .replace(/[-_]+/g," ")
+      .replace(/\s+/g," ")
+      .trim();
+
+      }
+
+
+      function safeName(name){
+
+      return String(name)
+      .replace(/[^a-zA-Z0-9_-]/g,"")
+      .toLowerCase() || "emoji";
+
+      }
+
+
+      function showSelected(emoji,message){
+
+      selectedEmoji.textContent =
+      emoji;
+
+      selectedStatus.textContent =
+      message;
+
+      selected.classList.add("show");
+
+      }
+
+
+      function clearResults(){
+
+      result.innerHTML =
+      "";
+
+      count.textContent =
+      "0 hasil";
+
+      }
+
+
+      function createCard(platform,item){
+
+      const card =
+      document.createElement("article");
+
+      card.className =
+      "card";
+
+
+      const top =
+      document.createElement("div");
+
+      top.className =
+      "card-top";
+
+
+      const name =
+      document.createElement("div");
+
+      name.className =
+      "platform";
+
+      name.textContent =
+      platformName(platform);
+
+
+      const indicator =
+      document.createElement("div");
+
+      indicator.className =
+      "indicator";
+
+
+      top.appendChild(name);
+      top.appendChild(indicator);
+
+
+      const imageBox =
+      document.createElement("div");
+
+      imageBox.className =
+      "image";
+
+
+      const image =
+      document.createElement("img");
+
+      image.src =
+      item.image;
+
+      image.alt =
+      item.alt ||
+      platformName(platform) +
+      " emoji";
+
+      image.loading =
+      "lazy";
+
+      image.decoding =
+      "async";
+
+
+      image.onerror =
+      function(){
+
+      imageBox.innerHTML =
+      '<div class="image-error">Gambar gagal dimuat</div>';
+
+      };
+
+
+      imageBox.appendChild(image);
+
+
+      const actions =
+      document.createElement("div");
+
+      actions.className =
+      "actions";
+
+
+      const download =
+      document.createElement("button");
+
+      download.type =
+      "button";
+
+      download.className =
+      "action download";
+
+      download.textContent =
+      "DOWNLOAD";
+
+
+      download.addEventListener(
+      "click",
+      function(){
+
+      downloadImage(
+      item.image,
+      platform,
+      download
+      );
+
+      }
+      );
+
+
+      const share =
+      document.createElement("button");
+
+      share.type =
+      "button";
+
+      share.className =
+      "action share";
+
+      share.textContent =
+      "SHARE WA";
+
+
+      share.addEventListener(
+      "click",
+      function(){
+
+      shareImage(
+      item.image,
+      platform,
+      share
+      );
+
+      }
+      );
+
+
+      actions.appendChild(
+      download
+      );
+
+      actions.appendChild(
+      share
+      );
+
+
+      card.appendChild(top);
+      card.appendChild(imageBox);
+      card.appendChild(actions);
+
+
+      return card;
+
+      }
+
+
+      function renderResults(data){
+
+      result.innerHTML =
+      "";
+
+
+      const entries =
+      Object.entries(data || {})
+      .filter(function(entry){
+
+      const item =
+      entry[1];
+
+      return item &&
+      typeof item === "object" &&
+      item.image;
+
+      });
+
+
+      count.textContent =
+      entries.length +
+      " hasil";
+
+
+      if(!entries.length){
+
+      const empty =
+      document.createElement("div");
+
+      empty.className =
+      "empty";
+
+      empty.innerHTML =
+      "<div class='empty-icon'>😶</div>" +
+      "Tidak ada tampilan emoji yang ditemukan.";
+
+      result.appendChild(
+      empty
+      );
+
+      return;
+
+      }
+
+
+      const fragment =
+      document.createDocumentFragment();
+
+
+      entries.forEach(
+      function(entry){
+
+      fragment.appendChild(
+      createCard(
+      entry[0],
+      entry[1]
+      )
+      );
+
+      });
+
+
+      result.appendChild(
+      fragment
+      );
+
+      }
+
+
+      async function convertEmoji(){
+
+      const emoji =
+      input.value.trim();
+
+
+      if(!emoji){
+
+      clearResults();
+
+      selected.classList.remove(
+      "show"
+      );
+
+      setStatus(
+      "Masukkan emoji terlebih dahulu.",
+      "error"
+      );
+
+      input.focus();
+
+      return;
+
+      }
+
+
+      showSelected(
+      emoji,
+      "Sedang memuat platform..."
+      );
+
+      clearResults();
+
+      setStatus(
+      "Mengambil tampilan emoji...",
+      "loading"
+      );
+
+      convertBtn.disabled =
+      true;
+
+      convertBtn.textContent =
+      "LOADING";
+
+
+      try{
+
+      const params =
+      new URLSearchParams();
+
+      params.set(
+      "path",
+      "converter/emoji"
+      );
+
+      params.set(
+      "emo",
+      emoji
+      );
+
+
+      const requestURL =
+      DIMZZ_URL +
+      "?" +
+      params.toString();
+
+
+      const response =
+      await fetch(
+      requestURL,
+      {
+      method:"GET",
+      cache:"no-store"
+      }
+      );
+
+
+      const raw =
+      await response.text();
+
+
+      let data;
+
+      try{
+
+      data =
+      JSON.parse(raw);
+
+      }catch{
+
+      throw new Error(
+      "Response Server bukan JSON."
+      );
+
+      }
+
+
+      if(!response.ok){
+
+      throw new Error(
+      data.message ||
+      "Request Server gagal."
+      );
+
+      }
+
+
+      if(
+      !data ||
+      data.status === false
+      ){
+
+      throw new Error(
+      data.message ||
+      "Emoji gagal diproses."
+      );
+
+      }
+
+
+      renderResults(
+      data.data
+      );
+
+
+      showSelected(
+      emoji,
+      "Berhasil dimuat"
+      );
+
+
+      setStatus(
+      "Emoji berhasil ditampilkan.",
+      "success"
+      );
+
+
+      }catch(error){
+
+      clearResults();
+
+      showSelected(
+      emoji,
+      "Gagal memuat"
+      );
+
+      setStatus(
+      error.message ||
+      "Gagal mengambil data emoji.",
+      "error"
+      );
+
+
+      }finally{
+
+      convertBtn.disabled =
+      false;
+
+      convertBtn.textContent =
+      "CONVERT";
+
+      }
+
+      }
+
+
+      async function getImageFile(
+      imageUrl,
+      platform
+      ){
+
+      const params =
+      new URLSearchParams();
+
+      params.set(
+      "download",
+      "1"
+      );
+
+      params.set(
+      "url",
+      imageUrl
+      );
+
+      params.set(
+      "platform",
+      safeName(platform)
+      );
+
+
+      const response =
+      await fetch(
+      DIMZZ_URL +
+      "?" +
+      params.toString(),
+      {
+      method:"GET",
+      cache:"no-store"
+      }
+      );
+
+
+      if(!response.ok){
+
+      let message =
+      "Gagal mengambil gambar.";
+
+      try{
+
+      const data =
+      await response.json();
+
+      message =
+      data.message ||
+      message;
+
+      }catch{}
+
+      throw new Error(
+      message
+      );
+
+      }
+
+
+      const blob =
+      await response.blob();
+
+
+      if(!blob.size){
+
+      throw new Error(
+      "Gambar kosong."
+      );
+
+      }
+
+
+      let type =
+      blob.type ||
+      "image/png";
+
+
+      if(
+      !type.startsWith("image/")
+      ){
+
+      type =
+      "image/png";
+
+      }
+
+
+      let extension =
+      "png";
+
+
+      if(type.includes("jpeg")){
+
+      extension =
+      "jpg";
+
+      }else if(type.includes("webp")){
+
+      extension =
+      "webp";
+
+      }else if(type.includes("gif")){
+
+      extension =
+      "gif";
+
+      }
+
+
+      const filename =
+      "emoji-" +
+      safeName(platform) +
+      "." +
+      extension;
+
+
+      return new File(
+      [blob],
+      filename,
+      {
+      type:type
+      }
+      );
+
+      }
+
+
+      async function downloadImage(
+      imageUrl,
+      platform,
+      button
+      ){
+
+      const oldText =
+      button.textContent;
+
+      button.disabled =
+      true;
+
+      button.textContent =
+      "DOWNLOADING";
+
+
+      try{
+
+      const file =
+      await getImageFile(
+      imageUrl,
+      platform
+      );
+
+
+      const blobUrl =
+      URL.createObjectURL(
+      file
+      );
+
+
+      const link =
+      document.createElement("a");
+
+      link.href =
+      blobUrl;
+
+      link.download =
+      file.name;
+
+      document.body.appendChild(
+      link
+      );
+
+      link.click();
+
+      link.remove();
+
+
+      setTimeout(
+      function(){
+
+      URL.revokeObjectURL(
+      blobUrl
+      );
+
+      },
+      1200
+      );
+
+
+      button.textContent =
+      "DONE";
+
+
+      setTimeout(
+      function(){
+
+      button.textContent =
+      oldText;
+
+      button.disabled =
+      false;
+
+      },
+      1000
+      );
+
+
+      }catch(error){
+
+      alert(
+      error.message ||
+      "Download gagal."
+      );
+
+      button.textContent =
+      oldText;
+
+      button.disabled =
+      false;
+
+      }
+
+      }
+
+
+      async function shareImage(
+      imageUrl,
+      platform,
+      button
+      ){
+
+      const oldText =
+      button.textContent;
+
+      button.disabled =
+      true;
+
+      button.textContent =
+      "PREPARING";
+
+
+      try{
+
+      const file =
+      await getImageFile(
+      imageUrl,
+      platform
+      );
+
+
+      if(
+      navigator.share &&
+      navigator.canShare &&
+      navigator.canShare({
+      files:[file]
+      })
+      ){
+
+      await navigator.share({
+
+      files:[file],
+
+      title:
+      "EmojiView - " +
+      platformName(platform),
+
+      text:
+      "Emoji " +
+      platformName(platform)
+
+      });
+
+      button.textContent =
+      "SHARED";
+
+
+      setTimeout(
+      function(){
+
+      button.textContent =
+      oldText;
+
+      button.disabled =
+      false;
+
+      },
+      1000
+      );
+
+      return;
+
+      }
+
+
+      if(
+      navigator.share
+      ){
+
+      await navigator.share({
+
+      title:
+      "EmojiView - " +
+      platformName(platform),
+
+      text:
+      "Emoji " +
+      platformName(platform) +
+      ": " +
+      imageUrl
+
+      });
+
+      button.textContent =
+      "SHARED";
+
+      setTimeout(
+      function(){
+
+      button.textContent =
+      oldText;
+
+      button.disabled =
+      false;
+
+      },
+      1000
+      );
+
+      return;
+
+      }
+
+
+      throw new Error(
+      "Browser ini belum mendukung share foto. Gunakan Chrome Android terbaru."
+      );
+
+
+      }catch(error){
+
+      if(
+      error.name === "AbortError"
+      ){
+
+      button.textContent =
+      oldText;
+
+      button.disabled =
+      false;
+
+      return;
+
+      }
+
+      alert(
+      error.message ||
+      "Share gagal."
+      );
+
+      button.textContent =
+      oldText;
+
+      button.disabled =
+      false;
+
+      }
+
+      }
+
+
+      quickButtons.forEach(
+      function(button){
+
+      button.addEventListener(
+      "click",
+      function(){
+
+      const emoji =
+      button.textContent.trim();
+
+      input.value =
+      emoji;
+
+      showSelected(
+      emoji,
+      "Siap dikonversi"
+      );
+
+      convertEmoji();
+
+      }
+      );
+
+      });
+
+
+      convertBtn.addEventListener(
+      "click",
+      convertEmoji
+      );
+
+
+      input.addEventListener(
+      "keydown",
+      function(event){
+
+      if(
+      event.key === "Enter"
+      ){
+
+      convertEmoji();
+
+      }
+
+      });
+
+
+      input.addEventListener(
+      "input",
+      function(){
+
+      const emoji =
+      input.value.trim();
+
+      if(emoji){
+
+      showSelected(
+      emoji,
+      "Siap dikonversi"
+      );
+
+      }else{
+
+      selected.classList.remove(
+      "show"
+      );
+
+      }
+
+      });
+    </script>
+  </body>
+</html>
