@@ -9,7 +9,7 @@ Mulai dari downloader, generator, utilities, sampai tools kecil yang praktis dan
 
 <br>
 
-[![Website](https://img.shields.io/badge/🌐_Website-dimz--wtf.vercel.app-111827?style=for-the-badge)](https://dimz-wtf.web.id)
+[![Website](https://img.shields.io/badge/🌐_Website-dimz--wtf.vweb.id-111827?style=for-the-badge)](https://dimz-wtf.web.id)
 [![GitHub](https://img.shields.io/badge/GitHub-dimasmpp130-181717?style=for-the-badge\&logo=github)](https://github.com/dimasmpp130)
 [![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](#)
 
