@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Cari dan lihat video TikTok dengan cepat."
+    />
+    <title>TikTok Explorer — DIMMZZZSUM_ENAK</title>
+
+    <style>
+      *{
+        box-sizing:border-box;
+        margin:0;
+        padding:0;
+      }
+
+      html{
+        scroll-behavior:smooth;
+      }
+
+      body{
+        background:#f5f5f7;
+        color:#17171a;
+        font-family:Arial,Helvetica,sans-serif;
+        min-height:100vh;
+      }
+
+      button,input{
+        font:inherit;
+      }
+
+      .container{
+        width:min(820px,calc(100% - 28px));
+        margin:auto;
+      }
+
+      .header{
+        padding:30px 0 18px;
+      }
+
+      .brand{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+      }
+
+      .brand-left{
+        display:flex;
+        align-items:center;
+        gap:11px;
+      }
+
+      .logo{
+        width:42px;
+        height:42px;
+        border-radius:13px;
+        background:#111;
+        color:#fff;
+        display:grid;
+        place-items:center;
+        font-size:21px;
+        font-weight:bold;
+      }
+
+      .brand h1{
+        font-size:20px;
+        letter-spacing:-.5px;
+      }
+
+      .brand p{
+        color:#85858c;
+        font-size:12px;
+        margin-top:3px;
+      }
+
+      .badge{
+        background:#fff;
+        border:1px solid #e5e5e8;
+        color:#66666d;
+        border-radius:20px;
+        padding:7px 10px;
+        font-size:10px;
+      }
+
+      .search{
+        margin-top:22px;
+        background:#fff;
+        border:1px solid #e3e3e7;
+        border-radius:15px;
+        padding:5px;
+        display:flex;
+        box-shadow:0 5px 18px rgba(0,0,0,.04);
+      }
+
+      .search input{
+        flex:1;
+        min-width:0;
+        height:43px;
+        padding:0 12px;
+        border:0;
+        outline:0;
+        background:transparent;
+        color:#111;
+        font-size:14px;
+      }
+
+      .search input::placeholder{
+        color:#a0a0a7;
+      }
+
+      .search button{
+        border:0;
+        border-radius:11px;
+        padding:0 18px;
+        background:#111;
+        color:#fff;
+        cursor:pointer;
+        font-weight:bold;
+        font-size:13px;
+      }
+
+      .search button:active{
+        transform:scale(.97);
+      }
+
+      .search button:disabled{
+        opacity:.5;
+      }
+
+      .tags{
+        display:flex;
+        gap:7px;
+        overflow-x:auto;
+        padding:10px 1px 1px;
+        scrollbar-width:none;
+      }
+
+      .tags::-webkit-scrollbar{
+        display:none;
+      }
+
+      .tag{
+        flex:0 0 auto;
+        border:1px solid #dedee3;
+        background:#fff;
+        color:#66666e;
+        border-radius:20px;
+        padding:8px 12px;
+        font-size:11px;
+        cursor:pointer;
+      }
+
+      .tag:active{
+        background:#eeeef1;
+      }
+
+      .status{
+        min-height:22px;
+        color:#88888f;
+        font-size:12px;
+        padding:12px 2px 5px;
+      }
+
+      .results{
+        display:grid;
+        gap:15px;
+        padding:5px 0 40px;
+      }
+
+      .empty{
+        background:#fff;
+        border:1px solid #e5e5e8;
+        border-radius:17px;
+        padding:55px 20px;
+        text-align:center;
+        color:#88888f;
+        font-size:13px;
+      }
+
+      .empty-icon{
+        width:48px;
+        height:48px;
+        border-radius:50%;
+        background:#f0f0f2;
+        display:grid;
+        place-items:center;
+        margin:0 auto 12px;
+        font-size:21px;
+        color:#555;
+      }
+
+      .card{
+        background:#fff;
+        border:1px solid #e4e4e7;
+        border-radius:17px;
+        overflow:hidden;
+        box-shadow:0 5px 20px rgba(0,0,0,.045);
+        animation:show .28s ease both;
+      }
+
+      @keyframes show{
+        from{
+          opacity:0;
+          transform:translateY(8px);
+        }
+        to{
+          opacity:1;
+          transform:translateY(0);
+        }
+      }
+
+      .media{
+        position:relative;
+        background:#101010;
+        aspect-ratio:16/10;
+        overflow:hidden;
+      }
+
+      .media video{
+        width:100%;
+        height:100%;
+        display:block;
+        object-fit:cover;
+      }
+
+      .cover{
+        position:absolute;
+        inset:0;
+        width:100%;
+        height:100%;
+        object-fit:cover;
+        pointer-events:none;
+        transition:.2s;
+        z-index:2;
+      }
+
+      .media.playing .cover{
+        opacity:0;
+      }
+
+      .duration{
+        position:absolute;
+        right:10px;
+        bottom:10px;
+        padding:5px 7px;
+        background:rgba(0,0,0,.7);
+        color:#fff;
+        border-radius:7px;
+        font-size:10px;
+        pointer-events:none;
+        z-index:4;
+      }
+
+      .details{
+        padding:14px;
+      }
+
+      .creator{
+        display:flex;
+        align-items:center;
+        gap:9px;
+      }
+
+      .avatar{
+        width:34px;
+        height:34px;
+        border-radius:50%;
+        background:#eeeeef;
+        display:grid;
+        place-items:center;
+        font-size:13px;
+        font-weight:bold;
+        color:#555;
+        flex:0 0 34px;
+      }
+
+      .creator-name{
+        font-size:13px;
+        font-weight:bold;
+        color:#17171a;
+        overflow:hidden;
+        white-space:nowrap;
+        text-overflow:ellipsis;
+      }
+
+      .creator-label{
+        color:#99999f;
+        font-size:10px;
+        margin-top:2px;
+      }
+
+      .description{
+        color:#5f5f67;
+        font-size:12px;
+        line-height:1.55;
+        margin-top:11px;
+        display:-webkit-box;
+        -webkit-line-clamp:3;
+        -webkit-box-orient:vertical;
+        overflow:hidden;
+      }
+
+      .stats{
+        display:flex;
+        gap:6px;
+        flex-wrap:wrap;
+        margin-top:11px;
+      }
+
+      .stat{
+        padding:6px 8px;
+        border-radius:8px;
+        background:#f5f5f6;
+        color:#77777f;
+        font-size:10px;
+      }
+
+      .actions{
+        display:flex;
+        gap:8px;
+        margin-top:13px;
+      }
+
+      .action{
+        min-height:39px;
+        flex:1;
+        border-radius:10px;
+        border:1px solid #dedee2;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        text-decoration:none;
+        font-size:11px;
+        font-weight:bold;
+        cursor:pointer;
+      }
+
+      .watch{
+        color:#222;
+        background:#fff;
+      }
+
+      .download{
+        background:#111;
+        border-color:#111;
+        color:#fff;
+      }
+
+      .action:active{
+        transform:scale(.97);
+      }
+
+      .note{
+        text-align:center;
+        color:#aaaab0;
+        font-size:10px;
+        padding:0 0 24px;
+      }
+
+      .loading{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+      }
+
+      .spinner{
+        width:15px;
+        height:15px;
+        border:2px solid #ddd;
+        border-top-color:#111;
+        border-radius:50%;
+        animation:spin .65s linear infinite;
+      }
+
+      @keyframes spin{
+        to{
+          transform:rotate(360deg);
+        }
+      }
+
+      .error{
+        background:#fff;
+        border:1px solid #ead5d5;
+        color:#a25c5c;
+        border-radius:15px;
+        padding:17px;
+        font-size:12px;
+        line-height:1.5;
+      }
+
+      @media(max-width:500px){
+
+        .container{
+          width:calc(100% - 18px);
+        }
+
+        .header{
+          padding-top:22px;
+        }
+
+        .badge{
+          display:none;
+        }
+
+        .brand h1{
+          font-size:18px;
+        }
+
+        .search button{
+          padding:0 15px;
+        }
+
+        .media{
+          aspect-ratio:9/12;
+          max-height:510px;
+        }
+
+        .media video,
+        .cover{
+          object-fit:cover;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="brand">
+          <div class="brand-left">
+            <div class="logo">♪</div>
+
+            <div>
+              <h1>TikTok Explorer</h1>
+              <p>Cari, tonton, dan download video TikTok favoritmu dalam satu klik.</p>
+            </div>
+          </div>
+
+          <div class="badge">VIDEO SEARCH</div>
+        </div>
+
+        <form class="search" id="searchForm">
+          <input
+            id="query"
+            type="search"
+            placeholder="Mau cari apa?"
+            autocomplete="off"
+            maxlength="100"
+          />
+
+          <button id="searchButton" type="submit">Cari</button>
+        </form>
+
+        <div class="tags">
+          <button class="tag" data-query="viral">Viral</button>
+
+          <button class="tag" data-query="funny">Funny</button>
+
+          <button class="tag" data-query="gaming">Gaming</button>
+
+          <button class="tag" data-query="food">Food</button>
+
+          <button class="tag" data-query="music">Music</button>
+
+          <button class="tag" data-query="tutorial">Tutorial</button>
+        </div>
+      </header>
+
+      <div class="status" id="status"></div>
+
+      <main class="results" id="results">
+        <div class="empty">
+          <div class="empty-icon">⌕</div>
+
+          <div>
+            Cari di atas, hasilnya bakal muncul di sini dan siap di download.`
+          </div>
+        </div>
+      </main>
+
+      <div class="note">© 2026 TikTok Explorer · Made by DIMMZZZSUM_ENAK</div>
+    </div>
+
+    <script>
+
+      const DIMZZ_URL =
+        "https://dimz-wtf.vercel.app/api/ayla-sites";
+
+      const form =
+        document.getElementById("searchForm");
+
+      const input =
+        document.getElementById("query");
+
+      const button =
+        document.getElementById("searchButton");
+
+      const results =
+        document.getElementById("results");
+
+      const status =
+        document.getElementById("status");
+
+
+      function escapeHTML(value){
+
+        return String(value ?? "")
+          .replace(/&/g,"&amp;")
+          .replace(/</g,"&lt;")
+          .replace(/>/g,"&gt;")
+          .replace(/"/g,"&quot;")
+          .replace(/'/g,"&#039;");
+
+      }
+
+
+      function number(value){
+
+        const n =
+          Number(value || 0);
+
+        if(n >= 1000000000){
+
+          return (
+            n / 1000000000
+          ).toFixed(1)
+           .replace(".0","") + "B";
+
+        }
+
+        if(n >= 1000000){
+
+          return (
+            n / 1000000
+          ).toFixed(1)
+           .replace(".0","") + "M";
+
+        }
+
+        if(n >= 1000){
+
+          return (
+            n / 1000
+          ).toFixed(1)
+           .replace(".0","") + "K";
+
+        }
+
+        return n.toLocaleString("id-ID");
+
+      }
+
+
+      function duration(value){
+
+        const sec =
+          Number(value || 0);
+
+        if(!sec){
+          return "";
+        }
+
+        const minutes =
+          Math.floor(sec / 60);
+
+        const seconds =
+          String(sec % 60)
+            .padStart(2,"0");
+
+        return minutes + ":" + seconds;
+
+      }
+
+
+      function loading(active){
+
+        button.disabled = active;
+
+        if(active){
+
+          button.textContent = "...";
+
+          status.innerHTML = `
+            <span class="loading">
+              <span class="spinner"></span>
+              Lagi nyari videonya, sabar ya hehe...
+            </span>
+          `;
+
+        }else{
+
+          button.textContent = "Cari";
+
+        }
+
+      }
+
+
+      function getData(json){
+
+
+        if(
+          json &&
+          Array.isArray(json.data)
+        ){
+
+          return json.data;
+
+        }
+
+
+        if(Array.isArray(json)){
+          return json;
+        }
+
+        if(Array.isArray(json.result)){
+          return json.result;
+        }
+
+        if(Array.isArray(json.results)){
+          return json.results;
+        }
+
+        if(
+          Array.isArray(json.data?.items)
+        ){
+
+          return json.data.items;
+
+        }
+
+        if(
+          Array.isArray(json.result?.items)
+        ){
+
+          return json.result.items;
+
+        }
+
+        return [];
+
+      }
+
+
+      function makeCard(item,index){
+
+        const video =
+          item.urlUploaded ||
+          "";
+
+        const thumbnail =
+          item.imagePreview ||
+          "";
+
+        const original =
+          item.url ||
+          "";
+
+        const username =
+          item.username ||
+          "TikTok User";
+
+        const nickname =
+          item.userNickname ||
+          username;
+
+        const description =
+          item.desc ||
+          item.contentSummary ||
+          item.content ||
+          item.text ||
+          "Tidak ada deskripsi.";
+
+        const time =
+          duration(
+            item.durationInSeconds
+          );
+
+        const firstLetter =
+          String(
+            nickname || username
+          )
+            .charAt(0)
+            .toUpperCase();
+
+
+        const article =
+          document.createElement("article");
+
+        article.className =
+          "card";
+
+        article.style.animationDelay =
+          Math.min(index,8) * 40 + "ms";
+
+        const filename =
+          String(
+            username || "tiktok-video"
+          )
+            .replace(
+              /[^a-zA-Z0-9._-]/g,
+              ""
+            ) ||
+            "tiktok-video";
+
+
+        article.innerHTML = `
+
+          <div class="media">
+
+            ${
+              thumbnail
+              ?
+              `
+              <img
+                class="cover"
+                src="${escapeHTML(thumbnail)}"
+                alt="TikTok thumbnail"
+                loading="lazy"
+              >
+              `
+              :
+              ""
+            }
+
+
+            ${
+              video
+              ?
+              `
+              <video
+                src="${escapeHTML(video)}"
+                controls
+                playsinline
+                preload="metadata"
+              ></video>
+              `
+              :
+              `
+              <div
+                style="
+                  width:100%;
+                  height:100%;
+                  display:grid;
+                  place-items:center;
+                  color:#777;
+                  font-size:12px;
+                "
+              >
+                Video tidak tersedia
+              </div>
+              `
+            }
+
+
+            ${
+              time
+              ?
+              `
+              <span class="duration">
+                ${escapeHTML(time)}
+              </span>
+              `
+              :
+              ""
+            }
+
+          </div>
+
+
+          <div class="details">
+
+
+            <div class="creator">
+
+              <div class="avatar">
+                ${escapeHTML(firstLetter)}
+              </div>
+
+              <div>
+
+                <div class="creator-name">
+                  ${escapeHTML(nickname)}
+                </div>
+
+                <div class="creator-label">
+                  @${escapeHTML(username)}
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <div class="description">
+              ${escapeHTML(description)}
+            </div>
+
+
+            <div class="stats">
+
+
+              ${
+                item.playCount != null
+                ?
+                `
+                <span class="stat">
+                  ▶ ${number(item.playCount)}
+                </span>
+                `
+                :
+                ""
+              }
+
+
+              ${
+                item.diggCount != null
+                ?
+                `
+                <span class="stat">
+                  ♥ ${number(item.diggCount)}
+                </span>
+                `
+                :
+                ""
+              }
+
+
+              ${
+                item.commentCount != null
+                ?
+                `
+                <span class="stat">
+                  💬 ${number(item.commentCount)}
+                </span>
+                `
+                :
+                ""
+              }
+
+
+              ${
+                item.shareCount != null
+                ?
+                `
+                <span class="stat">
+                  ↗ ${number(item.shareCount)}
+                </span>
+                `
+                :
+                ""
+              }
+
+
+            </div>
+
+
+            <div class="actions">
+
+
+              ${
+                original
+                ?
+                `
+                <a
+                  class="action watch"
+                  href="${escapeHTML(original)}"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Buka TikTok
+                </a>
+                `
+                :
+                `
+                <div
+                  class="action watch"
+                  style="opacity:.45"
+                >
+                  TikTok
+                </div>
+                `
+              }
+
+
+              ${
+                video
+                ?
+                `
+                <a
+                  class="action download"
+                  href="${escapeHTML(video)}"
+                  download="${escapeHTML(filename)}-bydimz.mp4"
+                  rel="noopener noreferrer"
+                >
+                  Download
+                </a>
+                `
+                :
+                `
+                <div
+                  class="action download"
+                  style="opacity:.45"
+                >
+                  Video tidak ada
+                </div>
+                `
+              }
+
+
+            </div>
+
+
+          </div>
+
+        `;
+
+
+        const videoElement =
+          article.querySelector("video");
+
+        const media =
+          article.querySelector(".media");
+
+
+        if(videoElement){
+
+          videoElement.addEventListener(
+            "play",
+            function(){
+
+              media.classList.add(
+                "playing"
+              );
+
+            }
+          );
+
+
+          videoElement.addEventListener(
+            "pause",
+            function(){
+
+              media.classList.remove(
+                "playing"
+              );
+
+            }
+          );
+
+
+          videoElement.addEventListener(
+            "ended",
+            function(){
+
+              media.classList.remove(
+                "playing"
+              );
+
+            }
+          );
+
+        }
+
+
+        return article;
+
+      }
+
+
+      async function searchTikTok(keyword){
+
+        const query =
+          keyword.trim();
+
+
+        if(!query){
+
+          input.focus();
+
+          return;
+
+        }
+
+
+        loading(true);
+
+        results.innerHTML = "";
+
+
+        try{
+
+
+          const params =
+            new URLSearchParams();
+
+          params.set(
+            "path",
+            "searching/tiktok"
+          );
+
+          params.set(
+            "q",
+            query
+          );
+
+          params.set(
+            "type",
+            "item"
+          );
+
+
+          const requestURL =
+            DIMZZ_URL +
+            "?" +
+            params.toString();
+
+          const response =
+            await fetch(
+              requestURL,
+              {
+                method:"GET",
+                cache:"no-store"
+              }
+            );
+
+
+          const rawText =
+            await response.text();
+
+
+          if(!response.ok){
+
+            let message =
+              "HTTP " +
+              response.status;
+
+
+            try{
+
+              const errorJSON =
+                JSON.parse(rawText);
+
+              if(errorJSON?.message){
+
+                message =
+                  errorJSON.message;
+
+              }
+
+            }catch{}
+
+
+            throw new Error(
+              message
+            );
+
+          }
+
+
+          let json;
+
+
+          try{
+
+            json =
+              JSON.parse(rawText);
+
+          }catch{
+
+            throw new Error(
+              "Response Server bukan JSON."
+            );
+
+          }
+
+
+          if(
+            json &&
+            json.status === false
+          ){
+
+            throw new Error(
+              json.message ||
+              "Server mengembalikan status false."
+            );
+
+          }
+
+
+          const items =
+            getData(json);
+
+
+          if(!items.length){
+
+            results.innerHTML = `
+
+              <div class="empty">
+
+                <div class="empty-icon">
+                  ?
+                </div>
+
+                <div>
+                  Belum nemu video buat
+                  <b>
+                    "${escapeHTML(query)}"
+                  </b>.
+                </div>
+
+              </div>
+
+            `;
+
+
+            status.textContent =
+              "Coba kata kunci yang lain.";
+
+            return;
+
+          }
+
+
+          const fragment =
+            document.createDocumentFragment();
+
+
+          items.forEach(
+            function(item,index){
+
+              fragment.appendChild(
+                makeCard(
+                  item,
+                  index
+                )
+              );
+
+            }
+          );
+
+
+          results.appendChild(
+            fragment
+          );
+
+
+          status.textContent =
+            items.length +
+            " video ditemukan untuk \"" +
+            query +
+            "\".";
+
+
+        }catch(error){
+
+
+          results.innerHTML = `
+
+            <div class="error">
+
+              <b>
+                Yah, pencariannya gagal.
+              </b>
+
+              <br><br>
+
+              ${escapeHTML(
+                error.message ||
+                "Terjadi kesalahan."
+              )}
+
+              <br><br>
+
+              Maaf Terjadi Kesalahan
+
+            </div>
+
+          `;
+
+
+          status.textContent = "";
+
+        }finally{
+
+          loading(false);
+
+        }
+
+      }
+
+
+      form.addEventListener(
+        "submit",
+        function(event){
+
+          event.preventDefault();
+
+          searchTikTok(
+            input.value
+          );
+
+        }
+      );
+
+
+      document
+        .querySelectorAll(".tag")
+        .forEach(
+          function(tag){
+
+            tag.addEventListener(
+              "click",
+              function(){
+
+                const value =
+                  tag.dataset.query;
+
+
+                input.value =
+                  value;
+
+
+                searchTikTok(
+                  value
+                );
+
+              }
+            );
+
+          }
+        );
+    </script>
+  </body>
+</html>
