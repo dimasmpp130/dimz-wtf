@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#08090d" />
+    <meta
+      name="description"
+      content="Text Maker dengan berbagai efek TextPro."
+    />
+    <title>Text Maker</title>
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}
+      html{background:#08090d}
+      body{
+      min-height:100vh;
+      background:#08090d;
+      color:#f5f5f7;
+      font-family:Arial,Helvetica,sans-serif;
+      font-size:14px;
+      padding:14px
+      }
+      button,input{font:inherit}
+      .app{max-width:900px;margin:auto}
+      .header{
+      padding:18px 16px;
+      border:1px solid #24262d;
+      border-radius:18px;
+      background:#0e1015;
+      margin-bottom:12px
+      }
+      .header h1{
+      font-size:23px;
+      letter-spacing:-.5px
+      }
+      .header p{
+      margin-top:5px;
+      color:#8f949f;
+      font-size:12px
+      }
+      .panel{
+      border:1px solid #24262d;
+      background:#0e1015;
+      border-radius:18px;
+      padding:14px;
+      margin-bottom:12px
+      }
+      .label{
+      display:block;
+      font-size:11px;
+      font-weight:700;
+      color:#aeb3bd;
+      text-transform:uppercase;
+      letter-spacing:.8px;
+      margin-bottom:8px
+      }
+      .modes{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-bottom:13px
+      }
+      .mode{
+      border:1px solid #292c34;
+      background:#14161c;
+      color:#aeb3bd;
+      border-radius:12px;
+      padding:11px;
+      font-weight:700;
+      cursor:pointer
+      }
+      .mode.active{
+      background:#f5f5f7;
+      color:#08090d;
+      border-color:#f5f5f7
+      }
+      .input{
+      width:100%;
+      height:46px;
+      border:1px solid #292c34;
+      background:#090a0e;
+      color:#fff;
+      border-radius:12px;
+      padding:0 13px;
+      outline:none;
+      margin-bottom:8px
+      }
+      .input:focus{border-color:#777d89}
+      .hidden{display:none}
+      .generate{
+      width:100%;
+      height:47px;
+      border:0;
+      border-radius:13px;
+      background:#fff;
+      color:#08090d;
+      font-weight:800;
+      cursor:pointer
+      }
+      .generate:disabled{opacity:.5}
+      .status{
+      display:none;
+      padding:10px 12px;
+      border-radius:11px;
+      background:#15171d;
+      color:#aeb3bd;
+      font-size:12px;
+      margin-top:9px;
+      text-align:center
+      }
+      .status.show{display:block}
+      .categories{
+      display:flex;
+      gap:7px;
+      overflow-x:auto;
+      padding-bottom:4px;
+      scrollbar-width:none
+      }
+      .categories::-webkit-scrollbar{display:none}
+      .category{
+      flex:0 0 auto;
+      border:1px solid #292c34;
+      background:#14161c;
+      color:#aeb3bd;
+      padding:9px 12px;
+      border-radius:10px;
+      font-size:12px;
+      font-weight:700;
+      cursor:pointer
+      }
+      .category.active{
+      background:#fff;
+      color:#08090d;
+      border-color:#fff
+      }
+      .styles{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:9px;
+      margin-top:12px
+      }
+      .style{
+      border:1px solid #292c34;
+      background:#111319;
+      border-radius:14px;
+      overflow:hidden;
+      cursor:pointer;
+      text-align:left;
+      color:#fff;
+      padding:0
+      }
+      .style.active{
+      border-color:#fff;
+      box-shadow:0 0 0 1px #fff
+      }
+      .thumb{
+      position:relative;
+      width:100%;
+      aspect-ratio:1.7/1;
+      background:#181a20;
+      overflow:hidden
+      }
+      .thumb img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover
+      }
+      .thumb.noimg:after{
+      content:"Preview tidak tersedia";
+      position:absolute;
+      inset:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:11px;
+      color:#737985
+      }
+      .style-name{
+      display:block;
+      padding:10px;
+      font-size:12px;
+      font-weight:700;
+      line-height:1.35;
+      min-height:50px
+      }
+      .selected{
+      font-size:11px;
+      color:#777d89;
+      margin-top:10px;
+      line-height:1.4
+      }
+      .result{
+      display:none
+      }
+      .result.show{display:block}
+      .result img{
+      display:block;
+      width:100%;
+      max-width:650px;
+      margin:10px auto 0;
+      border-radius:13px;
+      border:1px solid #292c34;
+      background:#08090d
+      }
+      .result-actions{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:10px
+      }
+      .action{
+      height:44px;
+      border-radius:11px;
+      border:1px solid #292c34;
+      background:#15171d;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer
+      }
+      .action.download{
+      background:#fff;
+      color:#08090d;
+      border-color:#fff
+      }
+      .action:disabled{opacity:.5}
+      .empty{
+      padding:25px 10px;
+      text-align:center;
+      color:#747985;
+      font-size:12px
+      }
+      @media(min-width:650px){
+      .styles{grid-template-columns:repeat(4,minmax(0,1fr))}
+      body{padding:22px}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="header">
+        <h1>Text Maker</h1>
+        <p>Generate text effect dengan koleksi style TextPro.</p>
+      </div>
+
+      <div class="panel">
+        <span class="label">Mode teks</span>
+
+        <div class="modes">
+          <button class="mode active" data-mode="1">1 TEKS</button>
+          <button class="mode" data-mode="2">2 TEKS</button>
+        </div>
+
+        <input
+          id="text1"
+          class="input"
+          type="text"
+          maxlength="80"
+          placeholder="Masukkan teks pertama"
+        />
+
+        <input
+          id="text2"
+          class="input hidden"
+          type="text"
+          maxlength="80"
+          placeholder="Masukkan teks kedua"
+        />
+
+        <button id="generate" class="generate">BUAT TEXT EFFECT</button>
+
+        <div id="status" class="status"></div>
+      </div>
+
+      <div class="panel">
+        <span class="label">Kategori Style</span>
+        <div id="categories" class="categories"></div>
+        <div id="styles" class="styles"></div>
+        <div id="selected" class="selected"></div>
+      </div>
+
+      <div id="resultBox" class="panel result">
+        <span class="label">Hasil</span>
+        <img id="resultImage" alt="Hasil Text Maker" />
+        <div class="result-actions">
+          <button id="download" class="action download">DOWNLOAD</button>
+          <button id="newResult" class="action">BUAT LAGI</button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const API_BASE="https://dimz-wtf.vercel.app/api/texts-maker";
+
+      const categories=[
+      {
+      id:"light",
+      name:"Light",
+      items:[
+      ["/vibrant-3d-glowing-blue-neon-text-effect-1191.html","/uploads/w450/2025/08/15/vibrant-3d-glowing-blue-neon-text-effect-1c66a.jpg"],
+      ["/create-a-mystical-neon-blackpink-logo-text-effect-1180.html","/uploads/w450/2025/04/01/create-a-mystical-neon-blackpink-logo-text-effect-dd6a8.jpg"],
+      ["/create-a-3d-text-effect-with-a-glowing-blue-color-1170.html","/uploads/w450/2024/07/17/Untitled-2-min-0aa32.jpg"],
+      ["/create-online-reflected-neon-text-effect-1157.html","/uploads/w450/2024/05/03/create-online-reflected-neon-text-effect-3e5fb.jpg"],
+      ["/create-a-free-online-hellfire-text-effect-1152.html","/uploads/w450/2023/12/13/create-a-free-online-hellfire-text-effect-2c2a7.jpg"],
+      ["/online-real-burning-text-effect-generator-1151.html","/uploads/w450/2023/12/13/online-real-burning-text-effect-generator-ca9be.jpg"],
+      ["/create-a-glowing-3d-neon-light-text-effect-1142.html","/uploads/w450/2023/09/26/create-a-glowing-3d-neon-light-text-effect-7a6db.jpg"],
+      ["/create-sunset-light-text-effects-online-for-free-1124.html","/uploads/w450/2023/06/02/create-sunset-light-text_effects-online-for-free647998c858219_04906c06ce3361dad795fc00f7831a45.jpg"],
+      ["/create-gradient-neon-light-text-effect-online-1085.html","/uploads/w450/2022/11/16/create-gradient-neon-light-text-effect-online6374bb9d9fcac_a2afb930cb2ea39471d32f7f96bdcd78.jpg"],
+      ["/create-neon-light-blackpink-logo-text-effect-online-1081.html","/uploads/w450/2022/11/16/create-neon-light-blackpink-logo-text-effect-online6374bbe371450_43f46f09a0ea9b9ba801308aa72bf7d7.jpg"],
+      ["/create-a-summer-neon-light-text-effect-online-1076.html","/uploads/w450/2022/11/16/create-a-summer-neon-light-text-effect-online6374bc3b9e9e8_b5ebbfbf7dc485be39b68c8f0fb15dcd.jpg"],
+      ["/create-light-glow-sliced-text-effect-online-1068.html","/uploads/w450/2022/03/17/create-light-glow-sliced-text-effect-online6232ac3eb05a6_7550cce89fa53e792f78bcff10a7a6ec.jpg"],
+      ["/neon-light-glitch-text-generator-online-1063.html","/uploads/w450/2022/02/15/neon-light-glitch-text-generator-online620b579283133_d7bc03391072e05b3098edd30de722a4.jpg"],
+      ["/create-neon-light-on-brick-wall-online-1062.html","/uploads/w450/2022/02/10/create-neon-light-on-brick-wall-online620486248d0a0_a534991c39b5b831c49e4b14079170b0.jpg"],
+      ["/create-glowing-neon-light-text-effect-online-free-1061.html","/uploads/w450/2022/01/25/create-glowing-_neon-light-text-effect-online-free61efbd6e06659_04623e06259a8cd77431903da743be2c.jpg"],
+      ["/online-thunder-text-effect-generator-1031.html","/uploads/w450/2021/07/15/online-thunder-text-effect-generator60efe7790b10b_c0143d4ddb039ee4813011d92cd98748.jpg"],
+      ["/create-3d-neon-light-text-effect-online-1028.html","/uploads/w450/2021/07/07/create_3d_neon_light_text_effect_online60e52281d7295_9e5c8fe8ab483bc4a73bc12c99fd4a3f.jpg"],
+      ["/create-impressive-glitch-text-effects-online-1027.html","/uploads/w450/2021/07/01/glitch-text-effect-online60dd356464082_aad6bf1ca32855484ac170c2c8ab1328.jpg"],
+      ["/create-a-glitch-text-effect-online-free-1026.html","/uploads/w450/2021/06/29/glitch-text-effect-online60dacdb40c9d2_4794a77d688d6a72bddb347ebbbcc60b.jpg"],
+      ["/create-neon-devil-wings-text-effect-online-free-1014.html","/uploads/w450/2021/05/07/create-neon-devil-wings-text-effect-online-free6094f14e88277_141a14b79b24b4e4a0576dec651453cc.jpg"],
+      ["/create-a-futuristic-technology-neon-light-text-effect-1006.html","/uploads/w450/2021/01/06/create-a-futuristic-technology-neon-light-text-effect5ff51d76045bd_5905a59dfbc6d91bab519a3ca0c28528.jpg"],
+      ["/create-realistic-vintage-style-light-bulb-1000.html","/uploads/w450/2020/11/04/create-realistic-vintage-style-light-bulb5fa24bc3dbbf5_e3c24caff43aee0b36e9ba7dab3d276e.jpg"],
+      ["/create-glitch-text-effect-style-tik-tok-983.html","/uploads/w450/2020/04/15/create-text-glitch-effect-style-tik-tok5e96aa30534b2_523a0dd3712bd15fa8398f1a6f022fb6.jpg"],
+      ["/neon-light-text-effect-with-galaxy-style-981.html","/uploads/w450/2020/04/15/neon-light-text-effect-with-galaxy-style5e96a7aa6097b_3a34dc280e372f47bb69cb927f394831.jpg"],
+      ["/80-s-retro-neon-text-effect-online-979.html","/uploads/w450/2020/04/15/80s-retro-neon-text-effect-online5e96b13a0aa57_4d14505515da15c744bfe4b41a26089e.jpg"],
+      ["/holographic-3d-text-effect-975.html","/uploads/w450/2019/07/24/Holographic_Text_Effect5d37d9020c46f_5df67b096f5b591c55686c16993b22fa.jpg"],
+      ["/neon-text-effect-online-963.html","/uploads/w450/2019/01/17/Neon_Text_Effect_Online5c4025116bb49_c777946c9b6f2db264f8401f996c8ca4.jpg"],
+      ["/firework-sparkle-text-effect-930.html","/uploads/w450/2018/07/11/firework-sparkle-text-effect5b456e67328af_605dc7ba5a8ae845747afce2ad7a0b6f.jpg"],
+      ["/rainbow-equalizer-text-effect-902.html","/uploads/w450/2018/06/18/Rainbow_Equalizer_Text_Effect_5b27854b3d301_500a876f63e20faf48370dc64d784d3f.jpg"],
+      ["/matrix-style-text-effect-online-884.html","/uploads/w450/2018/06/11/demo25b1de6503dd24_f4bcac23e82a9596a78caf186b768180.jpg"],
+      ["/neon-light-text-effect-online-882.html","/uploads/w450/2018/06/11/demo5b1de6719344d_d2100f8ba67eb0ab36d5d0ebca65bbc8.jpg"],
+      ["/create-thunder-text-effect-online-881.html","/uploads/w450/2018/06/08/demo5b1a218b577eb_2e8b44f41e6613e17c4f4ac308d3ce68.jpg"],
+      ["/neon-text-effect-online-879.html","/uploads/w450/2018/06/08/demo35b1a220986a58_e191296320ff69710a111cfdb931da1b.jpg"],
+      ["/bokeh-text-effect-876.html","/uploads/w450/2018/06/07/demo5b18a1ff2961c_b1d287cf19d664480749e9fec6a0de34.jpg"],
+      ["/green-neon-text-effect-874.html","/uploads/w450/2018/06/07/demo5b1897ab2d20c_5daa9084eb571aaa8dabb85a310e1431.jpg"],
+      ["/free-advanced-glow-text-effect-873.html","/uploads/w450/2018/06/07/demo5b18950281ea8_c504b4d9603b3144cac2003ba07e73b6.jpg"]
+      ]
+      },
+      {
+      id:"metallic",
+      name:"Metallic",
+      items:[
+      ["/glossy-metallic-chrome-3d-text-effect-1185.html","/uploads/w450/2025/05/21/glossy-metallic-chrome-text-effect-d4888.jpg"],
+      ["/create-3d-cold-blue-metallic-text-effects-online-1179.html","/uploads/w450/2025/03/31/create-3d-cold-blue-metallic-text-effects-online-6e3cb.jpg"],
+      ["/create-online-glowing-neon-metal-3d-text-effects-1166.html","/uploads/w450/2024/06/20/create-online-glowing-neon-metal-3d-text-effects-cf4c6.jpg"],
+      ["/create-rose-gold-style-text-effects-online-1158.html","/uploads/w450/2024/05/10/create-rose-gold-style-text-effects-online-96721.jpg"],
+      ["/create-a-luxury-3d-chrome-text-effect-online-1149.html","/uploads/w450/2023/11/20/create-a-luxury-3d-chrome-text-effect-online-822f0.jpg"],
+      ["/create-a-titanium-text-effect-for-the-iphone-15-introduction-event-1140.html","/uploads/w450/2023/09/15/create-a-titanium-text-effect-for-the-iphone-15-introduction-event-76692.jpg"],
+      ["/online-3d-rusty-metal-text-effect-maker-1133.html","/uploads/w450/2023/08/01/online-3d-rusty-metal-text-effect-maker-e1dcf.jpg"],
+      ["/wave-pattern-metal-3d-text-effect-generator-1128.html","/uploads/w450/2023/06/27/wave-pattern-metal-3d-text-effect-generator649a8a26c108b_1f16f83dd4c36904589473a4a3540295.jpg"],
+      ["/fluid-art-metal-paint-text-effect-maker-1118.html","/uploads/w450/2023/04/04/fluid-art-metal-paint-text-effect-maker642bf0992db74_42f305ecc1935af0f2325817ac0b78cc.jpg"],
+      ["/grunge-metallic-3d-text-effect-online-1115.html","/uploads/w450/2023/03/13/grunge-metallic-3d-text-effect-online640ee83f15fb8_166a51b6a31899d5db2092cfdfe2644f.jpg"],
+      ["/create-3d-metallic-text-with-details-online-1108.html","/uploads/w450/2023/01/04/create-3d-metallic-text-with-details-online63b5036deb7ec_e76fa00d3d1d46770bfd8bf19fb492b8.jpg"],
+      ["/create-metal-snake-skin-text-effect-online-1096.html","/uploads/w450/2022/11/16/create-metal-snake-skin-text-effect-online6374bac935c64_ac89b799a273b36bfbf94764546837b1.jpg"],
+      ["/shiny-blue-3d-metallic-silver-style-text-effect-1094.html","/uploads/w450/2022/11/16/shiny-blue-3d-metallic-silver-style-text-effect6374baf2c2d5b_e284eae50e96e974e7aab5e978fc00b8.jpg"],
+      ["/create-a-3d-rust-style-text-effect-online-1093.html","/uploads/w450/2022/11/16/create-a-3d-rust-style-text-effect-online6374bb128bbb3_6567f8749ff81a4d7ae6d2300ca523f6.jpg"],
+      ["/create-3d-comic-text-effects-online-1091.html","/uploads/w450/2022/11/16/create-3d-comic-text-effects-online6374bb3515fe6_926c863e27308f5f46819b04b40cf245.jpg"],
+      ["/create-scary-halloween-text-effects-online-1090.html","/uploads/w450/2022/11/16/create-scary-halloween-text-effects-online6374bb4a160f1_840b9697864c36401e1fd31cca899e9b.jpg"],
+      ["/create-decorative-gold-glitter-3d-text-effect-online-1089.html","/uploads/w450/2022/11/16/create-decorative-gold-glitter-3d-text-effect-online6374bb5c33fd3_9a9035cfd86d16a06c920e63f3df14c7.jpg"],
+      ["/create-a-rusted-metal-text-effect-online-1087.html","/uploads/w450/2022/11/16/create-a-rusted-metal-text-effect-online6374bb7b4c67f_2f91e0fd3976447fd01b9e2fc0a45cf5.jpg"],
+      ["/create-realistic-golden-text-effect-on-red-sparkles-online-1082.html","/uploads/w450/2022/11/16/create-realistic-golden-text-effect-on-red-sparkles-online6374bbd10eb8b_d9b4d4f207aade306bf035aae873718b.jpg"],
+      ["/free-creative-3d-golden-text-effect-online-1075.html","/uploads/w450/2022/11/16/free-creative-3d-golden-text-effect-online6374bc558671e_95abf7d3fe0b50cc85e3c52b728cc3f6.jpg"],
+      ["/create-a-3d-luxury-metallic-text-effect-for-free-1071.html","/uploads/w450/2022/11/16/create-a-3d-luxury-metallic-text-effect-for-free6374bc9793da1_d318a4c04752831b041868e22febe337.jpg"],
+      ["/elegant-white-gold-3d-text-effect-online-free-1070.html","/uploads/w450/2022/03/29/elegant-white-gold-3d-text-effect-online-free6242613500682_eef89a2f24d61ef7195f37fcd9bccade.jpg"],
+      ["/create-text-effects-arcane-tv-series-online-1067.html","/uploads/w450/2022/03/10/create-text-effects-arcane-tv-series-online62295e4bdcb30_cf33e9fdcc85e33c1f35af209c36baa6.jpg"],
+      ["/create-thor-logo-style-text-effect-online-1064.html","/uploads/w450/2022/02/25/create-thor-logo-style-text-effect-online6218526c1249f_17b661540faac1b9cdab7ff41dd4dc18.jpg"],
+      ["/3d-golden-ancient-text-effect-online-free-1060.html","/uploads/w450/2022/01/18/3d-golden-ancient-text-effect-online-free61e66a1de15c6_0000b29dcbc05cc5aacccc128926b81a.jpg"],
+      ["/create-3d-deep-sea-metal-text-effect-online-1053.html","/uploads/w450/2021/11/29/create-3d-deep-sea-metal-text-effect61a4a26007d35_c60fda7992aea0d04aad39e5823c3d88.png"],
+      ["/create-a-cinematic-horror-text-effect-1045.html","/uploads/w450/2021/10/04/create-a-cinematic-horror-text-effect615acfacea196_d680ac765829e45aacbb695e60483ee6.jpg"],
+      ["/create-a-metallic-text-effect-free-online-1041.html","/uploads/w450/2021/09/01/create-a-metallic-text-effect-free-online612eeb317cfe8_1f24695a06277853fb3348ad58a0516f.jpg"],
+      ["/creat-glossy-metalic-text-effect-free-online-1040.html","/uploads/w450/2021/08/26/creat-glossy-metalic-text-effect-free-online612767c08333c_d6a1c2fdc22361d722ca41ee2330a200.jpg"],
+      ["/create-a-captain-america-text-effect-free-online-1039.html","/uploads/w450/2021/08/24/captain-america-text-effect612452a2b26ad_d2894d6d0431472143bb4aa9ee1a2f21.jpg"],
+      ["/create-a-transformer-text-effect-online-1035.html","/uploads/w450/2021/07/30/create-a-transformer-text-_effect-online6103a76c3adef_17882a768a428bd8acf29a88801a6d5b.jpg"],
+      ["/create-harry-potter-text-effect-online-1025.html","/uploads/w450/2021/06/23/create-harry-potter-text-effect-online60d2b92216bb4_7b9a046ee7f0c952891d5fffecedfb1e.jpg"],
+      ["/create-a-3d-glossy-metal-text-effect-1019.html","/uploads/w450/2021/05/07/create-a-3d-glossy-metal-text-effect6094ee18dec55_ef9ce3f65238fe448518ec20d4f9c522.jpg"],
+      ["/metal-dark-gold-text-effect-984.html","/uploads/w450/2020/04/15/metal-dark-gold-text-effect5e96ab278ebec_0d7a19f81a45ac3e382483240df0102b.jpg"],
+      ["/metal-purple-dual-effect-973.html","/uploads/w450/2019/05/18/Metal_Purple_Dual_Effect5cdfb7e7d2c69_41a216fd6c6fde814115297ce43792e3.jpg"],
+      ["/deluxe-silver-text-effect-970.html","/uploads/w450/2019/04/01/Deluxe_Silver_Text_Effect5ca1aecf224c7_c80a9825597ffff23146cb69c2617adc.jpg"]
+      ]
+      },
+      {
+      id:"misc",
+      name:"Misc",
+      items:[
+      ["/couple-name-typography-effect-on-minimalist-romantic-holding-hands-line-art-1193.html","/uploads/w450/2026/04/02/couple-name-typography-effect-on-minimalist-romantic-holding-hands-line-art-5d71f.jpg"],
+      ["/stunning-3d-hologram-metallic-text-effect-1189.html","/uploads/w450/2025/07/10/stunning-3d-hologram-metallic-text-effect-67ba8.jpg"],
+      ["/create-free-online-gradient-stained-glass-text-effects-1173.html","/uploads/w450/2024/09/10/create-free-online-gradient-stained-glass-text-effects-81f4c.jpg"],
+      ["/create-a-free-online-3d-frosted-glass-effect-1172.html","/uploads/w450/2024/08/13/create-a-free-online-3d-frosted-glass-effect-dfc02.jpg"],
+      ["/create-online-colorful-3d-paper-cut-text-effects-1167.html","/uploads/w450/2024/06/27/create-online-colorful-3d-paper-cut-text-effects-c1ffd.jpg"],
+      ["/create-a-gradient-text-shadow-effect-online-1141.html","/uploads/w450/2023/09/18/create-a-gradient-text-shadow-effect-online-dfc95.jpg"],
+      ["/create-pokemon-logo-style-text-effect-online-1134.html","/uploads/w450/2023/08/07/create-pokemon-logo-style-text-effect-online-7c8a1.jpg"],
+      ["/create-pink-cute-3d-cartoon-text-effect-online-1131.html","/uploads/w450/2023/07/11/create-pink-cute-3d-cartoon-text-effect-online64ad23dc65746_42656a7c01172ca838befbe0b5f64d67.jpg"],
+      ["/create-letterpress-text-effects-online-for-free-1130.html","/uploads/w450/2023/07/07/create-letterpress-text-effects-online-for-free64a77d728db18_358f7f01df9629a94ab236b3782db964.jpg"],
+      ["/create-3d-dragon-scale-text-effect-online-1127.html","/uploads/w450/2023/06/21/create-3d-dragon-scale-text-effect-online64925a0f43582_51eb83a92a354427bb5a9fb8164232e1.jpg"],
+      ["/create-naruto-logo-style-text-effect-online-1125.html","/uploads/w450/2023/06/02/create-naruto-logo-style-text-effect-online6479980945bcc_4fc224fda6db77a31c6c5474154bd1a2.jpg"],
+      ["/create-3d-multicolor-paint-text-effect-online-1114.html","/uploads/w450/2023/03/08/create-3d-multicolor-paint-text-effect-online6407f4af764e8_83e11a1edf56d90e68f4fe54675d74d5.jpg"],
+      ["/create-pink-soft-gold-text-effect-online-1113.html","/uploads/w450/2023/02/27/create-pink-soft-gold-text-effect-online63fc5fda03ea1_019933abd4a1ce76004fe072a9ff331f.jpg"],
+      ["/create-3d-liquid-metal-text-effect-1112.html","/uploads/w450/2023/02/23/create-3d-liquid-metal-text-effect63f6cd566f66a_ce06d79c992672f276a0abe4b3ee33dd.jpg"],
+      ["/create-burger-3d-text-effect-1111.html","/uploads/w450/2023/02/14/create-burger-3d-text-effect63eafd16883a3_91abb482359c09e90d935b067fd4d4a8.jpg"],
+      ["/create-cage-text-effect-online-1110.html","/uploads/w450/2023/02/01/create-cage-text-effect-online63da0e80e0346_434d4dc3ee0dd650adb15cf1e26e32df.jpg"],
+      ["/create-3d-halloween-text-effects-online-1098.html","/uploads/w450/2022/11/16/create-3d-halloween-text-effects-online63748473de0c9_f3361bd32dd47d7dc601fc9324298411.jpg"],
+      ["/create-green-slime-text-effect-online-1097.html","/uploads/w450/2022/11/16/create-green-slime-text-effect-online6374bab485f1d_9c4d953753f5a8355ca65082c9adf19b.jpg"],
+      ["/create-free-online-cobblestone-text-effect-1095.html","/uploads/w450/2022/11/16/create-free-online-cobblestone-text-effect6374badb2de79_16786a2fa3baae22e2c5a70ec0f2c9de.jpg"],
+      ["/create-blackpink-s-born-pink-album-theme-logo-online-1092.html","/uploads/w450/2022/11/16/create-blackpink-s-born-pink-album-theme-logo-online6374bb2461654_4b4d4e40367d5757701d43b59882cf01.jpg"],
+      ["/create-3d-pottery-text-effect-online-1088.html","/uploads/w450/2022/11/16/create-3d-pottery-text-effect-online6374bb6beb369_03293d341d04eb3dbd1db5d652408e21.jpg"],
+      ["/create-artistic-typography-online-1086.html","/uploads/w450/2022/11/16/create-artistic-typography-online6374bb8b7509d_d9eb7bf354eb5f9942950030d52481f2.jpg"],
+      ["/create-a-summer-text-effect-with-a-palm-tree-1083.html","/uploads/w450/2022/11/16/create-a-summer-text-effect-with-a-palm-tree6374bbbe8b826_67f20f0261e3f3795990bb9b538eb807.jpg"],
+      ["/create-a-blackpink-logo-decorated-with-roses-online-free-1080.html","/uploads/w450/2022/11/16/create-a-blackpink-logo-decorated-with-roses-online-free6374bbf886eca_1bd554e54756658a41abc74fde4d72c8.jpg"],
+      ["/create-blackpink-style-logo-effects-online-1079.html","/uploads/w450/2022/11/16/create-blackpink-style-logo-effects-online6374bc0b04619_8d9a487e74350b832c94f1a6560fff8e.jpg"],
+      ["/3d-business-sign-text-effect-1078.html","/uploads/w450/2022/11/16/3d-business-sign-text-effect6374bc1bc124c_56390f1454b860b943d05b569772f20f.jpg"],
+      ["/create-carved-stone-text-effect-online-1074.html","/uploads/w450/2022/11/16/create-carved-stone-text-effect-online6374bc6592b0a_b58f8b9994022058ba3b2ccde94f630a.jpg"],
+      ["/create-3d-style-glass-text-effect-online-1072.html","/uploads/w450/2022/11/16/create-3d-style-glass-text-effect-online6374bc8662e6b_a62516e99e2d0621c296d0e95f8fd255.jpg"],
+      ["/create-3d-giraffe-text-effect-online-1069.html","/uploads/w450/2022/03/22/create-3d-giraffe-text-effect-online623982c219a4a_43e0f7bf181b9fa9d271877d75d1725a.jpg"],
+      ["/make-a-batman-logo-online-free-1066.html","/uploads/w450/2022/03/07/make-a-batman-logo-online-free6225cf2d2ca6e_088d2be2baa70fd34c11f647a8c46808.jpg"],
+      ["/create-halloween-skeleton-text-effect-online-1047.html","/uploads/w450/2021/10/19/create-halloween-skeleton-text-effect-online616e9b7cac2ee_2324d5ca8440591cd733467a891deb41.jpg"],
+      ["/create-a-spooky-halloween-text-effect-online-1046.html","/uploads/w450/2021/10/13/create-a-spooky-halloween-text-effect-online6166860ee3517_57587a5b5205535d659b1fda322857b3.jpg"],
+      ["/create-a-sketch-text-effect-online-1044.html","/uploads/w450/2021/09/29/create-a-sketch-text-effect-online615436440466a_8b4218b4951472cef2a8af3072d0b34b.jpg"],
+      ["/video-game-classic-8-bit-text-effect-1037.html","/uploads/w450/2021/08/12/video-game-classic-8-bit-text-effect6114ca5423471_d5bb6237e5eaf035241525f918b8ce8c.jpg"],
+      ["/create-green-horror-style-text-effect-online-1036.html","/uploads/w450/2021/08/07/create-green-horror-style-text-effect-online610e35d91695c_b53059da5ed3c7576b4c60e0320d0cb5.jpg"],
+      ["/create-layered-text-effects-online-free-1032.html","/uploads/w450/2021/07/19/create-layered-text-effects-online-free60f52a158941d_d7abf28987988c4341bd9f3f44751159.jpg"]
+      ]
+      },
+      {
+      id:"food",
+      name:"Food",
+      items:[
+      ["/online-cute-3d-candy-text-effect-generator-1192.html","/uploads/w450/2025/08/27/online-cute-3d-candy-text-effect-generator-a4f27.jpg"],
+      ["/3d-text-effect-art-brings-grilled-meat-to-life-1178.html","/uploads/w450/2025/03/28/3d-text-effect-art-brings-grilled-meat-to-life-0ad16.jpg"],
+      ["/create-artistic-3d-text-effects-from-corn-kernels-1177.html","/uploads/w450/2025/03/27/create-artistic-3d-text-effects-from-corn-kernels-740c7.jpg"],
+      ["/create-3d-chocolate-cake-text-effect-online-1135.html","/uploads/w450/2023/08/14/create-3d-chocolate-cake-text-effect-online-a7680.jpg"],
+      ["/create-a-3d-orange-juice-text-effect-online-1084.html","/uploads/w450/2022/11/16/create-a-3d-orange-juice-text-effect-online6374bbae30c7a_43429e06514a0f4f2f9baac79c81c122.jpg"],
+      ["/create-berry-text-effect-online-free-1033.html","/uploads/w450/2021/07/26/create-berry-text-effect-online-free60fe850140e29_0f9af3cc82aa103d2be46bb78cc0f62a.jpg"],
+      ["/chocolate-cake-text-effect-890.html","/uploads/w450/2018/06/11/chocolate-cream-cake-text-effect5b1e45f9eaeee_c7a9fde5f56b9c1166ce7a1ff983fd05.jpg"],
+      ["/strawberry-text-effect-online-889.html","/uploads/w450/2018/06/11/strawberry-text-effect5b1e3e090867a_146ee081152405e394c4570095be445f.jpg"],
+      ["/bread-text-effect-online-887.html","/uploads/w450/2018/06/11/demo5b1e25570a262_26b0151909b52003251868ea8a8c2579.jpg"],
+      ["/honey-text-effect-868.html","/uploads/w450/2018/06/07/demo5b188b014c113_8c7d6290763a6b630f94a99b6e62ab68.jpg"],
+      ["/biscuit-text-effect-858.html","/uploads/w450/2018/05/31/demo5b0fc5c71be06_2f7f65b53bc7dd08b71272d891bba95a.jpg"],
+      ["/bagel-text-effect-857.html","/uploads/w450/2018/06/04/demo5b14ddf86df12_c742e2d6bf2cedf4661258b6e43bf1b4.jpg"],
+      ["/pink-candy-text-effect-832.html","/uploads/w450/2018/05/29/demo5b0d19c790e48_4f53024fdd7b041ebf42fbba78574c93.jpg"]
+      ]
+      },
+      {
+      id:"3d",
+      name:"3D",
+      items:[
+      ["/luxurious-and-creative-sparkling-colored-crystal-text-effect-1190.html","/uploads/w450/2025/07/28/luxurious-and-creative-sparkling-colored-crystal-text-effect-26ad8.jpg"],
+      ["/bright-and-colorful-3d-summer-text-effect-1188.html","/uploads/w450/2025/06/24/bright-and-colorful-3d-summer-text-effect-3add8.jpg"],
+      ["/energetic-and-adorable-3d-summer-text-effect-1187.html","/uploads/w450/2025/06/17/energetic-and-adorable-3d-summer-text-effect-b9a72.jpg"],
+      ["/create-3d-fresh-icy-blue-text-effect-online-1171.html","/uploads/w450/2024/07/31/create-3d-fresh-icy-blue-text-effect-online-3d71a.jpg"],
+      ["/create-online-3d-hologram-glass-text-effect-1163.html","/uploads/w450/2024/06/11/create-online-3d-hologram-mirror-text-effect-71779.jpg"],
+      ["/create-cute-3d-glossy-text-effects-online-1162.html","/uploads/w450/2024/06/03/create-cute-3d-glossy-text-effects-online-7fe32.jpg"],
+      ["/create-cute-pink-3d-text-effects-online-1161.html","/uploads/w450/2024/05/27/create-cute-pink-3d-text-effects-online-0c2d9.jpg"],
+      ["/create-3d-lines-text-effects-online-1160.html","/uploads/w450/2024/05/23/create-3d-line-text-effects-online-b92ab.jpg"],
+      ["/create-deadpool-logo-style-text-effect-online-1159.html","/uploads/w450/2024/05/16/create-deadpool-logo-style-text-effect-online-1f239.jpg"],
+      ["/create-online-3d-comic-book-style-text-effects-1156.html","/uploads/w450/2024/04/22/create-online-3d-comic-book-style-text-effects-f0ac0.jpg"],
+      ["/create-online-lucky-3d-text-effects-in-red-1155.html","/uploads/w450/2024/03/27/create-online-lucky-3d-text-effects-in-red-9e3a1.jpg"],
+      ["/create-an-online-3d-embossed-text-effect-1154.html","/uploads/w450/2024/03/20/create-an-online-3d-embossed-text-effect-22d20.jpg"],
+      ["/create-a-colorful-glossy-3d-text-effect-online-1150.html","/uploads/w450/2023/11/28/create-a-colorful-glossy-3d-text-effect-online-6ed84.jpg"],
+      ["/create-an-online-3d-nail-art-text-effect-1148.html","/uploads/w450/2023/11/16/create-an-online-3d-nail-art-text-effect-5c6fa.jpg"],
+      ["/create-3d-thunder-text-effects-online-1147.html","/uploads/w450/2023/11/08/create-3d-thunder-text-effects-online-99cb4.jpg"],
+      ["/online-3d-alien-text-effect-generator-1146.html","/uploads/w450/2023/11/01/online-3d-alien-text-effect-generator-a1c93.jpg"],
+      ["/create-realistic-3d-moss-text-effects-online-1145.html","/uploads/w450/2023/10/25/create-realistic-3d-moss-text-effects-online-c4167.jpg"],
+      ["/shiny-black-3d-text-effect-generator-1143.html","/uploads/w450/2023/10/05/shiny-black-3d-text-effect-generator-cacf3.jpg"],
+      ["/online-3d-pixel-text-effect-generator-1138.html","/uploads/w450/2023/09/06/online-3d-pixel-text-effect-generator-8f852.jpg"],
+      ["/sale-promotion-ads-3d-text-effect-1136.html","/uploads/w450/2023/08/22/sale-promotion-ads-3d-text-effect-4beaf.jpg"],
+      ["/neon-light-style-3d-text-effect-online-1132.html","/uploads/w450/2023/07/24/neon-light-style-3d-text-effect-online64be351693465_14ffb9ffa48ecd44502159c9ef596c63.jpg"],
+      ["/3d-cartoon-text-effect-generator-online-1123.html","/uploads/w450/2023/05/15/3d-cartoon-text-effect-generator-online6461d8ec05853_9e4d2df2007bf270dc8095d7531c154a.jpg"],
+      ["/shiny-crystal-3d-style-text-effect-online-1122.html","/uploads/w450/2023/05/08/shiny-crystal-3d-style-text-effect-online64585740c7072_d16dd383687394071975cf46e2da15f0.jpg"],
+      ["/green-chrome-3d-text-effect-generator-online-1121.html","/uploads/w450/2023/04/26/green-chrome-3d-text-effect-generator-online6448a99e1ca30_d3aec68aefcf6e087f9036353f2d1faa.jpg"],
+      ["/create-3d-cartoon-text-effect-online-1120.html","/uploads/w450/2023/04/17/create-3d-cartoon-text-effect-online643d0f1a850a1_2d650fe5d166bc73ca05422b3710b7a6.jpg"],
+      ["/create-3d-turquoise-text-style-effects-online-1119.html","/uploads/w450/2023/04/14/create-3d-turquoise-text-style-effects-online6439085bb90de_ae191dd4da1f007a2babec347658ee1e.jpg"],
+      ["/hologram-color-3d-text-effect-generator-online-1117.html","/uploads/w450/2023/03/27/hologram-color-3d-text-effect-generator-online64215d3ed27ea_86149381e5f05e74a662b6fdc0500864.jpg"],
+      ["/create-luxury-3d-crystal-text-effects-online-1116.html","/uploads/w450/2023/03/21/create-luxury-3d-crystal-text-effects-online64191b9c7f98c_f3c7c1e68c323982ee82f3df58876a81.jpg"],
+      ["/create-a-3d-stone-text-effect-online-for-free-1073.html","/uploads/w450/2022/11/16/create-a-3d-stone-text-effect-online-for-free6374bc771df19_6c4465e05fb4dfa74e82b16712c96b97.jpg"],
+      ["/create-3d-retro-text-effect-online-free-1065.html","/uploads/w450/2022/03/04/create-3d-retro-text-effect-online-free62217dc64e0ae_b2bf2fbbd2339339f3ed3e0ecdd72de6.jpg"],
+      ["/free-online-country-flag-3d-text-effect-generator-1052.html","/uploads/w450/2025/08/16/free-online-country-flag-3d-text-effect-generator-b36e7.jpg"],
+      ["/create-american-flag-3d-text-effect-online-1051.html","/uploads/w450/2021/11/17/create-america-flag-3d-text-effect-online61946a6400e36_bc0b10ef212a76cb1ffe28c6eaa0fae5.jpg"],
+      ["/3d-rainbow-color-calligraphy-text-effect-1049.html","/uploads/w450/2021/11/03/3d-rainbow-color-calligraphy-text-effect6181f20f3acaa_28270ade0168f0f48f3b8662e8ff276e.jpg"],
+      ["/create-3d-water-pipe-text-effects-online-1048.html","/uploads/w450/2021/10/27/create-3d-water-pipe-text-effects-online617923b530c1e_c38a9a58cc1c48ccc0893f0abf4a4984.jpg"],
+      ["/create-space-text-effects-online-free-1042.html","/uploads/w450/2021/09/08/create-space-text-effects-online-free61387c51e7ab3_9a92b7a53aee3ecc5ffcdc1edd3ddbca.jpg"],
+      ["/online-3d-gradient-text-effect-generator-1020.html","/uploads/w450/2021/05/07/online-3d-gradient-text-effect-generator6094efb05f2d7_4f427b46a9c3d8b49cec3947140203e8.jpg"]
+      ]
+      },
+      {
+      id:"tech",
+      name:"Tech",
+      items:[
+      ["/color-led-display-screen-text-effect-1059.html","/uploads/w450/2022/01/05/color-led-display-screen-text-effect61d50a5f8a899_329fd04f0cd2328f4de591f0fda5bdfb.jpg"],
+      ["/create-3d-sci-fi-text-effect-online-1050.html","/uploads/w450/2021/11/13/create-sci-fi-text-effect-online618f3d204115f_6bd421147fba633c8481424b720fc078.jpg"],
+      ["/create-blue-circuit-style-text-effect-online-1043.html","/uploads/w450/2021/09/24/blue-circuit-text-effect614d75f15a100_425f0e10d6a9b653d2b08c75c1fc90c8.jpg"],
+      ["/create-science-fiction-text-effect-online-free-1038.html","/uploads/w450/2021/08/18/create-science-fiction-text-effect-online-free611c7fb7a355e_18e2ebb5251d52bc2ed94624144db35e.jpg"],
+      ["/robot-r2-d2-text-effect-903.html","/uploads/w450/2018/06/19/R2D2-text-effect-online5b28785f4da2f_2d2f8356c1c91c76a3db73c39e8c77f6.jpg"],
+      ["/sci-fi-text-effect-855.html","/uploads/w450/2018/06/04/bg5b14e659c00e9_396e4197f19124b445791160edfe5dca.jpg"]
+      ]
+      },
+      {
+      id:"graffiti",
+      name:"Graffiti",
+      items:[
+      ["/create-wonderful-graffiti-art-text-effect-1011.html","/uploads/worigin/2021/04/17/create-wonderful-graffiti-art-text-effect607a5804908a1_7216aaf6373c2ad0c07dd03bca85df89.jpg"],
+      ["/create-a-cool-graffiti-text-on-the-wall-1010.html","/uploads/worigin/2021/04/17/create-a-cool-graffiti-text-on-the-wall607a5814485de_bcbc112ebde93413be53061ee327747a.jpg"],
+      ["/create-cool-wall-graffiti-text-effect-online-1009.html","/uploads/worigin/2021/02/22/graffity-text-effect60337120cf35b_9987e81d2cfc554fa3a66fce04055211.jpg"]
+      ]
+      }
+      ];
+
+      const modes=document.querySelectorAll(".mode");
+      const text1=document.getElementById("text1");
+      const text2=document.getElementById("text2");
+      const generate=document.getElementById("generate");
+      const statusBox=document.getElementById("status");
+      const categoriesBox=document.getElementById("categories");
+      const stylesBox=document.getElementById("styles");
+      const selectedBox=document.getElementById("selected");
+      const resultBox=document.getElementById("resultBox");
+      const resultImage=document.getElementById("resultImage");
+      const download=document.getElementById("download");
+      const newResult=document.getElementById("newResult");
+
+      let mode=1;
+      let categoryIndex=0;
+      let styleIndex=0;
+      let resultURL="";
+
+      function prettyName(path){
+      let name=path.split("/").pop().replace(".html","");
+      name=name.replace(/-\d+$/,"");
+      name=name.replace(/_/g," ");
+      name=name.replace(/-/g," ");
+      name=name.replace(/\s+/g," ").trim();
+      return name.replace(/\b\w/g,function(x){return x.toUpperCase()});
+      }
+
+      function fullURL(path){
+      return "https://textpro.me"+path;
+      }
+
+      function showStatus(message){
+      statusBox.textContent=message;
+      statusBox.classList.add("show");
+      clearTimeout(showStatus.timer);
+      showStatus.timer=setTimeout(function(){
+      statusBox.classList.remove("show");
+      },4000);
+      }
+
+      function renderCategories(){
+      categoriesBox.innerHTML="";
+      const fragment=document.createDocumentFragment();
+
+      categories.forEach(function(category,index){
+      const button=document.createElement("button");
+      button.className="category"+(index===categoryIndex?" active":"");
+      button.textContent=category.name;
+      button.type="button";
+      button.onclick=function(){
+      categoryIndex=index;
+      styleIndex=0;
+      renderCategories();
+      renderStyles();
+      };
+      fragment.appendChild(button);
+      });
+
+      categoriesBox.appendChild(fragment);
+      }
+
+      function renderStyles(){
+      const category=categories[categoryIndex];
+      stylesBox.innerHTML="";
+      const fragment=document.createDocumentFragment();
+
+      category.items.forEach(function(item,index){
+      const button=document.createElement("button");
+      button.type="button";
+      button.className="style"+(index===styleIndex?" active":"");
+
+      const thumb=document.createElement("div");
+      thumb.className="thumb";
+
+      const img=document.createElement("img");
+      img.loading="lazy";
+      img.decoding="async";
+      img.alt=prettyName(item[0]);
+      img.src=fullURL(item[1]);
+
+      img.onerror=function(){
+      thumb.classList.add("noimg");
+      img.style.display="none";
+      };
+
+      thumb.appendChild(img);
+
+      const title=document.createElement("span");
+      title.className="style-name";
+      title.textContent=prettyName(item[0]);
+
+      button.appendChild(thumb);
+      button.appendChild(title);
+
+      button.onclick=function(){
+      styleIndex=index;
+      renderStyles();
+      };
+
+      fragment.appendChild(button);
+      });
+
+      stylesBox.appendChild(fragment);
+
+      const selected=category.items[styleIndex];
+      selectedBox.textContent="Style dipilih: "+prettyName(selected[0]);
+      }
+
+      function setMode(value){
+      mode=value;
+
+      modes.forEach(function(button){
+      button.classList.toggle("active",Number(button.dataset.mode)===mode);
+      });
+
+      text2.classList.toggle("hidden",mode!==2);
+
+      if(mode===1){
+      text2.value="";
+      }
+      }
+
+      modes.forEach(function(button){
+      button.onclick=function(){
+      setMode(Number(button.dataset.mode));
+      };
+      });
+
+      generate.onclick=async function(){
+      const first=text1.value.trim();
+      const second=text2.value.trim();
+
+      if(!first){
+      alert("Masukkan teks terlebih dahulu.");
+      text1.focus();
+      return;
+      }
+
+      if(mode===1&&second){
+      alert("Mode 1 TEKS hanya menerima satu teks. Pilih 2 TEKS jika ingin memakai dua teks.");
+      text2.focus();
+      return;
+      }
+
+      if(mode===2&&!second){
+      alert("Mode 2 TEKS membutuhkan dua teks.");
+      text2.focus();
+      return;
+      }
+
+      const item=categories[categoryIndex].items[styleIndex];
+      const selectedStyle=fullURL(item[0]);
+      const textArray=mode===1?[first]:[first,second];
+
+      const params=new URLSearchParams();
+      params.set("path","maker/text/effect");
+      params.set("style_url",selectedStyle);
+      params.set("text",JSON.stringify(textArray));
+
+      generate.disabled=true;
+      generate.textContent="MEMBUAT...";
+      showStatus("Sedang membuat text effect...");
+
+      try{
+      const response=await fetch(API_BASE+"?"+params.toString(),{
+      method:"GET",
+      cache:"no-store"
+      });
+
+      if(!response.ok){
+      throw new Error("HTTP "+response.status);
+      }
+
+      const json=await response.json();
+
+      if(!json||json.status!==true||!json.data){
+      throw new Error(json&&json.message?json.message:"API gagal membuat gambar");
+      }
+
+      resultURL=json.data.url_file||json.data.url||"";
+
+      if(!resultURL){
+      throw new Error("URL hasil tidak ditemukan");
+      }
+
+      resultImage.src=resultURL;
+      resultBox.classList.add("show");
+      resultBox.scrollIntoView({behavior:"smooth",block:"start"});
+      showStatus("Berhasil membuat text effect.");
+      }catch(error){
+      console.error(error);
+      alert("Gagal membuat text effect. Coba lagi.");
+      showStatus("Gagal membuat text effect.");
+      }finally{
+      generate.disabled=false;
+      generate.textContent="BUAT TEXT EFFECT";
+      }
+      };
+
+      download.onclick=async function(){
+      if(!resultURL)return;
+
+      download.disabled=true;
+      download.textContent="MENGUNDUH...";
+
+      try{
+      const params=new URLSearchParams();
+
+      params.set("path","download");
+      params.set("url",resultURL);
+
+      const response=await fetch(
+      API_BASE+"?"+params.toString(),
+      {
+      method:"GET",
+      cache:"no-store"
+      }
+      );
+
+      if(!response.ok){
+      throw new Error("Download gagal");
+      }
+
+      const blob=await response.blob();
+
+      if(!blob.size){
+      throw new Error("File kosong");
+      }
+
+      const blobURL=URL.createObjectURL(blob);
+      const link=document.createElement("a");
+
+      const type=blob.type||"image/jpeg";
+
+      let ext="jpg";
+
+      if(type.includes("png")){
+      ext="png";
+      }else if(type.includes("webp")){
+      ext="webp";
+      }else if(type.includes("gif")){
+      ext="gif";
+      }
+
+      link.href=blobURL;
+      link.download=
+      "text-maker-"+Date.now()+"."+ext;
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+      setTimeout(function(){
+      URL.revokeObjectURL(blobURL);
+      },2000);
+
+      }catch(error){
+      console.error(error);
+      alert("Gagal mengunduh gambar.");
+      }finally{
+      download.disabled=false;
+      download.textContent="DOWNLOAD";
+      }
+      };
+
+      newResult.onclick=function(){
+      resultBox.classList.remove("show");
+      resultImage.removeAttribute("src");
+      resultURL="";
+      window.scrollTo({
+      top:0,
+      behavior:"smooth"
+      });
+      };
+
+      renderCategories();
+      renderStyles();
+    </script>
+  </body>
+</html>
