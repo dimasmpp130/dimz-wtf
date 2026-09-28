@@ -557,7 +557,6 @@
       font-size:8px
       }
 
-      /* MODAL */
       .modal{
       position:fixed;
       inset:0;
@@ -745,7 +744,6 @@
       cursor:pointer
       }
 
-      /* GEMPA */
       .gempa-card{
       border:1px solid var(--line);
       border-radius:17px;
@@ -955,7 +953,6 @@
       text-decoration:none
       }
 
-      /* LIGHT */
       body.light{
       --bg:#f1f0ed;
       --surface:#faf9f7;
@@ -1405,7 +1402,6 @@
             <p>Game sederhana buat ngisi waktu.</p>
           </button>
 
-          <!-- CATEGORY BARU -->
           <button class="menu-card" data-modal="modalRandom">
             <div class="menu-icon orange">
               <i class="fa-solid fa-photo-film"></i>
@@ -1646,7 +1642,6 @@
       © <span id="year"></span> DIMMZZZSUM_ENAK · Built with Hosting.
     </footer>
 
-    <!-- DOWNLOAD MODAL -->
     <div class="modal" id="modalDownload">
       <div class="modal-box">
         <div class="modal-head">
@@ -1676,7 +1671,6 @@
       </div>
     </div>
 
-    <!-- CANVA MODAL -->
     <div class="modal" id="modalCanva">
       <div class="modal-box">
         <div class="modal-head">
@@ -1706,7 +1700,6 @@
       </div>
     </div>
 
-    <!-- ISLAMIC MODAL -->
     <div class="modal" id="modalIslamic">
       <div class="modal-box">
         <div class="modal-head">
@@ -1736,7 +1729,6 @@
       </div>
     </div>
 
-    <!-- SEARCH MODAL -->
     <div class="modal" id="modalSearch">
       <div class="modal-box">
         <div class="modal-head">
@@ -1766,7 +1758,6 @@
       </div>
     </div>
 
-    <!-- CONVERTER MODAL -->
     <div class="modal" id="modalConverter">
       <div class="modal-box">
         <div class="modal-head">
@@ -1796,7 +1787,6 @@
       </div>
     </div>
 
-    <!-- TEMP MODAL -->
     <div class="modal" id="modalTemp">
       <div class="modal-box">
         <div class="modal-head">
@@ -1826,7 +1816,6 @@
       </div>
     </div>
 
-    <!-- TOOLS MODAL -->
     <div class="modal" id="modalTools">
       <div class="modal-box">
         <div class="modal-head">
@@ -1856,7 +1845,6 @@
       </div>
     </div>
 
-    <!-- GAME MODAL -->
     <div class="modal" id="modalGame">
       <div class="modal-box">
         <div class="modal-head">
@@ -1886,7 +1874,6 @@
       </div>
     </div>
 
-    <!-- RANDOM IMAGE / VIDEO MODAL BARU -->
     <div class="modal" id="modalRandom">
       <div class="modal-box">
         <div class="modal-head">
@@ -1916,7 +1903,6 @@
       </div>
     </div>
 
-    <!-- 404 -->
     <div class="modal not-found" id="notFound">
       <div class="modal-box">
         <div class="error-code">404</div>
@@ -2229,33 +2215,33 @@
       random:[
 
       {
-      name:"Cuaca Real",
-      desc:"Cek kondisi cuaca secara real-time",
-      url:"search/search_cuaca_real.html",
+      name:"Random Waifu Anim",
+      desc:"Koleksi gambar waifu anime random",
+      url:"random/random_waifu_anim.html",
       icon:"fa-cloud-sun",
       type:"solid",
       color:"cyan",
-      tags:"cuaca weather real time suhu hujan"
+      tags:"waifu anim random anime girl"
       },
 
       {
-      name:"Threads Downloader",
-      desc:"Download media dari Threads",
-      url:"download/threads_downloaders.html",
+      name:"Random Oppai Anim",
+      desc:"Koleksi gambar waifu oppai random",
+      url:"random/random_oppai_anim.html",
       icon:"fa-at",
       type:"solid",
       color:"violet",
-      tags:"threads downloader video foto image"
+      tags:"oppai anim random anime ecchi"
       },
 
       {
-      name:"SnackVideo Downloader",
-      desc:"Download video dari SnackVideo",
-      url:"download/snackvideo_downloaders.html",
+      name:"Random Maid Anim",
+      desc:"Koleksi gambar waifu maid random",
+      url:"random/random_maid_anim.html",
       icon:"fa-video",
       type:"solid",
       color:"orange",
-      tags:"snackvideo downloader video download"
+      tags:"maid anim random anime cosplay"
       }
 
       ]
@@ -2273,8 +2259,6 @@
       temp:"tempList",
       tools:"toolsList",
       game:"gameList",
-
-      /* BARU */
       random:"randomList"
 
       };
@@ -2377,8 +2361,6 @@
       }
 
 
-      /* OPEN MODAL */
-
       document.querySelectorAll("[data-modal]").forEach(function(button){
 
       button.addEventListener("click",function(){
@@ -2407,8 +2389,6 @@
 
       });
 
-
-      /* CLOSE MODAL */
 
       function closeModal(modal){
 
@@ -2460,8 +2440,6 @@
       });
 
 
-      /* SEARCH */
-
       document.querySelectorAll("[data-search]").forEach(function(input){
 
       input.addEventListener("input",function(){
@@ -2475,8 +2453,6 @@
 
       });
 
-
-      /* CLEAR SEARCH */
 
       document.querySelectorAll("[data-clear]").forEach(function(button){
 
@@ -2500,8 +2476,6 @@
       });
 
 
-      /* HOME */
-
       document.getElementById("homeBtn").addEventListener(
       "click",
       function(){
@@ -2509,8 +2483,6 @@
       }
       );
 
-
-      /* THEME */
 
       const themeBtn=document.getElementById("themeBtn");
 
@@ -2557,8 +2529,6 @@
       });
 
 
-      /* CLOCK */
-
       const clock=document.getElementById("liveClock");
       const date=document.getElementById("liveDate");
 
@@ -2598,8 +2568,6 @@
       new Date().getFullYear();
 
 
-      /* 404 */
-
       const path=location.pathname.toLowerCase();
       const params=new URLSearchParams(location.search);
 
@@ -2620,8 +2588,6 @@
 
       }
 
-
-      /* GEMPA */
 
       const DIMZZ_URL=
       "https://dimz-wtf.vercel.app/api/rxoen-pages";
