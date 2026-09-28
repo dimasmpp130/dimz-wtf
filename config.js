@@ -4,6 +4,6 @@ const CONFIG = {
   },
 
   SITE: {
-    FOOTER1: "Made by DIMMZZZSUM_ENAK"
+    FOOTER1: "Made with ♥ by DIMMZZZSUM_ENAK"
   }
 };
