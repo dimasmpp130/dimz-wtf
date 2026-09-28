@@ -2,24 +2,18 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1"
-    />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#090a0e" />
-    <meta
-      name="description"
-      content="DIMMZZZSUM_ENAK - Official Links"
-    />
-    <title>
-      DIMMZZZSUM_ENAK — Official Links
-    </title>
+    <meta name="description" content="DIMMZZZSUM_ENAK - Official Links" />
+    <title>DIMMZZZSUM_ENAK — Official Links</title>
+
     <link
       rel="preload"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
+
     <noscript>
       <link
         rel="stylesheet"
@@ -28,1244 +22,1226 @@
     </noscript>
 
     <style>
-            :root{
-            --bg:#090a0e;
-            --surface:#101218;
-            --surface2:#151820;
-            --text:#f4f5f7;
-            --muted:#858b98;
-            --soft:#aeb3bd;
-            --line:rgba(255,255,255,.075);
-            --line2:rgba(255,255,255,.12);
-            --violet:#a99cff;
-            --cyan:#78ded3;
-            --pink:#f2a6c7;
-            --yellow:#e8cf8d;
-            --green:#79d6a2;
-            --orange:#e7aa72;
-            --blue:#8fb8ff;
-            }
-
-            *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box
-            }
-
-            body{
-            min-height:100vh;
-            overflow-x:hidden;
-            background:var(--bg);
-            color:var(--text);
-            font-family:Arial,Helvetica,sans-serif;
-            -webkit-font-smoothing:antialiased
-            }
-
-            button,
-            input{
-            font:inherit
-            }
-
-            button,
-            a{
-            -webkit-tap-highlight-color:transparent
-            }
-
-            .topbar,
-            .container{
-            width:min(1180px,calc(100% - 36px));
-            margin-left:auto;
-            margin-right:auto
-            }
-
-            .topbar{
-            margin-top:18px;
-            display:flex;
-            align-items:center;
-            justify-content:space-between
-            }
-
-            .brand{
-            display:flex;
-            align-items:center;
-            gap:10px;
-            color:var(--text);
-            text-decoration:none
-            }
-
-            .brand-logo{
-            width:42px;
-            height:42px;
-            display:grid;
-            place-items:center;
-            position:relative
-            }
-
-            .brand-logo:before{
-            content:"";
-            position:absolute;
-            width:27px;
-            height:27px;
-            border:1px solid var(--violet);
-            border-radius:8px;
-            opacity:.35
-            }
-
-            .brand-logo:after{
-            content:"";
-            position:absolute;
-            width:35px;
-            height:35px;
-            border:1px solid var(--cyan);
-            border-radius:10px;
-            opacity:.25
-            }
-
-            .brand-core{
-            position:relative;
-            z-index:1;
-            width:29px;
-            height:29px;
-            display:grid;
-            place-items:center;
-            border:1px solid var(--line2);
-            border-radius:8px;
-            background:var(--surface2);
-            color:var(--violet);
-            font-size:11px
-            }
-
-            .brand-name{
-            font-size:14px;
-            font-weight:700
-            }
-
-            .top-actions{
-            display:flex;
-            gap:7px
-            }
-
-            .top-btn{
-            width:38px;
-            height:38px;
-            border:1px solid var(--line);
-            border-radius:10px;
-            background:rgba(255,255,255,.025);
-            color:var(--muted);
-            display:grid;
-            place-items:center;
-            cursor:pointer
-            }
-
-            .top-btn:active{
-            background:rgba(255,255,255,.07);
-            color:var(--text)
-            }
-
-            .hero{
-            display:grid;
-            grid-template-columns:1fr .92fr;
-            align-items:center;
-            gap:45px;
-            padding:75px 0 32px
-            }
-
-            .hero-copy{
-            min-width:0
-            }
-
-            .eyebrow{
-            display:inline-flex;
-            align-items:center;
-            gap:7px;
-            margin-bottom:17px;
-            color:var(--muted);
-            font-size:9px;
-            letter-spacing:1.7px;
-            text-transform:uppercase
-            }
-
-            .eyebrow i{
-            color:var(--cyan);
-            font-size:5px
-            }
-
-            .hero h1{
-            margin-bottom:19px;
-            font-size:clamp(48px,7vw,86px);
-            line-height:.9;
-            letter-spacing:-4px;
-            word-break:break-word
-            }
-
-            .hero h1 span{
-            color:var(--violet)
-            }
-
-            .hero-description{
-            max-width:540px;
-            color:var(--muted);
-            font-size:13px;
-            line-height:1.75
-            }
-
-            .profile-mini{
-            display:flex;
-            align-items:center;
-            gap:11px;
-            margin-top:23px
-            }
-
-            .avatar-wrap{
-            position:relative;
-            width:45px;
-            height:45px;
-            flex-shrink:0
-            }
-
-            .avatar{
-            width:45px;
-            height:45px;
-            object-fit:cover;
-            border-radius:13px;
-            border:1px solid var(--line);
-            background:var(--surface2)
-            }
-
-            .status-dot{
-            position:absolute;
-            right:-2px;
-            bottom:-2px;
-            width:10px;
-            height:10px;
-            border-radius:50%;
-            background:var(--green);
-            border:3px solid var(--bg)
-            }
-
-            .profile-mini strong{
-            display:block;
-            font-size:12px
-            }
-
-            .profile-mini small{
-            display:block;
-            margin-top:3px;
-            color:var(--muted);
-            font-size:9px
-            }
-
-            .hero-media{
-            position:relative;
-            height:400px;
-            overflow:hidden;
-            border:1px solid var(--line);
-            border-radius:24px;
-            background:#11141b
-            }
-
-            .hero-media picture{
-            display:block;
-            width:100%;
-            height:100%
-            }
-
-            .hero-media img{
-            width:100%;
-            height:100%;
-            display:block;
-            object-fit:cover;
-            opacity:.7
-            }
-
-            .hero-media:after{
-            content:"";
-            position:absolute;
-            inset:0;
-            background:linear-gradient(to top,rgba(7,8,11,.92),rgba(7,8,11,.05) 68%)
-            }
-
-            .media-dots{
-            position:absolute;
-            z-index:2;
-            top:14px;
-            left:14px;
-            display:flex;
-            gap:6px
-            }
-
-            .media-dots span{
-            width:7px;
-            height:7px;
-            border-radius:50%;
-            background:var(--pink)
-            }
-
-            .media-dots span:nth-child(2){
-            background:var(--yellow)
-            }
-
-            .media-dots span:nth-child(3){
-            background:var(--cyan)
-            }
-
-            .video-label{
-            position:absolute;
-            z-index:2;
-            left:18px;
-            bottom:16px;
-            color:rgba(255,255,255,.55);
-            font-size:9px;
-            letter-spacing:1px
-            }
-
-            .section{
-            padding:20px 0
-            }
-
-            .section-head{
-            margin-bottom:13px
-            }
-
-            .section-head h2{
-            font-size:20px;
-            letter-spacing:-.4px
-            }
-
-            .section-head p{
-            margin-top:4px;
-            color:var(--muted);
-            font-size:10px
-            }
-
-            .menu-grid{
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:12px
-            }
-
-            .menu-card{
-            min-height:150px;
-            padding:20px;
-            border:1px solid var(--line);
-            border-radius:17px;
-            background:rgba(255,255,255,.022);
-            color:var(--text);
-            text-align:left;
-            cursor:pointer
-            }
-
-            .menu-card:active{
-            background:rgba(255,255,255,.055);
-            transform:scale(.99)
-            }
-
-            .menu-icon{
-            width:42px;
-            height:42px;
-            display:grid;
-            place-items:center;
-            margin-bottom:15px;
-            border-radius:11px;
-            background:rgba(255,255,255,.045);
-            font-size:14px
-            }
-
-            .violet{color:var(--violet)}
-            .cyan{color:var(--cyan)}
-            .pink{color:var(--pink)}
-            .yellow{color:var(--yellow)}
-            .green{color:var(--green)}
-            .orange{color:var(--orange)}
-            .blue{color:var(--blue)}
-            .gold{color:#e8cf8d}
-
-            .menu-card h3{
-            font-size:13px;
-            line-height:1.35
-            }
-
-            .menu-card p{
-            margin-top:5px;
-            color:var(--muted);
-            font-size:9px;
-            line-height:1.5
-            }
-
-            .about{
-            display:grid;
-            grid-template-columns:1.05fr .95fr;
-            gap:12px
-            }
-
-            .about-card{
-            min-height:145px;
-            padding:20px;
-            border:1px solid var(--line);
-            border-radius:17px;
-            background:var(--surface)
-            }
-
-            .about-card h3{
-            margin-bottom:8px;
-            font-size:14px
-            }
-
-            .about-card p{
-            color:var(--muted);
-            font-size:10px;
-            line-height:1.75
-            }
-
-            .about-tags{
-            display:flex;
-            flex-wrap:wrap;
-            gap:6px;
-            margin-top:13px
-            }
-
-            .about-tags span{
-            padding:5px 8px;
-            border:1px solid var(--line);
-            border-radius:7px;
-            color:var(--muted);
-            font-size:8px
-            }
-
-            .stats{
-            height:100%;
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:8px
-            }
-
-            .stat{
-            display:flex;
-            flex-direction:column;
-            justify-content:center;
-            padding:14px;
-            border:1px solid var(--line);
-            border-radius:13px;
-            background:rgba(255,255,255,.018)
-            }
-
-            .stat small{
-            color:var(--muted);
-            font-size:7px;
-            letter-spacing:.8px;
-            text-transform:uppercase
-            }
-
-            .stat strong{
-            margin-top:7px;
-            font-size:19px
-            }
-
-            .stat:nth-child(1) strong{
-            color:var(--violet)
-            }
-
-            .stat:nth-child(2) strong{
-            color:var(--cyan)
-            }
-
-            .stat:nth-child(3) strong{
-            color:var(--green)
-            }
-
-            .social-box{
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:9px
-            }
-
-            .social-item{
-            min-height:78px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            gap:10px;
-            position:relative;
-            border:1px solid var(--line);
-            border-radius:15px;
-            background:rgba(255,255,255,.022);
-            color:var(--soft);
-            text-decoration:none
-            }
-
-            .social-item:active{
-            background:rgba(255,255,255,.055)
-            }
-
-            .social-item i{
-            font-size:17px
-            }
-
-            .social-name{
-            font-size:10px;
-            font-weight:700
-            }
-
-            .social-arrow{
-            position:absolute;
-            right:13px;
-            color:#858b98;
-            font-size:8px!important
-            }
-
-            .currently{
-            display:grid;
-            grid-template-columns:1fr auto;
-            align-items:center;
-            gap:20px;
-            padding:19px 21px;
-            border:1px solid var(--line);
-            border-radius:17px;
-            background:rgba(169,156,255,.04)
-            }
-
-            .currently-label{
-            display:flex;
-            align-items:center;
-            gap:7px;
-            color:var(--muted);
-            font-size:8px;
-            letter-spacing:1.2px;
-            text-transform:uppercase
-            }
-
-            .currently-label span{
-            width:6px;
-            height:6px;
-            border-radius:50%;
-            background:var(--green)
-            }
-
-            .currently h3{
-            margin-top:7px;
-            font-size:14px
-            }
-
-            .currently p{
-            margin-top:4px;
-            color:var(--muted);
-            font-size:9px;
-            line-height:1.6
-            }
-
-            .currently-time{
-            color:var(--violet);
-            font-family:monospace;
-            font-size:27px;
-            font-weight:700;
-            letter-spacing:2px;
-            text-align:right
-            }
-
-            .digital-date{
-            margin-top:6px;
-            color:var(--muted);
-            font-family:monospace;
-            font-size:8px;
-            text-align:right;
-            text-transform:uppercase
-            }
-
-            footer{
-            padding:27px 0 30px;
-            text-align:center;
-            color:#858b98;
-            font-size:8px
-            }
-
-            .modal{
-            position:fixed;
-            inset:0;
-            z-index:50;
-            display:none;
-            align-items:center;
-            justify-content:center;
-            padding:15px;
-            background:rgba(3,4,7,.86)
-            }
-
-            .modal.active{
-            display:flex
-            }
-
-            .modal-box{
-            width:min(650px,100%);
-            max-height:85vh;
-            overflow:auto;
-            border:1px solid var(--line);
-            border-radius:18px;
-            background:#101218;
-            box-shadow:0 15px 40px rgba(0,0,0,.35)
-            }
-
-            .modal-head{
-            position:sticky;
-            top:0;
-            z-index:2;
-            display:flex;
-            align-items:center;
-            justify-content:space-between;
-            padding:15px;
-            border-bottom:1px solid var(--line);
-            background:#101218
-            }
-
-            .modal-head h3{
-            font-size:14px
-            }
-
-            .close{
-            width:33px;
-            height:33px;
-            border:1px solid var(--line);
-            border-radius:9px;
-            background:rgba(255,255,255,.035);
-            color:var(--muted);
-            cursor:pointer
-            }
-
-            .search{
-            position:relative;
-            margin:12px 15px
-            }
-
-            .search>i{
-            position:absolute;
-            left:11px;
-            top:50%;
-            color:#626874;
-            transform:translateY(-50%)
-            }
-
-            .search input{
-            width:100%;
-            padding:10px 34px;
-            border:1px solid var(--line);
-            border-radius:9px;
-            outline:0;
-            background:#0a0c10;
-            color:var(--text);
-            font-size:10px
-            }
-
-            .search-clear{
-            position:absolute;
-            right:8px;
-            top:50%;
-            border:0;
-            background:none;
-            color:#626874;
-            cursor:pointer;
-            transform:translateY(-50%)
-            }
-
-            .modal-list{
-            display:grid;
-            gap:6px;
-            padding:0 15px 15px
-            }
-
-            .item{
-            display:flex;
-            align-items:center;
-            gap:10px;
-            padding:10px;
-            border:1px solid var(--line);
-            border-radius:11px;
-            background:rgba(255,255,255,.022);
-            color:var(--text);
-            text-decoration:none
-            }
-
-            .item:active{
-            background:rgba(255,255,255,.055)
-            }
-
-            .item-icon{
-            width:38px;
-            height:38px;
-            flex-shrink:0;
-            display:grid;
-            place-items:center;
-            border-radius:9px;
-            background:rgba(255,255,255,.045);
-            font-size:13px
-            }
-
-            .item-info{
-            min-width:0
-            }
-
-            .item-info strong{
-            display:block;
-            font-size:10px
-            }
-
-            .item-info span{
-            display:block;
-            margin-top:3px;
-            overflow:hidden;
-            color:var(--muted);
-            font-size:8px;
-            text-overflow:ellipsis;
-            white-space:nowrap
-            }
-
-            .item-arrow{
-            margin-left:auto;
-            color:#626874;
-            font-size:8px
-            }
-
-            .no-result{
-            padding:28px;
-            text-align:center;
-            color:var(--muted);
-            font-size:10px
-            }
-
-            .not-found{
-            display:none
-            }
-
-            .not-found.active{
-            display:flex
-            }
-
-            .not-found .modal-box{
-            padding:38px 20px;
-            text-align:center
-            }
-
-            .error-code{
-            color:var(--violet);
-            font-size:65px;
-            font-weight:900;
-            letter-spacing:-5px
-            }
-
-            .not-found p{
-            margin:7px 0 18px;
-            color:var(--muted);
-            font-size:10px;
-            line-height:1.7
-            }
-
-            .back-home{
-            padding:10px 15px;
-            border:1px solid var(--line);
-            border-radius:9px;
-            background:rgba(255,255,255,.04);
-            color:var(--text);
-            cursor:pointer
-            }
-
-            body.light{
-            --bg:#f1f0ed;
-            --surface:#faf9f7;
-            --surface2:#fff;
-            --text:#17181c;
-            --muted:#777a82;
-            --soft:#4d5159;
-            --line:rgba(20,22,27,.095);
-            --line2:rgba(20,22,27,.14);
-            --violet:#7067ce;
-            --cyan:#238f86;
-            --pink:#b96388;
-            --yellow:#a78336;
-            --green:#369464;
-            --orange:#a86d39;
-            --blue:#547fc8
-            }
-
-            body.light .hero-media{
-            background:#dddcd8
-            }
-
-            body.light .hero-media:after{
-            background:linear-gradient(to top,rgba(25,26,29,.67),transparent 65%)
-            }
-
-            body.light .modal{
-            background:rgba(230,229,226,.94)
-            }
-
-            body.light .modal-box,
-            body.light .modal-head{
-            background:#fafafa
-            }
-
-            body.light .search input{
-            background:#f1f1ef;
-            color:#17181c
-            }
-
-            body.light footer{
-            color:#62656c
-            }
-
-            @media(max-width:900px){
-            .topbar,
-            .container{
-            width:min(100% - 30px,760px)
-            }
-
-            .hero{
-            grid-template-columns:1fr;
-            gap:22px;
-            padding-top:43px
-            }
-
-            .hero-media{
-            order:-1;
-            height:330px
-            }
-
-            .menu-grid{
-            grid-template-columns:repeat(2,1fr)
-            }
-
-            .about{
-            grid-template-columns:1fr
-            }
-            }
-
-            @media(max-width:600px){
-            .topbar,
-            .container{
-            width:calc(100% - 24px)
-            }
-
-            .topbar{
-            margin-top:12px
-            }
-
-            .brand-name{
-            font-size:13px
-            }
-
-            .top-btn{
-            width:36px;
-            height:36px
-            }
-
-            .hero{
-            padding:30px 0 17px;
-            gap:18px
-            }
-
-            .hero-media{
-            height:225px;
-            border-radius:18px
-            }
-
-            .hero h1{
-            font-size:clamp(42px,13vw,57px);
-            letter-spacing:-3px
-            }
-
-            .hero-description{
-            font-size:11px
-            }
-
-            .profile-mini{
-            margin-top:18px
-            }
-
-            .section{
-            padding:15px 0
-            }
-
-            .section-head{
-            margin-bottom:10px
-            }
-
-            .section-head h2{
-            font-size:17px
-            }
-
-            .section-head p{
-            font-size:9px
-            }
-
-            .menu-grid{
-            gap:8px
-            }
-
-            .menu-card{
-            min-height:120px;
-            padding:14px;
-            border-radius:14px
-            }
-
-            .menu-icon{
-            width:35px;
-            height:35px;
-            margin-bottom:11px;
-            border-radius:9px;
-            font-size:12px
-            }
-
-            .menu-card h3{
-            font-size:11px
-            }
-
-            .menu-card p{
-            font-size:8px
-            }
-
-            .about-card{
-            padding:16px
-            }
-
-            .stats{
-            gap:6px
-            }
-
-            .stat{
-            padding:10px 7px
-            }
-
-            .stat strong{
-            font-size:15px
-            }
-
-            .social-box{
-            gap:7px
-            }
-
-            .social-item{
-            min-height:67px;
-            flex-direction:column;
-            gap:5px
-            }
-
-            .social-item i{
-            font-size:16px
-            }
-
-            .social-name{
-            font-size:9px
-            }
-
-            .social-arrow{
-            display:none
-            }
-
-            .currently{
-            grid-template-columns:1fr;
-            gap:13px;
-            padding:15px
-            }
-
-            .currently h3{
-            font-size:12px
-            }
-
-            .currently p{
-            font-size:9px
-            }
-
-            .currently-time{
-            text-align:left;
-            font-size:22px
-            }
-
-            .digital-date{
-            text-align:left
-            }
-
-            .modal{
-            padding:9px
-            }
-
-            .modal-box{
-            max-height:89vh;
-            border-radius:16px
-            }
-
-            .modal-head{
-            padding:13px
-            }
-
-            .search{
-            margin:10px 13px
-            }
-
-            .modal-list{
-            padding:0 13px 13px
-            }
-            }
-
-            @media(max-width:390px){
-            .topbar,
-            .container{
-            width:calc(100% - 20px)
-            }
-
-            .hero{
-            padding-top:25px
-            }
-
-            .hero h1{
-            font-size:41px
-            }
-
-            .hero-media{
-            height:200px
-            }
-
-            .menu-card{
-            min-height:113px;
-            padding:12px
-            }
-
-            .menu-icon{
-            width:33px;
-            height:33px;
-            margin-bottom:9px
-            }
-
-            .menu-card p{
-            font-size:7.5px
-            }
-
-            .about-tags{
-            gap:5px
-            }
-
-            .about-tags span{
-            font-size:7px
-            }
-            }
-
-
+      :root{
+      --bg:#090a0e;
+      --surface:#101218;
+      --surface2:#151820;
+      --text:#f4f5f7;
+      --muted:#858b98;
+      --soft:#aeb3bd;
+      --line:rgba(255,255,255,.075);
+      --line2:rgba(255,255,255,.12);
+      --violet:#a99cff;
+      --cyan:#78ded3;
+      --pink:#f2a6c7;
+      --yellow:#e8cf8d;
+      --green:#79d6a2;
+      --orange:#e7aa72;
+      --blue:#8fb8ff;
+      }
+
+      *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box
+      }
+
+      body{
+      min-height:100vh;
+      overflow-x:hidden;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Arial,Helvetica,sans-serif;
+      -webkit-font-smoothing:antialiased
+      }
+
+      button,input{
+      font:inherit
+      }
+
+      button,a{
+      -webkit-tap-highlight-color:transparent
+      }
+
+      .topbar,.container{
+      width:min(1180px,calc(100% - 36px));
+      margin-left:auto;
+      margin-right:auto
+      }
+
+      .topbar{
+      margin-top:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between
+      }
+
+      .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      color:var(--text);
+      text-decoration:none
+      }
+
+      .brand-logo{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      position:relative
+      }
+
+      .brand-logo:before{
+      content:"";
+      position:absolute;
+      width:27px;
+      height:27px;
+      border:1px solid var(--violet);
+      border-radius:8px;
+      opacity:.35
+      }
+
+      .brand-logo:after{
+      content:"";
+      position:absolute;
+      width:35px;
+      height:35px;
+      border:1px solid var(--cyan);
+      border-radius:10px;
+      opacity:.25
+      }
+
+      .brand-core{
+      position:relative;
+      z-index:1;
+      width:29px;
+      height:29px;
+      display:grid;
+      place-items:center;
+      border:1px solid var(--line2);
+      border-radius:8px;
+      background:var(--surface2);
+      color:var(--violet);
+      font-size:11px
+      }
+
+      .brand-name{
+      font-size:14px;
+      font-weight:700
+      }
+
+      .top-actions{
+      display:flex;
+      gap:7px
+      }
+
+      .top-btn{
+      width:38px;
+      height:38px;
+      border:1px solid var(--line);
+      border-radius:10px;
+      background:rgba(255,255,255,.025);
+      color:var(--muted);
+      display:grid;
+      place-items:center;
+      cursor:pointer
+      }
+
+      .top-btn:active{
+      background:rgba(255,255,255,.07);
+      color:var(--text)
+      }
+
+      .hero{
+      display:grid;
+      grid-template-columns:1fr .92fr;
+      align-items:center;
+      gap:45px;
+      padding:75px 0 32px
+      }
+
+      .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      margin-bottom:17px;
+      color:var(--muted);
+      font-size:9px;
+      letter-spacing:1.7px;
+      text-transform:uppercase
+      }
+
+      .eyebrow i{
+      color:var(--cyan);
+      font-size:5px
+      }
+
+      .hero h1{
+      margin-bottom:19px;
+      font-size:clamp(48px,7vw,86px);
+      line-height:.9;
+      letter-spacing:-4px;
+      word-break:break-word
+      }
+
+      .hero h1 span{
+      color:var(--violet)
+      }
+
+      .hero-description{
+      max-width:540px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.75
+      }
+
+      .profile-mini{
+      display:flex;
+      align-items:center;
+      gap:11px;
+      margin-top:23px
+      }
+
+      .avatar-wrap{
+      position:relative;
+      width:45px;
+      height:45px;
+      flex-shrink:0
+      }
+
+      .avatar{
+      width:45px;
+      height:45px;
+      object-fit:cover;
+      border-radius:13px;
+      border:1px solid var(--line);
+      background:var(--surface2)
+      }
+
+      .status-dot{
+      position:absolute;
+      right:-2px;
+      bottom:-2px;
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--green);
+      border:3px solid var(--bg)
+      }
+
+      .profile-mini strong{
+      display:block;
+      font-size:12px
+      }
+
+      .profile-mini small{
+      display:block;
+      margin-top:3px;
+      color:var(--muted);
+      font-size:9px
+      }
+
+      .hero-media{
+      position:relative;
+      height:400px;
+      overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:#11141b
+      }
+
+      .hero-media picture{
+      display:block;
+      width:100%;
+      height:100%
+      }
+
+      .hero-media img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      opacity:.7
+      }
+
+      .hero-media:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top,rgba(7,8,11,.92),rgba(7,8,11,.05) 68%)
+      }
+
+      .media-dots{
+      position:absolute;
+      z-index:2;
+      top:14px;
+      left:14px;
+      display:flex;
+      gap:6px
+      }
+
+      .media-dots span{
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      background:var(--pink)
+      }
+
+      .media-dots span:nth-child(2){
+      background:var(--yellow)
+      }
+
+      .media-dots span:nth-child(3){
+      background:var(--cyan)
+      }
+
+      .video-label{
+      position:absolute;
+      z-index:2;
+      left:18px;
+      bottom:16px;
+      color:rgba(255,255,255,.55);
+      font-size:9px;
+      letter-spacing:1px
+      }
+
+      .section{
+      padding:20px 0
+      }
+
+      .section-head{
+      margin-bottom:13px
+      }
+
+      .section-head h2{
+      font-size:20px;
+      letter-spacing:-.4px
+      }
+
+      .section-head p{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:10px
+      }
+
+      .menu-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px
+      }
+
+      .menu-card{
+      min-height:150px;
+      padding:20px;
+      border:1px solid var(--line);
+      border-radius:17px;
+      background:rgba(255,255,255,.022);
+      color:var(--text);
+      text-align:left;
+      cursor:pointer
+      }
+
+      .menu-card:active{
+      background:rgba(255,255,255,.055);
+      transform:scale(.99)
+      }
+
+      .menu-icon{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      margin-bottom:15px;
+      border-radius:11px;
+      background:rgba(255,255,255,.045);
+      font-size:14px
+      }
+
+      .violet{color:var(--violet)}
+      .cyan{color:var(--cyan)}
+      .pink{color:var(--pink)}
+      .yellow{color:var(--yellow)}
+      .green{color:var(--green)}
+      .orange{color:var(--orange)}
+      .blue{color:var(--blue)}
+      .gold{color:#e8cf8d}
+
+      .menu-card h3{
+      font-size:13px;
+      line-height:1.35
+      }
+
+      .menu-card p{
+      margin-top:5px;
+      color:var(--muted);
+      font-size:9px;
+      line-height:1.5
+      }
+
+      .about{
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:12px
+      }
+
+      .about-card{
+      min-height:145px;
+      padding:20px;
+      border:1px solid var(--line);
+      border-radius:17px;
+      background:var(--surface)
+      }
+
+      .about-card h3{
+      margin-bottom:8px;
+      font-size:14px
+      }
+
+      .about-card p{
+      color:var(--muted);
+      font-size:10px;
+      line-height:1.75
+      }
+
+      .about-tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+      margin-top:13px
+      }
+
+      .about-tags span{
+      padding:5px 8px;
+      border:1px solid var(--line);
+      border-radius:7px;
+      color:var(--muted);
+      font-size:8px
+      }
+
+      .stats{
+      height:100%;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px
+      }
+
+      .stat{
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:13px;
+      background:rgba(255,255,255,.018)
+      }
+
+      .stat small{
+      color:var(--muted);
+      font-size:7px;
+      letter-spacing:.8px;
+      text-transform:uppercase
+      }
+
+      .stat strong{
+      margin-top:7px;
+      font-size:19px
+      }
+
+      .stat:nth-child(1) strong{color:var(--violet)}
+      .stat:nth-child(2) strong{color:var(--cyan)}
+      .stat:nth-child(3) strong{color:var(--green)}
+
+      .social-box{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:9px
+      }
+
+      .social-item{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      position:relative;
+      border:1px solid var(--line);
+      border-radius:15px;
+      background:rgba(255,255,255,.022);
+      color:var(--soft);
+      text-decoration:none
+      }
+
+      .social-item:active{
+      background:rgba(255,255,255,.055)
+      }
+
+      .social-item i{
+      font-size:17px
+      }
+
+      .social-name{
+      font-size:10px;
+      font-weight:700
+      }
+
+      .social-arrow{
+      position:absolute;
+      right:13px;
+      color:#858b98;
+      font-size:8px!important
+      }
+
+      .currently{
+      display:grid;
+      grid-template-columns:1fr auto;
+      align-items:center;
+      gap:20px;
+      padding:19px 21px;
+      border:1px solid var(--line);
+      border-radius:17px;
+      background:rgba(169,156,255,.04)
+      }
+
+      .currently-label{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      color:var(--muted);
+      font-size:8px;
+      letter-spacing:1.2px;
+      text-transform:uppercase
+      }
+
+      .currently-label span{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:var(--green)
+      }
+
+      .currently h3{
+      margin-top:7px;
+      font-size:14px
+      }
+
+      .currently p{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:9px;
+      line-height:1.6
+      }
+
+      .currently-time{
+      color:var(--violet);
+      font-family:monospace;
+      font-size:27px;
+      font-weight:700;
+      letter-spacing:2px;
+      text-align:right
+      }
+
+      .digital-date{
+      margin-top:6px;
+      color:var(--muted);
+      font-family:monospace;
+      font-size:8px;
+      text-align:right;
+      text-transform:uppercase
+      }
+
+      footer{
+      padding:27px 0 30px;
+      text-align:center;
+      color:#858b98;
+      font-size:8px
+      }
+
+      /* MODAL */
+      .modal{
+      position:fixed;
+      inset:0;
+      z-index:50;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:15px;
+      background:rgba(3,4,7,.86)
+      }
+
+      .modal.active{
+      display:flex
+      }
+
+      .modal-box{
+      width:min(650px,100%);
+      max-height:85vh;
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:#101218;
+      box-shadow:0 15px 40px rgba(0,0,0,.35)
+      }
+
+      .modal-head{
+      position:sticky;
+      top:0;
+      z-index:2;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:15px;
+      border-bottom:1px solid var(--line);
+      background:#101218
+      }
+
+      .modal-head h3{
+      font-size:14px
+      }
+
+      .close{
+      width:33px;
+      height:33px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      background:rgba(255,255,255,.035);
+      color:var(--muted);
+      cursor:pointer
+      }
+
+      .search{
+      position:relative;
+      margin:12px 15px
+      }
+
+      .search>i{
+      position:absolute;
+      left:11px;
+      top:50%;
+      color:#626874;
+      transform:translateY(-50%)
+      }
+
+      .search input{
+      width:100%;
+      padding:10px 34px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      outline:0;
+      background:#0a0c10;
+      color:var(--text);
+      font-size:10px
+      }
+
+      .search-clear{
+      position:absolute;
+      right:8px;
+      top:50%;
+      border:0;
+      background:none;
+      color:#626874;
+      cursor:pointer;
+      transform:translateY(-50%)
+      }
+
+      .modal-list{
+      display:grid;
+      gap:6px;
+      padding:0 15px 15px
+      }
+
+      .item{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:11px;
+      background:rgba(255,255,255,.022);
+      color:var(--text);
+      text-decoration:none
+      }
+
+      .item:active{
+      background:rgba(255,255,255,.055)
+      }
+
+      .item-icon{
+      width:38px;
+      height:38px;
+      flex-shrink:0;
+      display:grid;
+      place-items:center;
+      border-radius:9px;
+      background:rgba(255,255,255,.045);
+      font-size:13px
+      }
+
+      .item-info{
+      min-width:0
+      }
+
+      .item-info strong{
+      display:block;
+      font-size:10px
+      }
+
+      .item-info span{
+      display:block;
+      margin-top:3px;
+      overflow:hidden;
+      color:var(--muted);
+      font-size:8px;
+      text-overflow:ellipsis;
+      white-space:nowrap
+      }
+
+      .item-arrow{
+      margin-left:auto;
+      color:#626874;
+      font-size:8px
+      }
+
+      .no-result{
+      padding:28px;
+      text-align:center;
+      color:var(--muted);
+      font-size:10px
+      }
+
+      .not-found{
+      display:none
+      }
+
+      .not-found.active{
+      display:flex
+      }
+
+      .not-found .modal-box{
+      padding:38px 20px;
+      text-align:center
+      }
+
+      .error-code{
+      color:var(--violet);
+      font-size:65px;
+      font-weight:900;
+      letter-spacing:-5px
+      }
+
+      .not-found p{
+      margin:7px 0 18px;
+      color:var(--muted);
+      font-size:10px;
+      line-height:1.7
+      }
+
+      .back-home{
+      padding:10px 15px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      background:rgba(255,255,255,.04);
+      color:var(--text);
+      cursor:pointer
+      }
+
+      /* GEMPA */
       .gempa-card{
-        border:1px solid var(--line);
-        border-radius:17px;
-        overflow:hidden;
-        background:var(--surface);
+      border:1px solid var(--line);
+      border-radius:17px;
+      overflow:hidden;
+      background:var(--surface)
       }
 
       .gempa-top{
-        display:flex;
-        align-items:flex-start;
-        justify-content:space-between;
-        gap:14px;
-        padding:17px;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:14px;
+      padding:17px
       }
 
       .gempa-label{
-        display:block;
-        margin-bottom:6px;
-        color:var(--violet);
-        font-size:8px;
-        font-weight:700;
-        letter-spacing:1.2px;
+      display:block;
+      margin-bottom:6px;
+      color:var(--violet);
+      font-size:8px;
+      font-weight:700;
+      letter-spacing:1.2px
       }
 
       .gempa-title{
-        font-size:14px;
-        line-height:1.5;
+      font-size:14px;
+      line-height:1.5
       }
 
       .gempa-time{
-        margin-top:5px;
-        color:var(--muted);
-        font-size:9px;
+      margin-top:5px;
+      color:var(--muted);
+      font-size:9px
       }
 
       .gempa-mag{
-        width:58px;
-        height:58px;
-        flex-shrink:0;
-        display:grid;
-        place-items:center;
-        align-content:center;
-        border:1px solid rgba(231,170,114,.2);
-        border-radius:13px;
-        background:rgba(231,170,114,.07);
+      width:58px;
+      height:58px;
+      flex-shrink:0;
+      display:grid;
+      place-items:center;
+      align-content:center;
+      border:1px solid rgba(231,170,114,.2);
+      border-radius:13px;
+      background:rgba(231,170,114,.07)
       }
 
       .gempa-mag strong{
-        color:var(--orange);
-        font-size:19px;
+      color:var(--orange);
+      font-size:19px
       }
 
       .gempa-mag span{
-        margin-top:2px;
-        color:var(--muted);
-        font-size:7px;
+      margin-top:2px;
+      color:var(--muted);
+      font-size:7px
       }
 
       .gempa-map{
-        width:100%;
-        max-height:340px;
-        display:block;
-        object-fit:cover;
-        background:#0c0d11;
+      width:100%;
+      max-height:340px;
+      display:block;
+      object-fit:cover;
+      background:#0c0d11
       }
 
       .gempa-grid{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:1px;
-        background:var(--line);
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:1px;
+      background:var(--line)
       }
 
       .gempa-item{
-        padding:12px;
-        background:var(--surface);
+      padding:12px;
+      background:var(--surface)
       }
 
       .gempa-item span{
-        display:block;
-        margin-bottom:4px;
-        color:var(--muted);
-        font-size:8px;
+      display:block;
+      margin-bottom:4px;
+      color:var(--muted);
+      font-size:8px
       }
 
       .gempa-item strong{
-        display:block;
-        color:var(--text);
-        font-size:10px;
-        line-height:1.45;
+      display:block;
+      color:var(--text);
+      font-size:10px;
+      line-height:1.45
       }
 
       .gempa-info{
-        margin:10px;
-        padding:12px;
-        border-radius:11px;
-        background:rgba(255,255,255,.025);
+      margin:10px;
+      padding:12px;
+      border-radius:11px;
+      background:rgba(255,255,255,.025)
       }
 
       .gempa-info strong{
-        display:block;
-        margin-bottom:4px;
-        color:var(--violet);
-        font-size:9px;
+      display:block;
+      margin-bottom:4px;
+      color:var(--violet);
+      font-size:9px
       }
 
       .gempa-info p{
-        color:var(--muted);
-        font-size:9px;
-        line-height:1.6;
+      color:var(--muted);
+      font-size:9px;
+      line-height:1.6
       }
 
       .gempa-saran{
-        background:rgba(231,170,114,.045);
+      background:rgba(231,170,114,.045)
       }
 
       .gempa-saran strong{
-        color:var(--orange);
+      color:var(--orange)
       }
 
       .gempa-loading{
-        padding:35px 15px;
-        text-align:center;
-        color:var(--muted);
-        font-size:10px;
+      padding:35px 15px;
+      text-align:center;
+      color:var(--muted);
+      font-size:10px
       }
 
       .gempa-loading i{
-        display:block;
-        margin-bottom:8px;
-        color:var(--violet);
-        font-size:17px;
+      display:block;
+      margin-bottom:8px;
+      color:var(--violet);
+      font-size:17px
       }
 
       .gempa-error{
-        margin:10px;
-        padding:11px;
-        border:1px solid rgba(242,166,199,.12);
-        border-radius:10px;
-        background:rgba(242,166,199,.045);
-        color:var(--pink);
-        font-size:9px;
-        line-height:1.5;
+      margin:10px;
+      padding:11px;
+      border:1px solid rgba(242,166,199,.12);
+      border-radius:10px;
+      background:rgba(242,166,199,.045);
+      color:var(--pink);
+      font-size:9px;
+      line-height:1.5
       }
 
       .gempa-refresh{
-        width:calc(100% - 20px);
-        margin:0 10px 10px;
-        padding:10px;
-        border:1px solid var(--line);
-        border-radius:9px;
-        background:rgba(255,255,255,.025);
-        color:var(--soft);
-        font-size:9px;
-        cursor:pointer;
+      width:calc(100% - 20px);
+      margin:0 10px 10px;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      background:rgba(255,255,255,.025);
+      color:var(--soft);
+      font-size:9px;
+      cursor:pointer
       }
 
       .gempa-refresh:active{
-        background:rgba(255,255,255,.06);
+      background:rgba(255,255,255,.06)
       }
 
       .api-support{
-        display:flex;
-        align-items:flex-start;
-        gap:11px;
-        margin-top:12px;
-        padding:15px;
-        border:1px solid var(--line);
-        border-radius:15px;
-        background:rgba(169,156,255,.035);
+      display:flex;
+      align-items:flex-start;
+      gap:11px;
+      margin-top:12px;
+      padding:15px;
+      border:1px solid var(--line);
+      border-radius:15px;
+      background:rgba(169,156,255,.035)
       }
 
       .api-support-icon{
-        width:38px;
-        height:38px;
-        flex-shrink:0;
-        display:grid;
-        place-items:center;
-        border-radius:10px;
-        background:rgba(169,156,255,.08);
-        color:var(--violet);
-        font-size:13px;
+      width:38px;
+      height:38px;
+      flex-shrink:0;
+      display:grid;
+      place-items:center;
+      border-radius:10px;
+      background:rgba(169,156,255,.08);
+      color:var(--violet);
+      font-size:13px
       }
 
       .api-support h3{
-        font-size:12px;
+      font-size:12px
       }
 
       .api-support p{
-        margin-top:5px;
-        color:var(--muted);
-        font-size:9px;
-        line-height:1.6;
+      margin-top:5px;
+      color:var(--muted);
+      font-size:9px;
+      line-height:1.6
       }
 
       .api-support a{
-        display:inline-flex;
-        align-items:center;
-        gap:5px;
-        margin-top:9px;
-        padding:8px 10px;
-        border-radius:8px;
-        background:var(--violet);
-        color:#101116;
-        font-size:8px;
-        font-weight:700;
-        text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:5px;
+      margin-top:9px;
+      padding:8px 10px;
+      border-radius:8px;
+      background:var(--violet);
+      color:#101116;
+      font-size:8px;
+      font-weight:700;
+      text-decoration:none
+      }
+
+      /* LIGHT */
+      body.light{
+      --bg:#f1f0ed;
+      --surface:#faf9f7;
+      --surface2:#fff;
+      --text:#17181c;
+      --muted:#777a82;
+      --soft:#4d5159;
+      --line:rgba(20,22,27,.095);
+      --line2:rgba(20,22,27,.14);
+      --violet:#7067ce;
+      --cyan:#238f86;
+      --pink:#b96388;
+      --yellow:#a78336;
+      --green:#369464;
+      --orange:#a86d39;
+      --blue:#547fc8
+      }
+
+      body.light .hero-media{
+      background:#dddcd8
+      }
+
+      body.light .hero-media:after{
+      background:linear-gradient(to top,rgba(25,26,29,.67),transparent 65%)
+      }
+
+      body.light .modal{
+      background:rgba(230,229,226,.94)
+      }
+
+      body.light .modal-box,
+      body.light .modal-head{
+      background:#fafafa
+      }
+
+      body.light .search input{
+      background:#f1f1ef;
+      color:#17181c
+      }
+
+      body.light footer{
+      color:#62656c
+      }
+
+      @media(max-width:900px){
+      .topbar,.container{
+      width:min(100% - 30px,760px)
+      }
+
+      .hero{
+      grid-template-columns:1fr;
+      gap:22px;
+      padding-top:43px
+      }
+
+      .hero-media{
+      order:-1;
+      height:330px
+      }
+
+      .menu-grid{
+      grid-template-columns:repeat(2,1fr)
+      }
+
+      .about{
+      grid-template-columns:1fr
+      }
       }
 
       @media(max-width:600px){
-        .gempa-top{
-          padding:14px;
-        }
+      .topbar,.container{
+      width:calc(100% - 24px)
+      }
 
-        .gempa-title{
-          font-size:12px;
-        }
+      .topbar{
+      margin-top:12px
+      }
 
-        .gempa-item{
-          padding:10px;
-        }
+      .brand-name{
+      font-size:13px
+      }
+
+      .top-btn{
+      width:36px;
+      height:36px
+      }
+
+      .hero{
+      padding:30px 0 17px;
+      gap:18px
+      }
+
+      .hero-media{
+      height:225px;
+      border-radius:18px
+      }
+
+      .hero h1{
+      font-size:clamp(42px,13vw,57px);
+      letter-spacing:-3px
+      }
+
+      .hero-description{
+      font-size:11px
+      }
+
+      .profile-mini{
+      margin-top:18px
+      }
+
+      .section{
+      padding:15px 0
+      }
+
+      .section-head{
+      margin-bottom:10px
+      }
+
+      .section-head h2{
+      font-size:17px
+      }
+
+      .section-head p{
+      font-size:9px
+      }
+
+      .menu-grid{
+      gap:8px
+      }
+
+      .menu-card{
+      min-height:120px;
+      padding:14px;
+      border-radius:14px
+      }
+
+      .menu-icon{
+      width:35px;
+      height:35px;
+      margin-bottom:11px;
+      border-radius:9px;
+      font-size:12px
+      }
+
+      .menu-card h3{
+      font-size:11px
+      }
+
+      .menu-card p{
+      font-size:8px
+      }
+
+      .about-card{
+      padding:16px
+      }
+
+      .stats{
+      gap:6px
+      }
+
+      .stat{
+      padding:10px 7px
+      }
+
+      .stat strong{
+      font-size:15px
+      }
+
+      .social-box{
+      gap:7px
+      }
+
+      .social-item{
+      min-height:67px;
+      flex-direction:column;
+      gap:5px
+      }
+
+      .social-item i{
+      font-size:16px
+      }
+
+      .social-name{
+      font-size:9px
+      }
+
+      .social-arrow{
+      display:none
+      }
+
+      .currently{
+      grid-template-columns:1fr;
+      gap:13px;
+      padding:15px
+      }
+
+      .currently h3{
+      font-size:12px
+      }
+
+      .currently p{
+      font-size:9px
+      }
+
+      .currently-time{
+      text-align:left;
+      font-size:22px
+      }
+
+      .digital-date{
+      text-align:left
+      }
+
+      .modal{
+      padding:9px
+      }
+
+      .modal-box{
+      max-height:89vh;
+      border-radius:16px
+      }
+
+      .modal-head{
+      padding:13px
+      }
+
+      .search{
+      margin:10px 13px
+      }
+
+      .modal-list{
+      padding:0 13px 13px
+      }
+
+      .gempa-top{
+      padding:14px
+      }
+
+      .gempa-title{
+      font-size:12px
+      }
+
+      .gempa-item{
+      padding:10px
+      }
+      }
+
+      @media(max-width:390px){
+      .topbar,.container{
+      width:calc(100% - 20px)
+      }
+
+      .hero{
+      padding-top:25px
+      }
+
+      .hero h1{
+      font-size:41px
+      }
+
+      .hero-media{
+      height:200px
+      }
+
+      .menu-card{
+      min-height:113px;
+      padding:12px
+      }
+
+      .menu-icon{
+      width:33px;
+      height:33px;
+      margin-bottom:9px
+      }
+
+      .menu-card p{
+      font-size:7.5px
+      }
+
+      .about-tags{
+      gap:5px
+      }
+
+      .about-tags span{
+      font-size:7px
+      }
       }
     </style>
   </head>
@@ -1274,27 +1250,19 @@
     <header class="topbar">
       <a href="#" class="brand">
         <span class="brand-logo">
-          <span class="brand-core"
-            ><i class="fa-solid fa-terminal"></i
-          ></span>
+          <span class="brand-core">
+            <i class="fa-solid fa-terminal"></i>
+          </span>
         </span>
         <span class="brand-name">WELCOME</span>
       </a>
 
       <div class="top-actions">
-        <button
-          class="top-btn"
-          id="homeBtn"
-          aria-label="Beranda"
-        >
+        <button class="top-btn" id="homeBtn" aria-label="Beranda">
           <i class="fa-solid fa-house"></i>
         </button>
 
-        <button
-          class="top-btn"
-          id="themeBtn"
-          aria-label="Ganti tema"
-        >
+        <button class="top-btn" id="themeBtn" aria-label="Ganti tema">
           <i class="fa-solid fa-sun"></i>
         </button>
       </div>
@@ -1311,10 +1279,8 @@
           <h1>MYNAME<span>DIMZ</span></h1>
 
           <p class="hero-description">
-            Tempat kecil berbagai tools,
-            downloader, project, dan file yang
-            saya buat. Simple, ringan, dan
-            langsung menuju tujuan.
+            Tempat kecil berbagai tools, downloader, project, dan file yang saya
+            buat. Simple, ringan, dan langsung menuju tujuan.
           </p>
 
           <div class="profile-mini">
@@ -1334,30 +1300,22 @@
 
             <div>
               <strong>DIMMZZZSUM_ENAK</strong>
-              <small
-                >Pemula Banget • Bukan
-                Suhu</small
-              >
+              <small>Pemula Banget • Bukan Suhu</small>
             </div>
           </div>
         </div>
 
         <div class="hero-media">
           <picture>
-            <source
-              srcset="media/anime-poster-768.avif"
-              type="image/avif"
-            />
-            <source
-              srcset="media/anime-poster-768.webp"
-              type="image/webp"
-            />
+            <source srcset="media/anime-poster-768.avif" type="image/avif" />
+            <source srcset="media/anime-poster-768.webp" type="image/webp" />
+
             <img
               src="media/anime-poster.jpg"
               alt="Anime background"
               width="768"
               height="480"
-              sizes="(max-width: 600px) calc(100vw - 24px), (max-width: 900px) calc(100vw - 30px), 550px"
+              sizes="(max-width:600px) calc(100vw - 24px),(max-width:900px) calc(100vw - 30px),550px"
               loading="eager"
               fetchpriority="high"
               decoding="async"
@@ -1371,8 +1329,7 @@
           </div>
 
           <div class="video-label">
-            $ routine =
-            ["Eat","Bath","Sleep","Again"];
+            $ routine = ["Eat","Bath","Sleep","Again"];
           </div>
         </div>
       </section>
@@ -1380,45 +1337,27 @@
       <section class="section">
         <div class="section-head">
           <h2>Explore</h2>
-          <p>
-            Semua bagian website berdasarkan
-            struktur folder.
-          </p>
+          <p>Semua bagian website berdasarkan struktur folder.</p>
         </div>
 
         <div class="menu-grid">
-          <button
-            class="menu-card"
-            data-modal="modalDownload"
-          >
+          <button class="menu-card" data-modal="modalDownload">
             <div class="menu-icon violet">
-              <i
-                class="fa-solid fa-download"
-              ></i>
+              <i class="fa-solid fa-download"></i>
             </div>
             <h3>Download</h3>
-            <p>
-              Berbagai downloader yang tersedia.
-            </p>
+            <p>Berbagai downloader yang tersedia.</p>
           </button>
 
-          <button
-            class="menu-card"
-            data-modal="modalCanva"
-          >
+          <button class="menu-card" data-modal="modalCanva">
             <div class="menu-icon pink">
-              <i
-                class="fa-solid fa-wand-magic-sparkles"
-              ></i>
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
             </div>
             <h3>Canva / Maker</h3>
             <p>Generator dan maker sederhana.</p>
           </button>
 
-          <button
-            class="menu-card"
-            data-modal="modalIslamic"
-          >
+          <button class="menu-card" data-modal="modalIslamic">
             <div class="menu-icon green">
               <i class="fa-solid fa-mosque"></i>
             </div>
@@ -1426,71 +1365,53 @@
             <p>Tools dan informasi Islami.</p>
           </button>
 
-          <button
-            class="menu-card"
-            data-modal="modalSearch"
-          >
+          <button class="menu-card" data-modal="modalSearch">
             <div class="menu-icon cyan">
-              <i
-                class="fa-solid fa-magnifying-glass"
-              ></i>
+              <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <h3>Search</h3>
             <p>Tools pencarian yang tersedia.</p>
           </button>
 
-          <button
-            class="menu-card"
-            data-modal="modalConverter"
-          >
+          <button class="menu-card" data-modal="modalConverter">
             <div class="menu-icon violet">
-              <i
-                class="fa-solid fa-arrows-rotate"
-              ></i>
+              <i class="fa-solid fa-arrows-rotate"></i>
             </div>
             <h3>Converter</h3>
-            <p>
-              Tools buat ubah dan olah media.
-            </p>
+            <p>Tools buat ubah dan olah media.</p>
           </button>
 
-          <button
-            class="menu-card"
-            data-modal="modalTemp"
-          >
+          <button class="menu-card" data-modal="modalTemp">
             <div class="menu-icon orange">
-              <i
-                class="fa-solid fa-folder-open"
-              ></i>
+              <i class="fa-solid fa-folder-open"></i>
             </div>
             <h3>Temp / Gateway</h3>
             <p>Halaman gateway menuju file.</p>
           </button>
 
-          <button
-            class="menu-card"
-            data-modal="modalTools"
-          >
+          <button class="menu-card" data-modal="modalTools">
             <div class="menu-icon yellow">
-              <i
-                class="fa-solid fa-screwdriver-wrench"
-              ></i>
+              <i class="fa-solid fa-screwdriver-wrench"></i>
             </div>
             <h3>Tools</h3>
             <p>Berbagai tools web sederhana.</p>
           </button>
 
-          <button
-            class="menu-card"
-            data-modal="modalGame"
-          >
+          <button class="menu-card" data-modal="modalGame">
             <div class="menu-icon blue">
               <i class="fa-solid fa-gamepad"></i>
             </div>
             <h3>Game</h3>
-            <p>
-              Game sederhana buat ngisi waktu.
-            </p>
+            <p>Game sederhana buat ngisi waktu.</p>
+          </button>
+
+          <!-- CATEGORY BARU -->
+          <button class="menu-card" data-modal="modalRandom">
+            <div class="menu-icon orange">
+              <i class="fa-solid fa-photo-film"></i>
+            </div>
+            <h3>Random Image / Video</h3>
+            <p>Random image, video, dan media lainnya.</p>
           </button>
         </div>
       </section>
@@ -1506,10 +1427,8 @@
             <h3>Diimzzzz Tamvans</h3>
 
             <p>
-              Saya Diimmzzz. Manusia gabut yang
-              hobi bikin hal random di internet.
-              Kadang berguna, kadang cuma buat
-              ngilangin bosen.
+              Saya Diimmzzz. Manusia gabut yang hobi bikin hal random di
+              internet. Kadang berguna, kadang cuma buat ngilangin bosen.
             </p>
 
             <div class="about-tags">
@@ -1556,12 +1475,8 @@
             rel="noopener noreferrer"
           >
             <i class="fa-brands fa-whatsapp"></i>
-            <span class="social-name"
-              >WhatsApp</span
-            >
-            <i
-              class="fa-solid fa-arrow-up-right-from-square social-arrow"
-            ></i>
+            <span class="social-name">WhatsApp</span>
+            <i class="fa-solid fa-arrow-up-right-from-square social-arrow"></i>
           </a>
 
           <a
@@ -1570,15 +1485,9 @@
             target="_blank"
             rel="noopener noreferrer"
           >
-            <i
-              class="fa-brands fa-instagram"
-            ></i>
-            <span class="social-name"
-              >Instagram</span
-            >
-            <i
-              class="fa-solid fa-arrow-up-right-from-square social-arrow"
-            ></i>
+            <i class="fa-brands fa-instagram"></i>
+            <span class="social-name">Instagram</span>
+            <i class="fa-solid fa-arrow-up-right-from-square social-arrow"></i>
           </a>
 
           <a
@@ -1588,12 +1497,8 @@
             rel="noopener noreferrer"
           >
             <i class="fa-brands fa-youtube"></i>
-            <span class="social-name"
-              >YouTube</span
-            >
-            <i
-              class="fa-solid fa-arrow-up-right-from-square social-arrow"
-            ></i>
+            <span class="social-name">YouTube</span>
+            <i class="fa-solid fa-arrow-up-right-from-square social-arrow"></i>
           </a>
         </div>
       </section>
@@ -1601,50 +1506,27 @@
       <section class="section">
         <div class="section-head">
           <h2>Info Gempa</h2>
-          <p>
-            Data gempa terbaru yang tersedia dari
-            API.
-          </p>
+          <p>Data gempa terbaru yang tersedia dari API.</p>
         </div>
 
         <div class="gempa-card">
-          <div
-            id="gempaLoading"
-            class="gempa-loading"
-          >
-            <i
-              class="fa-solid fa-spinner fa-spin"
-            ></i>
+          <div id="gempaLoading" class="gempa-loading">
+            <i class="fa-solid fa-spinner fa-spin"></i>
             Lagi ambil info gempa...
           </div>
 
-          <div
-            id="gempaContent"
-            style="display:none"
-          >
+          <div id="gempaContent" style="display:none">
             <div class="gempa-top">
               <div>
-                <span class="gempa-label"
-                  >INFO GEMPA TERKINI</span
-                >
-                <h3
-                  class="gempa-title"
-                  id="gempaWilayah"
-                >
-                  -
-                </h3>
-                <p
-                  class="gempa-time"
-                  id="gempaWaktu"
-                >
-                  -
-                </p>
+                <span class="gempa-label">INFO GEMPA TERKINI</span>
+
+                <h3 class="gempa-title" id="gempaWilayah">-</h3>
+
+                <p class="gempa-time" id="gempaWaktu">-</p>
               </div>
 
               <div class="gempa-mag">
-                <strong id="gempaMagnitude"
-                  >-</strong
-                >
+                <strong id="gempaMagnitude">-</strong>
                 <span>MAGNITUDO</span>
               </div>
             </div>
@@ -1664,22 +1546,19 @@
             <div class="gempa-grid">
               <div class="gempa-item">
                 <span>Lintang</span>
-                <strong id="gempaLintang"
-                  >-</strong
-                >
+                <strong id="gempaLintang">-</strong>
               </div>
+
               <div class="gempa-item">
                 <span>Bujur</span>
-                <strong id="gempaBujur"
-                  >-</strong
-                >
+                <strong id="gempaBujur">-</strong>
               </div>
+
               <div class="gempa-item">
                 <span>Kedalaman</span>
-                <strong id="gempaKedalaman"
-                  >-</strong
-                >
+                <strong id="gempaKedalaman">-</strong>
               </div>
+
               <div class="gempa-item">
                 <span>Zona</span>
                 <strong id="gempaZona">-</strong>
@@ -1702,20 +1581,10 @@
             </div>
           </div>
 
-          <div
-            id="gempaError"
-            class="gempa-error"
-            style="display:none"
-          ></div>
+          <div id="gempaError" class="gempa-error" style="display:none"></div>
 
-          <button
-            id="gempaRefresh"
-            class="gempa-refresh"
-            type="button"
-          >
-            <i
-              class="fa-solid fa-rotate-right"
-            ></i>
+          <button id="gempaRefresh" class="gempa-refresh" type="button">
+            <i class="fa-solid fa-rotate-right"></i>
             Perbarui info gempa
           </button>
         </div>
@@ -1724,15 +1593,16 @@
           <div class="api-support-icon">
             <i class="fa-solid fa-heart"></i>
           </div>
+
           <div>
             <h3>Dukung DIMZ-WTF</h3>
+
             <p>
-              Kalau tools di sini ngebantu, boleh
-              traktir kopi lewat Saweria ya hehe.
-              Donasi seikhlasnya bakal kepake
-              buat biaya server dan ngembangin
-              project ini. Makasih banyak! 🙏
+              Kalau tools di sini ngebantu, boleh traktir kopi lewat Saweria ya
+              hehe. Donasi seikhlasnya bakal kepake buat biaya server dan
+              ngembangin project ini. Makasih banyak! 🙏
             </p>
+
             <a
               href="https://saweria.co/dimzzsumenak1"
               target="_blank"
@@ -1754,352 +1624,299 @@
             </div>
 
             <h3 id="motivationText">
-              Tetap belajar dan terus membuat
-              sesuatu.
+              Tetap belajar dan terus membuat sesuatu.
             </h3>
 
             <p>
-              Semangat untuk terus membuat,
-              mencoba, dan berkembang sedikit
-              demi sedikit.
+              Semangat untuk terus membuat, mencoba, dan berkembang sedikit demi
+              sedikit.
             </p>
           </div>
 
           <div>
-            <div
-              class="currently-time"
-              id="liveClock"
-            >
-              00:00:00
-            </div>
-            <div
-              class="digital-date"
-              id="liveDate"
-            >
-              Memuat tanggal...
-            </div>
+            <div class="currently-time" id="liveClock">00:00:00</div>
+
+            <div class="digital-date" id="liveDate">Memuat tanggal...</div>
           </div>
         </div>
       </section>
     </main>
 
     <footer>
-      © <span id="year"></span> DIMMZZZSUM_ENAK ·
-      Built with Hosting.
+      © <span id="year"></span> DIMMZZZSUM_ENAK · Built with Hosting.
     </footer>
 
+    <!-- DOWNLOAD MODAL -->
     <div class="modal" id="modalDownload">
       <div class="modal-box">
         <div class="modal-head">
           <h3>Download</h3>
-          <button
-            class="close"
-            data-close
-            aria-label="Tutup"
-          >
+
+          <button class="close" data-close aria-label="Tutup">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <div class="search">
-          <i
-            class="fa-solid fa-magnifying-glass"
-          ></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+
           <input
             type="search"
             placeholder="Cari downloader..."
             aria-label="Cari download"
             data-search="download"
           />
-          <button
-            class="search-clear"
-            data-clear
-            aria-label="Bersihkan"
-          >
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div
-          class="modal-list"
-          id="downloadList"
-        ></div>
+        <div class="modal-list" id="downloadList"></div>
       </div>
     </div>
 
+    <!-- CANVA MODAL -->
     <div class="modal" id="modalCanva">
       <div class="modal-box">
         <div class="modal-head">
           <h3>Canva / Maker</h3>
-          <button
-            class="close"
-            data-close
-            aria-label="Tutup"
-          >
+
+          <button class="close" data-close aria-label="Tutup">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <div class="search">
-          <i
-            class="fa-solid fa-magnifying-glass"
-          ></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+
           <input
             type="search"
             placeholder="Cari maker..."
             aria-label="Cari canva"
             data-search="canva"
           />
-          <button
-            class="search-clear"
-            data-clear
-            aria-label="Bersihkan"
-          >
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div
-          class="modal-list"
-          id="canvaList"
-        ></div>
+        <div class="modal-list" id="canvaList"></div>
       </div>
     </div>
 
+    <!-- ISLAMIC MODAL -->
     <div class="modal" id="modalIslamic">
       <div class="modal-box">
         <div class="modal-head">
           <h3>Islamic</h3>
-          <button
-            class="close"
-            data-close
-            aria-label="Tutup"
-          >
+
+          <button class="close" data-close aria-label="Tutup">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <div class="search">
-          <i
-            class="fa-solid fa-magnifying-glass"
-          ></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+
           <input
             type="search"
             placeholder="Cari tools Islami..."
             aria-label="Cari islamic"
             data-search="islamic"
           />
-          <button
-            class="search-clear"
-            data-clear
-            aria-label="Bersihkan"
-          >
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div
-          class="modal-list"
-          id="islamicList"
-        ></div>
+        <div class="modal-list" id="islamicList"></div>
       </div>
     </div>
 
+    <!-- SEARCH MODAL -->
     <div class="modal" id="modalSearch">
       <div class="modal-box">
         <div class="modal-head">
           <h3>Search</h3>
-          <button
-            class="close"
-            data-close
-            aria-label="Tutup"
-          >
+
+          <button class="close" data-close aria-label="Tutup">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <div class="search">
-          <i
-            class="fa-solid fa-magnifying-glass"
-          ></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+
           <input
             type="search"
             placeholder="Cari search tools..."
             aria-label="Cari search"
             data-search="search"
           />
-          <button
-            class="search-clear"
-            data-clear
-            aria-label="Bersihkan"
-          >
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div
-          class="modal-list"
-          id="searchList"
-        ></div>
+        <div class="modal-list" id="searchList"></div>
       </div>
     </div>
 
+    <!-- CONVERTER MODAL -->
     <div class="modal" id="modalConverter">
       <div class="modal-box">
         <div class="modal-head">
           <h3>Converter</h3>
-          <button
-            class="close"
-            data-close
-            aria-label="Tutup"
-          >
+
+          <button class="close" data-close aria-label="Tutup">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <div class="search">
-          <i
-            class="fa-solid fa-magnifying-glass"
-          ></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+
           <input
             type="search"
             placeholder="Cari converter..."
             aria-label="Cari converter"
             data-search="converter"
           />
-          <button
-            class="search-clear"
-            data-clear
-            aria-label="Bersihkan"
-          >
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div
-          class="modal-list"
-          id="converterList"
-        ></div>
+        <div class="modal-list" id="converterList"></div>
       </div>
     </div>
 
+    <!-- TEMP MODAL -->
     <div class="modal" id="modalTemp">
       <div class="modal-box">
         <div class="modal-head">
           <h3>Temp / Gateway</h3>
-          <button
-            class="close"
-            data-close
-            aria-label="Tutup"
-          >
+
+          <button class="close" data-close aria-label="Tutup">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <div class="search">
-          <i
-            class="fa-solid fa-magnifying-glass"
-          ></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+
           <input
             type="search"
             placeholder="Cari gateway..."
             aria-label="Cari temp"
             data-search="temp"
           />
-          <button
-            class="search-clear"
-            data-clear
-            aria-label="Bersihkan"
-          >
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div
-          class="modal-list"
-          id="tempList"
-        ></div>
+        <div class="modal-list" id="tempList"></div>
       </div>
     </div>
 
+    <!-- TOOLS MODAL -->
     <div class="modal" id="modalTools">
       <div class="modal-box">
         <div class="modal-head">
           <h3>Tools</h3>
-          <button
-            class="close"
-            data-close
-            aria-label="Tutup"
-          >
+
+          <button class="close" data-close aria-label="Tutup">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <div class="search">
-          <i
-            class="fa-solid fa-magnifying-glass"
-          ></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+
           <input
             type="search"
             placeholder="Cari tools..."
             aria-label="Cari tools"
             data-search="tools"
           />
-          <button
-            class="search-clear"
-            data-clear
-            aria-label="Bersihkan"
-          >
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div
-          class="modal-list"
-          id="toolsList"
-        ></div>
+        <div class="modal-list" id="toolsList"></div>
       </div>
     </div>
 
+    <!-- GAME MODAL -->
     <div class="modal" id="modalGame">
       <div class="modal-box">
         <div class="modal-head">
           <h3>Game</h3>
-          <button
-            class="close"
-            data-close
-            aria-label="Tutup"
-          >
+
+          <button class="close" data-close aria-label="Tutup">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
         <div class="search">
-          <i
-            class="fa-solid fa-magnifying-glass"
-          ></i>
+          <i class="fa-solid fa-magnifying-glass"></i>
+
           <input
             type="search"
             placeholder="Cari game..."
             aria-label="Cari game"
             data-search="game"
           />
-          <button
-            class="search-clear"
-            data-clear
-            aria-label="Bersihkan"
-          >
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
 
-        <div
-          class="modal-list"
-          id="gameList"
-        ></div>
+        <div class="modal-list" id="gameList"></div>
       </div>
     </div>
 
+    <!-- RANDOM IMAGE / VIDEO MODAL BARU -->
+    <div class="modal" id="modalRandom">
+      <div class="modal-box">
+        <div class="modal-head">
+          <h3>Random Image / Video</h3>
+
+          <button class="close" data-close aria-label="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="search">
+          <i class="fa-solid fa-magnifying-glass"></i>
+
+          <input
+            type="search"
+            placeholder="Cari random image / video..."
+            aria-label="Cari random image video"
+            data-search="random"
+          />
+
+          <button class="search-clear" data-clear aria-label="Bersihkan">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="modal-list" id="randomList"></div>
+      </div>
+    </div>
+
+    <!-- 404 -->
     <div class="modal not-found" id="notFound">
       <div class="modal-box">
         <div class="error-code">404</div>
@@ -2110,18 +1927,18 @@
           Link yang kamu buka kayaknya nggak ada.
         </p>
 
-        <button
-          class="back-home"
-          onclick="location.href='./'"
-        >
+        <button class="back-home" onclick="location.href='./'">
           Balik ke halaman utama
         </button>
       </div>
     </div>
 
     <script>
+
       const DATA={
+
       download:[
+
       {
       name:"Facebook Downloader",
       desc:"Downloader untuk media Facebook",
@@ -2131,6 +1948,7 @@
       color:"blue",
       tags:"facebook downloader video foto"
       },
+
       {
       name:"Instagram Downloader",
       desc:"Download media dari Instagram",
@@ -2140,6 +1958,7 @@
       color:"pink",
       tags:"instagram downloader foto video reel"
       },
+
       {
       name:"TikTok Downloader",
       desc:"Download video atau foto TikTok",
@@ -2149,6 +1968,7 @@
       color:"cyan",
       tags:"tiktok downloader video foto"
       },
+
       {
       name:"YouTube Downloader",
       desc:"Download video atau audio YouTube",
@@ -2157,10 +1977,33 @@
       type:"brand",
       color:"pink",
       tags:"youtube downloader mp3 mp4"
+      },
+
+      {
+      name:"Threads Downloader",
+      desc:"Download media dari Threads",
+      url:"download/threads_downloaders.html",
+      icon:"fa-at",
+      type:"solid",
+      color:"violet",
+      tags:"threads downloader video foto image"
+      },
+
+      {
+      name:"SnackVideo Downloader",
+      desc:"Download video dari SnackVideo",
+      url:"download/snakvideo_downloaders.html",
+      icon:"fa-video",
+      type:"solid",
+      color:"orange",
+      tags:"snackvideo downloader video download"
       }
+
       ],
 
+
       canva:[
+
       {
       name:"Brat Generator",
       desc:"Buat gambar Brat dengan mudah",
@@ -2170,6 +2013,7 @@
       color:"pink",
       tags:"brat generator gambar image maker"
       },
+
       {
       name:"Lobby Epep Maker",
       desc:"Buat tampilan lobby Epep sendiri",
@@ -2179,6 +2023,7 @@
       color:"violet",
       tags:"free fire epep lobby maker game"
       },
+
       {
       name:"Text Maker",
       desc:"Bikin teks keren dari berbagai gaya",
@@ -2188,9 +2033,12 @@
       color:"blue",
       tags:"text maker keren tulisan logo"
       }
+
       ],
 
+
       islamic:[
+
       {
       name:"Jadwal Sholat",
       desc:"Cek jadwal sholat berdasarkan lokasi",
@@ -2200,9 +2048,12 @@
       color:"green",
       tags:"islam sholat jadwal waktu adzan"
       }
+
       ],
 
+
       search:[
+
       {
       name:"Lyrics Search",
       desc:"Cari lirik lagu dengan cepat",
@@ -2212,6 +2063,7 @@
       color:"cyan",
       tags:"lyrics lirik lagu music search"
       },
+
       {
       name:"TikTok Search Video",
       desc:"Cari video TikTok dengan cepat",
@@ -2220,10 +2072,23 @@
       type:"brand",
       color:"cyan",
       tags:"tiktok search video converter"
+      },
+
+      {
+      name:"Cuaca Real",
+      desc:"Cek kondisi cuaca secara real-time",
+      url:"search/search_cuaca_real.html",
+      icon:"fa-cloud-sun",
+      type:"solid",
+      color:"cyan",
+      tags:"cuaca weather real time suhu hujan"
       }
+
       ],
 
+
       converter:[
+
       {
       name:"Emoji Search Image",
       desc:"Cari emoji dan lihat versi gambarnya",
@@ -2233,6 +2098,7 @@
       color:"violet",
       tags:"emoji search image converter"
       },
+
       {
       name:"Emoji Search Video",
       desc:"Cari emoji dan lihat versi videonya",
@@ -2241,10 +2107,13 @@
       type:"solid",
       color:"pink",
       tags:"emoji search video converter"
-      }      
+      }
+
       ],
 
+
       temp:[
+
       {
       name:"Bully Gateway",
       desc:"Gateway menuju halaman file Bully",
@@ -2254,6 +2123,7 @@
       color:"yellow",
       tags:"bully game download"
       },
+
       {
       name:"GTA Gateway",
       desc:"Gateway menuju halaman file GTA",
@@ -2263,9 +2133,12 @@
       color:"orange",
       tags:"gta san andreas game download"
       }
+
       ],
 
+
       tools:[
+
       {
       name:"Khodam Generator",
       desc:"Generator khodam random untuk hiburan",
@@ -2275,6 +2148,7 @@
       color:"violet",
       tags:"khodam generator random fun"
       },
+
       {
       name:"Magic Wheel Calculator",
       desc:"Hitung Diamond yang dibutuhkan untuk Magic Wheel Mobile Legends",
@@ -2284,6 +2158,7 @@
       color:"gold",
       tags:"magic wheel ml calculator diamond legend"
       },
+
       {
       name:"Winrate Calculator ML",
       desc:"Hitung target winrate Mobile Legends",
@@ -2293,6 +2168,7 @@
       color:"cyan",
       tags:"winrate calculator ml mobile legends"
       },
+
       {
       name:"Zodiac Wheel Calculator",
       desc:"Kalkulator Diamond event Zodiac Mobile Legends",
@@ -2302,9 +2178,12 @@
       color:"violet",
       tags:"zodiac calculator ml wheel diamond"
       }
+
       ],
 
+
       game:[
+
       {
       name:"Susun Kata",
       desc:"Susun huruf acak jadi kata yang benar",
@@ -2314,6 +2193,7 @@
       color:"violet",
       tags:"susun kata game tebak huruf quiz"
       },
+
       {
       name:"Pilihan Ganda",
       desc:"Jawab pertanyaan dengan pilihan yang tersedia",
@@ -2323,6 +2203,7 @@
       color:"cyan",
       tags:"pilihan ganda quiz game pertanyaan"
       },
+
       {
       name:"Tebak Bendera",
       desc:"Tebak negara dari bendera yang muncul",
@@ -2332,6 +2213,7 @@
       color:"green",
       tags:"tebak bendera negara flag game"
       },
+
       {
       name:"Tebak Lagu",
       desc:"Tebak judul lagu dari audio yang diputar",
@@ -2341,10 +2223,48 @@
       color:"pink",
       tags:"tebak lagu musik audio song game"
       }
+
+      ],
+
+      random:[
+
+      {
+      name:"Cuaca Real",
+      desc:"Cek kondisi cuaca secara real-time",
+      url:"search/search_cuaca_real.html",
+      icon:"fa-cloud-sun",
+      type:"solid",
+      color:"cyan",
+      tags:"cuaca weather real time suhu hujan"
+      },
+
+      {
+      name:"Threads Downloader",
+      desc:"Download media dari Threads",
+      url:"download/threads_downloaders.html",
+      icon:"fa-at",
+      type:"solid",
+      color:"violet",
+      tags:"threads downloader video foto image"
+      },
+
+      {
+      name:"SnackVideo Downloader",
+      desc:"Download video dari SnackVideo",
+      url:"download/snackvideo_downloaders.html",
+      icon:"fa-video",
+      type:"solid",
+      color:"orange",
+      tags:"snackvideo downloader video download"
+      }
+
       ]
+
       };
 
+
       const LIST_IDS={
+
       download:"downloadList",
       canva:"canvaList",
       islamic:"islamicList",
@@ -2352,23 +2272,35 @@
       converter:"converterList",
       temp:"tempList",
       tools:"toolsList",
-      game:"gameList"
+      game:"gameList",
+
+      /* BARU */
+      random:"randomList"
+
       };
 
+
       function esc(v){
+
       return String(v)
       .replace(/&/g,"&amp;")
       .replace(/</g,"&lt;")
       .replace(/>/g,"&gt;")
       .replace(/"/g,"&quot;")
       .replace(/'/g,"&#039;");
+
       }
+
 
       function regexEsc(v){
+
       return String(v).replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+
       }
 
+
       function highlight(v,q){
+
       let text=esc(v);
 
       if(!q)return text;
@@ -2377,9 +2309,12 @@
       new RegExp("("+regexEsc(q)+")","gi"),
       '<mark style="background:rgba(169,156,255,.2);color:inherit;border-radius:3px;padding:1px 2px">$1</mark>'
       );
+
       }
 
+
       function renderList(type,query){
+
       const box=document.getElementById(LIST_IDS[type]);
 
       if(!box)return;
@@ -2387,17 +2322,25 @@
       const q=String(query||"").trim().toLowerCase();
 
       const results=DATA[type].filter(function(item){
+
       return(
       item.name+" "+
       item.desc+" "+
       item.tags
       ).toLowerCase().indexOf(q)!==-1;
+
       });
 
+
       if(!results.length){
-      box.innerHTML='<div class="no-result">Tidak ada yang cocok.</div>';
+
+      box.innerHTML=
+      '<div class="no-result">Tidak ada yang cocok.</div>';
+
       return;
+
       }
+
 
       box.innerHTML=results.map(function(item){
 
@@ -2410,20 +2353,31 @@
       :"fa-solid";
 
       return(
+
       '<a class="item" href="'+esc(item.url)+'"'+target+'>'+
       '<div class="item-icon '+esc(item.color)+'">'+
       '<i class="'+icon+" "+esc(item.icon)+'"></i>'+
       '</div>'+
+
       '<div class="item-info">'+
       "<strong>"+highlight(item.name,q)+"</strong>"+
       "<span>"+highlight(item.desc,q)+"</span>"+
       "</div>"+
-      '<div class="item-arrow"><i class="fa-solid fa-chevron-right"></i></div>'+
+
+      '<div class="item-arrow">'+
+      '<i class="fa-solid fa-chevron-right"></i>'+
+      '</div>'+
+
       "</a>"
+
       );
 
       }).join("");
+
       }
+
+
+      /* OPEN MODAL */
 
       document.querySelectorAll("[data-modal]").forEach(function(button){
 
@@ -2434,18 +2388,27 @@
       );
 
       if(modal){
+
       modal.classList.add("active");
+
       document.body.style.overflow="hidden";
 
-      const type=modal.id.replace(/^modal/,"").toLowerCase();
+      const type=modal.id
+      .replace(/^modal/,"")
+      .toLowerCase();
+
       if(LIST_IDS[type]){
       renderList(type,"");
       }
+
       }
 
       });
 
       });
+
+
+      /* CLOSE MODAL */
 
       function closeModal(modal){
 
@@ -2459,13 +2422,17 @@
 
       }
 
+
       document.querySelectorAll("[data-close]").forEach(function(button){
 
       button.addEventListener("click",function(){
+
       closeModal(button.closest(".modal"));
+
       });
 
       });
+
 
       document.querySelectorAll(".modal").forEach(function(modal){
 
@@ -2479,6 +2446,7 @@
 
       });
 
+
       document.addEventListener("keydown",function(event){
 
       if(event.key==="Escape"){
@@ -2490,6 +2458,9 @@
       }
 
       });
+
+
+      /* SEARCH */
 
       document.querySelectorAll("[data-search]").forEach(function(input){
 
@@ -2503,6 +2474,9 @@
       });
 
       });
+
+
+      /* CLEAR SEARCH */
 
       document.querySelectorAll("[data-clear]").forEach(function(button){
 
@@ -2525,9 +2499,18 @@
 
       });
 
-      document.getElementById("homeBtn").addEventListener("click",function(){
+
+      /* HOME */
+
+      document.getElementById("homeBtn").addEventListener(
+      "click",
+      function(){
       location.href="./";
-      });
+      }
+      );
+
+
+      /* THEME */
 
       const themeBtn=document.getElementById("themeBtn");
 
@@ -2541,9 +2524,11 @@
       document.body.classList.add("light");
       }
 
+
       function updateThemeIcon(){
 
-      themeBtn.innerHTML=document.body.classList.contains("light")
+      themeBtn.innerHTML=
+      document.body.classList.contains("light")
       ?'<i class="fa-solid fa-moon"></i>'
       :'<i class="fa-solid fa-sun"></i>';
 
@@ -2551,25 +2536,32 @@
 
       updateThemeIcon();
 
+
       themeBtn.addEventListener("click",function(){
 
       document.body.classList.toggle("light");
 
       try{
+
       localStorage.setItem(
       "dimmzzz_theme",
       document.body.classList.contains("light")
       ?"light"
       :"dark"
       );
+
       }catch(e){}
 
       updateThemeIcon();
 
       });
 
+
+      /* CLOCK */
+
       const clock=document.getElementById("liveClock");
       const date=document.getElementById("liveDate");
+
 
       function updateTime(){
 
@@ -2582,9 +2574,11 @@
 
       }
 
+
       function updateDate(){
 
-      date.textContent=new Intl.DateTimeFormat("id-ID",{
+      date.textContent=
+      new Intl.DateTimeFormat("id-ID",{
       weekday:"long",
       day:"2-digit",
       month:"long",
@@ -2593,13 +2587,18 @@
 
       }
 
+
       updateTime();
       updateDate();
 
       setInterval(updateTime,1000);
       setInterval(updateDate,60000);
 
-      document.getElementById("year").textContent=new Date().getFullYear();
+      document.getElementById("year").textContent=
+      new Date().getFullYear();
+
+
+      /* 404 */
 
       const path=location.pathname.toLowerCase();
       const params=new URLSearchParams(location.search);
@@ -2613,117 +2612,208 @@
       const notFound=document.getElementById("notFound");
 
       if(notFound){
+
       notFound.classList.add("active");
       document.body.style.overflow="hidden";
-      }
 
       }
 
+      }
 
-      const DIMZZ_URL="https://dimz-wtf.vercel.app/api/rxoen-pages";
 
-      const gempaLoading=document.getElementById("gempaLoading");
-      const gempaContent=document.getElementById("gempaContent");
-      const gempaError=document.getElementById("gempaError");
-      const gempaRefresh=document.getElementById("gempaRefresh");
+      /* GEMPA */
+
+      const DIMZZ_URL=
+      "https://dimz-wtf.vercel.app/api/rxoen-pages";
+
+      const gempaLoading=
+      document.getElementById("gempaLoading");
+
+      const gempaContent=
+      document.getElementById("gempaContent");
+
+      const gempaError=
+      document.getElementById("gempaError");
+
+      const gempaRefresh=
+      document.getElementById("gempaRefresh");
+
 
       function setGempaText(id,value){
-        const el=document.getElementById(id);
-        if(el)el.textContent=value||"-";
+
+      const el=document.getElementById(id);
+
+      if(el)el.textContent=value||"-";
+
       }
+
 
       async function getGempa(){
-        const params=new URLSearchParams();
-        params.set("path","gempa");
 
-        const requestURL=DIMZZ_URL+"?"+params.toString();
+      const params=new URLSearchParams();
+
+      params.set("path","gempa");
+
+      const requestURL=
+      DIMZZ_URL+"?"+params.toString();
 
 
-        const response=await fetch(requestURL,{
-          method:"GET",
-          cache:"no-store"
-        });
+      const response=await fetch(requestURL,{
+      method:"GET",
+      cache:"no-store"
+      });
 
-        const rawText=await response.text();
 
-        if(!response.ok){
-          let message="HTTP "+response.status;
+      const rawText=await response.text();
 
-          try{
-            const errorJSON=JSON.parse(rawText);
-            if(errorJSON&&errorJSON.message)message=errorJSON.message;
-          }catch(e){}
 
-          throw new Error(message);
-        }
+      if(!response.ok){
 
-        let result;
+      let message="HTTP "+response.status;
 
-        try{
-          result=JSON.parse(rawText);
-        }catch(e){
-          throw new Error("Response Server bukan JSON yang valid");
-        }
+      try{
 
-        if(!result||result.status!==true||!result.data){
-          throw new Error(result&&result.message?result.message:"Data gempa tidak tersedia");
-        }
+      const errorJSON=JSON.parse(rawText);
 
-        return result.data;
+      if(errorJSON&&errorJSON.message){
+      message=errorJSON.message;
       }
+
+      }catch(e){}
+
+      throw new Error(message);
+
+      }
+
+
+      let result;
+
+      try{
+
+      result=JSON.parse(rawText);
+
+      }catch(e){
+
+      throw new Error(
+      "Response Server bukan JSON yang valid"
+      );
+
+      }
+
+
+      if(
+      !result||
+      result.status!==true||
+      !result.data
+      ){
+
+      throw new Error(
+      result&&result.message
+      ?result.message
+      :"Data gempa tidak tersedia"
+      );
+
+      }
+
+
+      return result.data;
+
+      }
+
 
       async function loadGempa(){
-        gempaLoading.style.display="block";
-        gempaContent.style.display="none";
-        gempaError.style.display="none";
-        gempaRefresh.disabled=true;
 
-        try{
-          const data=await getGempa();
+      gempaLoading.style.display="block";
+      gempaContent.style.display="none";
+      gempaError.style.display="none";
+      gempaRefresh.disabled=true;
 
-          setGempaText("gempaWilayah",data.wilayah);
-          setGempaText("gempaWaktu",data.waktu);
-          setGempaText("gempaMagnitude",data.magnitudo);
-          setGempaText("gempaLintang",data.lintang);
-          setGempaText("gempaBujur",data.bujur);
-          setGempaText("gempaKedalaman",data.kedalaman);
-          setGempaText("gempaZona",data.zona);
-          setGempaText("gempaWilayahDetail",data.wilayah);
-          setGempaText("gempaArahan",data.arahan);
-          setGempaText("gempaSaran",data.saran);
 
-          const map=document.getElementById("gempaMap");
+      try{
 
-          if(data.map){
-            map.src=data.map;
-            map.style.display="block";
-          }else{
-            map.removeAttribute("src");
-            map.style.display="none";
-          }
+      const data=await getGempa();
 
-          gempaLoading.style.display="none";
-          gempaContent.style.display="block";
-        }catch(error){
-          gempaLoading.style.display="none";
-          gempaError.textContent="Gagal mengambil info gempa: "+(error.message||"Terjadi kesalahan");
-          gempaError.style.display="block";
-        }finally{
-          gempaRefresh.disabled=false;
-        }
+      setGempaText("gempaWilayah",data.wilayah);
+      setGempaText("gempaWaktu",data.waktu);
+      setGempaText("gempaMagnitude",data.magnitudo);
+      setGempaText("gempaLintang",data.lintang);
+      setGempaText("gempaBujur",data.bujur);
+      setGempaText("gempaKedalaman",data.kedalaman);
+      setGempaText("gempaZona",data.zona);
+      setGempaText("gempaWilayahDetail",data.wilayah);
+      setGempaText("gempaArahan",data.arahan);
+      setGempaText("gempaSaran",data.saran);
+
+
+      const map=document.getElementById("gempaMap");
+
+
+      if(data.map){
+
+      map.src=data.map;
+      map.style.display="block";
+
+      }else{
+
+      map.removeAttribute("src");
+      map.style.display="none";
+
       }
 
-      gempaRefresh.addEventListener("click",loadGempa);
 
-      window.addEventListener("load",function(){
-      const startGempa=()=>setTimeout(loadGempa,1000);
+      gempaLoading.style.display="none";
+      gempaContent.style.display="block";
+
+
+      }catch(error){
+
+      gempaLoading.style.display="none";
+
+      gempaError.textContent=
+      "Gagal mengambil info gempa: "+
+      (error.message||"Terjadi kesalahan");
+
+      gempaError.style.display="block";
+
+
+      }finally{
+
+      gempaRefresh.disabled=false;
+
+      }
+
+      }
+
+
+      gempaRefresh.addEventListener(
+      "click",
+      loadGempa
+      );
+
+
+      window.addEventListener(
+      "load",
+      function(){
+
+      const startGempa=
+      ()=>setTimeout(loadGempa,1000);
 
       if("requestIdleCallback" in window){
-        requestIdleCallback(startGempa,{timeout:1500});
+
+      requestIdleCallback(
+      startGempa,
+      {timeout:1500}
+      );
+
       }else{
-        startGempa();
+
+      startGempa();
+
       }
-      },{once:true});
+
+      },
+      {once:true}
+      );
     </script>
   </body>
 </html>
