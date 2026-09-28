@@ -1,5 +1,5 @@
 const CONFIG = {
-  DIMZZ: {
+  DIMZZ2: {
     URL: "https://dimz-wtf.vercel.app/api/rxoen-pages"
   },
 
