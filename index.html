@@ -2716,10 +2716,10 @@
       gempaRefresh.addEventListener("click",loadGempa);
 
       window.addEventListener("load",function(){
-      const startGempa=()=>setTimeout(loadGempa,1200);
+      const startGempa=()=>setTimeout(loadGempa,1000);
 
       if("requestIdleCallback" in window){
-        requestIdleCallback(startGempa,{timeout:1800});
+        requestIdleCallback(startGempa,{timeout:1500});
       }else{
         startGempa();
       }
