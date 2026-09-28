@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#0b1220" />
+    <meta name="description" content="Cari wilayah dan cek cuaca terbaru" />
+    <title>Weather Now — DIMMZZZSUM_ENAK</title>
+    <style>
+      *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0
+      }
+
+      :root{
+      --bg:#0b1220;
+      --panel:#121d30;
+      --panel2:#17243a;
+      --line:#25344a;
+      --text:#f2f6fc;
+      --muted:#8d9cb2;
+      --cyan:#5ce1e6;
+      --blue:#448bff;
+      --orange:#ffbd73;
+      --green:#74e5b1;
+      }
+
+      html{
+      background:var(--bg);
+      scroll-behavior:smooth
+      }
+
+      body{
+      min-height:100vh;
+      background:
+      radial-gradient(ellipse at 90% 0%,rgba(47,109,174,.17),transparent 38%),
+      radial-gradient(ellipse at 0% 50%,rgba(38,153,160,.08),transparent 36%),
+      var(--bg);
+      color:var(--text);
+      font-family:system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+      overflow-x:hidden
+      }
+
+      button,input{
+      font:inherit
+      }
+
+      button{
+      -webkit-tap-highlight-color:transparent
+      }
+
+      .app{
+      width:100%;
+      max-width:720px;
+      margin:auto;
+      padding:20px 15px 34px
+      }
+
+      .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:34px
+      }
+
+      .brand{
+      display:flex;
+      align-items:center;
+      gap:11px
+      }
+
+      .brand-icon{
+      width:39px;
+      height:39px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:13px;
+      background:linear-gradient(145deg,#5ce1e6,#328bcb);
+      color:#07121d;
+      box-shadow:0 5px 20px rgba(57,194,218,.18)
+      }
+
+      .brand-icon svg{
+      width:22px;
+      height:22px
+      }
+
+      .brand-name{
+      font-size:12px;
+      font-weight:850;
+      letter-spacing:.3px
+      }
+
+      .brand-sub{
+      font-size:9px;
+      color:var(--muted);
+      margin-top:3px
+      }
+
+      .live-badge{
+      display:flex;
+      align-items:center;
+      gap:6px;
+      padding:7px 10px;
+      border:1px solid #25433f;
+      border-radius:30px;
+      background:#142a2b;
+      color:#83e6c4;
+      font-size:9px;
+      font-weight:800
+      }
+
+      .live-dot{
+      width:6px;
+      height:6px;
+      border-radius:50%;
+      background:#73e5ad;
+      box-shadow:0 0 8px #73e5ad
+      }
+
+      .hero{
+      margin-bottom:24px
+      }
+
+      .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      margin-bottom:12px;
+      color:var(--cyan);
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:1.1px;
+      text-transform:uppercase
+      }
+
+      .eyebrow svg{
+      width:13px;
+      height:13px
+      }
+
+      h1{
+      font-size:37px;
+      line-height:1.08;
+      letter-spacing:-1.8px;
+      font-weight:850
+      }
+
+      h1 span{
+      color:var(--cyan)
+      }
+
+      .hero p{
+      max-width:440px;
+      margin-top:10px;
+      font-size:12px;
+      line-height:1.7;
+      color:var(--muted)
+      }
+
+      .search-area{
+      padding:5px;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      background:#131e30;
+      border:1px solid #283850;
+      border-radius:16px;
+      box-shadow:0 10px 28px rgba(0,0,0,.14)
+      }
+
+      .search-input{
+      flex:1;
+      min-width:0;
+      height:42px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:0 10px
+      }
+
+      .search-input svg{
+      width:19px;
+      height:19px;
+      flex:none;
+      color:#8ea3bc
+      }
+
+      .search-input input{
+      width:100%;
+      min-width:0;
+      border:0;
+      outline:0;
+      background:transparent;
+      color:var(--text);
+      font-size:12px
+      }
+
+      .search-input input::placeholder{
+      color:#75859b
+      }
+
+      .search-btn{
+      height:42px;
+      padding:0 17px;
+      border:0;
+      border-radius:12px;
+      background:linear-gradient(135deg,#61e5e4,#38b7d2);
+      color:#07151d;
+      font-size:10px;
+      font-weight:900;
+      cursor:pointer;
+      transition:filter .15s,transform .15s
+      }
+
+      .search-btn:active,
+      .refresh:active,
+      .location-item:active{
+      transform:scale(.98)
+      }
+
+      .search-btn:disabled{
+      opacity:.5;
+      cursor:wait
+      }
+
+      .status{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      min-height:28px;
+      padding:5px 2px 0;
+      font-size:10px;
+      color:var(--muted)
+      }
+
+      .status-dot{
+      width:6px;
+      height:6px;
+      flex:none;
+      border-radius:50%;
+      background:#66768b
+      }
+
+      .status.error{
+      color:#ff9b9b
+      }
+
+      .status.error .status-dot{
+      background:#ff7373
+      }
+
+      .status.success{
+      color:#86e6bb
+      }
+
+      .status.success .status-dot{
+      background:#73e5ad
+      }
+
+      .results{
+      display:none;
+      margin:17px 0 20px
+      }
+
+      .results.show{
+      display:block
+      }
+
+      .section-heading{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:11px
+      }
+
+      .section-heading h2{
+      font-size:12px;
+      font-weight:850
+      }
+
+      .result-count{
+      font-size:9px;
+      color:var(--muted)
+      }
+
+      .location-list{
+      display:flex;
+      flex-direction:column;
+      gap:8px
+      }
+
+      .location-item{
+      width:100%;
+      display:flex;
+      align-items:center;
+      gap:11px;
+      padding:12px;
+      border:1px solid #25354b;
+      border-radius:13px;
+      background:#121d30;
+      color:var(--text);
+      text-align:left;
+      cursor:pointer;
+      transition:background .15s,border-color .15s,transform .15s
+      }
+
+      .location-item:active{
+      background:#1b2b42
+      }
+
+      .location-symbol{
+      width:36px;
+      height:36px;
+      flex:none;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:11px;
+      background:#1b3044;
+      color:var(--cyan)
+      }
+
+      .location-symbol svg{
+      width:18px;
+      height:18px
+      }
+
+      .location-info{
+      flex:1;
+      min-width:0
+      }
+
+      .location-name{
+      font-size:11px;
+      font-weight:800;
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis
+      }
+
+      .location-detail{
+      margin-top:4px;
+      font-size:9px;
+      color:var(--muted);
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis
+      }
+
+      .location-arrow{
+      color:#71859d;
+      font-size:20px;
+      line-height:1
+      }
+
+      .loading{
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:23px;
+      font-size:10px;
+      color:var(--muted)
+      }
+
+      .loading.show{
+      display:flex
+      }
+
+      .spinner{
+      width:18px;
+      height:18px;
+      border:2px solid #30425a;
+      border-top-color:var(--cyan);
+      border-radius:50%;
+      animation:spin .7s linear infinite
+      }
+
+      @keyframes spin{
+      to{transform:rotate(360deg)}
+      }
+
+      .empty{
+      padding:25px 16px;
+      text-align:center;
+      color:var(--muted);
+      font-size:10px;
+      line-height:1.8
+      }
+
+      .empty-icon{
+      width:54px;
+      height:54px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 12px;
+      border:1px solid #293b53;
+      border-radius:17px;
+      background:#15243a;
+      color:var(--cyan)
+      }
+
+      .empty-icon svg{
+      width:25px;
+      height:25px
+      }
+
+      .weather{
+      display:none;
+      margin-top:15px
+      }
+
+      .weather.show{
+      display:block
+      }
+
+      .weather-main{
+      position:relative;
+      overflow:hidden;
+      padding:19px;
+      border:1px solid #2b405b;
+      border-radius:22px;
+      background:
+      radial-gradient(ellipse at 90% 0%,rgba(81,179,224,.17),transparent 42%),
+      linear-gradient(145deg,#172941,#111c30);
+      box-shadow:0 16px 38px rgba(0,0,0,.19)
+      }
+
+      .weather-main:after{
+      content:"";
+      position:absolute;
+      width:190px;
+      height:190px;
+      right:-100px;
+      bottom:-120px;
+      border-radius:50%;
+      border:1px solid rgba(92,225,230,.1);
+      box-shadow:0 0 0 20px rgba(92,225,230,.025),0 0 0 40px rgba(92,225,230,.02);
+      pointer-events:none
+      }
+
+      .weather-top{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px
+      }
+
+      .place-label{
+      font-size:9px;
+      color:#8da2ba;
+      font-weight:750;
+      letter-spacing:1px;
+      text-transform:uppercase
+      }
+
+      .place-name{
+      margin-top:6px;
+      font-size:20px;
+      font-weight:850;
+      letter-spacing:-.5px;
+      overflow-wrap:anywhere
+      }
+
+      .place-detail{
+      margin-top:5px;
+      font-size:9px;
+      line-height:1.6;
+      color:#91a4bb
+      }
+
+      .weather-icon{
+      width:88px;
+      height:88px;
+      flex:none;
+      object-fit:contain;
+      filter:drop-shadow(0 5px 13px rgba(0,0,0,.15))
+      }
+
+      .temp-row{
+      position:relative;
+      z-index:1;
+      display:flex;
+      align-items:flex-start;
+      gap:4px;
+      margin-top:22px
+      }
+
+      .temperature{
+      font-size:63px;
+      line-height:.95;
+      font-weight:850;
+      letter-spacing:-4px
+      }
+
+      .degree{
+      margin-top:5px;
+      font-size:24px;
+      font-weight:750;
+      color:#a9c4d9
+      }
+
+      .weather-desc{
+      position:relative;
+      z-index:1;
+      margin-top:8px;
+      font-size:13px;
+      font-weight:800;
+      color:#d9f7f6
+      }
+
+      .weather-desc-en{
+      margin-top:3px;
+      font-size:9px;
+      color:#8fa4bb
+      }
+
+      .weather-extra{
+      position:relative;
+      z-index:1;
+      display:flex;
+      flex-wrap:wrap;
+      gap:7px;
+      margin-top:17px
+      }
+
+      .weather-chip{
+      padding:7px 10px;
+      border:1px solid rgba(133,184,205,.16);
+      border-radius:9px;
+      background:rgba(5,15,29,.28);
+      color:#a8c5d7;
+      font-size:9px;
+      font-weight:700
+      }
+
+      .stats-heading{
+      margin:19px 1px 10px;
+      font-size:11px;
+      font-weight:850
+      }
+
+      .stats{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:9px
+      }
+
+      .stat{
+      min-width:0;
+      padding:13px;
+      border:1px solid #24364d;
+      border-radius:15px;
+      background:#121e31
+      }
+
+      .stat-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:6px
+      }
+
+      .stat-label{
+      font-size:9px;
+      color:#95a7bb;
+      font-weight:700
+      }
+
+      .stat-icon{
+      width:29px;
+      height:29px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:9px;
+      background:#1c3047;
+      color:var(--cyan)
+      }
+
+      .stat-icon svg{
+      width:16px;
+      height:16px
+      }
+
+      .stat-value{
+      margin-top:10px;
+      font-size:17px;
+      font-weight:850;
+      letter-spacing:-.4px;
+      overflow-wrap:anywhere
+      }
+
+      .stat-unit{
+      margin-left:3px;
+      font-size:9px;
+      font-weight:600;
+      color:#8c9eb2
+      }
+
+      .time-row{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      margin-top:13px;
+      padding:11px 2px 0;
+      border-top:1px solid #29384c;
+      font-size:9px;
+      line-height:1.6;
+      color:#8fa3b9
+      }
+
+      .time-row svg{
+      width:15px;
+      height:15px;
+      flex:none;
+      color:#65dce0
+      }
+
+      .refresh{
+      width:100%;
+      height:44px;
+      margin-top:11px;
+      border:1px solid #2a435b;
+      border-radius:13px;
+      background:#17263b;
+      color:#b8d4e4;
+      font-size:10px;
+      font-weight:850;
+      letter-spacing:.5px;
+      cursor:pointer
+      }
+
+      .refresh:disabled{
+      opacity:.5;
+      cursor:wait
+      }
+
+      .footer{
+      margin-top:27px;
+      padding-top:14px;
+      border-top:1px solid rgba(130,156,182,.12);
+      text-align:center;
+      font-size:9px;
+      font-weight:700;
+      letter-spacing:.6px;
+      color:#66778d
+      }
+
+      .footer span{
+      color:#8ba4bb
+      }
+
+      @media(min-width:560px){
+      .app{
+      padding-top:27px
+      }
+
+      .weather-main{
+      padding:23px
+      }
+
+      .temperature{
+      font-size:70px
+      }
+      }
+
+      @media(max-width:370px){
+      .app{
+      padding-left:11px;
+      padding-right:11px
+      }
+
+      h1{
+      font-size:32px
+      }
+
+      .weather-main{
+      padding:15px
+      }
+
+      .weather-icon{
+      width:70px;
+      height:70px
+      }
+
+      .temperature{
+      font-size:54px
+      }
+
+      .stat{
+      padding:11px
+      }
+
+      .stat-value{
+      font-size:15px
+      }
+
+      .search-btn{
+      padding:0 12px
+      }
+      }
+
+      @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{
+      animation-duration:.01ms!important;
+      transition-duration:.01ms!important;
+      scroll-behavior:auto!important
+      }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="app">
+      <header class="topbar">
+        <div class="brand">
+          <div class="brand-icon">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="4" />
+              <path
+                d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"
+              />
+            </svg>
+          </div>
+          <div>
+            <div class="brand-name">Weather Now</div>
+            <div class="brand-sub">Cuaca di sekitar kamu</div>
+          </div>
+        </div>
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          LIVE DATA
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="eyebrow">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 21s7-4.5 7-11a7 7 0 0 0-14 0c0 6.5 7 11 7 11z" />
+            <circle cx="12" cy="10" r="2.5" />
+          </svg>
+          CEK CUACA KOTA
+        </div>
+        <h1>Langit hari ini<br /><span>gimana, ya?</span></h1>
+        <p>
+          Cari nama kota atau daerahmu, terus pilih wilayahnya buat lihat
+          kondisi cuaca sekarang.
+        </p>
+      </section>
+
+      <form class="search-area" id="searchForm">
+        <div class="search-input">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m16 16 4 4" />
+          </svg>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Mau cek cuaca di mana?"
+            autocomplete="off"
+            spellcheck="false"
+          />
+        </div>
+        <button class="search-btn" id="searchBtn" type="submit">
+          Cari daerah
+        </button>
+      </form>
+
+      <div class="status" id="status" aria-live="polite">
+        <span class="status-dot"></span>
+        <span id="statusText">Coba ketik nama kota di atas.</span>
+      </div>
+
+      <div class="loading" id="searchLoading">
+        <div class="spinner"></div>
+        <span>Lagi nyari wilayah...</span>
+      </div>
+
+      <section class="results" id="results">
+        <div class="section-heading">
+          <h2>Pilih daerahnya</h2>
+          <span class="result-count" id="resultCount"></span>
+        </div>
+        <div class="location-list" id="locationList"></div>
+      </section>
+
+      <div class="empty" id="empty">
+        <div class="empty-icon">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.7"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <path
+              d="M20 15.5A4.5 4.5 0 0 0 18 7h-1.2A7 7 0 0 0 3 10.5 4.5 4.5 0 0 0 4.5 19H18a4 4 0 0 0 2-3.5z"
+            />
+            <path d="M8 22l2-3m4 3 2-3" />
+          </svg>
+        </div>
+        Belum ada cuaca yang ditampilkan.<br />
+        Yuk, cari kota atau daerah dulu!
+      </div>
+
+      <section class="weather" id="weather">
+        <div class="weather-main">
+          <div class="weather-top">
+            <div>
+              <div class="place-label">Cuaca di</div>
+              <div class="place-name" id="placeName">-</div>
+              <div class="place-detail" id="placeDetail">-</div>
+            </div>
+            <img
+              class="weather-icon"
+              id="weatherIcon"
+              alt="Ikon cuaca"
+              hidden
+            />
+          </div>
+
+          <div class="temp-row">
+            <div class="temperature" id="temperature">--</div>
+            <div class="degree">°C</div>
+          </div>
+
+          <div class="weather-desc" id="weatherDesc">-</div>
+          <div class="weather-desc-en" id="weatherDescEn"></div>
+
+          <div class="weather-extra">
+            <div class="weather-chip" id="weatherCode">Kondisi cuaca</div>
+            <div class="weather-chip" id="visibility">Jarak pandang: -</div>
+          </div>
+        </div>
+
+        <div class="stats-heading">Info cuaca lainnya</div>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-top">
+              <div class="stat-label">Kelembapan</div>
+              <div class="stat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M12 2.5S5 10 5 15a7 7 0 0 0 14 0c0-5-7-12.5-7-12.5z"
+                  />
+                  <path d="M9 16a3 3 0 0 0 3 3" />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value" id="humidity">
+              --<span class="stat-unit">%</span>
+            </div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-top">
+              <div class="stat-label">Kecepatan angin</div>
+              <div class="stat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M3 8h12a3 3 0 1 0-3-3" />
+                  <path d="M2 12h17a3 3 0 1 1-3 3" />
+                  <path d="M4 16h5a2 2 0 1 1-2 2" />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value" id="windSpeed">
+              --<span class="stat-unit">km/jam</span>
+            </div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-top">
+              <div class="stat-label">Arah angin</div>
+              <div class="stat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M12 22s7-7.5 7-13a7 7 0 0 0-14 0c0 5.5 7 13 7 13z" />
+                  <circle cx="12" cy="9" r="2.5" />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value" id="windDirection">--</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-top">
+              <div class="stat-label">Tutupan awan</div>
+              <div class="stat-icon">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M20 16a4 4 0 0 0-2-7.5h-1.2A7 7 0 0 0 3 11a4 4 0 0 0 1 8h13a4 4 0 0 0 3-3z"
+                  />
+                </svg>
+              </div>
+            </div>
+            <div class="stat-value" id="cloud">
+              --<span class="stat-unit">%</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="time-row">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3 2" />
+          </svg>
+          <span id="weatherTime">Waktu pembaruan belum tersedia</span>
+        </div>
+
+        <button class="refresh" id="refreshBtn" type="button">
+          ↻ &nbsp; Cek lagi
+        </button>
+      </section>
+
+      <footer class="footer">
+        Made with <span>✦</span> by DIMMZZZSUM_ENAK · 2026
+      </footer>
+    </main>
+
+    <script>
+      const API_BASE =
+      "https://dimz-wtf.vercel.app/api/ayla-sites";
+
+      const SEARCH_PATH =
+      "searching/weather";
+
+      const DETAIL_PATH =
+      "searching/weather/get";
+
+      const searchForm =
+      document.getElementById("searchForm");
+
+      const searchInput =
+      document.getElementById("searchInput");
+
+      const searchBtn =
+      document.getElementById("searchBtn");
+
+      const statusBox =
+      document.getElementById("status");
+
+      const statusText =
+      document.getElementById("statusText");
+
+      const results =
+      document.getElementById("results");
+
+      const resultCount =
+      document.getElementById("resultCount");
+
+      const locationList =
+      document.getElementById("locationList");
+
+      const searchLoading =
+      document.getElementById("searchLoading");
+
+      const weather =
+      document.getElementById("weather");
+
+      const empty =
+      document.getElementById("empty");
+
+      const refreshBtn =
+      document.getElementById("refreshBtn");
+
+      let selectedLocation = null;
+      let searchRequest = 0;
+      let detailRequest = 0;
+
+      function setStatus(message,type){
+      statusText.textContent = message;
+      statusBox.classList.remove("error","success");
+
+      if(type){
+      statusBox.classList.add(type);
+      }
+      }
+
+      function apiUrl(path,params){
+      const url = new URL(API_BASE);
+
+      url.searchParams.set("path",path);
+
+      Object.keys(params || {}).forEach(function(key){
+      if(params[key] !== undefined && params[key] !== null){
+      url.searchParams.set(key,String(params[key]));
+      }
+      });
+
+      return url.toString();
+      }
+
+      async function getJSON(url){
+      const response = await fetch(url,{
+      method:"GET",
+      cache:"no-store"
+      });
+
+      const body = await response.text();
+      let data;
+
+      try{
+      data = JSON.parse(body);
+      }catch(error){
+      throw new Error("Balasan server nggak terbaca.");
+      }
+
+      if(!response.ok){
+      throw new Error(
+      data && data.message
+      ? data.message
+      : "Server error (" + response.status + ")"
+      );
+      }
+
+      if(data && data.status === false){
+      throw new Error(
+      data.message || "Permintaan gagal."
+      );
+      }
+
+      return data;
+      }
+
+      function setSearchLoading(active){
+      searchLoading.classList.toggle("show",active);
+      }
+
+      function clearResults(){
+      locationList.innerHTML = "";
+      results.classList.remove("show");
+      resultCount.textContent = "";
+      }
+
+      function hideWeather(){
+      weather.classList.remove("show");
+      }
+
+      function setText(id,value){
+      document.getElementById(id).textContent = value;
+      }
+
+      function setStat(id,value,unit){
+      const element = document.getElementById(id);
+      element.textContent = "";
+
+      const number = document.createTextNode(
+      value === null || value === undefined || value === ""
+      ? "--"
+      : String(value)
+      );
+
+      element.appendChild(number);
+
+      if(unit){
+      const span = document.createElement("span");
+      span.className = "stat-unit";
+      span.textContent = unit;
+      element.appendChild(span);
+      }
+      }
+
+      function renderLocations(items){
+      locationList.innerHTML = "";
+
+      if(!Array.isArray(items) || items.length === 0){
+      results.classList.remove("show");
+      setStatus("Belum ketemu wilayahnya. Coba nama lain, ya.");
+      empty.style.display = "block";
+      return;
+      }
+
+      const limited = items.slice(0,30);
+
+      limited.forEach(function(item){
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "location-item";
+
+      const symbol = document.createElement("div");
+      symbol.className = "location-symbol";
+      symbol.innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-4.5 7-11a7 7 0 0 0-14 0c0 6.5 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>';
+
+      const info = document.createElement("div");
+      info.className = "location-info";
+
+      const name = document.createElement("div");
+      name.className = "location-name";
+      name.textContent =
+      item.desa ||
+      item.kecamatan ||
+      item.kotkab ||
+      "Wilayah tanpa nama";
+
+      const detail = document.createElement("div");
+      detail.className = "location-detail";
+
+      const parts = [];
+
+      if(item.kecamatan) parts.push(item.kecamatan);
+      if(item.kotkab) parts.push(item.kotkab);
+      if(item.provinsi) parts.push(item.provinsi);
+
+      detail.textContent = parts.join(" · ") || "Pilih untuk lihat cuaca";
+
+      info.appendChild(name);
+      info.appendChild(detail);
+
+      const arrow = document.createElement("div");
+      arrow.className = "location-arrow";
+      arrow.textContent = "›";
+
+      button.appendChild(symbol);
+      button.appendChild(info);
+      button.appendChild(arrow);
+
+      button.addEventListener("click",function(){
+      loadWeather(item);
+      });
+
+      locationList.appendChild(button);
+      });
+
+      results.classList.add("show");
+      resultCount.textContent = limited.length + " wilayah";
+      }
+
+      async function searchWeather(query){
+      const q = query.trim();
+
+      if(!q){
+      setStatus("Isi dulu nama kota atau daerahnya, ya.");
+      searchInput.focus();
+      return;
+      }
+
+      const requestId = ++searchRequest;
+
+      searchBtn.disabled = true;
+      setSearchLoading(true);
+      clearResults();
+      hideWeather();
+      empty.style.display = "none";
+      selectedLocation = null;
+
+      setStatus("Lagi cari wilayah...");
+
+      try{
+      const url = apiUrl(SEARCH_PATH,{q:q});
+      const data = await getJSON(url);
+
+      if(requestId !== searchRequest) return;
+
+      let items = [];
+
+      if(data && Array.isArray(data.data)){
+      items = data.data;
+      }else if(Array.isArray(data)){
+      items = data;
+      }
+
+      renderLocations(items);
+
+      if(items.length){
+      setStatus("Ketemu! Sekarang pilih wilayahnya, ya.","success");
+      }
+
+      }catch(error){
+      if(requestId !== searchRequest) return;
+
+      setStatus("Yah, pencarian gagal: " + error.message,"error");
+      empty.style.display = "block";
+
+      }finally{
+      if(requestId === searchRequest){
+      searchBtn.disabled = false;
+      setSearchLoading(false);
+      }
+      }
+      }
+
+      function directionText(degrees,direction){
+      if(direction && typeof direction === "string"){
+      return direction + (
+      degrees !== null && degrees !== undefined
+      ? " · " + Math.round(Number(degrees)) + "°"
+      : ""
+      );
+      }
+
+      if(degrees !== null && degrees !== undefined){
+      return Math.round(Number(degrees)) + "°";
+      }
+
+      return "--";
+      }
+
+      function showWeather(){
+      weather.classList.add("show");
+      empty.style.display = "none";
+      }
+
+      async function loadWeather(location){
+      if(
+      !location ||
+      location.lat === undefined ||
+      location.lon === undefined
+      ){
+      setStatus("Koordinat daerahnya nggak tersedia.","error");
+      return;
+      }
+
+      selectedLocation = location;
+      const requestId = ++detailRequest;
+
+      hideWeather();
+      empty.style.display = "none";
+      refreshBtn.disabled = true;
+
+      setStatus("Lagi ambil info cuacanya...");
+
+      try{
+      const url = apiUrl(DETAIL_PATH,{
+      latitude:location.lat,
+      longitude:location.lon
+      });
+
+      const data = await getJSON(url);
+
+      if(requestId !== detailRequest) return;
+
+      const detail = data && data.data ? data.data : {};
+      const current = detail.cuaca;
+      const place = detail.lokasi || location;
+
+      if(!current){
+      throw new Error("Data cuaca belum tersedia.");
+      }
+
+      setText(
+      "placeName",
+      place.desa ||
+      location.desa ||
+      place.kecamatan ||
+      location.kecamatan ||
+      place.kotkab ||
+      "Lokasi pilihan"
+      );
+
+      const placeParts = [];
+
+      if(place.kecamatan) placeParts.push(place.kecamatan);
+      if(place.kotkab) placeParts.push(place.kotkab);
+      if(place.provinsi) placeParts.push(place.provinsi);
+
+      setText(
+      "placeDetail",
+      placeParts.join(" · ") || "Lokasi yang kamu pilih"
+      );
+
+      setText(
+      "temperature",
+      current.t === null || current.t === undefined
+      ? "--"
+      : current.t
+      );
+
+      setText(
+      "weatherDesc",
+      current.weather_desc || "Kondisi belum diketahui"
+      );
+
+      setText(
+      "weatherDescEn",
+      current.weather_desc_en || ""
+      );
+
+      setText(
+      "weatherCode",
+      current.weather !== null && current.weather !== undefined
+      ? "Kode cuaca: " + current.weather
+      : "Info cuaca"
+      );
+
+      setText(
+      "visibility",
+      current.vs_text
+      ? "Jarak pandang: " + current.vs_text
+      : "Jarak pandang: --"
+      );
+
+      setStat(
+      "humidity",
+      current.hu,
+      "%"
+      );
+
+      setStat(
+      "windSpeed",
+      current.ws,
+      "km/jam"
+      );
+
+      setText(
+      "windDirection",
+      directionText(current.wd_deg,current.wd)
+      );
+
+      setStat(
+      "cloud",
+      current.tcc,
+      "%"
+      );
+
+      setText(
+      "weatherTime",
+      current.local_datetime
+      ? "Waktu data: " + current.local_datetime
+      : current.datetime
+      ? "Waktu data: " + current.datetime
+      : "Waktu pembaruan tidak tersedia"
+      );
+
+      const icon = document.getElementById("weatherIcon");
+
+      if(current.image){
+      icon.src = current.image;
+      icon.alt = current.weather_desc || "Ikon cuaca";
+      icon.hidden = false;
+      }else{
+      icon.removeAttribute("src");
+      icon.hidden = true;
+      }
+
+      showWeather();
+      setStatus("Nah, ini dia info cuacanya!","success");
+
+      weather.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+      });
+
+      }catch(error){
+      if(requestId !== detailRequest) return;
+
+      setStatus("Cuaca gagal dimuat: " + error.message,"error");
+      empty.style.display = "block";
+
+      }finally{
+      if(requestId === detailRequest){
+      refreshBtn.disabled = false;
+      }
+      }
+      }
+
+      searchForm.addEventListener("submit",function(event){
+      event.preventDefault();
+      searchWeather(searchInput.value);
+      });
+
+      refreshBtn.addEventListener("click",function(){
+      if(selectedLocation){
+      loadWeather(selectedLocation);
+      }
+      });
+    </script>
+  </body>
+</html>
