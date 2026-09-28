@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#111315" />
+    <meta name="description" content="Threads Media Downloader" />
+    <title>Threads Downloader — DIMMZZZSUM_ENAK</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+
+    <style>
+      *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0
+      }
+
+      :root{
+      --bg:#111315;
+      --panel:#181b1e;
+      --panel2:#202428;
+      --line:#2b3035;
+      --text:#f1f3f4;
+      --muted:#8e969e;
+      --soft:#262b30;
+      --danger:#e56b6f;
+      --success:#74b889;
+      --shadow:0 16px 45px rgba(0,0,0,.22)
+      }
+
+      html{
+      background:var(--bg)
+      }
+
+      body{
+      font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:
+      radial-gradient(circle at 90% 0,rgba(255,255,255,.055),transparent 260px),
+      var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden
+      }
+
+      button,
+      input{
+      font:inherit
+      }
+
+      button{
+      -webkit-tap-highlight-color:transparent
+      }
+
+      .wrap{
+      width:min(900px,calc(100% - 24px));
+      margin:auto;
+      padding:18px 0 30px
+      }
+
+      .top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:42px
+      }
+
+      .brand{
+      display:flex;
+      align-items:center;
+      gap:10px
+      }
+
+      .brand-icon{
+      width:40px;
+      height:40px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:17px
+      }
+
+      .brand-name{
+      font-size:14px;
+      font-weight:800;
+      letter-spacing:-.2px
+      }
+
+      .brand-sub{
+      font-size:9px;
+      color:var(--muted);
+      margin-top:3px;
+      letter-spacing:.8px;
+      text-transform:uppercase
+      }
+
+      .top-badge{
+      font-size:9px;
+      font-weight:800;
+      padding:7px 10px;
+      border:1px solid var(--line);
+      border-radius:30px;
+      color:var(--muted);
+      background:var(--panel)
+      }
+
+      .hero{
+      max-width:700px;
+      margin-bottom:22px
+      }
+
+      .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      font-size:9px;
+      font-weight:800;
+      letter-spacing:1.4px;
+      color:#b7bec4;
+      margin-bottom:10px
+      }
+
+      .kicker i{
+      font-size:6px
+      }
+
+      h1{
+      font-size:clamp(32px,7vw,58px);
+      line-height:1;
+      letter-spacing:-2.8px;
+      margin-bottom:13px;
+      font-weight:850
+      }
+
+      h1 span{
+      color:#8f969c
+      }
+
+      .hero p{
+      max-width:570px;
+      font-size:12px;
+      line-height:1.7;
+      color:var(--muted)
+      }
+
+      .box{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:17px;
+      padding:12px;
+      box-shadow:var(--shadow)
+      }
+
+      .input-row{
+      display:flex;
+      gap:8px
+      }
+
+      .input-wrap{
+      position:relative;
+      flex:1
+      }
+
+      .input-icon{
+      position:absolute;
+      left:14px;
+      top:50%;
+      transform:translateY(-50%);
+      color:#697178;
+      font-size:12px;
+      pointer-events:none
+      }
+
+      input{
+      width:100%;
+      height:50px;
+      border:1px solid var(--line);
+      border-radius:11px;
+      background:#121518;
+      color:var(--text);
+      outline:none;
+      font-size:12px;
+      padding:0 76px 0 38px
+      }
+
+      input::placeholder{
+      color:#626a71
+      }
+
+      input:focus{
+      border-color:#656d74;
+      box-shadow:0 0 0 3px rgba(255,255,255,.04)
+      }
+
+      .input-tools{
+      position:absolute;
+      right:5px;
+      top:50%;
+      transform:translateY(-50%);
+      display:flex;
+      gap:2px
+      }
+
+      .tool{
+      width:34px;
+      height:34px;
+      border:0;
+      background:transparent;
+      color:#70787f;
+      border-radius:8px;
+      cursor:pointer
+      }
+
+      .tool:hover{
+      background:var(--soft);
+      color:#fff
+      }
+
+      #clear{
+      display:none
+      }
+
+      .go{
+      height:50px;
+      border:0;
+      border-radius:11px;
+      padding:0 20px;
+      background:#f1f3f4;
+      color:#101214;
+      font-size:11px;
+      font-weight:850;
+      cursor:pointer;
+      white-space:nowrap
+      }
+
+      .go:hover{
+      background:#fff
+      }
+
+      .go:disabled{
+      opacity:.5;
+      cursor:wait
+      }
+
+      .hint{
+      font-size:9px;
+      color:#697178;
+      padding:9px 3px 0
+      }
+
+      .msg{
+      display:none;
+      margin-top:10px;
+      padding:10px 11px;
+      border-radius:9px;
+      font-size:10px;
+      line-height:1.5
+      }
+
+      .msg.show{
+      display:block
+      }
+
+      .msg.error{
+      background:rgba(229,107,111,.08);
+      border:1px solid rgba(229,107,111,.22);
+      color:#ef9b9e
+      }
+
+      .msg.ok{
+      background:rgba(116,184,137,.08);
+      border:1px solid rgba(116,184,137,.2);
+      color:#9ad1aa
+      }
+
+      .msg.load{
+      background:#202428;
+      border:1px solid var(--line);
+      color:#929aa1
+      }
+
+      .spin{
+      display:inline-block;
+      width:11px;
+      height:11px;
+      border:2px solid rgba(255,255,255,.12);
+      border-top-color:#fff;
+      border-radius:50%;
+      animation:spin .7s linear infinite;
+      vertical-align:-2px;
+      margin-right:6px
+      }
+
+      @keyframes spin{
+      to{
+      transform:rotate(360deg)
+      }
+      }
+
+      .result{
+      display:none;
+      margin-top:20px
+      }
+
+      .result.show{
+      display:block
+      }
+
+      .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      margin-bottom:10px
+      }
+
+      .stat{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:12px;
+      padding:12px
+      }
+
+      .stat-icon{
+      width:27px;
+      height:27px;
+      border-radius:8px;
+      background:var(--soft);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:10px;
+      color:#bfc5c9;
+      margin-bottom:8px
+      }
+
+      .stat small{
+      display:block;
+      font-size:8px;
+      letter-spacing:.6px;
+      color:#697178;
+      margin-bottom:3px
+      }
+
+      .stat strong{
+      font-size:14px;
+      font-weight:800
+      }
+
+      .toolbar{
+      display:flex;
+      gap:8px;
+      margin-bottom:10px
+      }
+
+      .toolbar button{
+      height:36px;
+      border-radius:9px;
+      border:1px solid var(--line);
+      background:var(--panel);
+      color:var(--text);
+      font-size:9px;
+      font-weight:800;
+      cursor:pointer;
+      padding:0 12px
+      }
+
+      .toolbar .all{
+      background:#f1f3f4;
+      color:#111315;
+      border-color:#f1f3f4
+      }
+
+      .toolbar button:hover{
+      background:var(--soft)
+      }
+
+      .toolbar .all:hover{
+      background:#fff
+      }
+
+      .toolbar button:disabled{
+      opacity:.5;
+      cursor:wait
+      }
+
+      .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px
+      }
+
+      .card{
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:8px;
+      overflow:hidden
+      }
+
+      .preview{
+      position:relative;
+      height:300px;
+      border-radius:9px;
+      overflow:hidden;
+      background:#0b0d0f
+      }
+
+      .preview img,
+      .preview video{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      background:#0b0d0f
+      }
+
+      .preview img{
+      object-position:center
+      }
+
+      .type{
+      position:absolute;
+      left:8px;
+      top:8px;
+      padding:5px 8px;
+      border-radius:20px;
+      background:rgba(10,12,14,.82);
+      border:1px solid rgba(255,255,255,.1);
+      font-size:8px;
+      font-weight:800;
+      color:#fff;
+      z-index:2
+      }
+
+      .number{
+      position:absolute;
+      right:8px;
+      top:8px;
+      width:25px;
+      height:25px;
+      border-radius:50%;
+      background:rgba(10,12,14,.82);
+      border:1px solid rgba(255,255,255,.1);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:8px;
+      font-weight:800;
+      z-index:2
+      }
+
+      .card-bottom{
+      padding-top:7px;
+      display:flex;
+      gap:6px
+      }
+
+      .download{
+      height:36px;
+      flex:1;
+      border:0;
+      border-radius:9px;
+      background:var(--soft);
+      color:var(--text);
+      font-size:9px;
+      font-weight:800;
+      cursor:pointer
+      }
+
+      .download:hover{
+      background:#30363b
+      }
+
+      .download:disabled{
+      opacity:.5;
+      cursor:wait
+      }
+
+      .open-media{
+      width:40px;
+      height:36px;
+      border:1px solid var(--line);
+      border-radius:9px;
+      background:transparent;
+      color:#8d969d;
+      cursor:pointer
+      }
+
+      .open-media:hover{
+      background:var(--soft);
+      color:#fff
+      }
+
+      .note{
+      margin-top:11px;
+      padding:10px 12px;
+      border-left:3px solid #727a81;
+      background:var(--panel);
+      border-radius:0 9px 9px 0;
+      font-size:9px;
+      line-height:1.55;
+      color:#7f878e
+      }
+
+      footer{
+      text-align:center;
+      padding:24px 0 0;
+      font-size:8px;
+      color:#596168
+      }
+
+      footer b{
+      color:#858d94
+      }
+
+      .empty{
+      display:none;
+      padding:30px 15px;
+      text-align:center;
+      background:var(--panel);
+      border:1px solid var(--line);
+      border-radius:14px;
+      color:var(--muted);
+      font-size:11px
+      }
+
+      @media(max-width:650px){
+
+      .wrap{
+      padding-top:14px
+      }
+
+      .top{
+      margin-bottom:31px
+      }
+
+      .top-badge{
+      display:none
+      }
+
+      .input-row{
+      flex-direction:column
+      }
+
+      .go{
+      width:100%
+      }
+
+      .stats{
+      grid-template-columns:repeat(2,1fr)
+      }
+
+      .toolbar{
+      flex-direction:column
+      }
+
+      .toolbar button{
+      width:100%
+      }
+
+      .grid{
+      grid-template-columns:1fr
+      }
+
+      .preview{
+      height:330px
+      }
+
+      }
+
+      @media(max-width:380px){
+
+      h1{
+      font-size:31px
+      }
+
+      .preview{
+      height:280px
+      }
+
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <div class="brand">
+          <div class="brand-icon">
+            <i class="fa-solid fa-at"></i>
+          </div>
+
+          <div>
+            <div class="brand-name">ThreadGrab</div>
+            <div class="brand-sub">media downloader</div>
+          </div>
+        </div>
+
+        <div class="top-badge">
+          <i class="fa-solid fa-bolt"></i>
+          image/video
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="kicker">
+          <i class="fa-solid fa-circle"></i>
+          THREADS DOWNLOAD
+        </div>
+
+        <h1>Ambil media dari <span>Threads.</span></h1>
+
+        <p>
+          Tempel link postingan Threads, lihat semua media yang tersedia, lalu
+          simpan video atau foto satu per satu maupun sekaligus.
+        </p>
+      </section>
+
+      <section class="box">
+        <div class="input-row">
+          <div class="input-wrap">
+            <i class="fa-solid fa-link input-icon"></i>
+
+            <input
+              id="url"
+              type="url"
+              placeholder="Tempel link Threads di sini..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+
+            <div class="input-tools">
+              <button class="tool" id="paste" type="button" title="Paste">
+                <i class="fa-regular fa-clipboard"></i>
+              </button>
+
+              <button class="tool" id="clear" type="button" title="Hapus">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+
+          <button class="go" id="go" type="button">
+            <i class="fa-solid fa-arrow-right"></i>
+            Ambil media
+          </button>
+        </div>
+
+        <div class="hint">
+          <i class="fa-solid fa-circle-info"></i>
+          Masukkan URL postingan Threads yang ingin diproses.
+        </div>
+
+        <div class="msg" id="msg"></div>
+      </section>
+
+      <section class="result" id="result">
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-icon">
+              <i class="fa-solid fa-layer-group"></i>
+            </div>
+
+            <small>TOTAL MEDIA</small>
+            <strong id="total">0</strong>
+          </div>
+
+          <div class="stat">
+            <div class="stat-icon">
+              <i class="fa-solid fa-video"></i>
+            </div>
+
+            <small>VIDEO</small>
+            <strong id="videos">0</strong>
+          </div>
+
+          <div class="stat">
+            <div class="stat-icon">
+              <i class="fa-regular fa-image"></i>
+            </div>
+
+            <small>FOTO</small>
+            <strong id="photos">0</strong>
+          </div>
+
+          <div class="stat">
+            <div class="stat-icon">
+              <i class="fa-solid fa-database"></i>
+            </div>
+
+            <small>SUMBER</small>
+            <strong>Threads</strong>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <button class="all" id="downloadAll" type="button">
+            <i class="fa-solid fa-download"></i>
+            Download All Media
+          </button>
+
+          <button id="newSearch" type="button">
+            <i class="fa-solid fa-rotate"></i>
+            Cari lagi
+          </button>
+        </div>
+
+        <div class="grid" id="grid"></div>
+
+        <div class="empty" id="empty">
+          <i class="fa-regular fa-face-frown"></i>
+          <br />
+          Postingan ini nggak punya media yang bisa ditampilkan.
+        </div>
+
+        <div class="note">
+          <i class="fa-solid fa-circle-info"></i>
+          Gunakan downloader ini untuk media yang memang boleh kamu simpan atau
+          gunakan kembali.
+        </div>
+      </section>
+
+      <footer>ThreadGrab · dibuat oleh <b>DIMMZZZSUM_ENAK</b></footer>
+    </div>
+
+    <script>
+      const API="https://dimz-wtf.vercel.app/api/ayla-sites";
+      const TIMEOUT=30000;
+      const MEDIA_TIMEOUT=60000;
+
+      const $=id=>document.getElementById(id);
+
+      const url=$("url");
+      const go=$("go");
+      const paste=$("paste");
+      const clear=$("clear");
+      const msg=$("msg");
+      const result=$("result");
+      const grid=$("grid");
+      const empty=$("empty");
+      const downloadAllBtn=$("downloadAll");
+
+      let currentItems=[];
+
+      function show(text,type){
+      msg.className="msg show "+type;
+      msg.innerHTML=text;
+      }
+
+      function hide(){
+      msg.className="msg";
+      msg.innerHTML="";
+      }
+
+      function loading(text){
+      show('<span class="spin"></span>'+text,"load");
+      }
+
+      function updateClear(){
+      clear.style.display=url.value.trim()?"block":"none";
+      }
+
+      function validUrl(value){
+      try{
+      const u=new URL(value);
+
+      return /(^|\.)threads\.net$/i.test(u.hostname) ||
+      /(^|\.)threads\.com$/i.test(u.hostname);
+
+      }catch{
+      return false;
+      }
+      }
+
+      async function request(value){
+
+      const controller=new AbortController();
+
+      const timer=setTimeout(
+      ()=>controller.abort(),
+      TIMEOUT
+      );
+
+      try{
+
+      const endpoint=new URL(API);
+
+      endpoint.searchParams.set("url",value);
+      endpoint.searchParams.set("path","downloader/threads");
+
+      const res=await fetch(
+      endpoint.toString(),
+      {
+      method:"GET",
+      headers:{
+      Accept:"application/json"
+      },
+      cache:"no-store",
+      signal:controller.signal
+      }
+      );
+
+      const text=await res.text();
+
+      let data;
+
+      try{
+      data=JSON.parse(text);
+      }catch{
+      throw new Error("Server ngasih respons yang bukan JSON.");
+      }
+
+      if(!res.ok){
+
+      throw new Error(
+      data?.message ||
+      data?.msg ||
+      "Server lagi bermasalah."
+      );
+
+      }
+
+      return data;
+
+      }catch(e){
+
+      if(e.name==="AbortError"){
+      throw new Error("Server kelamaan merespons. Coba lagi.");
+      }
+
+      if(e instanceof TypeError){
+      throw new Error("Browser nggak bisa akses API. Coba buka halaman lewat HTTPS atau cek CORS API.");
+      }
+
+      throw e;
+
+      }finally{
+
+      clearTimeout(timer);
+
+      }
+      }
+
+      function detectType(item){
+
+      const type=String(item?.type||"").toLowerCase();
+
+      if(
+      type.includes("image") ||
+      type.includes("photo") ||
+      type.includes("picture")
+      ){
+      return "image";
+      }
+
+      if(type.includes("video")){
+      return "video";
+      }
+
+      try{
+
+      const pathname=new URL(item.url).pathname.toLowerCase();
+
+      if(
+      /\.(jpg|jpeg|png|webp|gif|avif)(?:$|\?)/i.test(pathname)
+      ){
+      return "image";
+      }
+
+      }catch{}
+
+      return "video";
+      }
+
+      function normalize(data){
+
+      if(!data || data.status!==true){
+
+      throw new Error(
+      data?.message ||
+      data?.msg ||
+      "Media Threads nggak berhasil diproses."
+      );
+
+      }
+
+      const raw=data.data?.result;
+
+      if(!Array.isArray(raw) || !raw.length){
+      throw new Error("Nggak ada media yang ditemukan.");
+      }
+
+      const seen=new Set();
+
+      const items=raw.map(item=>{
+
+      if(!item || !item.url){
+      return null;
+      }
+
+      const mediaUrl=String(item.url).trim();
+
+      if(!mediaUrl || seen.has(mediaUrl)){
+      return null;
+      }
+
+      seen.add(mediaUrl);
+
+      return{
+      url:mediaUrl,
+      thumbnail:item.thumbnail?String(item.thumbnail):"",
+      type:detectType(item)
+      };
+
+      }).filter(Boolean);
+
+      if(!items.length){
+      throw new Error("URL media nggak ditemukan.");
+      }
+
+      return{
+      total:items.length,
+      items:items
+      };
+      }
+
+      function fileExtension(item){
+
+      try{
+
+      const path=new URL(item.url).pathname;
+
+      const match=path.match(/\.([a-z0-9]+)$/i);
+
+      if(match){
+
+      const ext=match[1].toLowerCase();
+
+      if(
+      item.type==="image" &&
+      /^(jpg|jpeg|png|webp|gif|avif)$/i.test(ext)
+      ){
+      return ext==="jpeg"?"jpg":ext;
+      }
+
+      if(
+      item.type==="video" &&
+      /^(mp4|webm|mov|m4v)$/i.test(ext)
+      ){
+      return ext;
+      }
+
+      }
+
+      }catch{}
+
+      return item.type==="video"?"mp4":"jpg";
+      }
+
+      function filename(item,index){
+
+      const type=item.type==="video"?"Video":"Foto";
+      const ext=fileExtension(item);
+
+      return "Threads_"+type+"_"+String(index).padStart(2,"0")+"."+ext;
+      }
+
+      async function getBlob(fileUrl){
+
+      const controller=new AbortController();
+
+      const timer=setTimeout(
+      ()=>controller.abort(),
+      MEDIA_TIMEOUT
+      );
+
+      try{
+
+      const res=await fetch(
+      fileUrl,
+      {
+      method:"GET",
+      mode:"cors",
+      cache:"no-store",
+      signal:controller.signal
+      }
+      );
+
+      if(!res.ok){
+      throw new Error("HTTP "+res.status);
+      }
+
+      const blob=await res.blob();
+
+      if(!blob.size){
+      throw new Error("File kosong.");
+      }
+
+      return blob;
+
+      }catch(e){
+
+      if(e.name==="AbortError"){
+      throw new Error("Download kelamaan.");
+      }
+
+      throw e;
+
+      }finally{
+
+      clearTimeout(timer);
+
+      }
+      }
+
+      function save(blob,name){
+
+      const objectUrl=URL.createObjectURL(blob);
+
+      const a=document.createElement("a");
+
+      a.href=objectUrl;
+      a.download=name;
+      a.style.display="none";
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      setTimeout(
+      ()=>{
+      URL.revokeObjectURL(objectUrl);
+      },
+      5000
+      );
+      }
+
+      function direct(fileUrl,name){
+
+      const a=document.createElement("a");
+
+      a.href=fileUrl;
+      a.download=name;
+      a.target="_blank";
+      a.rel="noopener noreferrer";
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      }
+
+      async function downloadItem(item,index,button){
+
+      const old=button.innerHTML;
+
+      button.disabled=true;
+
+      button.innerHTML=
+      '<span class="spin"></span>';
+
+      try{
+
+      let downloaded=false;
+
+      try{
+
+      const blob=await getBlob(item.url);
+
+      save(
+      blob,
+      filename(item,index)
+      );
+
+      downloaded=true;
+
+      }catch{}
+
+      if(!downloaded){
+
+      direct(
+      item.url,
+      filename(item,index)
+      );
+
+      show(
+      "Media dibuka dari server. Kalau browser nggak langsung menyimpan, tekan lama atau gunakan menu simpan.",
+      "ok"
+      );
+
+      }else{
+
+      show(
+      (item.type==="video"?"Video":"Foto")+
+      " berhasil disimpan sebagai "+
+      filename(item,index),
+      "ok"
+      );
+
+      }
+
+      button.innerHTML=
+      '<i class="fa-solid fa-check"></i>';
+
+      setTimeout(
+      ()=>{
+      button.disabled=false;
+      button.innerHTML=old;
+      },
+      1400
+      );
+
+      }catch(e){
+
+      button.disabled=false;
+      button.innerHTML=old;
+
+      show(
+      "Download gagal: "+
+      (e.message||"Terjadi kesalahan."),
+      "error"
+      );
+
+      }
+      }
+
+      async function downloadAll(){
+
+      if(!currentItems.length){
+      return;
+      }
+
+      const old=downloadAllBtn.innerHTML;
+
+      downloadAllBtn.disabled=true;
+
+      let success=0;
+
+      for(
+      let i=0;
+      i<currentItems.length;
+      i++
+      ){
+
+      downloadAllBtn.innerHTML=
+      '<span class="spin"></span> '+
+      (i+1)+"/"+
+      currentItems.length;
+
+      try{
+
+      let downloaded=false;
+
+      try{
+
+      const blob=await getBlob(
+      currentItems[i].url
+      );
+
+      save(
+      blob,
+      filename(
+      currentItems[i],
+      i+1
+      )
+      );
+
+      downloaded=true;
+
+      }catch{}
+
+      if(!downloaded){
+
+      direct(
+      currentItems[i].url,
+      filename(
+      currentItems[i],
+      i+1
+      )
+      );
+
+      }
+
+      success++;
+
+      }catch{}
+
+      await new Promise(
+      resolve=>setTimeout(
+      resolve,
+      350
+      )
+      );
+
+      }
+
+      if(success){
+
+      show(
+      success+
+      " dari "+
+      currentItems.length+
+      " media sudah diproses.",
+      "ok"
+      );
+
+      downloadAllBtn.innerHTML=
+      '<i class="fa-solid fa-check"></i> '+
+      success+
+      " berhasil";
+
+      }else{
+
+      show(
+      "Nggak ada media yang berhasil diproses.",
+      "error"
+      );
+
+      downloadAllBtn.innerHTML=old;
+
+      }
+
+      setTimeout(
+      ()=>{
+      downloadAllBtn.disabled=false;
+      downloadAllBtn.innerHTML=old;
+      },
+      1800
+      );
+
+      }
+
+      function createCard(item,index){
+
+      const card=document.createElement("article");
+
+      card.className="card";
+
+      const preview=document.createElement("div");
+
+      preview.className="preview";
+
+      const type=document.createElement("div");
+
+      type.className="type";
+
+      type.innerHTML=
+      item.type==="video"
+      ?
+      '<i class="fa-solid fa-video"></i> VIDEO'
+      :
+      '<i class="fa-regular fa-image"></i> FOTO';
+
+      preview.appendChild(type);
+
+      const number=document.createElement("div");
+
+      number.className="number";
+
+      number.textContent=index+1;
+
+      preview.appendChild(number);
+
+      if(item.type==="video"){
+
+      const video=document.createElement("video");
+
+      video.src=item.url;
+      video.controls=true;
+      video.preload="metadata";
+      video.playsInline=true;
+
+      if(item.thumbnail){
+      video.poster=item.thumbnail;
+      }
+
+      preview.appendChild(video);
+
+      }else{
+
+      const img=document.createElement("img");
+
+      img.src=item.url;
+      img.alt="Threads media "+(index+1);
+      img.loading="lazy";
+
+      preview.appendChild(img);
+
+      }
+
+      card.appendChild(preview);
+
+      const bottom=document.createElement("div");
+
+      bottom.className="card-bottom";
+
+      const button=document.createElement("button");
+
+      button.className="download";
+      button.type="button";
+
+      button.innerHTML=
+      '<i class="fa-solid fa-download"></i> '+
+      (item.type==="video"?
+      "Download video":
+      "Download foto");
+
+      button.onclick=()=>{
+      downloadItem(
+      item,
+      index+1,
+      button
+      );
+      };
+
+      bottom.appendChild(button);
+
+      const open=document.createElement("button");
+
+      open.className="open-media";
+      open.type="button";
+      open.title="Buka media";
+
+      open.innerHTML=
+      '<i class="fa-solid fa-up-right-from-square"></i>';
+
+      open.onclick=()=>{
+      window.open(
+      item.url,
+      "_blank",
+      "noopener,noreferrer"
+      );
+      };
+
+      bottom.appendChild(open);
+
+      card.appendChild(bottom);
+
+      return card;
+      }
+
+      function render(data){
+
+      currentItems=data.items;
+
+      const videos=data.items.filter(
+      item=>item.type==="video"
+      ).length;
+
+      const photos=data.items.filter(
+      item=>item.type==="image"
+      ).length;
+
+      $("total").textContent=data.items.length;
+      $("videos").textContent=videos;
+      $("photos").textContent=photos;
+
+      grid.innerHTML="";
+
+      if(!data.items.length){
+
+      empty.style.display="block";
+
+      }else{
+
+      empty.style.display="none";
+
+      data.items.forEach(
+      (item,index)=>{
+      grid.appendChild(
+      createCard(item,index)
+      );
+      }
+      );
+
+      }
+
+      result.classList.add("show");
+      }
+
+      async function process(){
+
+      const value=url.value.trim();
+
+      if(!value){
+
+      show(
+      "Tempel link Threads dulu ya.",
+      "error"
+      );
+
+      url.focus();
+
+      return;
+      }
+
+      if(!validUrl(value)){
+
+      show(
+      "Kayaknya itu bukan link Threads yang valid.",
+      "error"
+      );
+
+      return;
+      }
+
+      go.disabled=true;
+
+      result.classList.remove("show");
+
+      grid.innerHTML="";
+
+      currentItems=[];
+
+      loading(
+      "Lagi mengambil media dari Threads..."
+      );
+
+      try{
+
+      const raw=await request(value);
+
+      const data=normalize(raw);
+
+      render(data);
+
+      show(
+      "Ketemu "+
+      data.items.length+
+      " media. Tinggal pilih yang mau disimpan.",
+      "ok"
+      );
+
+      setTimeout(
+      ()=>{
+      result.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+      });
+      },
+      100
+      );
+
+      }catch(e){
+
+      show(
+      "Gagal: "+
+      (e.message||"Terjadi kesalahan."),
+      "error"
+      );
+
+      }finally{
+
+      go.disabled=false;
+
+      }
+      }
+
+      paste.onclick=async()=>{
+
+      try{
+
+      if(
+      navigator.clipboard &&
+      navigator.clipboard.readText
+      ){
+
+      const text=
+      await navigator.clipboard.readText();
+
+      if(text){
+
+      url.value=text.trim();
+
+      updateClear();
+
+      url.focus();
+
+      show(
+      "Link udah ditempel.",
+      "ok"
+      );
+
+      setTimeout(
+      hide,
+      1200
+      );
+
+      return;
+
+      }
+
+      }
+
+      url.focus();
+
+      show(
+      "Clipboard nggak tersedia. Tekan lama kolom lalu pilih Paste.",
+      "error"
+      );
+
+      }catch{
+
+      url.focus();
+
+      show(
+      "Izin clipboard nggak tersedia. Tekan lama kolom lalu pilih Paste.",
+      "error"
+      );
+
+      }
+      };
+
+      clear.onclick=()=>{
+
+      url.value="";
+
+      updateClear();
+
+      hide();
+
+      url.focus();
+
+      };
+
+      $("newSearch").onclick=()=>{
+
+      result.classList.remove("show");
+
+      grid.innerHTML="";
+
+      currentItems=[];
+
+      hide();
+
+      url.focus();
+
+      window.scrollTo({
+      top:0,
+      behavior:"smooth"
+      });
+
+      };
+
+      downloadAllBtn.onclick=downloadAll;
+
+      url.addEventListener(
+      "input",
+      updateClear
+      );
+
+      url.addEventListener(
+      "keydown",
+      e=>{
+      if(e.key==="Enter"){
+      process();
+      }
+      }
+      );
+
+      url.addEventListener(
+      "paste",
+      ()=>{
+      setTimeout(
+      updateClear,
+      50
+      );
+      }
+      );
+
+      go.onclick=process;
+
+      updateClear();
+    </script>
+  </body>
+</html>

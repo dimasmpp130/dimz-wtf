@@ -1,0 +1,1818 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#f3eee5" />
+    <meta name="description" content="SnackVideo Downloader" />
+    <title>SnackVideo Downloader — DIMMZZZSUM_ENAK</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}
+
+      :root{
+      --bg:#f3eee5;
+      --paper:#fffdf8;
+      --paper2:#f8f3ea;
+      --ink:#25231f;
+      --muted:#817a70;
+      --line:#ded6ca;
+      --orange:#e96f35;
+      --orange2:#f3944d;
+      --green:#4f8a68;
+      --shadow:0 12px 35px rgba(55,43,28,.08);
+      }
+
+      html{
+      background:var(--bg);
+      }
+
+      body{
+      font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+      background:
+      radial-gradient(circle at 100% 0,rgba(233,111,53,.08),transparent 260px),
+      var(--bg);
+      color:var(--ink);
+      min-height:100vh;
+      overflow-x:hidden;
+      }
+
+      button,input{
+      font:inherit;
+      }
+
+      .wrap{
+      width:min(920px,calc(100% - 24px));
+      margin:auto;
+      padding:22px 0 35px;
+      }
+
+      .header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom:28px;
+      }
+
+      .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      }
+
+      .logo-icon{
+      width:42px;
+      height:42px;
+      border-radius:11px;
+      background:var(--ink);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:17px;
+      transform:rotate(-3deg);
+      }
+
+      .logo-text{
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:18px;
+      font-weight:700;
+      letter-spacing:-.4px;
+      }
+
+      .logo-sub{
+      display:block;
+      font-family:Inter,Arial,sans-serif;
+      font-size:9px;
+      font-weight:500;
+      letter-spacing:1.3px;
+      text-transform:uppercase;
+      color:var(--muted);
+      margin-top:2px;
+      }
+
+      .header-tag{
+      font-size:10px;
+      font-weight:700;
+      color:var(--orange);
+      border:1px solid #e5b99d;
+      padding:7px 10px;
+      border-radius:30px;
+      background:rgba(255,253,248,.7);
+      }
+
+      .hero{
+      max-width:680px;
+      margin-bottom:22px;
+      }
+
+      .hero-kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:10px;
+      font-weight:800;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      color:var(--orange);
+      margin-bottom:9px;
+      }
+
+      .hero-kicker i{
+      font-size:8px;
+      }
+
+      .hero h1{
+      font-family:Georgia,"Times New Roman",serif;
+      font-size:clamp(31px,7vw,52px);
+      line-height:1.02;
+      letter-spacing:-2px;
+      font-weight:700;
+      margin-bottom:11px;
+      }
+
+      .hero h1 em{
+      font-style:normal;
+      color:var(--orange);
+      }
+
+      .hero p{
+      font-size:13px;
+      line-height:1.65;
+      color:var(--muted);
+      max-width:560px;
+      }
+
+      .download-box{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:13px;
+      box-shadow:var(--shadow);
+      }
+
+      .input-row{
+      display:flex;
+      gap:8px;
+      }
+
+      .input-wrap{
+      position:relative;
+      flex:1;
+      }
+
+      .input-icon{
+      position:absolute;
+      left:14px;
+      top:50%;
+      transform:translateY(-50%);
+      font-size:13px;
+      color:#9b9287;
+      pointer-events:none;
+      }
+
+      input{
+      width:100%;
+      height:51px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#faf7f0;
+      color:var(--ink);
+      outline:none;
+      font-size:13px;
+      padding:0 78px 0 39px;
+      transition:.18s;
+      }
+
+      input::placeholder{
+      color:#a39b91;
+      }
+
+      input:focus{
+      border-color:#d89369;
+      background:#fff;
+      box-shadow:0 0 0 3px rgba(233,111,53,.08);
+      }
+
+      .input-tools{
+      position:absolute;
+      right:5px;
+      top:50%;
+      transform:translateY(-50%);
+      display:flex;
+      gap:2px;
+      }
+
+      .tool{
+      width:34px;
+      height:34px;
+      border:0;
+      background:transparent;
+      border-radius:8px;
+      color:#9a9288;
+      cursor:pointer;
+      }
+
+      .tool:hover{
+      background:#eee7dc;
+      color:var(--ink);
+      }
+
+      #clear{
+      display:none;
+      }
+
+      .main-btn{
+      height:51px;
+      border:0;
+      border-radius:12px;
+      padding:0 19px;
+      background:var(--ink);
+      color:#fff;
+      font-size:12px;
+      font-weight:800;
+      cursor:pointer;
+      white-space:nowrap;
+      }
+
+      .main-btn:hover{
+      background:#3b3833;
+      }
+
+      .main-btn:disabled{
+      opacity:.55;
+      cursor:wait;
+      }
+
+      .small-hint{
+      font-size:10px;
+      color:#a19a91;
+      padding:9px 3px 1px;
+      }
+
+      .small-hint b{
+      color:#756e65;
+      }
+
+      .why{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:8px;
+      margin-top:11px;
+      }
+
+      .why-card{
+      background:var(--paper2);
+      border:1px solid #e6ded3;
+      border-radius:12px;
+      padding:12px 11px;
+      }
+
+      .why-icon{
+      width:29px;
+      height:29px;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fffaf2;
+      border:1px solid #e4d8ca;
+      color:var(--orange);
+      font-size:11px;
+      margin-bottom:8px;
+      }
+
+      .why-title{
+      font-size:11px;
+      font-weight:800;
+      margin-bottom:3px;
+      }
+
+      .why-text{
+      font-size:9px;
+      line-height:1.5;
+      color:var(--muted);
+      }
+
+      .msg{
+      display:none;
+      margin-top:11px;
+      padding:11px 12px;
+      border-radius:10px;
+      font-size:11px;
+      line-height:1.5;
+      }
+
+      .msg.show{
+      display:block;
+      }
+
+      .msg.error{
+      background:#fff1ed;
+      border:1px solid #f0c8bb;
+      color:#b64e38;
+      }
+
+      .msg.ok{
+      background:#eef7f0;
+      border:1px solid #c8dfcf;
+      color:#467658;
+      }
+
+      .msg.load{
+      background:#f4f0e9;
+      border:1px solid #ddd5c9;
+      color:#746c62;
+      }
+
+      .spin{
+      display:inline-block;
+      width:12px;
+      height:12px;
+      border:2px solid rgba(37,35,31,.15);
+      border-top-color:var(--orange);
+      border-radius:50%;
+      animation:spin .7s linear infinite;
+      vertical-align:-2px;
+      margin-right:6px;
+      }
+
+      @keyframes spin{
+      to{transform:rotate(360deg)}
+      }
+
+      .result{
+      display:none;
+      margin-top:20px;
+      }
+
+      .result.show{
+      display:block;
+      }
+
+      .creator{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom:11px;
+      }
+
+      .avatar{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      overflow:hidden;
+      background:#e4ddd3;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#938a7f;
+      flex-shrink:0;
+      }
+
+      .avatar img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      }
+
+      .creator-name{
+      font-size:13px;
+      font-weight:800;
+      }
+
+      .creator-sub{
+      font-size:9px;
+      color:var(--muted);
+      margin-top:3px;
+      }
+
+      .media{
+      position:relative;
+      overflow:hidden;
+      border-radius:17px;
+      background:#1d1b18;
+      border:1px solid #d6cec2;
+      box-shadow:var(--shadow);
+      }
+
+      .media video,
+      .media img{
+      width:100%;
+      max-height:650px;
+      display:block;
+      object-fit:contain;
+      background:#171614;
+      }
+
+      .media video{
+      min-height:230px;
+      }
+
+      .media-label{
+      position:absolute;
+      left:10px;
+      top:10px;
+      z-index:2;
+      background:rgba(255,253,248,.92);
+      color:var(--ink);
+      border-radius:20px;
+      padding:6px 9px;
+      font-size:9px;
+      font-weight:800;
+      box-shadow:0 4px 12px rgba(0,0,0,.12);
+      }
+
+      .actions{
+      display:flex;
+      gap:8px;
+      margin-top:11px;
+      }
+
+      .action{
+      flex:1;
+      height:44px;
+      border-radius:11px;
+      border:1px solid var(--line);
+      background:var(--paper);
+      color:var(--ink);
+      font-size:11px;
+      font-weight:800;
+      cursor:pointer;
+      }
+
+      .action.primary{
+      background:var(--orange);
+      border-color:var(--orange);
+      color:#fff;
+      }
+
+      .action:hover{
+      background:#eee7dc;
+      }
+
+      .action.primary:hover{
+      background:#d9602c;
+      }
+
+      .action:disabled{
+      opacity:.55;
+      cursor:wait;
+      }
+
+      .info{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:14px;
+      margin-top:10px;
+      }
+
+      .info-title{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      font-size:11px;
+      font-weight:800;
+      margin-bottom:8px;
+      }
+
+      .info-title i{
+      color:var(--orange);
+      }
+
+      .caption{
+      font-size:12px;
+      line-height:1.65;
+      color:#716a61;
+      white-space:pre-wrap;
+      word-break:break-word;
+      }
+
+      .transcript{
+      font-size:11px;
+      line-height:1.6;
+      color:#817970;
+      max-height:180px;
+      overflow:auto;
+      white-space:pre-wrap;
+      word-break:break-word;
+      }
+
+      .meta{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      }
+
+      .meta-box{
+      background:#faf7f0;
+      border:1px solid #e3dbd0;
+      border-radius:10px;
+      padding:9px;
+      }
+
+      .meta-box small{
+      display:block;
+      font-size:8px;
+      letter-spacing:.7px;
+      color:#aaa095;
+      margin-bottom:3px;
+      }
+
+      .meta-box span{
+      font-size:10px;
+      color:#5f5952;
+      word-break:break-word;
+      }
+
+      .media-list{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:10px;
+      }
+
+      .media-card{
+      background:var(--paper);
+      border:1px solid var(--line);
+      border-radius:13px;
+      padding:8px;
+      }
+
+      .media-card img,
+      .media-card video{
+      width:100%;
+      height:190px;
+      object-fit:cover;
+      border-radius:9px;
+      background:#171614;
+      display:block;
+      }
+
+      .media-card button{
+      width:100%;
+      height:37px;
+      margin-top:7px;
+      border:0;
+      border-radius:9px;
+      background:#eee8df;
+      color:var(--ink);
+      font-size:10px;
+      font-weight:800;
+      cursor:pointer;
+      }
+
+      .media-card button:hover{
+      background:#e3dbd0;
+      }
+
+      .note{
+      margin-top:12px;
+      padding:11px 13px;
+      border-left:3px solid var(--orange);
+      background:#faf5ec;
+      color:#81796f;
+      font-size:10px;
+      line-height:1.55;
+      border-radius:0 9px 9px 0;
+      }
+
+      footer{
+      text-align:center;
+      padding:24px 0 0;
+      font-size:9px;
+      color:#9a9288;
+      }
+
+      footer b{
+      color:#70685f;
+      }
+
+      @media(max-width:650px){
+      .wrap{
+      padding-top:16px;
+      }
+
+      .header{
+      margin-bottom:23px;
+      }
+
+      .header-tag{
+      display:none;
+      }
+
+      .hero h1{
+      letter-spacing:-1.5px;
+      }
+
+      .input-row{
+      flex-direction:column;
+      }
+
+      .main-btn{
+      width:100%;
+      }
+
+      .why{
+      grid-template-columns:1fr;
+      }
+
+      .why-card{
+      display:grid;
+      grid-template-columns:32px 1fr;
+      column-gap:9px;
+      align-items:center;
+      }
+
+      .why-icon{
+      margin:0;
+      grid-row:span 2;
+      }
+
+      .actions{
+      flex-direction:column;
+      }
+
+      .media video{
+      min-height:205px;
+      }
+
+      .media-list{
+      grid-template-columns:1fr;
+      }
+
+      .media-card img,
+      .media-card video{
+      height:235px;
+      }
+
+      .meta{
+      grid-template-columns:1fr;
+      }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="header">
+        <div class="logo">
+          <div class="logo-icon">
+            <i class="fa-solid fa-arrow-down"></i>
+          </div>
+          <div>
+            <div class="logo-text">SnackGrab</div>
+            <span class="logo-sub">simple downloader</span>
+          </div>
+        </div>
+
+        <div class="header-tag">
+          <i class="fa-solid fa-leaf"></i> ringan dipakai
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="hero-kicker">
+          <i class="fa-solid fa-circle"></i>
+          SNACKVIDEO TOOL
+        </div>
+
+        <h1>
+          Simpan video tanpa<br />
+          <em>muter-muter.</em>
+        </h1>
+
+        <p>
+          Cukup masukin link SnackVideo, cek hasilnya, lalu simpan video atau
+          foto yang kamu butuhin. Nggak perlu install aplikasi tambahan.
+        </p>
+      </section>
+
+      <section class="download-box">
+        <div class="input-row">
+          <div class="input-wrap">
+            <i class="fa-solid fa-link input-icon"></i>
+
+            <input
+              id="url"
+              type="url"
+              placeholder="Tempel link SnackVideo di sini..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+
+            <div class="input-tools">
+              <button class="tool" id="paste" type="button" title="Paste">
+                <i class="fa-regular fa-clipboard"></i>
+              </button>
+
+              <button class="tool" id="clear" type="button" title="Hapus">
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+
+          <button class="main-btn" id="go" type="button">
+            <i class="fa-solid fa-arrow-right"></i>
+            Ambil
+          </button>
+        </div>
+
+        <div class="small-hint">
+          <i class="fa-solid fa-circle-info"></i>
+          Link pendek <b>s.snackvideo.com</b> juga bisa.
+        </div>
+
+        <div class="why">
+          <div class="why-card">
+            <div class="why-icon">
+              <i class="fa-solid fa-gauge-high"></i>
+            </div>
+            <div class="why-title">Cepat</div>
+            <div class="why-text">
+              Langsung proses link tanpa langkah yang panjang.
+            </div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon">
+              <i class="fa-solid fa-user-slash"></i>
+            </div>
+            <div class="why-title">Tanpa login</div>
+            <div class="why-text">
+              Nggak perlu masuk akun cuma buat ambil media.
+            </div>
+          </div>
+
+          <div class="why-card">
+            <div class="why-icon">
+              <i class="fa-solid fa-feather"></i>
+            </div>
+            <div class="why-title">Tetap ringan</div>
+            <div class="why-text">
+              Tampilan simpel dan nggak banyak efek berat.
+            </div>
+          </div>
+        </div>
+
+        <div class="msg" id="msg"></div>
+      </section>
+
+      <section class="result" id="result">
+        <div class="creator">
+          <div class="avatar" id="avatar">
+            <i class="fa-solid fa-user"></i>
+          </div>
+
+          <div>
+            <div class="creator-name" id="author">SnackVideo</div>
+            <div class="creator-sub">hasil postingan</div>
+          </div>
+        </div>
+
+        <div class="media" id="media"></div>
+
+        <div class="actions" id="actions"></div>
+
+        <div class="info" id="captionBox" style="display:none">
+          <div class="info-title">
+            <i class="fa-regular fa-comment"></i>
+            Caption
+          </div>
+          <div class="caption" id="caption"></div>
+        </div>
+
+        <div class="info" id="transcriptBox" style="display:none">
+          <div class="info-title">
+            <i class="fa-solid fa-align-left"></i>
+            Isi video
+          </div>
+          <div class="transcript" id="transcript"></div>
+        </div>
+
+        <div class="info">
+          <div class="info-title">
+            <i class="fa-solid fa-circle-info"></i>
+            Tentang postingan
+          </div>
+
+          <div class="meta" id="meta"></div>
+        </div>
+
+        <div class="media-list" id="mediaList"></div>
+
+        <div class="note">
+          <i class="fa-solid fa-circle-check"></i>
+          Gunakan buat konten yang memang boleh kamu simpan atau gunakan lagi.
+        </div>
+      </section>
+
+      <footer>SnackGrab · dibuat santai oleh <b>DIMMZZZSUM_ENAK</b></footer>
+    </div>
+
+    <script>
+      const DIMZZ_URL="https://dimz-wtf.vercel.app/api/rxoen-pages";
+      const TIMEOUT=30000;
+
+      const $=id=>document.getElementById(id);
+
+      const url=$("url");
+      const go=$("go");
+      const paste=$("paste");
+      const clear=$("clear");
+      const msg=$("msg");
+      const result=$("result");
+      const media=$("media");
+      const actions=$("actions");
+      const mediaList=$("mediaList");
+
+      function show(text,type){
+      msg.className="msg show "+type;
+      msg.innerHTML=text;
+      }
+
+      function hide(){
+      msg.className="msg";
+      msg.innerHTML="";
+      }
+
+      function loading(text){
+      show('<span class="spin"></span>'+text,"load");
+      }
+
+      function esc(v){
+      return String(v??"")
+      .replace(/&/g,"&amp;")
+      .replace(/</g,"&lt;")
+      .replace(/>/g,"&gt;")
+      .replace(/"/g,"&quot;")
+      .replace(/'/g,"&#039;");
+      }
+
+      function updateClear(){
+      clear.style.display=url.value.trim()?"block":"none";
+      }
+
+      function validUrl(value){
+      try{
+      const u=new URL(value);
+      return /(^|\.)snackvideo\.com$/i.test(u.hostname);
+      }catch{
+      return false;
+      }
+      }
+
+      async function request(apiUrl){
+      const controller=new AbortController();
+      const timer=setTimeout(()=>controller.abort(),TIMEOUT);
+
+      try{
+      const res=await fetch(apiUrl,{
+      method:"GET",
+      headers:{
+      Accept:"application/json"
+      },
+      cache:"no-store",
+      signal:controller.signal
+      });
+
+      const text=await res.text();
+
+      let data;
+
+      try{
+      data=JSON.parse(text);
+      }catch{
+      throw new Error("Server ngasih respons yang bukan JSON.");
+      }
+
+      if(!res.ok){
+      throw new Error(
+      data?.message||
+      data?.msg||
+      "Server lagi bermasalah."
+      );
+      }
+
+      return data;
+
+      }catch(e){
+
+      if(e.name==="AbortError"){
+      throw new Error("Server kelamaan merespons. Coba lagi.");
+      }
+
+      if(e instanceof TypeError){
+      throw new Error("Browser nggak bisa akses server.");
+      }
+
+      throw e;
+
+      }finally{
+      clearTimeout(timer);
+      }
+      }
+
+      function normalize(data){
+
+      if(!data||data.status!==true){
+      throw new Error(
+      data?.message||
+      "Video nggak berhasil diproses."
+      );
+      }
+
+      const d=data.data||{};
+
+      const thumbs=
+      Array.isArray(d.thumbnail)
+      ?d.thumbnail
+      :[d.thumbnail].filter(Boolean);
+
+      let items=[];
+
+      if(d.url){
+
+      items.push({
+      url:d.url,
+      type:"video",
+      thumb:thumbs[0]||""
+      });
+
+      }
+
+      if(Array.isArray(d.media)){
+
+      d.media.forEach(item=>{
+
+      if(typeof item==="string"){
+
+      items.push({
+      url:item,
+      type:/\.(mp4|mov|webm)(\?|$)/i.test(item)
+      ?"video"
+      :"photo",
+      thumb:thumbs[0]||""
+      });
+
+      }else if(item&&typeof item==="object"){
+
+      const u=
+      item.url||
+      item.download||
+      item.src;
+
+      if(u){
+
+      items.push({
+      url:u,
+      type:String(item.type||"")
+      .toLowerCase()
+      .includes("image")
+      ?"photo"
+      :"video",
+      thumb:
+      item.thumbnail||
+      item.thumb||
+      thumbs[0]||
+      ""
+      });
+
+      }
+
+      }
+
+      });
+
+      }
+
+      const seen=new Set();
+
+      items=items.filter(item=>{
+
+      if(!item.url||seen.has(item.url)){
+      return false;
+      }
+
+      seen.add(item.url);
+      return true;
+
+      });
+
+      if(!items.length){
+      throw new Error("Media dari postingan ini nggak ketemu.");
+      }
+
+      return{
+      items,
+      author:d.author||"SnackVideo",
+      caption:d.caption||"",
+      transcript:d.transcript||"",
+      comments:d.comments??0,
+      posted:d.posted_at||"",
+      thumbnail:thumbs[0]||"",
+      audio:d.audio||null
+      };
+
+      }
+
+      function formatDate(value){
+
+      if(!value){
+      return "-";
+      }
+
+      const date=new Date(value);
+
+      if(isNaN(date.getTime())){
+      return value;
+      }
+
+      return date.toLocaleString("id-ID",{
+      day:"2-digit",
+      month:"short",
+      year:"numeric",
+      hour:"2-digit",
+      minute:"2-digit"
+      });
+
+      }
+
+      function extension(url,type){
+
+      try{
+
+      const path=new URL(url).pathname;
+      const m=path.match(/\.([a-z0-9]+)$/i);
+
+      if(m){
+      return m[1].toLowerCase();
+      }
+
+      }catch{}
+
+      return type==="video"?"mp4":"jpg";
+      }
+
+      function filename(item,index){
+
+      let ext=extension(
+      item.url,
+      item.type
+      );
+
+      if(
+      item.type==="video"&&
+      !["mp4","mov","webm","m4v"].includes(ext)
+      ){
+      ext="mp4";
+      }
+
+      if(
+      item.type==="photo"&&
+      !["jpg","jpeg","png","webp","gif","avif"].includes(ext)
+      ){
+      ext="jpg";
+      }
+
+      return "snackvideo_"+
+      (item.type==="video"?"video":"foto")+
+      "_"+index+"."+ext;
+
+      }
+
+      async function getBlob(fileUrl){
+
+      const controller=new AbortController();
+
+      const timer=setTimeout(
+      ()=>controller.abort(),
+      60000
+      );
+
+      try{
+
+      const res=await fetch(fileUrl,{
+      method:"GET",
+      mode:"cors",
+      cache:"no-store",
+      signal:controller.signal
+      });
+
+      if(!res.ok){
+      throw new Error("HTTP "+res.status);
+      }
+
+      const blob=await res.blob();
+
+      if(!blob.size){
+      throw new Error("File kosong.");
+      }
+
+      return blob;
+
+      }catch(e){
+
+      if(e.name==="AbortError"){
+      throw new Error("Download kelamaan.");
+      }
+
+      throw e;
+
+      }finally{
+      clearTimeout(timer);
+      }
+
+      }
+
+      function save(blob,name){
+
+      const objectUrl=
+      URL.createObjectURL(blob);
+
+      const a=document.createElement("a");
+
+      a.href=objectUrl;
+      a.download=name;
+      a.style.display="none";
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      setTimeout(
+      ()=>URL.revokeObjectURL(objectUrl),
+      3000
+      );
+
+      }
+
+      function direct(fileUrl,name){
+
+      const a=document.createElement("a");
+
+      a.href=fileUrl;
+      a.download=name;
+      a.target="_blank";
+      a.rel="noopener noreferrer";
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      }
+
+      async function downloadOne(
+      item,
+      index,
+      button
+      ){
+
+      const old=button.innerHTML;
+
+      button.disabled=true;
+
+      button.innerHTML=
+      '<span class="spin"></span> Tunggu...';
+
+      try{
+
+      try{
+
+      const blob=
+      await getBlob(item.url);
+
+      save(
+      blob,
+      filename(item,index)
+      );
+
+      }catch{
+
+      direct(
+      item.url,
+      filename(item,index)
+      );
+
+      }
+
+      button.innerHTML=
+      '<i class="fa-solid fa-check"></i> Beres';
+
+      show(
+      (item.type==="video"?"Video":"Foto")+
+      " udah siap diambil.",
+      "ok"
+      );
+
+      setTimeout(()=>{
+
+      button.disabled=false;
+      button.innerHTML=old;
+
+      },1500);
+
+      }catch(e){
+
+      button.disabled=false;
+      button.innerHTML=old;
+
+      show(
+      "Download gagal: "+
+      esc(e.message),
+      "error"
+      );
+
+      }
+
+      }
+
+      async function downloadAll(
+      items,
+      button
+      ){
+
+      const old=button.innerHTML;
+
+      button.disabled=true;
+
+      let success=0;
+
+      for(let i=0;i<items.length;i++){
+
+      button.innerHTML=
+      '<span class="spin"></span> '+
+      (i+1)+"/"+items.length;
+
+      try{
+
+      try{
+
+      const blob=
+      await getBlob(items[i].url);
+
+      save(
+      blob,
+      filename(items[i],i+1)
+      );
+
+      }catch{
+
+      direct(
+      items[i].url,
+      filename(items[i],i+1)
+      );
+
+      }
+
+      success++;
+
+      }catch{}
+
+      await new Promise(
+      r=>setTimeout(r,350)
+      );
+
+      }
+
+      if(success){
+
+      show(
+      success+
+      " dari "+
+      items.length+
+      " media udah diproses.",
+      "ok"
+      );
+
+      button.innerHTML=
+      '<i class="fa-solid fa-check"></i> '+
+      success+
+      " Berhasil";
+
+      }else{
+
+      show(
+      "Nggak ada media yang berhasil didownload.",
+      "error"
+      );
+
+      button.innerHTML=old;
+
+      }
+
+      setTimeout(()=>{
+
+      button.disabled=false;
+      button.innerHTML=old;
+
+      },1800);
+
+      }
+
+      function renderMainMedia(data){
+
+      media.innerHTML="";
+
+      const item=data.items[0];
+
+      const label=
+      document.createElement("div");
+
+      label.className="media-label";
+
+      label.innerHTML=
+      item.type==="video"
+      ?
+      '<i class="fa-solid fa-play"></i> Video'
+      :
+      '<i class="fa-regular fa-image"></i> Foto';
+
+      media.appendChild(label);
+
+      if(item.type==="video"){
+
+      const video=
+      document.createElement("video");
+
+      video.controls=true;
+      video.playsInline=true;
+      video.setAttribute(
+      "playsinline",
+      ""
+      );
+      video.preload="metadata";
+      video.src=item.url;
+
+      if(item.thumb){
+      video.poster=item.thumb;
+      }
+
+      media.appendChild(video);
+
+      }else{
+
+      const img=
+      document.createElement("img");
+
+      img.src=item.url;
+      img.alt="SnackVideo media";
+      img.loading="lazy";
+
+      media.appendChild(img);
+
+      }
+
+      }
+
+      function renderActions(data){
+
+      actions.innerHTML="";
+
+      const current=data.items[0];
+
+      const currentBtn=
+      document.createElement("button");
+
+      currentBtn.className=
+      "action primary";
+
+      currentBtn.type="button";
+
+      currentBtn.innerHTML=
+      current.type==="video"
+      ?
+      '<i class="fa-solid fa-download"></i> Simpan video ini'
+      :
+      '<i class="fa-solid fa-download"></i> Simpan foto ini';
+
+      currentBtn.onclick=()=>{
+      downloadOne(
+      current,
+      1,
+      currentBtn
+      );
+      };
+
+      actions.appendChild(currentBtn);
+
+      if(data.items.length>1){
+
+      const all=
+      document.createElement("button");
+
+      all.className="action";
+      all.type="button";
+
+      all.innerHTML=
+      '<i class="fa-solid fa-layer-group"></i> Simpan semua media';
+
+      all.onclick=()=>{
+      downloadAll(
+      data.items,
+      all
+      );
+      };
+
+      actions.appendChild(all);
+
+      }
+
+      }
+
+      function renderInfo(data){
+
+      const captionBox=
+      $("captionBox");
+
+      const transcriptBox=
+      $("transcriptBox");
+
+      if(data.caption){
+
+      captionBox.style.display="block";
+      $("caption").textContent=
+      data.caption;
+
+      }else{
+
+      captionBox.style.display="none";
+
+      }
+
+      if(data.transcript){
+
+      transcriptBox.style.display="block";
+      $("transcript").textContent=
+      data.transcript;
+
+      }else{
+
+      transcriptBox.style.display="none";
+
+      }
+
+      let audioText="-";
+
+      if(data.audio){
+
+      audioText=
+      data.audio.author||
+      data.audio.name||
+      "-";
+
+      }
+
+      $("meta").innerHTML=
+
+      '<div class="meta-box">'+
+      '<small>CREATOR</small>'+
+      '<span>'+
+      esc(data.author)+
+      '</span>'+
+      '</div>'+
+
+      '<div class="meta-box">'+
+      '<small>DIPOSTING</small>'+
+      '<span>'+
+      esc(formatDate(data.posted))+
+      '</span>'+
+      '</div>'+
+
+      '<div class="meta-box">'+
+      '<small>KOMENTAR</small>'+
+      '<span>'+
+      esc(data.comments)+
+      '</span>'+
+      '</div>'+
+
+      '<div class="meta-box">'+
+      '<small>AUDIO</small>'+
+      '<span>'+
+      esc(audioText)+
+      '</span>'+
+      '</div>';
+
+      }
+
+      function renderList(data){
+
+      mediaList.innerHTML="";
+
+      if(data.items.length<2){
+      return;
+      }
+
+      data.items.forEach(
+      (item,index)=>{
+
+      const card=
+      document.createElement("div");
+
+      card.className="media-card";
+
+      if(item.type==="video"){
+
+      const video=
+      document.createElement("video");
+
+      video.src=item.url;
+      video.controls=true;
+      video.preload="metadata";
+      video.playsInline=true;
+
+      if(item.thumb){
+      video.poster=item.thumb;
+      }
+
+      card.appendChild(video);
+
+      }else{
+
+      const img=
+      document.createElement("img");
+
+      img.src=item.url;
+      img.loading="lazy";
+
+      card.appendChild(img);
+
+      }
+
+      const button=
+      document.createElement("button");
+
+      button.type="button";
+
+      button.innerHTML=
+      item.type==="video"
+      ?
+      '<i class="fa-solid fa-download"></i> Simpan video ini'
+      :
+      '<i class="fa-solid fa-download"></i> Simpan foto ini';
+
+      button.onclick=()=>{
+      downloadOne(
+      item,
+      index+1,
+      button
+      );
+      };
+
+      card.appendChild(button);
+
+      mediaList.appendChild(card);
+
+      }
+      );
+
+      }
+
+      function render(data){
+
+      $("author").textContent=
+      data.author||
+      "SnackVideo";
+
+      const avatar=
+      $("avatar");
+
+      avatar.innerHTML="";
+
+      if(data.thumbnail){
+
+      const img=
+      document.createElement("img");
+
+      img.src=data.thumbnail;
+      img.alt=data.author||"SnackVideo";
+
+      img.onload=()=>{
+
+      avatar.innerHTML="";
+      avatar.appendChild(img);
+
+      };
+
+      img.onerror=()=>{
+
+      avatar.innerHTML=
+      '<i class="fa-solid fa-user"></i>';
+
+      };
+
+      }else{
+
+      avatar.innerHTML=
+      '<i class="fa-solid fa-user"></i>';
+
+      }
+
+      renderMainMedia(data);
+      renderActions(data);
+      renderInfo(data);
+      renderList(data);
+
+      result.classList.add("show");
+
+      }
+
+      async function process(){
+
+      const value=
+      url.value.trim();
+
+      if(!value){
+
+      show(
+      "Tempel link SnackVideo dulu ya.",
+      "error"
+      );
+
+      url.focus();
+      return;
+
+      }
+
+      if(!validUrl(value)){
+
+      show(
+      "Kayaknya itu bukan link SnackVideo yang valid.",
+      "error"
+      );
+
+      return;
+
+      }
+
+      go.disabled=true;
+
+      result.classList.remove("show");
+
+      loading(
+      "Lagi nyari videonya..."
+      );
+
+      try{
+
+      const endpoint=
+      new URL(DIMZZ_URL);
+
+      endpoint.searchParams.set(
+      "url",
+      value
+      );
+
+      endpoint.searchParams.set(
+      "path",
+      "snackvid"
+      );
+
+      const raw=
+      await request(
+      endpoint.toString()
+      );
+
+      const data=
+      normalize(raw);
+
+      render(data);
+
+      show(
+      "Sip, ketemu. Tinggal simpan.",
+      "ok"
+      );
+
+      setTimeout(()=>{
+
+      result.scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+      });
+
+      },100);
+
+      }catch(e){
+
+      show(
+      "Gagal: "+
+      esc(
+      e.message||
+      "Terjadi kesalahan."
+      ),
+      "error"
+      );
+
+      }finally{
+
+      go.disabled=false;
+
+      }
+
+      }
+
+      paste.onclick=async()=>{
+
+      try{
+
+      if(
+      navigator.clipboard&&
+      navigator.clipboard.readText
+      ){
+
+      const text=
+      await navigator.clipboard.readText();
+
+      if(text){
+
+      url.value=text.trim();
+
+      updateClear();
+
+      url.focus();
+
+      show(
+      "Link udah ditempel.",
+      "ok"
+      );
+
+      setTimeout(
+      hide,
+      1200
+      );
+
+      return;
+
+      }
+
+      }
+
+      url.focus();
+
+      show(
+      "Clipboard nggak tersedia. Tekan lama kolom lalu pilih Paste.",
+      "error"
+      );
+
+      }catch{
+
+      url.focus();
+
+      show(
+      "Izin clipboard nggak tersedia. Tekan lama kolom lalu pilih Paste.",
+      "error"
+      );
+
+      }
+
+      };
+
+      clear.onclick=()=>{
+
+      url.value="";
+
+      updateClear();
+
+      url.focus();
+
+      hide();
+
+      };
+
+      url.addEventListener(
+      "input",
+      updateClear
+      );
+
+      url.addEventListener(
+      "keydown",
+      e=>{
+
+      if(e.key==="Enter"){
+      process();
+      }
+
+      });
+
+      url.addEventListener(
+      "paste",
+      ()=>{
+      setTimeout(
+      updateClear,
+      50
+      );
+      }
+      );
+
+      go.onclick=process;
+
+      updateClear();
+    </script>
+  </body>
+</html>
