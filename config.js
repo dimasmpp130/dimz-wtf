@@ -10,6 +10,14 @@ const CONFIG = {
   DIMZZ3: {
     URL: "https://dimz-wtf.vercel.app/api/texts-maker"
   },
+  
+  DIMZZ4: {
+    URL: "https://dimz-wtf.vercel.app/api/emo-img"
+  },
+  
+  DIMZZ5: {
+    URL: "https://dimz-wtf.vercel.app/api/emo-vids"
+  },
 
   SITE: {
     FOOTER1: "Made with ♥ by DIMMZZZSUM_ENAK"
