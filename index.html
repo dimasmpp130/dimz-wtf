@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1"
+      content="width=device-width, initial-scale=1"
     />
     <meta name="theme-color" content="#090a0e" />
     <meta
@@ -15,9 +15,17 @@
       DIMMZZZSUM_ENAK — Official Links
     </title>
     <link
-      rel="stylesheet"
+      rel="preload"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      />
+    </noscript>
 
     <style>
             :root{
@@ -495,7 +503,7 @@
             .social-arrow{
             position:absolute;
             right:13px;
-            color:#626874;
+            color:#858b98;
             font-size:8px!important
             }
 
@@ -560,7 +568,7 @@
             footer{
             padding:27px 0 30px;
             text-align:center;
-            color:#606672;
+            color:#858b98;
             font-size:8px
             }
 
@@ -789,6 +797,10 @@
             body.light .search input{
             background:#f1f1ef;
             color:#17181c
+            }
+
+            body.light footer{
+            color:#62656c
             }
 
             @media(max-width:900px){
@@ -1305,7 +1317,10 @@
                 class="avatar"
                 src="media/avatar.png"
                 alt="Avatar"
+                width="45"
+                height="45"
                 loading="lazy"
+                decoding="async"
                 onerror="this.style.opacity='.25'"
               />
               <span class="status-dot"></span>
@@ -1325,7 +1340,10 @@
           <img
             src="media/anime-poster.jpg"
             alt="Anime background"
+            width="1200"
+            height="800"
             loading="eager"
+            fetchpriority="high"
           />
 
           <div class="media-dots">
@@ -1618,7 +1636,10 @@
               class="gempa-map"
               src=""
               alt="Peta gempa"
+              width="1200"
+              height="675"
               loading="lazy"
+              decoding="async"
               style="display:none"
             />
 
@@ -1769,6 +1790,7 @@
           <input
             type="search"
             placeholder="Cari downloader..."
+            aria-label="Cari download"
             data-search="download"
           />
           <button
@@ -1807,6 +1829,7 @@
           <input
             type="search"
             placeholder="Cari maker..."
+            aria-label="Cari canva"
             data-search="canva"
           />
           <button
@@ -1845,6 +1868,7 @@
           <input
             type="search"
             placeholder="Cari tools Islami..."
+            aria-label="Cari islamic"
             data-search="islamic"
           />
           <button
@@ -1883,6 +1907,7 @@
           <input
             type="search"
             placeholder="Cari search tools..."
+            aria-label="Cari search"
             data-search="search"
           />
           <button
@@ -1921,6 +1946,7 @@
           <input
             type="search"
             placeholder="Cari converter..."
+            aria-label="Cari converter"
             data-search="converter"
           />
           <button
@@ -1959,6 +1985,7 @@
           <input
             type="search"
             placeholder="Cari gateway..."
+            aria-label="Cari temp"
             data-search="temp"
           />
           <button
@@ -1997,6 +2024,7 @@
           <input
             type="search"
             placeholder="Cari tools..."
+            aria-label="Cari tools"
             data-search="tools"
           />
           <button
@@ -2035,6 +2063,7 @@
           <input
             type="search"
             placeholder="Cari game..."
+            aria-label="Cari game"
             data-search="game"
           />
           <button
@@ -2389,6 +2418,11 @@
       if(modal){
       modal.classList.add("active");
       document.body.style.overflow="hidden";
+
+      const type=modal.id.replace(/^modal/,"").toLowerCase();
+      if(LIST_IDS[type]){
+      renderList(type,"");
+      }
       }
 
       });
@@ -2549,10 +2583,6 @@
 
       document.getElementById("year").textContent=new Date().getFullYear();
 
-      Object.keys(DATA).forEach(function(type){
-      renderList(type,"");
-      });
-
       const path=location.pathname.toLowerCase();
       const params=new URLSearchParams(location.search);
 
@@ -2666,7 +2696,10 @@
       }
 
       gempaRefresh.addEventListener("click",loadGempa);
-      loadGempa();
+
+      window.addEventListener("load",function(){
+      setTimeout(loadGempa,300);
+      },{once:true});
     </script>
   </body>
 </html>
