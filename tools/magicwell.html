@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#080a10" />
+    <meta
+      name="description"
+      content="Kalkulator Magic Wheel untuk menghitung kebutuhan diamond Mobile Legends."
+    />
+    <title>Kalkulator Magic Wheel - DIMMZZZSUM_ENAK</title>
+
+    <style>
+      *{
+        box-sizing:border-box;
+        margin:0;
+        padding:0;
+        font-family:Arial,Helvetica,sans-serif;
+      }
+
+      :root{
+        --bg:#080a10;
+        --panel:#10141e;
+        --panel2:#141925;
+        --line:#242a38;
+        --text:#f2f5ff;
+        --muted:#8c95aa;
+        --blue:#5c8cff;
+        --cyan:#48d7ff;
+        --gold:#ffc857;
+        --green:#48e69b;
+        --red:#ff5d6c;
+      }
+
+      html{
+        scroll-behavior:smooth;
+      }
+
+      body{
+        min-height:100vh;
+        overflow-x:hidden;
+        color:var(--text);
+        background:var(--bg);
+      }
+
+      .container{
+        width:min(900px,calc(100% - 20px));
+        margin:auto;
+        padding:18px 0 28px;
+      }
+
+      .topbar{
+        text-align:center;
+        margin-bottom:12px;
+      }
+
+      .brand{
+        display:inline-block;
+        padding:7px 12px;
+        border:1px solid var(--line);
+        border-radius:20px;
+        background:#0e121b;
+        color:#aeb7cc;
+        font-size:11px;
+        letter-spacing:1px;
+      }
+
+      header{
+        padding:28px 18px;
+        text-align:center;
+        background:var(--panel);
+        border:1px solid var(--line);
+        border-radius:18px;
+      }
+
+      .logo{
+        width:58px;
+        height:58px;
+        margin:0 auto 14px;
+        display:grid;
+        place-items:center;
+        border-radius:15px;
+        color:var(--gold);
+        background:#171d2b;
+        border:1px solid #30384a;
+        font-size:25px;
+      }
+
+      h1{
+        font-size:clamp(22px,5vw,34px);
+        line-height:1.2;
+        margin-bottom:8px;
+      }
+
+      .subtitle{
+        color:var(--muted);
+        font-size:14px;
+        line-height:1.5;
+      }
+
+      .creator{
+        display:inline-block;
+        margin-top:13px;
+        padding:6px 10px;
+        border-radius:15px;
+        background:#121a2b;
+        border:1px solid #263452;
+        color:#b9c8ec;
+        font-size:11px;
+      }
+
+      .calculator{
+        margin-top:12px;
+        padding:14px;
+        background:#0d1119;
+        border:1px solid var(--line);
+        border-radius:18px;
+      }
+
+      .intro{
+        padding:15px;
+        border-radius:13px;
+        background:#111827;
+        border:1px solid #202c42;
+      }
+
+      .intro p{
+        color:#adb6c9;
+        font-size:13px;
+        line-height:1.6;
+      }
+
+      .price-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+        margin-top:10px;
+      }
+
+      .price-box{
+        padding:11px;
+        border-radius:10px;
+        background:#0d121c;
+        border:1px solid var(--line);
+      }
+
+      .price-box span{
+        display:block;
+        color:#737d93;
+        font-size:9px;
+        text-transform:uppercase;
+        letter-spacing:1px;
+        margin-bottom:4px;
+      }
+
+      .price-box strong{
+        font-size:12px;
+      }
+
+      .gold{
+        color:var(--gold);
+      }
+
+      .mode-wrap{
+        margin-top:17px;
+      }
+
+      .caption{
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:8px;
+        color:#737d92;
+        font-size:10px;
+        text-transform:uppercase;
+        letter-spacing:1px;
+      }
+
+      .mode-selector{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:5px;
+        padding:4px;
+        background:#0a0e15;
+        border:1px solid var(--line);
+        border-radius:12px;
+      }
+
+      .mode-btn{
+        border:0;
+        border-radius:9px;
+        padding:11px 8px;
+        color:#7e879b;
+        background:transparent;
+        font-size:12px;
+        font-weight:bold;
+        cursor:pointer;
+      }
+
+      .mode-btn.active{
+        color:#fff;
+        background:#1a2945;
+      }
+
+      .slider-section{
+        margin-top:15px;
+        padding:16px;
+        border-radius:15px;
+        background:var(--panel);
+        border:1px solid var(--line);
+      }
+
+      .slider-head{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        margin-bottom:17px;
+      }
+
+      .slider-title{
+        color:#cbd3e5;
+        font-size:11px;
+        font-weight:bold;
+        letter-spacing:1px;
+      }
+
+      .phase{
+        padding:5px 8px;
+        border-radius:7px;
+        color:var(--cyan);
+        background:#10202a;
+        border:1px solid #1d3947;
+        font-size:9px;
+        font-weight:bold;
+      }
+
+      .point-display{
+        display:flex;
+        align-items:center;
+        gap:20px;
+      }
+
+      .progress-ring{
+        width:135px;
+        height:135px;
+        min-width:135px;
+        border-radius:50%;
+        display:grid;
+        place-items:center;
+        background:#151b28;
+        border:7px solid var(--blue);
+      }
+
+      .progress-inner{
+        width:100%;
+        height:100%;
+        border-radius:50%;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        background:#0b0f17;
+      }
+
+      .point-label{
+        color:#707b91;
+        font-size:9px;
+        letter-spacing:1px;
+      }
+
+      .point-value{
+        margin-top:3px;
+        font-size:36px;
+        line-height:1;
+        font-weight:bold;
+      }
+
+      .point-max{
+        margin-top:4px;
+        color:#687288;
+        font-size:9px;
+      }
+
+      .slider-area{
+        flex:1;
+        min-width:0;
+      }
+
+      .slider-meta{
+        display:flex;
+        justify-content:space-between;
+        margin-bottom:8px;
+        color:#737d91;
+        font-size:10px;
+      }
+
+      .slider{
+        width:100%;
+        height:6px;
+        appearance:none;
+        -webkit-appearance:none;
+        border-radius:10px;
+        outline:none;
+        background:#252c3a;
+        cursor:pointer;
+      }
+
+      .slider::-webkit-slider-thumb{
+        appearance:none;
+        -webkit-appearance:none;
+        width:21px;
+        height:21px;
+        border-radius:50%;
+        border:3px solid #dffaff;
+        background:var(--cyan);
+      }
+
+      .slider::-moz-range-thumb{
+        width:16px;
+        height:16px;
+        border-radius:50%;
+        border:3px solid #dffaff;
+        background:var(--cyan);
+      }
+
+      .slider-range{
+        display:flex;
+        justify-content:space-between;
+        margin-top:7px;
+        color:#606a7f;
+        font-size:9px;
+      }
+
+      .controls{
+        display:flex;
+        gap:7px;
+        margin-top:15px;
+      }
+
+      .point-control{
+        width:46px;
+        height:35px;
+        border:1px solid var(--line);
+        border-radius:9px;
+        color:#cbd4e7;
+        background:#151a24;
+        cursor:pointer;
+        font-size:15px;
+      }
+
+      .point-control:active{
+        background:#1c2b45;
+      }
+
+      .increase{
+        color:var(--cyan);
+      }
+
+      .result{
+        margin-top:15px;
+        overflow:hidden;
+        border-radius:15px;
+        background:var(--panel);
+        border:1px solid var(--line);
+      }
+
+      .result-header{
+        padding:13px 15px;
+        border-bottom:1px solid var(--line);
+        color:#dbe2f3;
+        font-size:11px;
+        font-weight:bold;
+        letter-spacing:1px;
+      }
+
+      .result-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+      }
+
+      .result-item{
+        min-height:105px;
+        padding:15px 10px;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        text-align:center;
+      }
+
+      .result-item:nth-child(odd){
+        border-right:1px solid var(--line);
+      }
+
+      .result-item:nth-child(-n+2){
+        border-bottom:1px solid var(--line);
+      }
+
+      .result-label{
+        color:#70798e;
+        font-size:9px;
+        text-transform:uppercase;
+        letter-spacing:1px;
+        margin-bottom:7px;
+      }
+
+      .result-value{
+        color:#edf2ff;
+        font-size:22px;
+        font-weight:bold;
+      }
+
+      .result-value.mode{
+        max-width:150px;
+        color:#b9c5df;
+        font-size:12px;
+        line-height:1.4;
+      }
+
+      .result-value.diamond{
+        display:flex;
+        align-items:center;
+        gap:6px;
+        color:var(--gold);
+      }
+
+      .status{
+        margin:12px;
+        padding:10px;
+        display:flex;
+        gap:9px;
+        border-radius:10px;
+        background:#10151e;
+        border:1px solid var(--line);
+      }
+
+      .status-icon{
+        width:27px;
+        height:27px;
+        min-width:27px;
+        display:grid;
+        place-items:center;
+        border-radius:7px;
+        background:#10212a;
+        color:var(--cyan);
+        font-size:12px;
+      }
+
+      .status-copy strong{
+        display:block;
+        color:#cdd6e9;
+        font-size:11px;
+        margin-bottom:2px;
+      }
+
+      .status-copy span{
+        color:#6f798e;
+        font-size:10px;
+        line-height:1.4;
+      }
+
+      .spin-details{
+        margin:0 12px 12px;
+        padding:11px;
+        border-radius:10px;
+        background:#101827;
+        border:1px solid #233149;
+      }
+
+      .spin-title{
+        color:#9fb8ff;
+        font-size:10px;
+        font-weight:bold;
+        margin-bottom:7px;
+      }
+
+      .spin-detail{
+        display:flex;
+        justify-content:space-between;
+        padding:6px 0;
+        border-bottom:1px dashed #293143;
+        color:#737e94;
+        font-size:10px;
+      }
+
+      .spin-detail:last-child{
+        border-bottom:0;
+      }
+
+      .spin-detail strong{
+        color:#cdd6ea;
+      }
+
+      .quick{
+        margin-top:16px;
+      }
+
+      .section-title{
+        margin-bottom:9px;
+        color:#aeb7ca;
+        font-size:10px;
+        font-weight:bold;
+        letter-spacing:1px;
+        text-transform:uppercase;
+      }
+
+      .quick-grid{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:7px;
+      }
+
+      .reference{
+        padding:12px 6px;
+        text-align:center;
+        border-radius:10px;
+        background:#10151e;
+        border:1px solid var(--line);
+      }
+
+      .reference-point{
+        color:#d5dcec;
+        font-size:10px;
+        font-weight:bold;
+        margin-bottom:5px;
+      }
+
+      .reference-diamond{
+        color:#737d92;
+        font-size:9px;
+      }
+
+      .notes{
+        margin-top:16px;
+        padding:13px;
+        border-radius:11px;
+        background:#15130d;
+        border:1px solid #38301c;
+      }
+
+      .note-title{
+        color:var(--gold);
+        font-size:10px;
+        font-weight:bold;
+        margin-bottom:8px;
+      }
+
+      .note-list{
+        list-style:none;
+      }
+
+      .note-list li{
+        position:relative;
+        padding-left:12px;
+        margin-top:6px;
+        color:#828b9f;
+        font-size:10px;
+        line-height:1.5;
+      }
+
+      .note-list li:first-child{
+        margin-top:0;
+      }
+
+      .note-list li::before{
+        content:"•";
+        position:absolute;
+        left:0;
+        color:var(--gold);
+      }
+
+      .highlight{
+        color:#dce4f8;
+        font-weight:bold;
+      }
+
+      footer{
+        padding:18px 0 3px;
+        text-align:center;
+        color:#596276;
+        font-size:9px;
+      }
+
+      footer strong{
+        color:#8e98ad;
+      }
+
+      .diamond-green{
+        color:var(--green)!important;
+      }
+
+      .diamond-gold{
+        color:var(--gold)!important;
+      }
+
+      .diamond-orange{
+        color:#ff9e4a!important;
+      }
+
+      .diamond-red{
+        color:var(--red)!important;
+      }
+
+      @media(max-width:650px){
+        .container{
+          width:calc(100% - 14px);
+          padding-top:10px;
+        }
+
+        header{
+          padding:23px 13px;
+          border-radius:15px;
+        }
+
+        .calculator{
+          padding:9px;
+          border-radius:15px;
+        }
+
+        .point-display{
+          flex-direction:column;
+        }
+
+        .progress-ring{
+          width:125px;
+          height:125px;
+          min-width:125px;
+        }
+
+        .slider-area{
+          width:100%;
+        }
+
+        .controls{
+          justify-content:center;
+        }
+
+        .point-control{
+          width:48%;
+        }
+
+        .quick-grid{
+          grid-template-columns:1fr 1fr;
+        }
+      }
+
+      @media(max-width:400px){
+        h1{
+          font-size:20px;
+        }
+
+        .subtitle{
+          font-size:12px;
+        }
+
+        .mode-btn{
+          font-size:11px;
+        }
+
+        .result-value{
+          font-size:19px;
+        }
+
+        .result-value.mode{
+          font-size:11px;
+        }
+
+        .reference-point{
+          font-size:9px;
+        }
+
+        .reference-diamond{
+          font-size:8px;
+        }
+      }
+
+      @media(prefers-reduced-motion:reduce){
+        html{
+          scroll-behavior:auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">MAGIC WHEEL CALCULATOR</div>
+      </div>
+
+      <header>
+        <div class="logo">◆</div>
+
+        <h1>KALKULATOR MAGIC WHEEL</h1>
+
+        <p class="subtitle">
+          Hitung kebutuhan diamond untuk mendapatkan Skin LEGEND
+        </p>
+
+        <div class="creator">Created by DIMMZZZSUM_ENAK</div>
+      </header>
+
+      <main class="calculator">
+        <section class="intro">
+          <p>
+            Atur point Magic Wheel yang sudah kamu miliki menggunakan slider.
+            Kalkulator akan menghitung point dan estimasi diamond yang
+            dibutuhkan.
+          </p>
+
+          <div class="price-grid">
+            <div class="price-box">
+              <span>Single Spin</span>
+              <strong class="gold">60 Diamond / Spin</strong>
+            </div>
+
+            <div class="price-box">
+              <span>Target</span>
+              <strong>200 Point</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="mode-wrap">
+          <div class="caption">
+            <span>Mode Perhitungan</span>
+            <span id="modeCaption">Single</span>
+          </div>
+
+          <div class="mode-selector">
+            <button class="mode-btn active" id="singleSpinBtn">
+              Single Spin
+            </button>
+
+            <button class="mode-btn" id="fiveSpinBtn">5x Spin</button>
+          </div>
+        </section>
+
+        <section class="slider-section">
+          <div class="slider-head">
+            <div class="slider-title">POINT MAGIC WHEEL</div>
+            <div class="phase" id="phaseBadge">PHASE 01</div>
+          </div>
+
+          <div class="point-display">
+            <div class="progress-ring" id="progressRing">
+              <div class="progress-inner">
+                <div class="point-label">POINT</div>
+                <div class="point-value" id="pointValue">0</div>
+                <div class="point-max">/ 200</div>
+              </div>
+            </div>
+
+            <div class="slider-area">
+              <div class="slider-meta">
+                <span>Point saat ini</span>
+                <span id="progressPercent">0%</span>
+              </div>
+
+              <input
+                type="range"
+                min="0"
+                max="200"
+                value="0"
+                class="slider"
+                id="pointSlider"
+              />
+
+              <div class="slider-range">
+                <span>0</span>
+                <span>50</span>
+                <span>100</span>
+                <span>150</span>
+                <span>200</span>
+              </div>
+
+              <div class="controls">
+                <button class="point-control" id="decreaseBtn">−</button>
+                <button class="point-control increase" id="increaseBtn">
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="result">
+          <div class="result-header">HASIL PERHITUNGAN</div>
+
+          <div class="result-grid">
+            <div class="result-item">
+              <div class="result-label">Point Dimiliki</div>
+              <div class="result-value" id="currentPointResult">0</div>
+            </div>
+
+            <div class="result-item">
+              <div class="result-label">Mode Spin</div>
+              <div class="result-value mode" id="modeResult">Single Spin</div>
+            </div>
+
+            <div class="result-item">
+              <div class="result-label">Point & Spin Dibutuhkan</div>
+              <div class="result-value" id="neededResult">200</div>
+            </div>
+
+            <div class="result-item">
+              <div class="result-label">Diamond Dibutuhkan</div>
+              <div class="result-value diamond" id="diamondResult">
+                <span>◆</span>
+                <span id="diamondNumber">12.000</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="status">
+            <div class="status-icon">✓</div>
+
+            <div class="status-copy">
+              <strong id="statusTitle">Menuju Skin LEGEND</strong>
+              <span id="statusText">
+                Masih membutuhkan 200 point untuk mencapai target.
+              </span>
+            </div>
+          </div>
+
+          <div class="spin-details" id="spinDetails" style="display:none">
+            <div class="spin-title">DETAIL 5x SPIN</div>
+
+            <div class="spin-detail">
+              <span>Kelompok Point</span>
+              <strong id="groupRange">0-4</strong>
+            </div>
+
+            <div class="spin-detail">
+              <span>Harga Kelompok</span>
+              <strong id="groupPrice">10.800 Diamond</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="quick">
+          <div class="section-title">QUICK REFERENCE</div>
+
+          <div class="quick-grid">
+            <div class="reference">
+              <div class="reference-point">0–4 Point</div>
+              <div class="reference-diamond">10.800 Diamond</div>
+            </div>
+
+            <div class="reference">
+              <div class="reference-point">50–54 Point</div>
+              <div class="reference-diamond">8.100 Diamond</div>
+            </div>
+
+            <div class="reference">
+              <div class="reference-point">100–104 Point</div>
+              <div class="reference-diamond">5.400 Diamond</div>
+            </div>
+
+            <div class="reference">
+              <div class="reference-point">150–154 Point</div>
+              <div class="reference-diamond">2.700 Diamond</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="notes">
+          <div class="note-title">SISTEM PERHITUNGAN</div>
+
+          <ul class="note-list">
+            <li>
+              <span class="highlight">Single Spin:</span>
+              (200 - Point Saat Ini) × 60 Diamond.
+            </li>
+
+            <li>
+              <span class="highlight">5x Spin:</span>
+              menggunakan sistem kelompok setiap 5 point.
+            </li>
+
+            <li>Contoh Single Spin: 0 point = 12.000 Diamond.</li>
+
+            <li>
+              Skin LEGEND didapatkan setelah mencapai
+              <span class="highlight">200 point</span>.
+            </li>
+
+            <li>
+              Mode 5x Spin menggunakan harga kelompok sesuai posisi point.
+            </li>
+          </ul>
+        </section>
+      </main>
+
+      <footer>
+        <p>
+          © 2026 Magic Wheel Calculator by
+          <strong>DIMMZZZSUM_ENAK</strong>
+        </p>
+        <p style="margin-top:5px;">Mobile Legends Utility</p>
+      </footer>
+    </div>
+
+    <script>
+      const PRICE_PER_SPIN = 60;
+      const MAX_POINTS = 200;
+
+      const fiveSpinGroups = [
+        [0,4,10800],
+        [5,9,10530],
+        [10,14,10260],
+        [15,19,9990],
+        [20,24,9720],
+        [25,29,9450],
+        [30,34,9180],
+        [35,39,8910],
+        [40,44,8640],
+        [45,49,8370],
+        [50,54,8100],
+        [55,59,7830],
+        [60,64,7560],
+        [65,69,7290],
+        [70,74,7020],
+        [75,79,6750],
+        [80,84,6480],
+        [85,89,6210],
+        [90,94,5940],
+        [95,99,5670],
+        [100,104,5400],
+        [105,109,5130],
+        [110,114,4860],
+        [115,119,4590],
+        [120,124,4320],
+        [125,129,4050],
+        [130,134,3780],
+        [135,139,3510],
+        [140,144,3240],
+        [145,149,2970],
+        [150,154,2700],
+        [155,159,2430],
+        [160,164,2160],
+        [165,169,1890],
+        [170,174,1620],
+        [175,179,1350],
+        [180,184,1080],
+        [185,189,810],
+        [190,194,540],
+        [195,195,270],
+        [196,196,240],
+        [197,197,180],
+        [198,198,120],
+        [199,199,60],
+        [200,200,0]
+      ];
+
+      const slider = document.getElementById("pointSlider");
+      const pointValue = document.getElementById("pointValue");
+      const decreaseBtn = document.getElementById("decreaseBtn");
+      const increaseBtn = document.getElementById("increaseBtn");
+
+      const singleBtn = document.getElementById("singleSpinBtn");
+      const fiveBtn = document.getElementById("fiveSpinBtn");
+
+      const currentResult = document.getElementById("currentPointResult");
+      const modeResult = document.getElementById("modeResult");
+      const neededResult = document.getElementById("neededResult");
+      const diamondNumber = document.getElementById("diamondNumber");
+      const diamondResult = document.getElementById("diamondResult");
+
+      const progressRing = document.getElementById("progressRing");
+      const progressPercent = document.getElementById("progressPercent");
+      const phaseBadge = document.getElementById("phaseBadge");
+
+      const modeCaption = document.getElementById("modeCaption");
+      const statusTitle = document.getElementById("statusTitle");
+      const statusText = document.getElementById("statusText");
+
+      const spinDetails = document.getElementById("spinDetails");
+      const groupRange = document.getElementById("groupRange");
+      const groupPrice = document.getElementById("groupPrice");
+
+      let currentMode = "single";
+
+      function formatNumber(value){
+        return Number(value).toLocaleString("id-ID");
+      }
+
+      function getGroup(point){
+        for(let i = 0; i < fiveSpinGroups.length; i++){
+          const group = fiveSpinGroups[i];
+
+          if(point >= group[0] && point <= group[1]){
+            return group;
+          }
+        }
+
+        return null;
+      }
+
+      function updateProgress(point){
+        const percent = point / MAX_POINTS * 100;
+
+        progressPercent.textContent =
+          percent.toFixed(1) + "%";
+
+        if(point === 0){
+          progressRing.style.borderColor = "#5c8cff";
+        }else if(point >= 150){
+          progressRing.style.borderColor = "#48d7ff";
+        }else{
+          progressRing.style.borderColor = "#5c8cff";
+        }
+
+        if(point === MAX_POINTS){
+          phaseBadge.textContent = "COMPLETE";
+        }else if(point >= 150){
+          phaseBadge.textContent = "FINAL PHASE";
+        }else if(point >= 100){
+          phaseBadge.textContent = "PHASE 03";
+        }else if(point >= 50){
+          phaseBadge.textContent = "PHASE 02";
+        }else{
+          phaseBadge.textContent = "PHASE 01";
+        }
+      }
+
+      function updateStatus(point){
+        const remaining = MAX_POINTS - point;
+
+        if(point >= MAX_POINTS){
+          statusTitle.textContent = "Skin LEGEND siap";
+          statusText.textContent =
+            "Target 200 point sudah tercapai.";
+        }else if(point >= 180){
+          statusTitle.textContent = "Hampir selesai";
+          statusText.textContent =
+            "Tinggal " + remaining + " point lagi menuju Skin LEGEND.";
+        }else if(point >= 100){
+          statusTitle.textContent = "Progress sudah jauh";
+          statusText.textContent =
+            "Masih membutuhkan " + remaining + " point untuk mencapai target.";
+        }else{
+          statusTitle.textContent = "Menuju Skin LEGEND";
+          statusText.textContent =
+            "Masih membutuhkan " + remaining + " point untuk mencapai target.";
+        }
+      }
+
+      function updateDiamondColor(value){
+        diamondResult.className =
+          "result-value diamond";
+
+        if(value === 0){
+          diamondResult.classList.add("diamond-green");
+        }else if(value >= 10000){
+          diamondResult.classList.add("diamond-red");
+        }else if(value >= 5000){
+          diamondResult.classList.add("diamond-orange");
+        }else{
+          diamondResult.classList.add("diamond-gold");
+        }
+      }
+
+      function calculate(){
+        const point = Number(slider.value);
+        const remaining = MAX_POINTS - point;
+
+        pointValue.textContent = point;
+        currentResult.textContent = point;
+        neededResult.textContent = remaining;
+
+        updateProgress(point);
+        updateStatus(point);
+
+        if(currentMode === "single"){
+          const diamond = remaining * PRICE_PER_SPIN;
+
+          modeResult.textContent = "Single Spin";
+          modeCaption.textContent = "Single";
+
+          diamondNumber.textContent =
+            formatNumber(diamond);
+
+          spinDetails.style.display = "none";
+
+          updateDiamondColor(diamond);
+        }else{
+          const group = getGroup(point);
+
+          modeResult.textContent = "5x Spin (Kelompok)";
+          modeCaption.textContent = "5x Group";
+
+          spinDetails.style.display = "block";
+
+          if(group){
+            groupRange.textContent =
+              group[0] + "-" + group[1];
+
+            groupPrice.textContent =
+              formatNumber(group[2]) + " Diamond";
+
+            diamondNumber.textContent =
+              formatNumber(group[2]);
+
+            updateDiamondColor(group[2]);
+          }
+        }
+      }
+
+      function changePoint(amount){
+        let value = Number(slider.value) + amount;
+
+        if(value < 0){
+          value = 0;
+        }
+
+        if(value > MAX_POINTS){
+          value = MAX_POINTS;
+        }
+
+        slider.value = value;
+        calculate();
+      }
+
+      function changeMode(mode){
+        currentMode = mode;
+
+        if(mode === "single"){
+          singleBtn.classList.add("active");
+          fiveBtn.classList.remove("active");
+        }else{
+          singleBtn.classList.remove("active");
+          fiveBtn.classList.add("active");
+        }
+
+        calculate();
+      }
+
+      slider.addEventListener("input",calculate);
+
+      decreaseBtn.addEventListener("click",function(){
+        changePoint(-1);
+      });
+
+      increaseBtn.addEventListener("click",function(){
+        changePoint(1);
+      });
+
+      singleBtn.addEventListener("click",function(){
+        changeMode("single");
+      });
+
+      fiveBtn.addEventListener("click",function(){
+        changeMode("five");
+      });
+
+      document.addEventListener("keydown",function(event){
+        const target = event.target;
+
+        if(
+          target.tagName === "INPUT" ||
+          target.tagName === "BUTTON" ||
+          target.tagName === "TEXTAREA"
+        ){
+          return;
+        }
+
+        if(event.key === "ArrowLeft" || event.key === "-"){
+          changePoint(-1);
+          event.preventDefault();
+        }
+
+        if(
+          event.key === "ArrowRight" ||
+          event.key === "+" ||
+          event.key === "="
+        ){
+          changePoint(1);
+          event.preventDefault();
+        }
+      });
+
+      calculate();
+    </script>
+  </body>
+</html>

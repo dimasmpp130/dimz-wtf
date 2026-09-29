@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#070911" />
+    <meta
+      name="description"
+      content="Kalkulator Zodiak Wheel MLBB by DIMMZZZSUM_ENAK"
+    />
+    <title>Kalkulator Zodiak Wheel MLBB - DIMMZZZSUM_ENAK</title>
+
+    <style>
+      *{
+        box-sizing:border-box;
+        margin:0;
+        padding:0;
+      }
+
+      :root{
+        --bg:#070911;
+        --panel:#0d1320;
+        --panel2:#101827;
+        --line:#202a3d;
+        --text:#f2f5fc;
+        --muted:#8d98ad;
+        --blue:#5b8cff;
+        --cyan:#45d7ff;
+        --gold:#ffd76a;
+        --green:#65e6a5;
+        --orange:#ffad5a;
+        --red:#ff6878;
+        --progress:0%;
+        --value:0%;
+      }
+
+      html{
+        scroll-behavior:smooth;
+      }
+
+      body{
+        min-height:100vh;
+        padding:18px 12px 30px;
+        color:var(--text);
+        background:var(--bg);
+        font-family:Arial,Segoe UI,sans-serif;
+        overflow-x:hidden;
+      }
+
+      .container{
+        width:100%;
+        max-width:980px;
+        margin:auto;
+      }
+
+      header{
+        padding:28px 20px 24px;
+        text-align:center;
+        border:1px solid var(--line);
+        border-radius:20px;
+        background:var(--panel);
+        margin-bottom:12px;
+      }
+
+      .header-icon{
+        width:62px;
+        height:62px;
+        margin:0 auto 14px;
+        display:grid;
+        place-items:center;
+        border-radius:17px;
+        color:var(--gold);
+        font-size:28px;
+        background:#151c2a;
+        border:1px solid #4a3e22;
+      }
+
+      h1{
+        font-size:clamp(1.35rem,4vw,2.2rem);
+        line-height:1.2;
+        margin-bottom:9px;
+        color:#fff;
+      }
+
+      .subtitle{
+        color:var(--muted);
+        font-size:.88rem;
+        line-height:1.5;
+      }
+
+      .creator{
+        display:inline-block;
+        margin-top:14px;
+        padding:7px 12px;
+        border-radius:20px;
+        color:var(--gold);
+        background:#171713;
+        border:1px solid #3d3823;
+        font-size:.7rem;
+        font-weight:bold;
+        letter-spacing:.06em;
+      }
+
+      .main-card{
+        padding:14px;
+        border:1px solid var(--line);
+        border-radius:20px;
+        background:var(--panel);
+      }
+
+      .intro{
+        display:flex;
+        align-items:center;
+        gap:12px;
+        padding:14px;
+        margin-bottom:10px;
+        border:1px solid var(--line);
+        border-radius:15px;
+        background:#0b111d;
+      }
+
+      .intro-icon{
+        width:40px;
+        height:40px;
+        flex:0 0 40px;
+        display:grid;
+        place-items:center;
+        border-radius:11px;
+        color:var(--cyan);
+        background:#101d28;
+        font-size:20px;
+      }
+
+      .intro strong{
+        display:block;
+        margin-bottom:3px;
+        font-size:.86rem;
+      }
+
+      .intro span{
+        display:block;
+        color:var(--muted);
+        font-size:.75rem;
+        line-height:1.45;
+      }
+
+      .info-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+        margin-bottom:10px;
+      }
+
+      .info-card{
+        padding:14px;
+        border:1px solid var(--line);
+        border-radius:15px;
+        background:#0b111d;
+      }
+
+      .info-label{
+        margin-bottom:6px;
+        color:var(--muted);
+        font-size:.65rem;
+        font-weight:bold;
+        letter-spacing:.08em;
+        text-transform:uppercase;
+      }
+
+      .info-value{
+        font-size:.98rem;
+        font-weight:bold;
+      }
+
+      .gold{
+        color:var(--gold);
+      }
+
+      .blue{
+        color:var(--cyan);
+      }
+
+      .formula-panel{
+        padding:14px;
+        margin-bottom:12px;
+        border:1px solid #302b1d;
+        border-radius:15px;
+        background:#10131a;
+      }
+
+      .formula-head{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        margin-bottom:9px;
+      }
+
+      .formula-title{
+        font-size:.82rem;
+        font-weight:bold;
+      }
+
+      .formula-title b{
+        color:var(--gold);
+      }
+
+      .formula-badge{
+        padding:4px 7px;
+        border-radius:10px;
+        color:var(--gold);
+        background:#19170f;
+        border:1px solid #403820;
+        font-size:.58rem;
+        font-weight:bold;
+      }
+
+      .formula-list{
+        display:grid;
+        gap:5px;
+      }
+
+      .formula-row{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        padding:8px 9px;
+        border-radius:8px;
+        background:#090d15;
+        font-size:.7rem;
+      }
+
+      .formula-row strong{
+        color:#dbe2f2;
+      }
+
+      .formula-row code{
+        color:#ffe9a1;
+        font-family:monospace;
+        font-size:.67rem;
+      }
+
+      .calculator-panel{
+        padding:18px 14px;
+        border:1px solid var(--line);
+        border-radius:18px;
+        background:#080c14;
+      }
+
+      .panel-heading{
+        text-align:center;
+        margin-bottom:17px;
+      }
+
+      .panel-heading span{
+        display:block;
+        margin-bottom:5px;
+        color:var(--muted);
+        font-size:.6rem;
+        font-weight:bold;
+        letter-spacing:.12em;
+        text-transform:uppercase;
+      }
+
+      .panel-heading strong{
+        font-size:.9rem;
+      }
+
+      .point-area{
+        display:grid;
+        grid-template-columns:190px 1fr;
+        align-items:center;
+        gap:24px;
+      }
+
+      .progress-wrap{
+        display:grid;
+        place-items:center;
+      }
+
+      .progress-ring{
+        --size:170px;
+        position:relative;
+        width:var(--size);
+        height:var(--size);
+        border-radius:50%;
+        padding:7px;
+        background:conic-gradient(
+          var(--gold) 0 var(--progress),
+          #1a202c var(--progress) 100%
+        );
+      }
+
+      .progress-ring:before{
+        content:"";
+        position:absolute;
+        inset:7px;
+        border-radius:50%;
+        background:#090d15;
+        border:1px solid #252d3b;
+      }
+
+      .point-content{
+        position:absolute;
+        inset:0;
+        display:grid;
+        place-items:center;
+        text-align:center;
+        z-index:1;
+      }
+
+      .point-small{
+        color:var(--muted);
+        font-size:.6rem;
+        font-weight:bold;
+        letter-spacing:.1em;
+        text-transform:uppercase;
+      }
+
+      .point-value{
+        margin-top:3px;
+        color:var(--gold);
+        font-size:3.3rem;
+        line-height:1;
+        font-weight:900;
+      }
+
+      .point-unit{
+        margin-top:4px;
+        color:var(--muted);
+        font-size:.62rem;
+      }
+
+      .phase-badge{
+        display:inline-block;
+        margin-top:8px;
+        padding:4px 7px;
+        border-radius:10px;
+        color:var(--cyan);
+        background:#0d1920;
+        border:1px solid #173642;
+        font-size:.56rem;
+        font-weight:bold;
+      }
+
+      .control-area{
+        min-width:0;
+      }
+
+      .control-top{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        margin-bottom:9px;
+      }
+
+      .control-label{
+        color:var(--muted);
+        font-size:.67rem;
+        font-weight:bold;
+        letter-spacing:.07em;
+        text-transform:uppercase;
+      }
+
+      .live-point{
+        color:var(--gold);
+        font-size:.72rem;
+        font-weight:bold;
+      }
+
+      .slider-box{
+        padding:14px 12px 10px;
+        border:1px solid var(--line);
+        border-radius:13px;
+        background:#0d121c;
+      }
+
+      .slider{
+        width:100%;
+        height:8px;
+        appearance:none;
+        -webkit-appearance:none;
+        border-radius:20px;
+        outline:none;
+        background:linear-gradient(
+          90deg,
+          var(--blue) 0 var(--value),
+          #252c39 var(--value) 100%
+        );
+      }
+
+      .slider::-webkit-slider-thumb{
+        appearance:none;
+        -webkit-appearance:none;
+        width:23px;
+        height:23px;
+        border-radius:50%;
+        border:3px solid #0a0e17;
+        background:var(--gold);
+      }
+
+      .slider::-moz-range-thumb{
+        width:18px;
+        height:18px;
+        border-radius:50%;
+        border:3px solid #0a0e17;
+        background:var(--gold);
+      }
+
+      .slider-scale{
+        display:flex;
+        justify-content:space-between;
+        margin-top:8px;
+        color:#69748a;
+        font-size:.6rem;
+        font-weight:bold;
+      }
+
+      .button-row{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:8px;
+        margin-top:9px;
+      }
+
+      .point-control{
+        height:40px;
+        border:1px solid var(--line);
+        border-radius:11px;
+        color:#dce4f5;
+        background:#101722;
+        cursor:pointer;
+        font-size:.75rem;
+        font-weight:bold;
+      }
+
+      .point-control:active{
+        background:#182235;
+      }
+
+      .status-line{
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:6px;
+        margin-top:11px;
+        color:var(--muted);
+        font-size:.62rem;
+        text-align:center;
+      }
+
+      .status-dot{
+        width:6px;
+        height:6px;
+        flex:0 0 6px;
+        border-radius:50%;
+        background:var(--cyan);
+      }
+
+      .result-section,
+      .reference-section{
+        margin-top:14px;
+      }
+
+      .section-heading{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:10px;
+        margin-bottom:8px;
+      }
+
+      .section-heading strong{
+        font-size:.8rem;
+      }
+
+      .section-heading span{
+        color:var(--muted);
+        font-size:.62rem;
+      }
+
+      .result-grid{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:8px;
+      }
+
+      .result-card{
+        min-height:105px;
+        padding:13px;
+        display:flex;
+        flex-direction:column;
+        justify-content:space-between;
+        border:1px solid var(--line);
+        border-radius:14px;
+        background:#0b111b;
+      }
+
+      .result-card.diamond-card{
+        border-color:#3c3420;
+        background:#11130f;
+      }
+
+      .result-card-label{
+        color:var(--muted);
+        font-size:.6rem;
+        font-weight:bold;
+        letter-spacing:.05em;
+        text-transform:uppercase;
+      }
+
+      .result-card-value{
+        color:#e9effc;
+        font-size:1.45rem;
+        font-weight:900;
+      }
+
+      .diamond-value{
+        color:var(--gold);
+      }
+
+      .details-card{
+        padding:14px;
+        margin-top:8px;
+        border:1px solid var(--line);
+        border-radius:14px;
+        background:#0b111b;
+      }
+
+      .details-head{
+        margin-bottom:7px;
+        color:#dce5f7;
+        font-size:.72rem;
+        font-weight:bold;
+      }
+
+      .detail-list{
+        display:grid;
+      }
+
+      .detail-row{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:10px;
+        padding:8px 0;
+        border-bottom:1px dashed #202838;
+        font-size:.67rem;
+      }
+
+      .detail-row:last-child{
+        border-bottom:0;
+        padding-bottom:0;
+      }
+
+      .detail-row span:first-child{
+        color:var(--muted);
+      }
+
+      .detail-row span:last-child{
+        color:#dfe6f6;
+        font-weight:bold;
+        text-align:right;
+        font-family:monospace;
+      }
+
+      .reference-grid{
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:7px;
+      }
+
+      .reference-item{
+        padding:11px 7px;
+        text-align:center;
+        border:1px solid var(--line);
+        border-radius:12px;
+        background:#0b111b;
+      }
+
+      .reference-point{
+        margin-bottom:4px;
+        color:#e8edf8;
+        font-size:.65rem;
+        font-weight:bold;
+      }
+
+      .reference-diamond{
+        color:var(--gold);
+        font-size:.62rem;
+        font-weight:bold;
+      }
+
+      .note{
+        padding:14px;
+        margin-top:14px;
+        border:1px solid var(--line);
+        border-radius:14px;
+        background:#0b111b;
+      }
+
+      .note-title{
+        margin-bottom:9px;
+        color:#eaf0fc;
+        font-size:.72rem;
+        font-weight:bold;
+      }
+
+      .note-title b{
+        color:var(--gold);
+      }
+
+      .note-grid{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+        gap:6px;
+      }
+
+      .note-item{
+        padding:9px 10px;
+        border-radius:9px;
+        background:#080d15;
+        color:var(--muted);
+        font-size:.64rem;
+        line-height:1.45;
+      }
+
+      .note-item strong{
+        color:#dce4f5;
+      }
+
+      footer{
+        padding:18px 8px 0;
+        color:#667188;
+        font-size:.62rem;
+        line-height:1.6;
+        text-align:center;
+      }
+
+      footer strong{
+        color:var(--gold);
+      }
+
+      @media(max-width:760px){
+        .point-area{
+          grid-template-columns:1fr;
+        }
+
+        .progress-wrap{
+          margin-bottom:3px;
+        }
+
+        .result-grid{
+          grid-template-columns:1fr 1fr;
+        }
+      }
+
+      @media(max-width:520px){
+        body{
+          padding:10px 8px 24px;
+        }
+
+        header{
+          padding:24px 15px 20px;
+          border-radius:17px;
+        }
+
+        .header-icon{
+          width:56px;
+          height:56px;
+          font-size:24px;
+        }
+
+        .main-card{
+          padding:9px;
+          border-radius:17px;
+        }
+
+        .info-grid{
+          grid-template-columns:1fr;
+        }
+
+        .formula-row{
+          display:block;
+        }
+
+        .formula-row code{
+          display:block;
+          margin-top:4px;
+        }
+
+        .calculator-panel{
+          padding:15px 10px;
+        }
+
+        .progress-ring{
+          --size:155px;
+        }
+
+        .point-value{
+          font-size:3rem;
+        }
+
+        .result-card{
+          min-height:98px;
+          padding:11px;
+        }
+
+        .result-card-value{
+          font-size:1.3rem;
+        }
+
+        .reference-grid{
+          grid-template-columns:repeat(2,1fr);
+        }
+      }
+
+      @media(max-width:350px){
+        .result-grid{
+          grid-template-columns:1fr;
+        }
+
+        .note-grid{
+          grid-template-columns:1fr;
+        }
+
+        .progress-ring{
+          --size:145px;
+        }
+
+        .point-value{
+          font-size:2.8rem;
+        }
+      }
+
+      @media(prefers-reduced-motion:reduce){
+        html{
+          scroll-behavior:auto;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-icon">◆</div>
+
+        <h1>KALKULATOR ZODIAK WHEEL MLBB</h1>
+
+        <p class="subtitle">
+          Hitung estimasi diamond berdasarkan progress Zodiak Wheel yang sudah
+          kamu miliki.
+        </p>
+
+        <div class="creator">CREATED BY DIMMZZZSUM_ENAK</div>
+      </header>
+
+      <main class="main-card">
+        <div class="intro">
+          <div class="intro-icon">↔</div>
+          <div>
+            <strong>Atur Progress Zodiak Wheel</strong>
+            <span
+              >Geser slider atau gunakan tombol untuk melihat estimasi diamond
+              secara realtime.</span
+            >
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-label">Harga Awal</div>
+            <div class="info-value gold">◆ 1.700 Diamond</div>
+          </div>
+
+          <div class="info-card">
+            <div class="info-label">Target Maksimal</div>
+            <div class="info-value blue">● 100 Point</div>
+          </div>
+        </div>
+
+        <div class="formula-panel">
+          <div class="formula-head">
+            <div class="formula-title"><b>ƒ</b> Rumus Perhitungan</div>
+            <div class="formula-badge">AKURAT</div>
+          </div>
+
+          <div class="formula-list">
+            <div class="formula-row">
+              <strong>0–89 Point</strong>
+              <code>1.700 - (point × 17)</code>
+            </div>
+
+            <div class="formula-row">
+              <strong>90–99 Point</strong>
+              <code>200 - ((point - 90) × 20)</code>
+            </div>
+
+            <div class="formula-row">
+              <strong>100 Point</strong>
+              <code>0 Diamond</code>
+            </div>
+          </div>
+        </div>
+
+        <section class="calculator-panel">
+          <div class="panel-heading">
+            <span>Live Calculator</span>
+            <strong>POINT ZODIAK WHEEL YANG SUDAH DIMILIKI</strong>
+          </div>
+
+          <div class="point-area">
+            <div class="progress-wrap">
+              <div class="progress-ring" id="progressRing">
+                <div class="point-content">
+                  <div>
+                    <div class="point-small">Point Saat Ini</div>
+                    <div class="point-value" id="pointValue">0</div>
+                    <div class="point-unit">/ 100 POINT</div>
+                    <div class="phase-badge" id="phaseBadge">PHASE 01</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="control-area">
+              <div class="control-top">
+                <div class="control-label">Progress Point</div>
+                <div class="live-point" id="livePoint">0 / 100</div>
+              </div>
+
+              <div class="slider-box">
+                <input
+                  type="range"
+                  min="0"
+                  max="100"
+                  value="0"
+                  class="slider"
+                  id="pointSlider"
+                />
+
+                <div class="slider-scale">
+                  <span>0</span>
+                  <span>50</span>
+                  <span>90</span>
+                  <span>100</span>
+                </div>
+              </div>
+
+              <div class="button-row">
+                <button class="point-control" id="decreaseBtn" type="button">
+                  − Kurangi
+                </button>
+                <button class="point-control" id="increaseBtn" type="button">
+                  Tambah +
+                </button>
+              </div>
+
+              <div class="status-line">
+                <span class="status-dot"></span>
+                <span id="statusText"
+                  >Kalkulator aktif • Belum mendapatkan skin</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="result-section">
+          <div class="section-heading">
+            <strong>Hasil Perhitungan</strong>
+            <span id="resultPhase">PHASE 01</span>
+          </div>
+
+          <div class="result-grid">
+            <div class="result-card">
+              <div class="result-card-label">Point Dimiliki</div>
+              <div class="result-card-value" id="currentPointResult">0</div>
+            </div>
+
+            <div class="result-card">
+              <div class="result-card-label">Sisa Point</div>
+              <div class="result-card-value" id="neededPointsResult">100</div>
+            </div>
+
+            <div class="result-card">
+              <div class="result-card-label">Estimasi Spin</div>
+              <div class="result-card-value" id="estimatedSpinsResult">
+                ~100
+              </div>
+            </div>
+
+            <div class="result-card diamond-card">
+              <div class="result-card-label">Diamond Dibutuhkan</div>
+              <div class="result-card-value diamond-value">
+                ◆ <span id="diamondNumber">1.700</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="details-card">
+            <div class="details-head">Detail Perhitungan</div>
+
+            <div class="detail-list">
+              <div class="detail-row">
+                <span>Rumus digunakan</span>
+                <span id="formulaUsed">1.700 - (0 × 17)</span>
+              </div>
+
+              <div class="detail-row">
+                <span>Point saat ini</span>
+                <span id="currentPointDetail">0</span>
+              </div>
+
+              <div class="detail-row">
+                <span>Diamond per point</span>
+                <span id="diamondPerPoint">17</span>
+              </div>
+
+              <div class="detail-row">
+                <span>Total diamond</span>
+                <span id="totalDiamondDetail">1.700 Diamond</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="reference-section">
+          <div class="section-heading">
+            <strong>Quick Reference</strong>
+            <span>Estimasi diamond</span>
+          </div>
+
+          <div class="reference-grid">
+            <div class="reference-item">
+              <div class="reference-point">0 Point</div>
+              <div class="reference-diamond">1.700 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">25 Point</div>
+              <div class="reference-diamond">1.275 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">50 Point</div>
+              <div class="reference-diamond">850 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">75 Point</div>
+              <div class="reference-diamond">425 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">89 Point</div>
+              <div class="reference-diamond">187 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">95 Point</div>
+              <div class="reference-diamond">100 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">99 Point</div>
+              <div class="reference-diamond">20 Diamond</div>
+            </div>
+
+            <div class="reference-item">
+              <div class="reference-point">100 Point</div>
+              <div class="reference-diamond">0 Diamond</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="note">
+          <div class="note-title"><b>ⓘ</b> Sistem Zodiak Wheel MLBB</div>
+
+          <div class="note-grid">
+            <div class="note-item">
+              <strong>0–89 Point</strong><br />
+              1.700 - (point × 17) Diamond
+            </div>
+
+            <div class="note-item">
+              <strong>90–99 Point</strong><br />
+              200 - ((point - 90) × 20) Diamond
+            </div>
+
+            <div class="note-item">
+              <strong>100 Point</strong><br />
+              0 Diamond karena skin sudah didapat.
+            </div>
+
+            <div class="note-item">
+              <strong>Contoh 50 Point</strong><br />
+              1.700 - (50 × 17) = 850 Diamond
+            </div>
+
+            <div class="note-item">
+              <strong>Contoh 89 Point</strong><br />
+              1.700 - (89 × 17) = 187 Diamond
+            </div>
+
+            <div class="note-item">
+              <strong>Contoh 95 Point</strong><br />
+              200 - ((95 - 90) × 20) = 100 Diamond
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div>
+          © 2026 Kalkulator Zodiak Wheel MLBB by
+          <strong>DIMMZZZSUM_ENAK</strong>
+        </div>
+        <div>Mobile Legends: Bang Bang • Zodiac Wheel Calculator</div>
+      </footer>
+    </div>
+
+    <script>
+      const MAX=100;
+      const BASE=1700;
+      const PRICE=17;
+
+      const slider=document.getElementById("pointSlider");
+      const pointValue=document.getElementById("pointValue");
+      const decrease=document.getElementById("decreaseBtn");
+      const increase=document.getElementById("increaseBtn");
+      const ring=document.getElementById("progressRing");
+      const live=document.getElementById("livePoint");
+      const phase=document.getElementById("phaseBadge");
+      const resultPhase=document.getElementById("resultPhase");
+      const status=document.getElementById("statusText");
+
+      const current=document.getElementById("currentPointResult");
+      const needed=document.getElementById("neededPointsResult");
+      const spins=document.getElementById("estimatedSpinsResult");
+      const diamond=document.getElementById("diamondNumber");
+
+      const formula=document.getElementById("formulaUsed");
+      const detailPoint=document.getElementById("currentPointDetail");
+      const perPoint=document.getElementById("diamondPerPoint");
+      const total=document.getElementById("totalDiamondDetail");
+
+      function calculate(point){
+        if(point>=100)return 0;
+        if(point>=90)return 200-((point-90)*20);
+        return BASE-(point*PRICE);
+      }
+
+      function getFormula(point){
+        if(point>=100)return "Sudah dapat skin";
+        if(point>=90)return "200 - (("+point+" - 90) × 20)";
+        return "1.700 - ("+point+" × 17)";
+      }
+
+      function update(){
+        const point=Number(slider.value);
+        const remaining=MAX-point;
+        const diamonds=calculate(point);
+
+        pointValue.textContent=point;
+        live.textContent=point+" / 100";
+
+        current.textContent=point;
+        needed.textContent=remaining;
+        spins.textContent=remaining>0?"~"+remaining:"0";
+        diamond.textContent=diamonds.toLocaleString("id-ID");
+
+        detailPoint.textContent=point;
+        formula.textContent=getFormula(point);
+        perPoint.textContent=point>=100?0:(point>=90?20:17);
+        total.textContent=diamonds.toLocaleString("id-ID")+" Diamond";
+
+        slider.style.setProperty("--value",point+"%");
+        ring.style.setProperty("--progress",point+"%");
+
+        if(point>=100){
+          phase.textContent="COMPLETE";
+          resultPhase.textContent="COMPLETE";
+          status.textContent="Skin didapat • Progress selesai";
+          status.style.color="var(--green)";
+        }else if(point>=90){
+          phase.textContent="FINAL PHASE";
+          resultPhase.textContent="FINAL PHASE";
+          status.textContent="Final phase • Tinggal sedikit lagi";
+          status.style.color="var(--gold)";
+        }else if(point>=50){
+          phase.textContent="PHASE 02";
+          resultPhase.textContent="PHASE 02";
+          status.textContent="Progress bagus • Menuju target";
+          status.style.color="var(--blue)";
+        }else if(point>0){
+          phase.textContent="PHASE 01";
+          resultPhase.textContent="PHASE 01";
+          status.textContent="Progress berjalan • Belum selesai";
+          status.style.color="var(--cyan)";
+        }else{
+          phase.textContent="PHASE 01";
+          resultPhase.textContent="PHASE 01";
+          status.textContent="Kalkulator aktif • Belum mendapatkan skin";
+          status.style.color="var(--muted)";
+        }
+
+        if(diamonds>=1500){
+          diamond.style.color="var(--red)";
+        }else if(diamonds>=1000){
+          diamond.style.color="var(--orange)";
+        }else if(diamonds>=500){
+          diamond.style.color="var(--gold)";
+        }else{
+          diamond.style.color="var(--green)";
+        }
+      }
+
+      function setPoint(value){
+        slider.value=Math.max(0,Math.min(MAX,value));
+        update();
+      }
+
+      slider.addEventListener("input",update);
+
+      decrease.addEventListener("click",function(){
+        setPoint(Number(slider.value)-1);
+      });
+
+      increase.addEventListener("click",function(){
+        setPoint(Number(slider.value)+1);
+      });
+
+      document.addEventListener("keydown",function(e){
+        const tag=document.activeElement.tagName;
+
+        if(tag==="INPUT"||tag==="BUTTON"||tag==="TEXTAREA"||tag==="SELECT")return;
+
+        if(e.key==="ArrowLeft"||e.key==="-"){
+          setPoint(Number(slider.value)-1);
+          e.preventDefault();
+        }
+
+        if(e.key==="ArrowRight"||e.key==="+"||e.key==="="){
+          setPoint(Number(slider.value)+1);
+          e.preventDefault();
+        }
+      });
+
+      update();
+    </script>
+  </body>
+</html>
