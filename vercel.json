@@ -1,3 +1,4 @@
+
 {
   "functions": {
     "api/uploaders.js": {
@@ -5,6 +6,118 @@
     }
   },
   "routes": [
+    {
+      "src": "/download/fb/?$",
+      "dest": "/download/facebook.html"
+    },
+    {
+      "src": "/download/ig/?$",
+      "dest": "/download/instagram.html"
+    },
+    {
+      "src": "/download/tt/?$",
+      "dest": "/download/tiktok.html"
+    },
+    {
+      "src": "/download/yt/?$",
+      "dest": "/download/youtube.html"
+    },
+    {
+      "src": "/download/threads/?$",
+      "dest": "/download/threads.html"
+    },
+    {
+      "src": "/download/snack/?$",
+      "dest": "/download/snackvideo.html"
+    },
+    {
+      "src": "/canva/brat/?$",
+      "dest": "/canva/brat.html"
+    },
+    {
+      "src": "/canva/fflobby/?$",
+      "dest": "/canva/fflobby.html"
+    },
+    {
+      "src": "/canva/textmaker/?$",
+      "dest": "/canva/textmaker.html"
+    },
+    {
+      "src": "/islamic/jadwalsolat/?$",
+      "dest": "/islamic/jadwalsolat.html"
+    },
+    {
+      "src": "/search/lirik/?$",
+      "dest": "/search/lirik.html"
+    },
+    {
+      "src": "/search/tiksearch/?$",
+      "dest": "/search/tiksearch.html"
+    },
+    {
+      "src": "/search/cuaca/?$",
+      "dest": "/search/cuaca.html"
+    },
+    {
+      "src": "/convert/emoimage/?$",
+      "dest": "/convert/emoimage.html"
+    },
+    {
+      "src": "/convert/emovideos/?$",
+      "dest": "/convert/emovideos.html"
+    },
+    {
+      "src": "/temp/bully/?$",
+      "dest": "/temp/bully.html"
+    },
+    {
+      "src": "/temp/gtasa/?$",
+      "dest": "/temp/gtasa.html"
+    },
+    {
+      "src": "/tools/khodam/?$",
+      "dest": "/tools/khodam.html"
+    },
+    {
+      "src": "/tools/magicwheel/?$",
+      "dest": "/tools/magicwell.html"
+    },
+    {
+      "src": "/tools/winrates/?$",
+      "dest": "/tools/winrates.html"
+    },
+    {
+      "src": "/tools/zodiakwell/?$",
+      "dest": "/tools/zodiakwell.html"
+    },
+    {
+      "src": "/game/susunkata/?$",
+      "dest": "/game/susunkata.html"
+    },
+    {
+      "src": "/game/pilgand/?$",
+      "dest": "/game/pilgand.html"
+    },
+    {
+      "src": "/game/tebakbendera/?$",
+      "dest": "/game/tebakbendera.html"
+    },
+    {
+      "src": "/game/tebaklagu/?$",
+      "dest": "/game/tebaklagu.html"
+    },
+    {
+      "src": "/random/waifu/?$",
+      "dest": "/random/waifurdm.html"
+    },
+    {
+      "src": "/random/oppai/?$",
+      "dest": "/random/oppairdm.html"
+    },
+    {
+      "src": "/random/maid/?$",
+      "dest": "/random/maidrdm.html"
+    },
     {
       "handle": "filesystem"
     },
