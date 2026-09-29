@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#111315" />
+    <meta name="description" content="Threads Media Downloader" />
+    <title>Threads Downloader — DIMMZZZSUM_ENAK</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}
+      :root{--bg:#111315;--panel:#181b1e;--panel2:#202428;--line:#2b3035;--text:#f1f3f4;--muted:#8e969e;--soft:#262b30;--danger:#e56b6f;--success:#74b889}
+      html{background:var(--bg);scroll-behavior:smooth}
+      body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+      button,input{font:inherit}
+      button{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+      .wrap{width:min(900px,calc(100% - 24px));margin:auto;padding:18px 0 30px}
+      .top{display:flex;align-items:center;justify-content:space-between;margin-bottom:35px}
+      .brand{display:flex;align-items:center;gap:10px}
+      .brand-icon{width:40px;height:40px;border:1px solid var(--line);background:var(--panel);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:17px}
+      .brand-name{font-size:14px;font-weight:800;letter-spacing:-.2px}
+      .brand-sub{font-size:9px;color:var(--muted);margin-top:3px;letter-spacing:.8px;text-transform:uppercase}
+      .top-badge{font-size:9px;font-weight:800;padding:7px 10px;border:1px solid var(--line);border-radius:30px;color:var(--muted);background:var(--panel)}
+      .hero{max-width:700px;margin-bottom:22px}
+      .kicker{display:inline-flex;align-items:center;gap:7px;font-size:9px;font-weight:800;letter-spacing:1.4px;color:#b7bec4;margin-bottom:10px}
+      .kicker i{font-size:6px}
+      h1{font-size:clamp(32px,7vw,58px);line-height:1.05;letter-spacing:-2.5px;margin-bottom:13px;font-weight:850}
+      h1 span{color:#8f969c}
+      .hero p{max-width:570px;font-size:12px;line-height:1.7;color:var(--muted)}
+      .guide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:20px 0}
+      .guide-item{min-width:0;padding:13px 11px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+      .guide-icon{width:29px;height:29px;border-radius:9px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:11px;color:#d6dade;margin-bottom:9px}
+      .guide-item strong{display:block;font-size:10px;margin-bottom:5px}
+      .guide-item p{font-size:9px;line-height:1.6;color:var(--muted)}
+      .box{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:12px}
+      .input-row{display:flex;gap:8px}
+      .input-wrap{position:relative;flex:1;min-width:0}
+      .input-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#697178;font-size:12px;pointer-events:none}
+      input{width:100%;height:48px;border:1px solid var(--line);border-radius:11px;background:#121518;color:var(--text);outline:none;font-size:12px;padding:0 76px 0 38px}
+      input::placeholder{color:#626a71}
+      input:focus{border-color:#656d74}
+      .input-tools{position:absolute;right:5px;top:50%;transform:translateY(-50%);display:flex;gap:2px}
+      .tool{width:32px;height:32px;border:0;background:transparent;color:#8b949b;border-radius:8px;cursor:pointer}
+      #clear{display:none}
+      .go{height:48px;border:0;border-radius:11px;padding:0 17px;background:#f1f3f4;color:#101214;font-size:11px;font-weight:800;cursor:pointer;white-space:nowrap}
+      .go:disabled{opacity:.55;cursor:wait}
+      .hint{font-size:9px;line-height:1.6;color:#818991;padding:10px 3px 0}
+      .msg{display:none;margin-top:10px;padding:10px 11px;border-radius:9px;font-size:10px;line-height:1.6;overflow-wrap:anywhere}
+      .msg.show{display:block}
+      .msg.error{background:rgba(229,107,111,.08);border:1px solid rgba(229,107,111,.22);color:#ef9b9e}
+      .msg.ok{background:rgba(116,184,137,.08);border:1px solid rgba(116,184,137,.2);color:#9ad1aa}
+      .msg.load{background:#202428;border:1px solid var(--line);color:#c1c7cc}
+      .spin{display:inline-block;width:11px;height:11px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .8s linear infinite;vertical-align:-2px;margin-right:6px}
+      @keyframes spin{to{transform:rotate(360deg)}}
+      .result{display:none;margin-top:20px}
+      .result.show{display:block}
+      .section-title{font-size:13px;font-weight:800;margin-bottom:4px}
+      .section-subtitle{font-size:10px;line-height:1.6;color:var(--muted);margin-bottom:13px}
+      .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px}
+      .stat{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:11px}
+      .stat-icon{width:27px;height:27px;border-radius:8px;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:10px;color:#bfc5c9;margin-bottom:8px}
+      .stat small{display:block;font-size:8px;letter-spacing:.5px;color:#8b949b;margin-bottom:3px}
+      .stat strong{font-size:14px;font-weight:800}
+      .toolbar{display:flex;gap:8px;margin-bottom:10px}
+      .toolbar button{min-height:38px;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--text);font-size:10px;font-weight:800;cursor:pointer;padding:0 12px}
+      .toolbar .all{background:#f1f3f4;color:#111315;border-color:#f1f3f4}
+      .toolbar button:disabled{opacity:.5;cursor:wait}
+      .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+      .card{min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:8px;overflow:hidden}
+      .preview{position:relative;height:300px;border-radius:9px;overflow:hidden;background:#0b0d0f}
+      .preview img,.preview video{width:100%;height:100%;display:block;object-fit:contain;background:#0b0d0f}
+      .type{position:absolute;left:8px;top:8px;padding:5px 8px;border-radius:20px;background:rgba(10,12,14,.88);border:1px solid rgba(255,255,255,.1);font-size:8px;font-weight:800;color:#fff;z-index:2;pointer-events:none}
+      .number{position:absolute;right:8px;top:8px;width:25px;height:25px;border-radius:50%;background:rgba(10,12,14,.88);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:800;z-index:2;pointer-events:none}
+      .card-bottom{padding-top:7px}
+      .download{width:100%;min-height:39px;border:0;border-radius:9px;background:var(--soft);color:var(--text);font-size:10px;font-weight:800;cursor:pointer;padding:8px}
+      .download:disabled{opacity:.6;cursor:wait}
+      .note{margin-top:11px;padding:10px 12px;border-left:3px solid #727a81;background:var(--panel);border-radius:0 9px 9px 0;font-size:9px;line-height:1.7;color:#8b949b}
+      .empty{display:none;padding:25px 15px;text-align:center;background:var(--panel);border:1px solid var(--line);border-radius:14px;color:var(--muted);font-size:11px;line-height:1.8}
+      footer{text-align:center;padding:24px 0 0;font-size:9px;color:#697178}
+      footer b{color:#a5adb4}
+      @media(max-width:650px){
+      .wrap{padding-top:14px}
+      .top{margin-bottom:28px}
+      .top-badge{display:none}
+      h1{letter-spacing:-1.7px}
+      .input-row{flex-direction:column}
+      .go{width:100%}
+      .stats{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .toolbar{flex-direction:column}
+      .toolbar button{width:100%}
+      .grid{grid-template-columns:1fr}
+      .preview{height:330px}
+      .guide{gap:6px}
+      .guide-item{padding:10px 8px}
+      .guide-item strong{font-size:9px}
+      .guide-item p{font-size:8px}
+      }
+      @media(max-width:380px){
+      .wrap{width:calc(100% - 18px)}
+      h1{font-size:31px}
+      .preview{height:280px}
+      .guide-icon{width:26px;height:26px}
+      }
+      @media(prefers-reduced-motion:reduce){
+      *,*::before,*::after{animation:none!important;scroll-behavior:auto!important}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <div class="brand">
+          <div class="brand-icon"><i class="fa-solid fa-at"></i></div>
+          <div>
+            <div class="brand-name">ThreadGrab</div>
+            <div class="brand-sub">media downloader</div>
+          </div>
+        </div>
+        <div class="top-badge">
+          <i class="fa-solid fa-bolt"></i> image/video
+        </div>
+      </header>
+
+      <section class="hero">
+        <div class="kicker">
+          <i class="fa-solid fa-circle"></i> THREADS DOWNLOAD
+        </div>
+        <h1>Ambil media dari <span>Threads.</span></h1>
+        <p>
+          Unduh foto dan video dari postingan Threads dengan praktis. Tempel
+          tautan, tunggu media ditemukan, lalu simpan file yang kamu perlukan.
+        </p>
+      </section>
+
+      <section class="guide" aria-label="Cara menggunakan downloader">
+        <div class="guide-item">
+          <div class="guide-icon"><i class="fa-solid fa-link"></i></div>
+          <strong>01. Tempel link</strong>
+          <p>Salin tautan postingan Threads lalu masukkan ke kolom.</p>
+        </div>
+        <div class="guide-item">
+          <div class="guide-icon">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </div>
+          <strong>02. Cari media</strong>
+          <p>Tekan Ambil Media dan tunggu proses selesai.</p>
+        </div>
+        <div class="guide-item">
+          <div class="guide-icon"><i class="fa-solid fa-download"></i></div>
+          <strong>03. Simpan file</strong>
+          <p>Pilih tombol download pada foto atau video yang tersedia.</p>
+        </div>
+      </section>
+
+      <section class="box">
+        <div class="input-row">
+          <div class="input-wrap">
+            <i class="fa-solid fa-link input-icon"></i>
+            <input
+              id="url"
+              type="url"
+              placeholder="Tempel link Threads di sini..."
+              autocomplete="off"
+              spellcheck="false"
+            />
+            <div class="input-tools">
+              <button
+                class="tool"
+                id="paste"
+                type="button"
+                title="Tempel link"
+                aria-label="Tempel link"
+              >
+                <i class="fa-regular fa-clipboard"></i>
+              </button>
+              <button
+                class="tool"
+                id="clear"
+                type="button"
+                title="Hapus link"
+                aria-label="Hapus link"
+              >
+                <i class="fa-solid fa-xmark"></i>
+              </button>
+            </div>
+          </div>
+          <button class="go" id="go" type="button">
+            <i class="fa-solid fa-arrow-right"></i> Ambil media
+          </button>
+        </div>
+        <div class="hint">
+          <i class="fa-solid fa-circle-info"></i> Gunakan tautan postingan
+          Threads yang dapat diakses. Kecepatan proses bergantung pada server
+          dan koneksi internet.
+        </div>
+        <div class="msg" id="msg" role="status" aria-live="polite"></div>
+      </section>
+
+      <section class="result" id="result">
+        <div class="section-title">Media ditemukan</div>
+        <div class="section-subtitle">
+          Pilih media yang ingin disimpan. Pastikan ruang penyimpanan perangkat
+          masih tersedia.
+        </div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <small>TOTAL MEDIA</small>
+            <strong id="total">0</strong>
+          </div>
+          <div class="stat">
+            <div class="stat-icon"><i class="fa-solid fa-video"></i></div>
+            <small>VIDEO</small>
+            <strong id="videos">0</strong>
+          </div>
+          <div class="stat">
+            <div class="stat-icon"><i class="fa-regular fa-image"></i></div>
+            <small>FOTO</small>
+            <strong id="photos">0</strong>
+          </div>
+        </div>
+        <div class="toolbar">
+          <button class="all" id="downloadAll" type="button">
+            <i class="fa-solid fa-download"></i> Download semua media
+          </button>
+          <button id="newSearch" type="button">
+            <i class="fa-solid fa-rotate"></i> Cari postingan lain
+          </button>
+        </div>
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty">
+          <i class="fa-regular fa-face-frown"></i><br />Postingan ini tidak
+          memiliki media yang bisa ditampilkan.
+        </div>
+        <div class="note">
+          <i class="fa-solid fa-circle-info"></i> Jika file tidak langsung
+          tersimpan, periksa notifikasi unduhan atau folder Unduhan pada
+          perangkat. Ketersediaan unduhan bergantung pada browser dan server
+          media.
+        </div>
+      </section>
+
+      <footer>ThreadGrab · <b id="footerText"></b></footer>
+    </div>
+
+    <script src="/config.js"></script>
+
+    <script>
+      var footerText = document.getElementById("footerText").textContent = CONFIG.SITE.FOOTER1;
+      function _0xe151(_0x4d8fd8,_0x41ddbb){_0x4d8fd8=_0x4d8fd8-0x8e;var _0x57f7f6=_0x57f7();var _0xe15123=_0x57f7f6[_0x4d8fd8];return _0xe15123;}(function(_0x229ba3,_0x1c2331){var _0x10b916=_0xe151,_0x52030d=_0x229ba3();while(!![]){try{var _0xe43bcf=-parseInt(_0x10b916(0xa7))/0x1*(-parseInt(_0x10b916(0xd3))/0x2)+-parseInt(_0x10b916(0x9b))/0x3+parseInt(_0x10b916(0xf5))/0x4*(-parseInt(_0x10b916(0xfc))/0x5)+parseInt(_0x10b916(0x100))/0x6*(-parseInt(_0x10b916(0xd0))/0x7)+-parseInt(_0x10b916(0xe4))/0x8*(-parseInt(_0x10b916(0xdb))/0x9)+parseInt(_0x10b916(0x111))/0xa+parseInt(_0x10b916(0xc0))/0xb*(parseInt(_0x10b916(0xad))/0xc);if(_0xe43bcf===_0x1c2331)break;else _0x52030d['push'](_0x52030d['shift']());}catch(_0x1d47d8){_0x52030d['push'](_0x52030d['shift']());}}}(_0x57f7,0x50650),(function(){'use strict';var _0x58a075=_0xe151;var _0x2453b0=CONFIG[_0x58a075(0x11b)][_0x58a075(0x9e)],_0x2779a5=0x7530,_0x44991e=0xea60,_0x28306d=function(_0x575a26){return document['getElementById'](_0x575a26);},_0x3366c4=_0x28306d(_0x58a075(0xd5)),_0x4957ad=_0x28306d('go'),_0xf52760=_0x28306d(_0x58a075(0xcb)),_0x445b41=_0x28306d('clear'),_0x11c9de=_0x28306d(_0x58a075(0xde)),_0x1a3813=_0x28306d(_0x58a075(0xe3)),_0x173477=_0x28306d(_0x58a075(0xe6)),_0x19097f=_0x28306d(_0x58a075(0xb3)),_0x2da01e=_0x28306d(_0x58a075(0xff)),_0x51e98f=[],_0x1038ca=![];function _0x339ce6(_0x478212,_0x3ea93b){var _0x187e79=_0x58a075;_0x11c9de[_0x187e79(0x107)]=_0x187e79(0x11e)+_0x3ea93b,_0x11c9de['textContent']=_0x478212;}function _0x3e35df(){var _0x3572aa=_0x58a075;_0x11c9de['className']='msg',_0x11c9de[_0x3572aa(0xf7)]='';}function _0x35a1fb(_0x409722){var _0xc002a6=_0x58a075;_0x11c9de['className']='msg\x20show\x20load',_0x11c9de[_0xc002a6(0xf8)]=_0xc002a6(0x110),_0x11c9de[_0xc002a6(0xb8)](document[_0xc002a6(0xc9)](_0x409722));}function _0x322f9c(){var _0x38c725=_0x58a075;_0x445b41[_0x38c725(0xf3)]['display']=_0x3366c4[_0x38c725(0x113)][_0x38c725(0xed)]()?_0x38c725(0x10c):_0x38c725(0x119);}function _0xebd88c(_0x1a4d1e){var _0x4cd320=_0x58a075;try{var _0x16e90e=new URL(_0x1a4d1e);return/(^|\.)threads\.net$/i[_0x4cd320(0xe9)](_0x16e90e[_0x4cd320(0xbc)])||/(^|\.)threads\.com$/i[_0x4cd320(0xe9)](_0x16e90e[_0x4cd320(0xbc)]);}catch(_0x42b8a5){return![];}}function _0x474096(_0x4c788d,_0x24cc5b,_0x38d328){var _0x341336=_0x58a075,_0x1483ed=typeof AbortController!==_0x341336(0xce)?new AbortController():null,_0x2022a3=null,_0x52b036=_0x24cc5b||{};if(_0x1483ed)_0x52b036[_0x341336(0xb6)]=_0x1483ed['signal'];var _0x121a69=fetch(_0x4c788d,_0x52b036);if(_0x1483ed)return new Promise(function(_0x29b7ab,_0x1c9b56){var _0x2382bf=_0x341336;_0x2022a3=setTimeout(function(){_0x1483ed['abort']();},_0x38d328),_0x121a69[_0x2382bf(0x95)](_0x29b7ab,_0x1c9b56)[_0x2382bf(0x114)](function(){clearTimeout(_0x2022a3);});});return Promise['race']([_0x121a69,new Promise(function(_0x471703,_0x5253fe){_0x2022a3=setTimeout(function(){var _0x5aae29=_0xe151;_0x5253fe(new Error(_0x5aae29(0xc1)));},_0x38d328);})])[_0x341336(0x114)](function(){clearTimeout(_0x2022a3);});}async function _0x1a081f(_0x48059e){var _0x37d6f5=_0x58a075,_0x5549d9=new URL(_0x2453b0);_0x5549d9['searchParams']['set'](_0x37d6f5(0xd5),_0x48059e),_0x5549d9[_0x37d6f5(0xa4)][_0x37d6f5(0x108)](_0x37d6f5(0xa0),_0x37d6f5(0xd2));var _0x42ea41;try{_0x42ea41=await _0x474096(_0x5549d9['toString'](),{'method':_0x37d6f5(0xeb),'headers':{'Accept':'application/json'},'cache':_0x37d6f5(0x98)},_0x2779a5);}catch(_0x52eeec){if(_0x52eeec[_0x37d6f5(0xd7)]==='AbortError')throw new Error(_0x37d6f5(0xc8));if(_0x52eeec[_0x37d6f5(0x121)]===_0x37d6f5(0xc1))throw new Error(_0x37d6f5(0xc8));if(_0x52eeec instanceof TypeError)throw new Error(_0x37d6f5(0xa2));throw _0x52eeec;}var _0x4b2c64=await _0x42ea41[_0x37d6f5(0xcc)](),_0x39115c;try{_0x39115c=JSON[_0x37d6f5(0x120)](_0x4b2c64);}catch(_0x14177a){throw new Error(_0x37d6f5(0xd6));}if(!_0x42ea41['ok'])throw new Error(_0x39115c['message']||_0x39115c['msg']||_0x37d6f5(0xe1)+_0x42ea41[_0x37d6f5(0x118)]+').');return _0x39115c;}function _0x284b29(_0x23a45c){var _0x4ee8ca=_0x58a075,_0x1486c2=String(_0x23a45c[_0x4ee8ca(0xd9)]||'')[_0x4ee8ca(0x96)]();if(_0x1486c2[_0x4ee8ca(0x9a)](_0x4ee8ca(0xe0))!==-0x1||_0x1486c2['indexOf'](_0x4ee8ca(0xc5))!==-0x1||_0x1486c2[_0x4ee8ca(0x9a)](_0x4ee8ca(0x103))!==-0x1)return'image';if(_0x1486c2[_0x4ee8ca(0x9a)](_0x4ee8ca(0xbd))!==-0x1)return _0x4ee8ca(0xbd);try{var _0x176dbe=new URL(_0x23a45c['url'])['pathname'][_0x4ee8ca(0x96)]();if(/\.(jpg|jpeg|png|webp|gif|avif|bmp)$/i[_0x4ee8ca(0xe9)](_0x176dbe))return _0x4ee8ca(0xe0);if(/\.(mp4|webm|mov|m4v|m3u8)$/i[_0x4ee8ca(0xe9)](_0x176dbe))return _0x4ee8ca(0xbd);}catch(_0x59a233){}return _0x4ee8ca(0xbd);}function _0x5c1d58(_0x5be18d){var _0x19d15f=_0x58a075;if(!_0x5be18d||_0x5be18d['status']!==!![])throw new Error(_0x5be18d&&(_0x5be18d[_0x19d15f(0x121)]||_0x5be18d['msg'])||_0x19d15f(0x106));var _0xaa40e7=_0x5be18d[_0x19d15f(0xc3)]&&_0x5be18d[_0x19d15f(0xc3)]['result'];if(!Array[_0x19d15f(0x11d)](_0xaa40e7)||!_0xaa40e7['length'])throw new Error(_0x19d15f(0xb0));var _0x149e55={},_0x2135f2=[];for(var _0x555b36=0x0;_0x555b36<_0xaa40e7[_0x19d15f(0xdc)];_0x555b36++){var _0x5b9576=_0xaa40e7[_0x555b36];if(!_0x5b9576||!_0x5b9576['url'])continue;var _0x2e6f1a=String(_0x5b9576[_0x19d15f(0xd5)])['trim']();if(!_0x2e6f1a||_0x149e55[_0x2e6f1a])continue;try{var _0x50f8de=new URL(_0x2e6f1a);if(_0x50f8de[_0x19d15f(0x90)]!==_0x19d15f(0xb2)&&_0x50f8de['protocol']!=='http:')continue;}catch(_0x29aa13){continue;}_0x149e55[_0x2e6f1a]=!![],_0x2135f2[_0x19d15f(0xea)]({'url':_0x2e6f1a,'thumbnail':_0x5b9576[_0x19d15f(0x11c)]?String(_0x5b9576[_0x19d15f(0x11c)]):'','type':_0x284b29(_0x5b9576)});}if(!_0x2135f2[_0x19d15f(0xdc)])throw new Error(_0x19d15f(0x10d));return{'items':_0x2135f2};}function _0x5aebd7(_0x327572){var _0x45c181=_0x58a075;try{var _0xebb453=new URL(_0x327572[_0x45c181(0xd5)])[_0x45c181(0xa6)],_0x1a0d04=_0xebb453[_0x45c181(0x112)](/\.([a-z0-9]+)$/i);if(_0x1a0d04){var _0x1740c9=_0x1a0d04[0x1][_0x45c181(0x96)]();if(_0x327572[_0x45c181(0xd9)]==='image'&&/^(jpg|jpeg|png|webp|gif|avif|bmp)$/i[_0x45c181(0xe9)](_0x1740c9))return _0x1740c9===_0x45c181(0x117)?_0x45c181(0xb4):_0x1740c9;if(_0x327572[_0x45c181(0xd9)]===_0x45c181(0xbd)&&/^(mp4|webm|mov|m4v)$/i[_0x45c181(0xe9)](_0x1740c9))return _0x1740c9;}}catch(_0x3af4e3){}return _0x327572[_0x45c181(0xd9)]==='video'?'mp4':_0x45c181(0xb4);}function _0x4c2065(_0x4a37a8,_0x521ec2){var _0x50e817=_0x58a075,_0x5643b0=_0x4a37a8[_0x50e817(0xd9)]===_0x50e817(0xbd)?'Video':'Foto',_0x41656b=String(_0x521ec2);while(_0x41656b[_0x50e817(0xdc)]<0x2)_0x41656b='0'+_0x41656b;return'Threads_'+_0x5643b0+'_'+_0x41656b+'.'+_0x5aebd7(_0x4a37a8);}async function _0x113f1e(_0x351363){var _0x403a45=_0x58a075,_0xcaa761;try{_0xcaa761=await _0x474096(_0x351363,{'method':_0x403a45(0xeb),'mode':'cors','cache':_0x403a45(0x98)},_0x44991e);}catch(_0x1e67a5){if(_0x1e67a5[_0x403a45(0xd7)]==='AbortError'||_0x1e67a5[_0x403a45(0x121)]===_0x403a45(0xc1))throw new Error(_0x403a45(0x8e));throw _0x1e67a5;}if(!_0xcaa761['ok'])throw new Error(_0x403a45(0x9f)+_0xcaa761[_0x403a45(0x118)]);var _0xecec78=await _0xcaa761[_0x403a45(0x109)]();if(!_0xecec78[_0x403a45(0xcd)])throw new Error('File\x20kosong.');return _0xecec78;}function _0x1e739e(_0x5cb3bb,_0x478539){var _0x4025b7=_0x58a075,_0x4976a5=URL[_0x4025b7(0xc6)](_0x5cb3bb),_0x234a98=document[_0x4025b7(0xd4)]('a');_0x234a98[_0x4025b7(0x93)]=_0x4976a5,_0x234a98[_0x4025b7(0xaf)]=_0x478539,_0x234a98[_0x4025b7(0xf3)]['display']=_0x4025b7(0x119),document[_0x4025b7(0xfa)][_0x4025b7(0xb8)](_0x234a98),_0x234a98[_0x4025b7(0xbe)](),_0x234a98[_0x4025b7(0xc7)](),setTimeout(function(){var _0x39487c=_0x4025b7;URL[_0x39487c(0xba)](_0x4976a5);},0x2710);}function _0x51f536(_0x469420){var _0x355865=_0x58a075,_0xfa6fe3=window['open'](_0x469420,_0x355865(0x105));if(!_0xfa6fe3){var _0xefadab=document[_0x355865(0xd4)]('a');_0xefadab['href']=_0x469420,_0xefadab[_0x355865(0xfe)]=_0x355865(0x105),_0xefadab['rel']=_0x355865(0xe5),document[_0x355865(0xfa)][_0x355865(0xb8)](_0xefadab),_0xefadab[_0x355865(0xbe)](),_0xefadab[_0x355865(0xc7)]();}}async function _0x138d96(_0x3fd671,_0x332930,_0x2b8c98){var _0xf8d151=_0x58a075;if(_0x2b8c98[_0xf8d151(0xa9)])return;var _0x2c1cf1=_0x2b8c98['innerHTML'];_0x2b8c98[_0xf8d151(0xa9)]=!![],_0x2b8c98[_0xf8d151(0xf8)]='<span\x20class=\x22spin\x22></span>\x20Memproses';try{var _0x29e7c4=await _0x113f1e(_0x3fd671[_0xf8d151(0xd5)]);_0x1e739e(_0x29e7c4,_0x4c2065(_0x3fd671,_0x332930)),_0x2b8c98[_0xf8d151(0xf8)]='<i\x20class=\x22fa-solid\x20fa-check\x22></i>\x20Diproses',_0x339ce6(_0xf8d151(0xab),'ok');}catch(_0x48d32d){_0x51f536(_0x3fd671[_0xf8d151(0xd5)]),_0x2b8c98[_0xf8d151(0xf8)]='<i\x20class=\x22fa-solid\x20fa-arrow-up-right-from-square\x22></i>\x20Buka\x20media',_0x339ce6(_0xf8d151(0xef),'ok');}setTimeout(function(){var _0x20c121=_0xf8d151;_0x2b8c98[_0x20c121(0xa9)]=![],_0x2b8c98[_0x20c121(0xf8)]=_0x2c1cf1;},0x708);}async function _0x65fd49(){var _0x423f20=_0x58a075;if(!_0x51e98f[_0x423f20(0xdc)]||_0x2da01e['disabled'])return;var _0x5bee8d=_0x2da01e[_0x423f20(0xf8)];_0x2da01e[_0x423f20(0xa9)]=!![];var _0x3cdf8a=0x0,_0x2fd9fa=0x0;for(var _0x29e84b=0x0;_0x29e84b<_0x51e98f[_0x423f20(0xdc)];_0x29e84b++){_0x2da01e[_0x423f20(0xf8)]=_0x423f20(0x10e)+(_0x29e84b+0x1)+_0x423f20(0x9d)+_0x51e98f['length'],_0x339ce6(_0x423f20(0xfd)+(_0x29e84b+0x1)+_0x423f20(0xdd)+_0x51e98f['length']+'.',_0x423f20(0xcf));try{var _0xa71b03=await _0x113f1e(_0x51e98f[_0x29e84b][_0x423f20(0xd5)]);_0x1e739e(_0xa71b03,_0x4c2065(_0x51e98f[_0x29e84b],_0x29e84b+0x1)),_0x3cdf8a++;}catch(_0x379e8d){_0x2fd9fa++;}_0x29e84b<_0x51e98f['length']-0x1&&await new Promise(function(_0x20ce1b){setTimeout(_0x20ce1b,0x1c2);});}_0x3cdf8a?_0x339ce6(_0x423f20(0x91),'ok'):_0x339ce6('Browser\x20tidak\x20bisa\x20mengambil\x20file\x20secara\x20langsung.\x20Gunakan\x20tombol\x20download\x20pada\x20setiap\x20media\x20untuk\x20mencoba\x20kembali.',_0x423f20(0xd8)),_0x2fd9fa&&_0x339ce6(_0x423f20(0xec),'ok'),_0x2da01e[_0x423f20(0xa9)]=![],_0x2da01e['innerHTML']=_0x5bee8d;}function _0x42c769(_0x1d8c29,_0xe664aa){var _0x497847=_0x58a075,_0x1a42c1=document[_0x497847(0xd4)](_0x497847(0x92));_0x1a42c1[_0x497847(0x107)]=_0x497847(0x8f);var _0x51dc8a=document['createElement'](_0x497847(0xf1));_0x51dc8a[_0x497847(0x107)]=_0x497847(0xa8);var _0x33d287=document[_0x497847(0xd4)]('div');_0x33d287[_0x497847(0x107)]=_0x497847(0xd9),_0x33d287['innerHTML']=_0x1d8c29[_0x497847(0xd9)]==='video'?_0x497847(0xca):'<i\x20class=\x22fa-regular\x20fa-image\x22></i>\x20FOTO',_0x51dc8a[_0x497847(0xb8)](_0x33d287);var _0x162af0=document['createElement'](_0x497847(0xf1));_0x162af0[_0x497847(0x107)]=_0x497847(0x9c),_0x162af0[_0x497847(0xf7)]=_0xe664aa+0x1,_0x51dc8a[_0x497847(0xb8)](_0x162af0);if(_0x1d8c29[_0x497847(0xd9)]===_0x497847(0xbd)){var _0x366767=document[_0x497847(0xd4)](_0x497847(0xbd));_0x366767['src']=_0x1d8c29[_0x497847(0xd5)],_0x366767['controls']=!![],_0x366767[_0x497847(0xe7)]=_0x497847(0x119),_0x366767['playsInline']=!![],_0x366767[_0x497847(0xee)](_0x497847(0xf2),'');if(_0x1d8c29['thumbnail'])_0x366767[_0x497847(0xfb)]=_0x1d8c29[_0x497847(0x11c)];_0x366767[_0x497847(0xac)]=function(){},_0x51dc8a[_0x497847(0xb8)](_0x366767);}else{var _0x1ba771=document[_0x497847(0xd4)](_0x497847(0xc2));_0x1ba771[_0x497847(0xbb)]=_0x1d8c29[_0x497847(0xd5)],_0x1ba771['alt']=_0x497847(0xe8)+(_0xe664aa+0x1),_0x1ba771['loading']='lazy',_0x1ba771['onerror']=function(){var _0x4c79b2=_0x497847;_0x1ba771[_0x4c79b2(0xdf)]=_0x4c79b2(0xbf);},_0x51dc8a[_0x497847(0xb8)](_0x1ba771);}_0x1a42c1['appendChild'](_0x51dc8a);var _0xb6876a=document[_0x497847(0xd4)]('div');_0xb6876a[_0x497847(0x107)]=_0x497847(0xa1);var _0x9cce66=document[_0x497847(0xd4)](_0x497847(0x115));return _0x9cce66[_0x497847(0x107)]=_0x497847(0xaf),_0x9cce66[_0x497847(0xd9)]=_0x497847(0x115),_0x9cce66['innerHTML']='<i\x20class=\x22fa-solid\x20fa-download\x22></i>\x20'+(_0x1d8c29['type']===_0x497847(0xbd)?_0x497847(0x97):_0x497847(0xb7)),_0x9cce66[_0x497847(0x99)]=function(){_0x138d96(_0x1d8c29,_0xe664aa+0x1,_0x9cce66);},_0xb6876a[_0x497847(0xb8)](_0x9cce66),_0x1a42c1['appendChild'](_0xb6876a),_0x1a42c1;}function _0x4cb7eb(_0x3b0c34){var _0x4eb86b=_0x58a075;_0x51e98f=_0x3b0c34[_0x4eb86b(0x11a)];var _0x439922=0x0,_0x270de3=0x0;for(var _0x342f18=0x0;_0x342f18<_0x3b0c34[_0x4eb86b(0x11a)][_0x4eb86b(0xdc)];_0x342f18++){if(_0x3b0c34[_0x4eb86b(0x11a)][_0x342f18][_0x4eb86b(0xd9)]==='video')_0x439922++;else _0x270de3++;}_0x28306d('total')[_0x4eb86b(0xf7)]=_0x3b0c34[_0x4eb86b(0x11a)][_0x4eb86b(0xdc)],_0x28306d(_0x4eb86b(0xf9))['textContent']=_0x439922,_0x28306d(_0x4eb86b(0xe2))[_0x4eb86b(0xf7)]=_0x270de3,_0x173477[_0x4eb86b(0xf8)]='',_0x19097f[_0x4eb86b(0xf3)][_0x4eb86b(0xa5)]=_0x3b0c34[_0x4eb86b(0x11a)]['length']?_0x4eb86b(0x119):_0x4eb86b(0x10c);for(var _0x564c6a=0x0;_0x564c6a<_0x3b0c34['items']['length'];_0x564c6a++){_0x173477[_0x4eb86b(0xb8)](_0x42c769(_0x3b0c34[_0x4eb86b(0x11a)][_0x564c6a],_0x564c6a));}_0x1a3813[_0x4eb86b(0x10a)][_0x4eb86b(0x116)](_0x4eb86b(0xf4));}async function _0x3332c1(){var _0x57790e=_0x58a075;if(_0x1038ca)return;var _0x2cf914=_0x3366c4[_0x57790e(0x113)][_0x57790e(0xed)]();if(!_0x2cf914){_0x339ce6(_0x57790e(0x94),_0x57790e(0xd8)),_0x3366c4['focus']();return;}if(!_0xebd88c(_0x2cf914)){_0x339ce6('Masukkan\x20tautan\x20postingan\x20dari\x20threads.net\x20atau\x20threads.com.',_0x57790e(0xd8));return;}_0x1038ca=!![],_0x4957ad[_0x57790e(0xa9)]=!![],_0x4957ad[_0x57790e(0xf8)]='<span\x20class=\x22spin\x22></span>\x20Memproses',_0x1a3813[_0x57790e(0x10a)]['remove'](_0x57790e(0xf4)),_0x173477['innerHTML']='',_0x51e98f=[],_0x35a1fb(_0x57790e(0xf6));try{var _0x2c9ccc=await _0x1a081f(_0x2cf914),_0x3b4250=_0x5c1d58(_0x2c9ccc);_0x4cb7eb(_0x3b4250),_0x339ce6(_0x57790e(0xda),'ok');try{_0x1a3813[_0x57790e(0xf0)]({'behavior':_0x57790e(0x101),'block':_0x57790e(0x104)});}catch(_0x57783a){_0x1a3813[_0x57790e(0xf0)](!![]);}}catch(_0x378f3e){_0x339ce6('Gagal:\x20'+(_0x378f3e[_0x57790e(0x121)]||_0x57790e(0xb1)),_0x57790e(0xd8));}finally{_0x1038ca=![],_0x4957ad[_0x57790e(0xa9)]=![],_0x4957ad[_0x57790e(0xf8)]=_0x57790e(0xaa);}}_0xf52760['onclick']=async function(){var _0x2445a0=_0x58a075;try{if(navigator['clipboard']&&navigator[_0x2445a0(0x11f)][_0x2445a0(0xb9)]){var _0x2dd96e=await navigator[_0x2445a0(0x11f)]['readText']();if(_0x2dd96e){_0x3366c4[_0x2445a0(0x113)]=_0x2dd96e[_0x2445a0(0xed)](),_0x322f9c(),_0x3366c4['focus'](),_0x339ce6('Link\x20berhasil\x20ditempel.','ok');return;}}_0x3366c4[_0x2445a0(0xb5)](),_0x339ce6(_0x2445a0(0x10b),_0x2445a0(0xd8));}catch(_0x2ef038){_0x3366c4[_0x2445a0(0xb5)](),_0x339ce6(_0x2445a0(0xa3),_0x2445a0(0xd8));}},_0x445b41[_0x58a075(0x99)]=function(){var _0x210a0a=_0x58a075;_0x3366c4[_0x210a0a(0x113)]='',_0x322f9c(),_0x3e35df(),_0x3366c4[_0x210a0a(0xb5)]();},_0x28306d(_0x58a075(0x102))[_0x58a075(0x99)]=function(){var _0x108bc5=_0x58a075;_0x1a3813[_0x108bc5(0x10a)][_0x108bc5(0xc7)](_0x108bc5(0xf4)),_0x173477[_0x108bc5(0xf8)]='',_0x51e98f=[],_0x3366c4['value']='',_0x322f9c(),_0x3e35df();try{window['scrollTo'](0x0,0x0);}catch(_0x4e2cc5){}_0x3366c4[_0x108bc5(0xb5)]();},_0x2da01e[_0x58a075(0x99)]=_0x65fd49,_0x3366c4[_0x58a075(0xae)](_0x58a075(0xd1),_0x322f9c),_0x3366c4['addEventListener']('keydown',function(_0x153611){var _0x466904=_0x58a075;if(_0x153611[_0x466904(0xc4)]===_0x466904(0x10f))_0x3332c1();}),_0x3366c4['addEventListener'](_0x58a075(0xcb),function(){setTimeout(_0x322f9c,0x32);}),_0x4957ad['onclick']=_0x3332c1,_0x322f9c();}()));function _0x57f7(){var _0x4944e2=['set','blob','classList','Clipboard\x20tidak\x20tersedia.\x20Tekan\x20lama\x20kolom\x20lalu\x20pilih\x20Tempel.','block','URL\x20media\x20tidak\x20ditemukan.','<span\x20class=\x22spin\x22></span>\x20','Enter','<span\x20class=\x22spin\x22></span>','2329210cZRtSi','match','value','finally','button','add','jpeg','status','none','items','DIMZZ1','thumbnail','isArray','msg\x20show\x20','clipboard','parse','message','Unduhan\x20terlalu\x20lama.','card','protocol','Proses\x20selesai.\x20Periksa\x20notifikasi\x20browser\x20atau\x20folder\x20Unduhan\x20untuk\x20melihat\x20file\x20yang\x20tersimpan.','article','href','Tempel\x20link\x20Threads\x20dulu\x20ya.','then','toLowerCase','Download\x20video','no-store','onclick','indexOf','658536ZaXvSn','number','\x20/\x20','URL','HTTP\x20','path','card-bottom','Tidak\x20bisa\x20mengakses\x20API.\x20Periksa\x20koneksi,\x20CORS,\x20atau\x20konfigurasi\x20endpoint.','Izin\x20clipboard\x20tidak\x20tersedia.\x20Tekan\x20lama\x20kolom\x20lalu\x20pilih\x20Tempel.','searchParams','display','pathname','1FmXgtH','preview','disabled','<i\x20class=\x22fa-solid\x20fa-arrow-right\x22></i>\x20Ambil\x20media','Permintaan\x20unduhan\x20dikirim.\x20Periksa\x20notifikasi\x20browser\x20atau\x20folder\x20Unduhan.','onerror','84chuXJL','addEventListener','download','Tidak\x20ada\x20media\x20yang\x20ditemukan.','Terjadi\x20kesalahan.\x20Coba\x20lagi.','https:','empty','jpg','focus','signal','Download\x20foto','appendChild','readText','revokeObjectURL','src','hostname','video','click','Foto\x20tidak\x20dapat\x20ditampilkan','482702pjhdbI','Waktu\x20permintaan\x20habis.','img','data','key','photo','createObjectURL','remove','Server\x20terlalu\x20lama\x20merespons.\x20Coba\x20lagi.','createTextNode','<i\x20class=\x22fa-solid\x20fa-video\x22></i>\x20VIDEO','paste','text','size','undefined','load','210203wxSUPU','input','downloader/threads','796292CVaOgz','createElement','url','Respons\x20server\x20tidak\x20valid.\x20Periksa\x20endpoint\x20API.','name','error','type','Media\x20berhasil\x20ditemukan.\x20Pilih\x20file\x20yang\x20ingin\x20disimpan.','27xgbFEt','length','\x20dari\x20','msg','alt','image','Server\x20sedang\x20bermasalah\x20(HTTP\x20','photos','result','610888EkQoIU','noopener\x20noreferrer','grid','preload','Foto\x20Threads\x20','test','push','GET','Sebagian\x20file\x20tidak\x20dapat\x20diambil\x20langsung\x20oleh\x20browser.\x20Coba\x20unduh\x20satu\x20per\x20satu\x20atau\x20buka\x20media\x20untuk\x20menyimpannya.','trim','setAttribute','File\x20tidak\x20bisa\x20diunduh\x20langsung\x20dari\x20halaman\x20ini.\x20Media\x20dibuka\x20di\x20tab\x20baru;\x20gunakan\x20menu\x20browser\x20untuk\x20menyimpannya.','scrollIntoView','div','playsinline','style','show','4lLyQQu','Sedang\x20mengambil\x20media\x20dari\x20Threads...','textContent','innerHTML','videos','body','poster','1440985RMLBPQ','Memproses\x20media\x20','target','downloadAll','66azhbEq','smooth','newSearch','picture','start','_blank','Media\x20Threads\x20gagal\x20diproses.','className'];_0x57f7=function(){return _0x4944e2;};return _0x57f7();}
+    </script>
+  </body>
+</html>
