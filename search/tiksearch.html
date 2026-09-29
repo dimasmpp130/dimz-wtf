@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,maximum-scale=1"
+    />
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="Cari, tonton, dan download video TikTok dengan mudah."
+    />
+    <title>TikTok Explorer — DIMMZZZSUM_ENAK</title>
+    <style>
+      *{box-sizing:border-box;margin:0;padding:0}
+      body{background:#f5f5f7;color:#17171a;font-family:Arial,Helvetica,sans-serif;min-height:100vh}
+      button,input{font:inherit}
+      button{cursor:pointer}
+      .container{width:820px;max-width:calc(100% - 28px);margin:auto}
+      .header{padding:28px 0 18px}
+      .brand{display:flex;align-items:center;justify-content:space-between}
+      .brand-left{display:flex;align-items:center;gap:11px;min-width:0}
+      .logo{width:42px;height:42px;border-radius:13px;background:#111;color:#fff;display:grid;place-items:center;font-size:21px;font-weight:bold;flex-shrink:0}
+      .brand h1{font-size:20px;letter-spacing:-.5px}
+      .brand p{color:#85858c;font-size:12px;margin-top:4px;line-height:1.5}
+      .badge{background:#fff;border:1px solid #e5e5e8;color:#666;border-radius:20px;padding:7px 10px;font-size:10px;white-space:nowrap}
+      .search{margin-top:22px;background:#fff;border:1px solid #e3e3e7;border-radius:15px;padding:5px;display:flex;box-shadow:0 4px 15px rgba(0,0,0,.035)}
+      .search input{flex:1;width:0;min-width:0;height:43px;padding:0 12px;border:0;outline:0;background:transparent;color:#111;font-size:14px}
+      .search input::placeholder{color:#a0a0a7}
+      .search button{border:0;border-radius:11px;padding:0 18px;background:#111;color:#fff;font-weight:bold;font-size:13px}
+      .search button:disabled{opacity:.5}
+      .tags{display:flex;gap:7px;overflow-x:auto;padding:10px 1px 2px}
+      .tags::-webkit-scrollbar{display:none}
+      .tag{flex:0 0 auto;border:1px solid #dedee3;background:#fff;color:#666;border-radius:20px;padding:8px 12px;font-size:11px}
+      .tag:active,.action:active{opacity:.75}
+      .status{min-height:22px;color:#888;font-size:12px;padding:12px 2px 5px;line-height:1.6;overflow-wrap:anywhere}
+      .results{display:grid;gap:15px;padding:5px 0 40px}
+      .empty{background:#fff;border:1px solid #e5e5e8;border-radius:17px;padding:48px 20px;text-align:center;color:#888;font-size:13px;line-height:1.7}
+      .empty-icon{width:46px;height:46px;border-radius:50%;background:#f0f0f2;display:grid;place-items:center;margin:0 auto 12px;font-size:22px;color:#555}
+      .card{background:#fff;border:1px solid #e4e4e7;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.035)}
+      .media{position:relative;background:#101010;aspect-ratio:16/10;overflow:hidden}
+      .media video{width:100%;height:100%;display:block;object-fit:cover}
+      .cover{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;z-index:2}
+      .media.playing .cover{display:none}
+      .duration{position:absolute;right:10px;bottom:10px;padding:5px 7px;background:rgba(0,0,0,.7);color:#fff;border-radius:7px;font-size:10px;pointer-events:none;z-index:4}
+      .details{padding:14px}
+      .creator{display:flex;align-items:center;gap:9px;min-width:0}
+      .avatar{width:34px;height:34px;border-radius:50%;background:#eee;display:grid;place-items:center;font-size:13px;font-weight:bold;color:#555;flex:0 0 34px}
+      .creator-name{font-size:13px;font-weight:bold;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+      .creator-label{color:#999;font-size:10px;margin-top:3px}
+      .description{color:#5f5f67;font-size:12px;line-height:1.6;margin-top:11px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;overflow-wrap:anywhere}
+      .stats{display:flex;gap:6px;flex-wrap:wrap;margin-top:11px}
+      .stat{padding:6px 8px;border-radius:8px;background:#f5f5f6;color:#777;font-size:10px}
+      .actions{display:flex;gap:8px;margin-top:13px}
+      .action{min-height:39px;flex:1;border-radius:10px;border:1px solid #dedee2;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:11px;font-weight:bold;padding:8px;text-align:center}
+      .watch{color:#222;background:#fff}
+      .download{background:#111;border-color:#111;color:#fff}
+      .action:disabled{opacity:.5;cursor:not-allowed}
+      .note{text-align:center;color:#aaa;font-size:10px;padding:0 0 24px;line-height:1.8}
+      .error{background:#fff;border:1px solid #ead5d5;color:#8e4545;border-radius:15px;padding:17px;font-size:12px;line-height:1.7;overflow-wrap:anywhere}
+      .error-title{font-size:14px;font-weight:bold;color:#8e3434;margin-bottom:7px}
+      .error-desc{color:#777;font-size:11px;margin-top:9px}
+      .notice{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:10001;width:calc(100% - 28px);max-width:430px;padding:14px;background:#fff;border:1px solid #e5e5e8;border-radius:13px;box-shadow:0 7px 25px rgba(0,0,0,.13);font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+      .notice strong{display:block;font-size:13px;margin-bottom:4px}
+      .notice.error{border-color:#f0cece;color:#9b3333}
+      .notice.success{border-color:#cce8d5;color:#267343}
+      .notice.warning{border-color:#f0dfb7;color:#805c17}
+      .notice[hidden]{display:none}
+      .modal{position:fixed;inset:0;z-index:10000;background:rgba(15,15,20,.48);display:flex;align-items:center;justify-content:center;padding:18px}
+      .modal[hidden]{display:none}
+      .modal-box{width:100%;max-width:390px;background:#fff;border:1px solid #eee;border-radius:20px;padding:23px 20px 19px;box-shadow:0 15px 45px rgba(0,0,0,.14)}
+      .modal-logo{width:48px;height:48px;display:grid;place-items:center;background:#111;color:#fff;border-radius:15px;font-size:24px;margin-bottom:17px}
+      .modal-title{font-size:19px;letter-spacing:-.4px;line-height:1.35}
+      .modal-desc{font-size:12px;color:#73737c;line-height:1.8;margin-top:9px}
+      .modal-info{background:#f6f6f7;border-radius:12px;padding:12px;margin-top:15px}
+      .modal-info strong{display:block;font-size:12px;margin-bottom:5px}
+      .modal-info p{font-size:11px;line-height:1.8;color:#73737c}
+      .modal-button{width:100%;height:43px;border:0;border-radius:11px;background:#111;color:#fff;font-size:12px;font-weight:bold;margin-top:17px}
+      .spinner{display:inline-block;width:14px;height:14px;border:2px solid #ddd;border-top-color:#111;border-radius:50%;vertical-align:middle;margin-right:7px}
+      @media(max-width:500px){
+      .container{max-width:calc(100% - 18px)}
+      .header{padding-top:21px}
+      .badge{display:none}
+      .brand h1{font-size:18px}
+      .search button{padding:0 15px}
+      .media{aspect-ratio:9/12;max-height:510px}
+      .media video,.cover{object-fit:cover}
+      .modal-box{padding:21px 18px 17px}
+      }
+      @media(prefers-reduced-motion:reduce){
+      *{scroll-behavior:auto!important;animation:none!important;transition:none!important}
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="brand">
+          <div class="brand-left">
+            <div class="logo">♪</div>
+            <div>
+              <h1>TikTok Explorer</h1>
+              <p>Cari, tonton, dan download video TikTok favoritmu.</p>
+            </div>
+          </div>
+          <div class="badge">VIDEO SEARCH</div>
+        </div>
+        <form class="search" id="searchForm">
+          <input
+            id="query"
+            type="search"
+            placeholder="Mau cari apa?"
+            autocomplete="off"
+            maxlength="100"
+          />
+          <button id="searchButton" type="submit">Cari</button>
+        </form>
+        <div class="tags">
+          <button class="tag" type="button" data-query="viral">Viral</button>
+          <button class="tag" type="button" data-query="funny">Funny</button>
+          <button class="tag" type="button" data-query="gaming">Gaming</button>
+          <button class="tag" type="button" data-query="food">Food</button>
+          <button class="tag" type="button" data-query="music">Music</button>
+          <button class="tag" type="button" data-query="tutorial">
+            Tutorial
+          </button>
+        </div>
+      </header>
+
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+      <div
+        class="notice"
+        id="notice"
+        role="alert"
+        aria-live="assertive"
+        hidden
+      ></div>
+
+      <main class="results" id="results">
+        <div class="empty">
+          <div class="empty-icon">⌕</div>
+          <div>
+            Cari video menggunakan kolom di atas. Hasil pencarian akan muncul di
+            sini.
+          </div>
+        </div>
+      </main>
+      <div class="note">© 2026 · <span id="footerText"></span></div>
+    </div>
+
+    <div
+      class="modal"
+      id="welcomeModal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="welcomeTitle"
+      hidden
+    >
+      <div class="modal-box">
+        <div class="modal-logo">♪</div>
+        <h2 class="modal-title" id="welcomeTitle">
+          Selamat datang di TikTok Explorer
+        </h2>
+        <p class="modal-desc">
+          Temukan video TikTok, lihat pratinjau, dan coba unduh video yang
+          tersedia melalui layanan downloader.
+        </p>
+        <div class="modal-info">
+          <strong>Informasi sebelum menggunakan</strong>
+          <p>
+            Video private, terhapus, dibatasi, atau tautannya kedaluwarsa
+            mungkin tidak dapat diproses. Kegagalan juga bisa disebabkan
+            koneksi, server, atau pembatasan browser.
+          </p>
+        </div>
+        <button type="button" class="modal-button" id="welcomeClose">
+          Mulai Jelajah
+        </button>
+      </div>
+    </div>
+
+    <script src="/config.js"></script>
+    <script>
+      var footer=document.getElementById("footerText");
+      function _0x7944(_0x2b71fb,_0x4817c2){_0x2b71fb=_0x2b71fb-0x1ba;var _0x369035=_0x3690();var _0x7944fa=_0x369035[_0x2b71fb];return _0x7944fa;}(function(_0x46e119,_0x2245a7){var _0x478b53=_0x7944,_0x3de1d2=_0x46e119();while(!![]){try{var _0x2c4034=-parseInt(_0x478b53(0x239))/0x1+parseInt(_0x478b53(0x21a))/0x2+parseInt(_0x478b53(0x23a))/0x3*(parseInt(_0x478b53(0x251))/0x4)+parseInt(_0x478b53(0x22d))/0x5+-parseInt(_0x478b53(0x1d8))/0x6+-parseInt(_0x478b53(0x25b))/0x7*(parseInt(_0x478b53(0x1d7))/0x8)+-parseInt(_0x478b53(0x202))/0x9;if(_0x2c4034===_0x2245a7)break;else _0x3de1d2['push'](_0x3de1d2['shift']());}catch(_0x17e47c){_0x3de1d2['push'](_0x3de1d2['shift']());}}}(_0x3690,0x8cc6e),(function(){'use strict';var _0x2c3221=_0x7944;var _0x274763='',_0x3b5229=_0x2c3221(0x237),_0x212e6a=document[_0x2c3221(0x238)](_0x2c3221(0x24b)),_0xb1089d=document[_0x2c3221(0x238)](_0x2c3221(0x1bd)),_0x2caf11=document['getElementById'](_0x2c3221(0x1f5)),_0x133607=document[_0x2c3221(0x238)](_0x2c3221(0x1e2)),_0x357c57=document[_0x2c3221(0x238)](_0x2c3221(0x274)),_0x50bd42=document['getElementById']('notice'),_0x167e1c=document[_0x2c3221(0x238)](_0x2c3221(0x200)),_0x12113a=![],_0x552621=null;try{typeof CONFIG!==_0x2c3221(0x268)?(_0x274763=String(CONFIG[_0x2c3221(0x1eb)]&&CONFIG[_0x2c3221(0x1eb)][_0x2c3221(0x236)]||'')['trim'](),footer[_0x2c3221(0x245)]=CONFIG[_0x2c3221(0x215)]&&CONFIG[_0x2c3221(0x215)]['FOOTER1']||_0x2c3221(0x24a)):footer[_0x2c3221(0x245)]=_0x2c3221(0x24a);}catch(_0xaea506){footer[_0x2c3221(0x245)]=_0x2c3221(0x24a);}function _0x2467f0(_0x190dbb){var _0x23712c=_0x2c3221;return String(_0x190dbb==null?'':_0x190dbb)[_0x23712c(0x211)](/&/g,_0x23712c(0x206))[_0x23712c(0x211)](/</g,_0x23712c(0x273))[_0x23712c(0x211)](/>/g,_0x23712c(0x1c3))[_0x23712c(0x211)](/"/g,_0x23712c(0x21b))[_0x23712c(0x211)](/'/g,_0x23712c(0x204));}function _0x24b6e1(_0x48c040,_0x3b5fcc,_0x53be72){var _0xfd4a29=_0x2c3221;clearTimeout(_0x552621);while(_0x50bd42[_0xfd4a29(0x255)])_0x50bd42[_0xfd4a29(0x1fa)](_0x50bd42[_0xfd4a29(0x255)]);_0x50bd42['className']=_0xfd4a29(0x1d3)+(_0x53be72||'warning');var _0x11f165=document[_0xfd4a29(0x1e4)]('strong');_0x11f165[_0xfd4a29(0x245)]=_0x48c040;var _0x127aca=document[_0xfd4a29(0x1e4)](_0xfd4a29(0x223));_0x127aca[_0xfd4a29(0x245)]=_0x3b5fcc,_0x50bd42[_0xfd4a29(0x26e)](_0x11f165),_0x50bd42['appendChild'](_0x127aca),_0x50bd42['hidden']=![],_0x552621=setTimeout(function(){_0x50bd42['hidden']=!![];},0x1964);}function _0x5e09d5(_0x376618){_0x357c57['textContent']=_0x376618||'';}function _0x3a94c6(_0x3a06a9){var _0x3e27c6=_0x2c3221;_0x2caf11['disabled']=_0x3a06a9,_0x2caf11['textContent']=_0x3a06a9?_0x3e27c6(0x21f):_0x3e27c6(0x26f);if(_0x3a06a9)_0x5e09d5(_0x3e27c6(0x229));}function _0x340d73(_0x2db075){var _0x195c7c=_0x2c3221,_0x6fe3b=Number(_0x2db075||0x0);if(!isFinite(_0x6fe3b))return'0';if(_0x6fe3b>=0x3b9aca00)return(_0x6fe3b/0x3b9aca00)[_0x195c7c(0x213)](0x1)['replace']('.0','')+'B';if(_0x6fe3b>=0xf4240)return(_0x6fe3b/0xf4240)['toFixed'](0x1)[_0x195c7c(0x211)]('.0','')+'M';if(_0x6fe3b>=0x3e8)return(_0x6fe3b/0x3e8)[_0x195c7c(0x213)](0x1)[_0x195c7c(0x211)]('.0','')+'K';return _0x6fe3b[_0x195c7c(0x227)](_0x195c7c(0x243));}function _0x34dc63(_0xbaf7de){var _0x1b7a1f=_0x2c3221,_0x4e13be=Number(_0xbaf7de||0x0);if(!_0x4e13be||!isFinite(_0x4e13be))return'';return Math[_0x1b7a1f(0x260)](_0x4e13be/0x3c)+':'+('0'+Math[_0x1b7a1f(0x260)](_0x4e13be%0x3c))[_0x1b7a1f(0x1fe)](-0x2);}function _0x4edca6(_0x445196){var _0x54097d=_0x2c3221;if(_0x445196&&Array[_0x54097d(0x1e3)](_0x445196[_0x54097d(0x252)]))return _0x445196[_0x54097d(0x252)];if(Array[_0x54097d(0x1e3)](_0x445196))return _0x445196;if(_0x445196&&Array[_0x54097d(0x1e3)](_0x445196[_0x54097d(0x1dd)]))return _0x445196['result'];if(_0x445196&&Array[_0x54097d(0x1e3)](_0x445196['results']))return _0x445196[_0x54097d(0x1e2)];if(_0x445196&&_0x445196[_0x54097d(0x252)]&&Array[_0x54097d(0x1e3)](_0x445196[_0x54097d(0x252)][_0x54097d(0x257)]))return _0x445196['data']['items'];if(_0x445196&&_0x445196[_0x54097d(0x1dd)]&&Array[_0x54097d(0x1e3)](_0x445196['result']['items']))return _0x445196[_0x54097d(0x1dd)][_0x54097d(0x257)];return[];}function _0x9672d9(_0x5c79c0){var _0x11156d=_0x2c3221,_0x182a0b=_0x5c79c0&&_0x5c79c0[_0x11156d(0x1e5)]?String(_0x5c79c0[_0x11156d(0x1e5)])['trim']():'';if(!_0x182a0b)return'';try{var _0x6af9ee=new URL(_0x182a0b),_0x2c1921=_0x6af9ee['hostname'][_0x11156d(0x1df)]();if(_0x2c1921===_0x11156d(0x266)||_0x2c1921[_0x11156d(0x1fe)](-0xb)===_0x11156d(0x240))return _0x6af9ee['href'];}catch(_0x48e2d0){}return'';}function _0x7a0dfb(_0x446fd){var _0x396c45=_0x2c3221,_0x2bae28=String(_0x446fd||_0x396c45(0x207))[_0x396c45(0x211)](/^@/,'')[_0x396c45(0x211)](/[^a-zA-Z0-9._-]/g,'')['substring'](0x0,0x46);return(_0x2bae28||'tiktok-video')+_0x396c45(0x26b);}function _0x8f377d(_0x1bc6d3,_0x129eb5){var _0x23d265=_0x2c3221,_0x346950=String(_0x1bc6d3||'')['toLowerCase'](),_0x4a3287=Number(_0x129eb5||0x0);if(/private video|video is private|video private|privacy|privasi|only friends|friends only|author private|akun privat|akun private|private account/[_0x23d265(0x1c2)](_0x346950))return{'title':'Video\x20Bersifat\x20Private','desc':_0x23d265(0x23b),'type':'warning'};if(/deleted|has been removed|removed video|not found|does not exist|doesn't exist|video unavailable|unavailable video|video not exist|tidak ditemukan|sudah dihapus|video dihapus/['test'](_0x346950)||_0x4a3287===0x194||_0x4a3287===0x19a)return{'title':_0x23d265(0x249),'desc':_0x23d265(0x1f8),'type':_0x23d265(0x210)};if(/region|country restricted|not visible in your country|restricted access|geo.?block|access denied|forbidden/[_0x23d265(0x1c2)](_0x346950)||_0x4a3287===0x193)return{'title':_0x23d265(0x23d),'desc':_0x23d265(0x26c),'type':_0x23d265(0x210)};if(/under review|being reviewed|risk control|video hidden|video is hidden/[_0x23d265(0x1c2)](_0x346950))return{'title':_0x23d265(0x1e0),'desc':_0x23d265(0x1d1),'type':'warning'};if(/failed to fetch|networkerror|network request failed|koneksi|cors|timed out|timeout|load failed/[_0x23d265(0x1c2)](_0x346950))return{'title':_0x23d265(0x27c),'desc':'Browser\x20gagal\x20mengambil\x20data\x20atau\x20file\x20video.\x20Periksa\x20koneksi\x20internet,\x20lalu\x20coba\x20lagi.\x20Jika\x20masalah\x20terus\x20terjadi,\x20layanan\x20mungkin\x20memerlukan\x20proxy\x20backend.','type':_0x23d265(0x1d5)};if(/http 429|too many requests|rate limit/[_0x23d265(0x1c2)](_0x346950)||_0x4a3287===0x1ad)return{'title':_0x23d265(0x1d6),'desc':_0x23d265(0x1d2),'type':'warning'};if(/http 5\d\d|server error|internal server|service unavailable/[_0x23d265(0x1c2)](_0x346950)||_0x4a3287>=0x1f4)return{'title':_0x23d265(0x235),'desc':_0x23d265(0x247),'type':_0x23d265(0x1d5)};return{'title':_0x23d265(0x23e),'desc':_0x23d265(0x225),'type':'error'};}function _0x111fed(_0x5c13a1,_0x390a1b){var _0x12209a=_0x2c3221,_0x51b5e9=_0x8f377d(_0x5c13a1,_0x390a1b);_0x5e09d5(_0x51b5e9[_0x12209a(0x275)]+':\x20'+_0x51b5e9[_0x12209a(0x230)]),_0x24b6e1(_0x51b5e9['title'],_0x51b5e9[_0x12209a(0x230)],_0x51b5e9[_0x12209a(0x212)]);}function _0x452a8a(_0x4de94f){var _0x10b18c=_0x2c3221;if(!_0x4de94f||typeof _0x4de94f!==_0x10b18c(0x256))throw new Error('Respons\x20downloader\x20tidak\x20valid.');if(Number(_0x4de94f[_0x10b18c(0x20f)])!==0x0)throw new Error(String(_0x4de94f['msg']||_0x4de94f[_0x10b18c(0x246)]||_0x10b18c(0x205)));if(!_0x4de94f['data']||typeof _0x4de94f[_0x10b18c(0x252)]!==_0x10b18c(0x256))throw new Error(String(_0x4de94f[_0x10b18c(0x26a)]||_0x4de94f[_0x10b18c(0x246)]||_0x10b18c(0x24f)));var _0xb42fd5=_0x4de94f[_0x10b18c(0x252)][_0x10b18c(0x201)];if(typeof _0xb42fd5!==_0x10b18c(0x250)||!/^https?:\/\//i[_0x10b18c(0x1c2)](_0xb42fd5))throw new Error(String(_0x4de94f['msg']||_0x4de94f[_0x10b18c(0x246)]||'URL\x20file\x20video\x20tidak\x20ditemukan.'));return _0xb42fd5;}function _0x25379e(_0x4aea34,_0x58dc2c){var _0xc179bc=_0x2c3221,_0x2ac395=URL[_0xc179bc(0x216)](_0x4aea34),_0xbc8140=document[_0xc179bc(0x1e4)]('a');_0xbc8140[_0xc179bc(0x1f1)]=_0x2ac395,_0xbc8140[_0xc179bc(0x25d)]=_0x58dc2c,_0xbc8140[_0xc179bc(0x20a)][_0xc179bc(0x1ce)]=_0xc179bc(0x277),document['body'][_0xc179bc(0x26e)](_0xbc8140),_0xbc8140['click'](),document['body'][_0xc179bc(0x1fa)](_0xbc8140),setTimeout(function(){var _0x912db7=_0xc179bc;URL[_0x912db7(0x1f2)](_0x2ac395);},0x2710);}async function _0x51c320(_0x18406c,_0x7e8499,_0x5d17ae){var _0x536321=_0x2c3221;if(!_0x18406c){_0x24b6e1(_0x536321(0x272),'Hasil\x20pencarian\x20ini\x20tidak\x20menyertakan\x20tautan\x20TikTok\x20asli.\x20Coba\x20hasil\x20lain.',_0x536321(0x210));return;}var _0x488535=_0x5d17ae['textContent'];_0x5d17ae['disabled']=!![],_0x5d17ae[_0x536321(0x245)]=_0x536321(0x1e7),_0x5e09d5(_0x536321(0x21e));try{var _0x3e14f3;try{_0x3e14f3=await fetch(_0x3b5229+_0x536321(0x25c)+encodeURIComponent(_0x18406c),{'method':'GET','cache':_0x536321(0x1d9),'headers':{'Accept':_0x536321(0x1da)}});}catch(_0x561c20){throw new Error(_0x536321(0x25a));}var _0x11474a=await _0x3e14f3[_0x536321(0x220)](),_0x140781;try{_0x140781=JSON[_0x536321(0x1e1)](_0x11474a);}catch(_0x44e954){throw new Error(_0x536321(0x233)+_0x3e14f3[_0x536321(0x274)]+'.');}if(!_0x3e14f3['ok']){var _0x404672=new Error(String(_0x140781[_0x536321(0x26a)]||_0x140781[_0x536321(0x246)]||'Permintaan\x20downloader\x20gagal.'));_0x404672[_0x536321(0x24e)]=_0x3e14f3[_0x536321(0x274)];throw _0x404672;}var _0x288811=_0x452a8a(_0x140781);_0x5e09d5('Video\x20ditemukan.\x20Menyiapkan\x20file...');var _0x2dadb9;try{_0x2dadb9=await fetch(_0x288811,{'method':_0x536321(0x1ed),'cache':_0x536321(0x1d9)});}catch(_0x1cdf00){throw new Error(_0x536321(0x261));}if(!_0x2dadb9['ok']){var _0x32dbc4=new Error('File\x20video\x20gagal\x20diambil.');_0x32dbc4[_0x536321(0x24e)]=_0x2dadb9[_0x536321(0x274)];throw _0x32dbc4;}var _0x4561b7=(_0x2dadb9[_0x536321(0x1f9)][_0x536321(0x258)](_0x536321(0x25f))||'')[_0x536321(0x1df)]();if(_0x4561b7[_0x536321(0x217)]('text/html')!==-0x1||_0x4561b7[_0x536321(0x217)]('application/json')!==-0x1)throw new Error(_0x536321(0x1f3));var _0x214d5d=await _0x2dadb9[_0x536321(0x1ea)]();if(!_0x214d5d||!_0x214d5d[_0x536321(0x1c8)])throw new Error(_0x536321(0x1bb));_0x25379e(_0x214d5d,_0x7a0dfb(_0x7e8499)),_0x5e09d5(_0x536321(0x253)),_0x24b6e1(_0x536321(0x203),_0x536321(0x1ff),_0x536321(0x27a));}catch(_0x16400e){_0x111fed(_0x16400e&&_0x16400e[_0x536321(0x246)]||_0x536321(0x1ec),_0x16400e&&_0x16400e[_0x536321(0x24e)]);}finally{_0x5d17ae[_0x536321(0x1fd)]=![],_0x5d17ae[_0x536321(0x245)]=_0x488535;}}function _0x588017(_0x506afb,_0x36fe90){var _0x580936=_0x2c3221;_0x506afb=_0x506afb||{};var _0x4255d2=_0x506afb[_0x580936(0x26d)]||'',_0x4d86b5=_0x506afb[_0x580936(0x267)]||'',_0x110768=_0x9672d9(_0x506afb),_0x257f77=_0x506afb['username']||_0x580936(0x1c4),_0x689bdb=_0x506afb[_0x580936(0x22e)]||_0x257f77,_0x5693d4=_0x506afb[_0x580936(0x230)]||_0x506afb[_0x580936(0x1bc)]||_0x506afb['content']||_0x506afb['text']||'Tidak\x20ada\x20deskripsi.',_0x567ec6=_0x34dc63(_0x506afb[_0x580936(0x24c)]),_0x1fb360=String(_0x689bdb||_0x257f77)['charAt'](0x0)[_0x580936(0x278)](),_0x5e5056=document[_0x580936(0x1e4)](_0x580936(0x1c0));_0x5e5056[_0x580936(0x1f7)]=_0x580936(0x1e8),_0x5e5056[_0x580936(0x23c)]='<div\x20class=\x22media\x22>'+(_0x4d86b5?'<img\x20class=\x22cover\x22\x20src=\x22'+_0x2467f0(_0x4d86b5)+'\x22\x20alt=\x22Pratinjau\x20video\x22\x20loading=\x22lazy\x22>':'')+(_0x4255d2?'<video\x20src=\x22'+_0x2467f0(_0x4255d2)+_0x580936(0x1d0):'<div\x20style=\x22height:100%;min-height:180px;display:grid;place-items:center;color:#aaa;font-size:12px\x22>Pratinjau\x20tidak\x20tersedia</div>')+(_0x567ec6?_0x580936(0x1cc)+_0x2467f0(_0x567ec6)+'</span>':'')+_0x580936(0x241)+_0x580936(0x1c1)+_0x2467f0(_0x1fb360)+_0x580936(0x25e)+_0x580936(0x1c6)+_0x2467f0(_0x689bdb)+_0x580936(0x25e)+'<div\x20class=\x22creator-label\x22>@'+_0x2467f0(_0x257f77)+_0x580936(0x279)+_0x580936(0x269)+_0x2467f0(_0x5693d4)+_0x580936(0x1be)+(_0x506afb['playCount']!=null?_0x580936(0x209)+_0x340d73(_0x506afb[_0x580936(0x22b)])+_0x580936(0x1ef):'')+(_0x506afb[_0x580936(0x1e6)]!=null?_0x580936(0x271)+_0x340d73(_0x506afb[_0x580936(0x1e6)])+_0x580936(0x1ef):'')+(_0x506afb[_0x580936(0x1fb)]!=null?'<span\x20class=\x22stat\x22>💬\x20'+_0x340d73(_0x506afb[_0x580936(0x1fb)])+'</span>':'')+(_0x506afb[_0x580936(0x1cf)]!=null?_0x580936(0x1de)+_0x340d73(_0x506afb[_0x580936(0x1cf)])+_0x580936(0x1ef):'')+_0x580936(0x263)+(_0x110768?_0x580936(0x208)+_0x2467f0(_0x110768)+_0x580936(0x264):_0x580936(0x21c))+_0x580936(0x27b)+(_0x110768?'':'disabled')+'>'+(_0x110768?_0x580936(0x1bf):_0x580936(0x1db))+_0x580936(0x1ba)+_0x580936(0x1c9);var _0x5ade96=_0x5e5056['querySelector'](_0x580936(0x265)),_0x5812d7=_0x5e5056[_0x580936(0x1f4)](_0x580936(0x1dc)),_0x74a65a=_0x5e5056['querySelector'](_0x580936(0x228)),_0x4f2e06=_0x5e5056['querySelector'](_0x580936(0x1e9)),_0x351cd4=_0x5e5056[_0x580936(0x1f4)](_0x580936(0x270));return _0x5812d7&&(_0x5812d7[_0x580936(0x242)](_0x580936(0x201),function(){var _0x466018=_0x580936;_0x5ade96[_0x466018(0x262)][_0x466018(0x218)]('playing');}),_0x5812d7[_0x580936(0x242)](_0x580936(0x22f),function(){var _0x4b9ac4=_0x580936;_0x5ade96['classList'][_0x4b9ac4(0x1d4)](_0x4b9ac4(0x20c));}),_0x5812d7[_0x580936(0x242)](_0x580936(0x276),function(){var _0x5e0bf0=_0x580936;_0x5ade96['classList']['remove'](_0x5e0bf0(0x20c));}),_0x5812d7[_0x580936(0x242)]('error',function(){var _0x57fb58=_0x580936;_0x24b6e1(_0x57fb58(0x23f),'File\x20pratinjau\x20mungkin\x20kedaluwarsa\x20atau\x20tidak\x20dapat\x20diputar.\x20Coba\x20buka\x20video\x20asli\x20di\x20TikTok.',_0x57fb58(0x210));})),_0x74a65a&&_0x74a65a[_0x580936(0x242)]('error',function(){var _0x5902fa=_0x580936;_0x74a65a['style'][_0x5902fa(0x1ce)]=_0x5902fa(0x277);}),_0x351cd4&&_0x351cd4['addEventListener'](_0x580936(0x259),function(){var _0x4b5ba8=_0x580936;_0x24b6e1(_0x4b5ba8(0x20b),_0x4b5ba8(0x254),_0x4b5ba8(0x210));}),_0x4f2e06[_0x580936(0x242)]('click',function(){_0x51c320(_0x110768,_0x257f77,_0x4f2e06);}),_0x5e5056;}async function _0x4a9cf4(_0xfac6ea){var _0x2cdb5d=_0x2c3221,_0x4da39e=String(_0xfac6ea||'')[_0x2cdb5d(0x232)]();if(!_0x4da39e){_0xb1089d[_0x2cdb5d(0x22a)]();return;}if(_0x12113a)return;if(!_0x274763){_0x24b6e1(_0x2cdb5d(0x1ee),_0x2cdb5d(0x248),_0x2cdb5d(0x1d5)),_0x5e09d5('Endpoint\x20tidak\x20ditemukan.');return;}_0x12113a=!![],_0x3a94c6(!![]),_0x133607['innerHTML']='';try{var _0x5af571=new URLSearchParams();_0x5af571['set'](_0x2cdb5d(0x1f0),_0x2cdb5d(0x219)),_0x5af571[_0x2cdb5d(0x1cd)]('q',_0x4da39e),_0x5af571['set']('type','item');var _0x3c6264=_0x274763+(_0x274763[_0x2cdb5d(0x217)]('?')===-0x1?'?':'&')+_0x5af571[_0x2cdb5d(0x234)](),_0x479ff3;try{_0x479ff3=await fetch(_0x3c6264,{'method':_0x2cdb5d(0x1ed),'cache':_0x2cdb5d(0x1d9)});}catch(_0x17ec63){throw new Error('Tidak\x20dapat\x20terhubung\x20ke\x20server\x20pencarian.\x20Periksa\x20koneksi\x20atau\x20endpoint.');}var _0x5c8684=await _0x479ff3[_0x2cdb5d(0x220)](),_0x5a45a2;try{_0x5a45a2=JSON[_0x2cdb5d(0x1e1)](_0x5c8684);}catch(_0x4b3bcf){throw new Error(_0x2cdb5d(0x1c5));}if(!_0x479ff3['ok']){var _0x2d0248=new Error(String(_0x5a45a2[_0x2cdb5d(0x246)]||_0x5a45a2['msg']||_0x2cdb5d(0x1c7)+_0x479ff3[_0x2cdb5d(0x274)]+'.'));_0x2d0248[_0x2cdb5d(0x24e)]=_0x479ff3['status'];throw _0x2d0248;}if(_0x5a45a2&&_0x5a45a2[_0x2cdb5d(0x274)]===![])throw new Error(String(_0x5a45a2[_0x2cdb5d(0x246)]||_0x5a45a2[_0x2cdb5d(0x26a)]||'Server\x20gagal\x20memproses\x20pencarian.'));var _0x4364a9=_0x4edca6(_0x5a45a2);if(!_0x4364a9['length']){_0x133607['innerHTML']=_0x2cdb5d(0x226)+_0x2467f0(_0x4da39e)+_0x2cdb5d(0x20e),_0x5e09d5(_0x2cdb5d(0x1fc));return;}var _0x533f2d=document['createDocumentFragment']();_0x4364a9['forEach'](function(_0x2906b5,_0x40f48b){_0x533f2d['appendChild'](_0x588017(_0x2906b5,_0x40f48b));}),_0x133607['appendChild'](_0x533f2d),_0x5e09d5(_0x4364a9['length']+_0x2cdb5d(0x1cb)+_0x4da39e+'\x22.');}catch(_0x20804b){var _0x179291=_0x20804b&&_0x20804b[_0x2cdb5d(0x246)]||_0x2cdb5d(0x1ec),_0x494185=_0x8f377d(_0x179291,_0x20804b&&_0x20804b[_0x2cdb5d(0x24e)]);_0x133607[_0x2cdb5d(0x23c)]=_0x2cdb5d(0x21d)+_0x2467f0(_0x494185[_0x2cdb5d(0x275)])+_0x2cdb5d(0x25e)+_0x2467f0(_0x179291)+_0x2cdb5d(0x20d)+_0x2467f0(_0x494185['desc'])+_0x2cdb5d(0x1c9),_0x5e09d5(_0x2cdb5d(0x231)),_0x24b6e1(_0x494185[_0x2cdb5d(0x275)],_0x494185[_0x2cdb5d(0x230)],_0x494185[_0x2cdb5d(0x212)]);}finally{_0x12113a=![],_0x3a94c6(![]);}}_0x212e6a[_0x2c3221(0x242)](_0x2c3221(0x244),function(_0xa54238){var _0x3041fd=_0x2c3221;_0xa54238[_0x3041fd(0x224)](),_0x4a9cf4(_0xb1089d[_0x3041fd(0x1f6)]);});var _0x154e13=document['querySelectorAll'](_0x2c3221(0x221));for(var _0x371cba=0x0;_0x371cba<_0x154e13['length'];_0x371cba++){_0x154e13[_0x371cba][_0x2c3221(0x242)](_0x2c3221(0x259),function(){if(_0x12113a)return;var _0x1b0f01=this['getAttribute']('data-query')||'';_0xb1089d['value']=_0x1b0f01,_0x4a9cf4(_0x1b0f01);});}var _0x2808b5=document['getElementById'](_0x2c3221(0x22c));_0x2808b5[_0x2c3221(0x242)](_0x2c3221(0x259),function(){var _0xed64e9=_0x2c3221;_0x167e1c[_0xed64e9(0x1ca)]=!![];}),_0x167e1c[_0x2c3221(0x242)](_0x2c3221(0x259),function(_0x18e594){var _0x37c260=_0x2c3221;if(_0x18e594[_0x37c260(0x24d)]===_0x167e1c)_0x167e1c[_0x37c260(0x1ca)]=!![];}),document[_0x2c3221(0x242)](_0x2c3221(0x214),function(_0x273832){var _0x44f07e=_0x2c3221;if(_0x273832['key']===_0x44f07e(0x222)&&!_0x167e1c[_0x44f07e(0x1ca)])_0x167e1c[_0x44f07e(0x1ca)]=!![];}),_0x167e1c[_0x2c3221(0x1ca)]=![];}()));function _0x3690(){var _0x31a142=['5462460ptHJqP','Video\x20Siap\x20Diunduh','&#039;','Layanan\x20tidak\x20dapat\x20memproses\x20video.','&amp;','tiktok-video','<a\x20class=\x22action\x20watch\x22\x20href=\x22','<span\x20class=\x22stat\x22>▶\x20','style','Tautan\x20Tidak\x20Ditemukan','playing','<div\x20class=\x22error-desc\x22>','\x22</b>.<br>Coba\x20kata\x20kunci\x20lain\x20atau\x20periksa\x20kembali\x20nanti.</div></div>','code','warning','replace','type','toFixed','keydown','SITE','createObjectURL','indexOf','add','searching/tiktok','1465852bYZSjg','&quot;','<button\x20type=\x22button\x22\x20class=\x22action\x20watch\x20missing\x22>Tautan\x20Tidak\x20Ada</button>','<div\x20class=\x22error\x22><div\x20class=\x22error-title\x22>','Memeriksa\x20ketersediaan\x20video...','Mencari...','text','.tag','Escape','span','preventDefault','Video\x20mungkin\x20sudah\x20dihapus,\x20tidak\x20ditemukan,\x20bersifat\x20private,\x20dibatasi,\x20atau\x20tautannya\x20sudah\x20kedaluwarsa.\x20Masalah\x20koneksi\x20maupun\x20server\x20juga\x20bisa\x20menyebabkan\x20kegagalan.\x20Periksa\x20video\x20asli\x20di\x20TikTok\x20dan\x20coba\x20lagi.','<div\x20class=\x22empty\x22><div\x20class=\x22empty-icon\x22>?</div><div>Video\x20tidak\x20ditemukan\x20untuk\x20<b>\x22','toLocaleString','.cover','Sedang\x20mencari\x20video...','focus','playCount','welcomeClose','130190YofUte','userNickname','pause','desc','Pencarian\x20belum\x20berhasil.','trim','Layanan\x20downloader\x20mengirim\x20respons\x20yang\x20tidak\x20valid.\x20HTTP\x20','toString','Layanan\x20Sedang\x20Bermasalah','URL','https://www.tikwm.com/api/','getElementById','5296tdWbNV','3FfqZQo','Video\x20ini\x20mungkin\x20hanya\x20dapat\x20dilihat\x20oleh\x20pemilik\x20atau\x20audiens\x20tertentu.\x20Layanan\x20downloader\x20tidak\x20dapat\x20mengambil\x20video\x20tersebut.','innerHTML','Akses\x20Video\x20Dibatasi','Video\x20Tidak\x20Dapat\x20Diproses','Pratinjau\x20Tidak\x20Tersedia','.tiktok.com','</div><div\x20class=\x22details\x22>','addEventListener','id-ID','submit','textContent','message','Server\x20downloader\x20sedang\x20mengalami\x20gangguan\x20atau\x20belum\x20dapat\x20memproses\x20video.\x20Coba\x20kembali\x20beberapa\x20saat\x20lagi.','Pastikan\x20config.js\x20dimuat\x20dan\x20CONFIG.DIMZZ1.URL\x20berisi\x20endpoint\x20pencarian.','Video\x20Tidak\x20Tersedia','DIMMZZZSUM_ENAK','searchForm','durationInSeconds','target','httpStatus','Data\x20video\x20tidak\x20tersedia.','string','4275100sCZYzI','data','Unduhan\x20sudah\x20diminta\x20oleh\x20browser.','Hasil\x20pencarian\x20tidak\x20memiliki\x20URL\x20video\x20asli\x20yang\x20dapat\x20digunakan.','firstChild','object','items','get','click','Koneksi\x20ke\x20layanan\x20downloader\x20gagal.\x20Periksa\x20internet\x20atau\x20kemungkinan\x20pembatasan\x20browser.','621327ODXzCG','?url=','download','</div>','content-type','floor','File\x20ditemukan,\x20tetapi\x20browser\x20tidak\x20dapat\x20mengambilnya.\x20Kemungkinan\x20terjadi\x20pembatasan\x20CORS\x20atau\x20koneksi.','classList','</div><div\x20class=\x22actions\x22>','\x22\x20target=\x22_blank\x22\x20rel=\x22noopener\x20noreferrer\x22>Buka\x20TikTok</a>','.media','tiktok.com','imagePreview','undefined','<div\x20class=\x22description\x22>','msg','-bydimz.mp4','Akses\x20ke\x20video\x20ditolak\x20atau\x20konten\x20mungkin\x20dibatasi\x20berdasarkan\x20wilayah\x20maupun\x20izin\x20akun.','urlUploaded','appendChild','Cari','.missing','<span\x20class=\x22stat\x22>♥\x20','Tautan\x20Tidak\x20Tersedia','&lt;','status','title','ended','none','toUpperCase','</div></div></div>','success','<button\x20type=\x22button\x22\x20class=\x22action\x20download\x22\x20','Koneksi\x20atau\x20Akses\x20Bermasalah','</button>','File\x20video\x20kosong\x20atau\x20tidak\x20tersedia.','contentSummary','query','</div><div\x20class=\x22stats\x22>','Download','article','<div\x20class=\x22creator\x22><div\x20class=\x22avatar\x22>','test','&gt;','TikTok\x20User','Respons\x20server\x20pencarian\x20bukan\x20JSON\x20yang\x20valid.','<div\x20style=\x22min-width:0\x22><div\x20class=\x22creator-name\x22>','Pencarian\x20gagal.\x20HTTP\x20','size','</div></div>','hidden','\x20video\x20ditemukan\x20untuk\x20\x22','<span\x20class=\x22duration\x22>','set','display','shareCount','\x22\x20controls\x20playsinline\x20preload=\x22none\x22></video>','Video\x20mungkin\x20sedang\x20ditinjau\x20atau\x20dibatasi\x20oleh\x20platform.\x20Coba\x20periksa\x20kembali\x20melalui\x20TikTok.','Layanan\x20sedang\x20membatasi\x20permintaan.\x20Tunggu\x20sebentar\x20sebelum\x20mencoba\x20lagi.','notice\x20','remove','error','Terlalu\x20Banyak\x20Permintaan','32loXLFm','1703022Omqjeu','no-store','application/json','Tidak\x20Tersedia','video','result','<span\x20class=\x22stat\x22>↗\x20','toLowerCase','Video\x20Sedang\x20Dibatasi','parse','results','isArray','createElement','url','diggCount','Memproses...','card','.download','blob','DIMZZ1','Terjadi\x20kesalahan.','GET','Konfigurasi\x20Belum\x20Tersedia','</span>','path','href','revokeObjectURL','Server\x20tidak\x20mengirim\x20file\x20video\x20yang\x20valid.\x20Tautan\x20mungkin\x20kedaluwarsa.','querySelector','searchButton','value','className','Video\x20mungkin\x20sudah\x20dihapus,\x20tautannya\x20tidak\x20valid,\x20atau\x20konten\x20tidak\x20lagi\x20dapat\x20diakses.\x20Coba\x20buka\x20tautan\x20aslinya\x20di\x20TikTok.','headers','removeChild','commentCount','Tidak\x20ada\x20hasil\x20yang\x20tersedia.','disabled','slice','File\x20sedang\x20disiapkan.\x20Periksa\x20folder\x20Download\x20pada\x20perangkatmu.','welcomeModal','play'];_0x3690=function(){return _0x31a142;};return _0x3690();}
+    </script>
+  </body>
+</html>
