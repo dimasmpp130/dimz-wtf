@@ -24,15 +24,19 @@
         --border:#283343;
       }
       *{box-sizing:border-box}
-      html{min-height:100%;-webkit-text-size-adjust:100%}
-      body{
+      html,body{
+        width:100%;
+        height:100%;
+        height:100dvh;
+        min-height:0;
         margin:0;
-        min-height:100vh;
-        min-height:100dvh;
+        overflow:hidden;
+        -webkit-text-size-adjust:100%;
+      }
+      body{
         background:var(--bg);
         color:var(--text);
         font-family:Arial,Helvetica,sans-serif;
-        overflow-x:hidden;
         display:flex;
         flex-direction:column;
         position:relative;
@@ -42,7 +46,7 @@
         position:fixed;
         inset:0;
         pointer-events:none;
-        z-index:-1;
+        z-index:0;
         background:
           radial-gradient(ellipse at 50% 35%,rgba(32,223,136,.065),transparent 42%),
           linear-gradient(rgba(255,255,255,.012) 1px,transparent 1px),
@@ -53,99 +57,107 @@
       button{font:inherit}
       .topbar{
         width:100%;
-        min-height:76px;
-        padding:16px 20px;
+        min-height:54px;
+        flex:0 0 auto;
+        padding:7px 12px;
         display:flex;
         align-items:center;
         justify-content:center;
+        position:relative;
+        z-index:1;
       }
       .brand{
         display:inline-flex;
         align-items:center;
         justify-content:center;
-        gap:10px;
+        gap:8px;
         text-decoration:none;
-        font-size:19px;
+        font-size:16px;
         font-weight:800;
-        letter-spacing:-.6px;
+        letter-spacing:-.5px;
         white-space:nowrap;
       }
       .brand-icon{
-        width:32px;
-        height:32px;
+        width:25px;
+        height:25px;
         display:grid;
         place-items:center;
         color:var(--green);
         flex-shrink:0;
       }
-      .brand-icon svg{width:32px;height:32px}
-      .brand-name span{color:var(--green)}
+      .brand-icon svg{width:100%;height:100%}
+      .brand-name{color:var(--text)}
       main{
         width:100%;
-        flex:1;
+        flex:1 1 auto;
+        min-height:0;
         display:flex;
         align-items:center;
         justify-content:center;
-        padding:18px 20px 42px;
+        padding:5px 12px;
+        position:relative;
+        z-index:1;
       }
       .content{
         width:100%;
         max-width:760px;
+        min-height:0;
+        margin:auto;
         text-align:center;
       }
       .scene{
         width:100%;
-        max-width:460px;
+        max-width:390px;
+        max-height:27vh;
         height:auto;
         display:block;
-        margin:0 auto -2px;
+        object-fit:contain;
+        margin:0 auto 2px;
       }
       .code{
         margin:0;
-        font-size:clamp(88px,17vw,150px);
-        line-height:.95;
+        font-size:clamp(52px,11vh,100px);
+        line-height:.9;
         font-weight:900;
-        letter-spacing:-9px;
+        letter-spacing:-5px;
         color:var(--green);
-        text-shadow:0 10px 45px rgba(32,223,136,.10);
       }
       h1{
-        margin:23px 0 0;
-        font-size:clamp(23px,4.5vw,38px);
-        line-height:1.25;
-        letter-spacing:-1px;
+        margin:10px 0 0;
+        font-size:clamp(19px,3.5vh,29px);
+        line-height:1.2;
+        letter-spacing:-.5px;
         font-weight:800;
       }
-      h1 span{color:var(--green)}
       .message{
-        max-width:490px;
-        margin:20px auto 0;
+        max-width:420px;
+        margin:9px auto 0;
         color:var(--muted);
-        font-size:16px;
-        line-height:1.8;
+        font-size:14px;
+        line-height:1.5;
       }
       .actions{
-        margin-top:36px;
+        margin-top:16px;
         display:flex;
         flex-wrap:wrap;
         justify-content:center;
-        gap:13px;
+        gap:8px;
       }
       .btn{
-        min-height:52px;
-        padding:0 23px;
-        border-radius:10px;
+        min-height:42px;
+        padding:0 14px;
+        border-radius:8px;
         display:inline-flex;
         justify-content:center;
         align-items:center;
-        gap:12px;
-        font-size:14px;
+        gap:7px;
+        font-size:12px;
         font-weight:700;
         text-decoration:none;
         cursor:pointer;
         transition:background .15s,border-color .15s;
       }
-      .btn svg{width:19px;height:19px;flex-shrink:0}
+      .btn svg{width:16px;height:16px;flex-shrink:0}
       .btn:active{opacity:.8}
       .btn-home{
         background:var(--green);
@@ -167,59 +179,79 @@
         outline-offset:3px;
       }
       .footer{
-        width:min(620px,calc(100% - 40px));
+        width:calc(100% - 32px);
+        flex:0 0 auto;
         margin:0 auto;
-        padding:25px 0 28px;
+        padding:8px 0 10px;
         border-top:1px solid var(--border);
         text-align:center;
         color:var(--muted);
-        font-size:13px;
-        line-height:1.8;
+        font-size:10px;
+        line-height:1.4;
+        position:relative;
+        z-index:1;
       }
       .footer strong{color:#b6c0cf;font-weight:700}
-      .footer .dot{display:inline-block;padding:0 13px;color:#526073}
+      .footer .dot{display:inline-block;padding:0 6px;color:#526073}
       .ground{
-        position:fixed;
-        z-index:-1;
-        pointer-events:none;
-        bottom:-95px;
-        width:350px;
-        height:190px;
-        border:1px solid rgba(32,223,136,.35);
-        border-radius:50% 50% 0 0;
-        background:linear-gradient(160deg,rgba(32,223,136,.07),transparent);
+        display:none;
       }
-      .ground.left{left:-180px;transform:rotate(15deg)}
-      .ground.right{right:-180px;transform:rotate(-15deg)}
       @media(max-width:650px){
-        .topbar{min-height:68px;padding:14px 16px}
-        .brand{font-size:16px;gap:8px}
-        .brand-icon,.brand-icon svg{width:28px;height:28px}
-        main{padding:18px 17px 32px}
-        .scene{max-width:350px}
-        .code{letter-spacing:-6px}
-        h1{margin-top:20px}
-        .message{font-size:14px;line-height:1.8;margin-top:15px}
-        .actions{margin-top:27px;gap:10px}
-        .btn{min-height:47px;padding:0 15px;font-size:13px}
-        .footer{font-size:11px;padding:21px 0 24px}
-        .footer .dot{padding:0 7px}
+        .topbar{min-height:50px;padding:6px 12px}
+        .brand{font-size:15px;gap:7px}
+        .brand-icon{width:23px;height:23px}
+        main{padding:4px 12px}
+        .scene{max-width:330px;max-height:26vh}
+        .code{font-size:clamp(50px,10vh,82px);letter-spacing:-4px}
+        h1{margin-top:9px;font-size:clamp(19px,3.5vh,25px)}
+        .message{margin-top:8px;font-size:13px;line-height:1.5}
+        .actions{margin-top:14px;gap:8px}
+        .btn{min-height:41px;padding:0 12px;font-size:12px}
+        .footer{padding:7px 0 9px;font-size:10px}
       }
       @media(max-width:380px){
-        .brand{font-size:14px;gap:7px}
-        .brand-icon,.brand-icon svg{width:25px;height:25px}
-        main{padding:15px 14px 25px}
-        .scene{max-width:300px}
-        .code{font-size:86px;letter-spacing:-4px}
-        h1{font-size:22px}
-        .message{font-size:13px}
+        .topbar{min-height:46px;padding:5px 10px}
+        .brand{font-size:13px;gap:6px}
+        .brand-icon{width:21px;height:21px}
+        main{padding:3px 10px}
+        .scene{max-width:285px;max-height:24vh}
+        .code{font-size:clamp(46px,9vh,68px);letter-spacing:-3px}
+        h1{margin-top:7px;font-size:20px}
+        .message{margin-top:6px;font-size:12px;line-height:1.4}
         .actions{
-          flex-direction:column;
-          align-items:stretch;
-          max-width:280px;
-          margin:25px auto 0;
+          flex-direction:row;
+          flex-wrap:wrap;
+          margin-top:12px;
+          gap:7px;
         }
-        .btn{width:100%}
+        .btn{width:auto;min-height:38px;padding:0 9px;font-size:11px}
+        .btn svg{width:14px;height:14px}
+        .footer{padding:6px 0 8px;font-size:9px}
+      }
+      @media(max-height:600px){
+        .topbar{min-height:40px;padding:3px 10px}
+        .brand{font-size:13px;gap:6px}
+        .brand-icon{width:20px;height:20px}
+        main{padding:2px 10px}
+        .scene{max-width:245px;max-height:20vh}
+        .code{font-size:clamp(42px,9vh,55px);letter-spacing:-3px}
+        h1{margin-top:5px;font-size:19px}
+        .message{margin-top:4px;font-size:12px;line-height:1.35}
+        .actions{margin-top:8px;gap:6px}
+        .btn{min-height:34px;padding:0 10px;font-size:11px}
+        .footer{padding:4px 0 5px;font-size:9px}
+      }
+      @media(max-height:440px){
+        .topbar{min-height:32px;padding:2px 8px}
+        .brand{font-size:12px}
+        .brand-icon{width:18px;height:18px}
+        .scene{max-height:14vh;max-width:180px}
+        .code{font-size:38px;line-height:.85}
+        h1{margin-top:4px;font-size:16px}
+        .message{margin-top:3px;font-size:11px;line-height:1.25}
+        .actions{margin-top:6px;gap:5px}
+        .btn{min-height:30px;padding:0 8px;font-size:10px}
+        .footer{padding:3px 0;font-size:8px}
       }
       @media(prefers-reduced-motion:reduce){
         *,*:before,*:after{transition:none!important}
@@ -228,7 +260,7 @@
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="/" aria-label="DIMMZZZSUM ENAK, Beranda">
+      <a class="brand" href="/" aria-label="DIMZ-WTF, Beranda">
         <span class="brand-icon">
           <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
             <path
@@ -456,7 +488,6 @@
         </svg>
 
         <p class="code">404</p>
-
         <h1 id="pageTitle">Buset Nyasar</h1>
         <p class="message">
           Halaman yang kamu cari gada, mungkin lagi ngopi dulu.
@@ -471,7 +502,6 @@
             </svg>
             Kembali ke Beranda
           </a>
-
           <button class="btn btn-back" id="backBtn" type="button">
             <svg
               viewBox="0 0 24 24"
@@ -498,20 +528,18 @@
       Isekai dulu bang
     </footer>
 
-    <div class="ground left"></div>
-    <div class="ground right"></div>
-
     <script>
       (function(){
+        "use strict";
         var backBtn=document.getElementById("backBtn");
 
-        backBtn.onclick=function(){
+        backBtn.addEventListener("click",function(){
           if(window.history.length>1){
             window.history.back();
           }else{
             window.location.href="/";
           }
-        };
+        });
       })();
     </script>
   </body>
