@@ -18,6 +18,10 @@ const CONFIG = {
   DIMZZ5: {
     URL: "https://dimz-wtf.vercel.app/api/emo-vids"
   },
+  
+  DIMZZ6: {
+    URL: "https://dimz-wtf.vercel.app/api/salam-booyah"
+  },
 
   SITE: {
     FOOTER1: "Made with ♥ by DIMMZZZSUM_ENAK"
