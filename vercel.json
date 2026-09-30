@@ -43,8 +43,8 @@
       "dest": "/canva/textmaker.html"
     },
     {
-      "src": "/jadwalsolat/?$",
-      "dest": "/islamic/jadwalsolat.html"
+      "src": "/jadwalsholat/?$",
+      "dest": "/islamic/jadwalsholat.html"
     },
     {
       "src": "/lirik/?$",
