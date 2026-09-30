@@ -7,115 +7,115 @@
   },
   "routes": [
     {
-      "src": "/download/fb/?$",
+      "src": "/fb/?$",
       "dest": "/download/facebook.html"
     },
     {
-      "src": "/download/ig/?$",
+      "src": "/ig/?$",
       "dest": "/download/instagram.html"
     },
     {
-      "src": "/download/tt/?$",
+      "src": "/tiktok/?$",
       "dest": "/download/tiktok.html"
     },
     {
-      "src": "/download/yt/?$",
+      "src": "/yt/?$",
       "dest": "/download/youtube.html"
     },
     {
-      "src": "/download/threads/?$",
+      "src": "/threads/?$",
       "dest": "/download/threads.html"
     },
     {
-      "src": "/download/snack/?$",
+      "src": "/snack/?$",
       "dest": "/download/snackvideo.html"
     },
     {
-      "src": "/canva/brat/?$",
+      "src": "/brat/?$",
       "dest": "/canva/brat.html"
     },
     {
-      "src": "/canva/fflobby/?$",
+      "src": "/fflobby/?$",
       "dest": "/canva/fflobby.html"
     },
     {
-      "src": "/canva/textmaker/?$",
+      "src": "/textmaker/?$",
       "dest": "/canva/textmaker.html"
     },
     {
-      "src": "/islamic/jadwalsolat/?$",
+      "src": "/jadwalsolat/?$",
       "dest": "/islamic/jadwalsolat.html"
     },
     {
-      "src": "/search/lirik/?$",
+      "src": "/lirik/?$",
       "dest": "/search/lirik.html"
     },
     {
-      "src": "/search/tiksearch/?$",
+      "src": "/tiksearch/?$",
       "dest": "/search/tiksearch.html"
     },
     {
-      "src": "/search/cuaca/?$",
+      "src": "/cuaca/?$",
       "dest": "/search/cuaca.html"
     },
     {
-      "src": "/convert/emoimage/?$",
+      "src": "/emoji-img/?$",
       "dest": "/convert/emoimage.html"
     },
     {
-      "src": "/convert/emovideos/?$",
+      "src": "/emoji-vid/?$",
       "dest": "/convert/emovideos.html"
     },
     {
-      "src": "/temp/bully/?$",
+      "src": "/bully/?$",
       "dest": "/temp/bully.html"
     },
     {
-      "src": "/temp/gtasa/?$",
+      "src": "/gtasa/?$",
       "dest": "/temp/gtasa.html"
     },
     {
-      "src": "/tools/khodam/?$",
+      "src": "/khodam/?$",
       "dest": "/tools/khodam.html"
     },
     {
-      "src": "/tools/magicwheel/?$",
+      "src": "/magicwheel/?$",
       "dest": "/tools/magicwell.html"
     },
     {
-      "src": "/tools/winrates/?$",
+      "src": "/winrates/?$",
       "dest": "/tools/winrates.html"
     },
     {
-      "src": "/tools/zodiakwell/?$",
+      "src": "/zodiakwell/?$",
       "dest": "/tools/zodiakwell.html"
     },
     {
-      "src": "/game/susunkata/?$",
+      "src": "/susunkata/?$",
       "dest": "/game/susunkata.html"
     },
     {
-      "src": "/game/pilgand/?$",
+      "src": "/pilgand/?$",
       "dest": "/game/pilgand.html"
     },
     {
-      "src": "/game/tebakbendera/?$",
+      "src": "/tebakbendera/?$",
       "dest": "/game/tebakbendera.html"
     },
     {
-      "src": "/game/tebaklagu/?$",
+      "src": "/tebaklagu/?$",
       "dest": "/game/tebaklagu.html"
     },
     {
-      "src": "/random/waifu/?$",
+      "src": "/waifu/?$",
       "dest": "/random/waifurdm.html"
     },
     {
-      "src": "/random/oppai/?$",
+      "src": "/oppai/?$",
       "dest": "/random/oppairdm.html"
     },
     {
-      "src": "/random/maid/?$",
+      "src": "/maid/?$",
       "dest": "/random/maidrdm.html"
     },
     {
