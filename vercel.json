@@ -111,8 +111,8 @@
       "dest": "/game/tebaklagu.html"
     },
     {
-      "src": "/tebakf1/?$",
-      "dest": "/game/tebakf1.html"
+      "src": "/tebaksirkuit/?$",
+      "dest": "/game/tebaksirkuit.html"
     },
     {
       "src": "/waifu/?$",
