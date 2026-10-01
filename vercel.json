@@ -103,8 +103,16 @@
       "dest": "/game/tebakbendera.html"
     },
     {
+      "src": "/tebakanime/?$",
+      "dest": "/game/tebakanime.html"
+    },
+    {
       "src": "/tebaklagu/?$",
       "dest": "/game/tebaklagu.html"
+    },
+    {
+      "src": "/tebakf1/?$",
+      "dest": "/game/tebakf1.html"
     },
     {
       "src": "/waifu/?$",
