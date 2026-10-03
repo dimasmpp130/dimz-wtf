@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <meta name="theme-color" content="#090b10" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#080a0e" />
     <meta
       name="description"
       content="GTA San Andreas Android Files — APK, OBB, Unprotected dan CLEO"
@@ -17,12 +16,6 @@
     />
 
     <style>
-      *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      }
-
       :root{
       --bg:#080a0e;
       --panel:#0d1015;
@@ -34,495 +27,438 @@
       --red:#d94840;
       --green:#43b77d;
       --cyan:#51bccc;
-      --purple:#9671df;
+      --purple:#9671df
+      }
+
+      *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box
       }
 
       html{
-      scroll-behavior:smooth;
+      scroll-behavior:smooth
       }
 
       body{
       min-height:100vh;
       overflow-x:hidden;
-      background:
-      linear-gradient(
-      180deg,
-      #25201b 0,
-      #17151a 18%,
-      #0c0e13 42%,
-      #080a0e 70%
-      );
+      background:var(--bg);
       color:var(--text);
-      font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
-      }
-
-      body:before{
-      content:"";
-      position:fixed;
-      top:0;
-      left:50%;
-      width:500px;
-      height:260px;
-      transform:translateX(-50%);
-      background:radial-gradient(
-      circle,
-      rgba(244,185,76,.17),
-      transparent 68%
-      );
-      pointer-events:none;
-      z-index:-1;
+      font-family:Arial,Helvetica,sans-serif;
+      line-height:1.5
       }
 
       a{
       color:inherit;
-      text-decoration:none;
+      text-decoration:none
       }
 
       button{
-      font:inherit;
+      font:inherit
       }
 
       .wrapper{
-      width:min(900px,calc(100% - 20px));
+      width:min(900px,calc(100% - 16px));
       margin:auto;
-      padding:16px 0 30px;
+      padding:12px 0 24px
       }
 
       .topbar{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:12px;
-      margin-bottom:14px;
+      gap:10px;
+      margin-bottom:10px
       }
 
       .brand{
       display:flex;
       align-items:center;
-      gap:10px;
-      min-width:0;
+      gap:9px;
+      min-width:0
       }
 
       .brand-mark{
-      width:48px;
-      height:48px;
-      flex:0 0 48px;
+      position:relative;
+      width:44px;
+      height:44px;
+      flex:0 0 44px;
       display:grid;
       place-items:center;
-      border:1px solid #66552f;
-      border-radius:12px;
-      background:#15130f;
+      border:1px solid #51462e;
+      border-radius:10px;
+      background:#12110e
       }
 
       .brand-mark:before{
       content:"SA";
       font-family:Impact,"Arial Black",sans-serif;
-      font-size:20px;
-      color:var(--yellow);
+      font-size:18px;
+      color:var(--yellow)
       }
 
       .brand-mark:after{
       content:"";
       position:absolute;
-      width:6px;
-      height:6px;
-      margin:28px 0 0 28px;
+      right:5px;
+      bottom:5px;
+      width:5px;
+      height:5px;
       border-radius:50%;
-      background:var(--red);
+      background:var(--red)
       }
 
       .brand-title{
-      font-size:13px;
-      font-weight:900;
+      font-size:12px;
+      font-weight:900
       }
 
       .brand-sub{
       margin-top:2px;
-      color:#8d887d;
-      font-size:8px;
+      color:#89847a;
+      font-size:7px;
       font-weight:800;
-      letter-spacing:.7px;
-      text-transform:uppercase;
+      letter-spacing:.6px;
+      text-transform:uppercase
       }
 
       .version{
       display:flex;
       align-items:center;
-      gap:6px;
-      padding:7px 9px;
-      border:1px solid #36342f;
-      border-radius:8px;
+      gap:5px;
+      padding:6px 8px;
+      border:1px solid #303239;
+      border-radius:7px;
       background:#101115;
-      color:#bdb7aa;
-      font-size:8px;
-      font-weight:900;
+      color:#aaa59b;
+      font-size:7px;
+      font-weight:900
       }
 
       .version i{
-      color:var(--yellow);
+      color:var(--yellow)
       }
 
       .panel{
       overflow:hidden;
-      border:1px solid #252a31;
-      border-radius:18px;
-      background:var(--panel);
-      box-shadow:0 12px 35px rgba(0,0,0,.35);
+      border:1px solid #242930;
+      border-radius:14px;
+      background:var(--panel)
       }
 
       .hero{
-      position:relative;
-      padding:36px 28px 30px;
-      border-bottom:1px solid #252a31;
-      background:
-      linear-gradient(
-      110deg,
-      #0b0d11 0%,
-      #0d1015 58%,
-      #121316 100%
-      );
-      }
-
-      .hero:after{
-      content:"LOS SANTOS";
-      position:absolute;
-      right:-15px;
-      bottom:-15px;
-      font-family:Impact,"Arial Black",sans-serif;
-      font-size:70px;
-      color:rgba(255,255,255,.025);
-      pointer-events:none;
-      }
-
-      .hero-content{
-      position:relative;
-      z-index:1;
+      padding:31px 23px 26px;
+      border-bottom:1px solid #242930;
+      background:#0d1015
       }
 
       .kicker{
       display:inline-flex;
       align-items:center;
-      gap:7px;
-      margin-bottom:15px;
-      padding:6px 9px;
+      gap:6px;
+      margin-bottom:13px;
+      padding:5px 8px;
       border-left:3px solid var(--yellow);
       background:#17150f;
-      color:#e5bd5b;
-      font-size:8px;
+      color:#dfb955;
+      font-size:7px;
       font-weight:900;
-      letter-spacing:1px;
-      text-transform:uppercase;
+      letter-spacing:.8px;
+      text-transform:uppercase
       }
 
       .hero h1{
-      margin-bottom:13px;
+      margin-bottom:12px;
       font-family:Impact,"Arial Black",sans-serif;
-      font-size:clamp(44px,9vw,72px);
-      line-height:.86;
-      letter-spacing:-1px;
-      color:#fff;
-      text-shadow:2px 3px 0 #000;
+      font-size:clamp(42px,9vw,68px);
+      line-height:.88;
+      letter-spacing:-.5px;
+      color:#fff
       }
 
       .hero h1 span{
       display:block;
-      margin-top:7px;
+      margin-top:6px;
       color:#eab94e;
-      font-size:.65em;
-      letter-spacing:1px;
+      font-size:.64em;
+      letter-spacing:.7px
       }
 
       .hero p{
       max-width:650px;
-      color:#969ba4;
-      font-size:12px;
-      line-height:1.75;
+      color:#9298a1;
+      font-size:11px;
+      line-height:1.7
       }
 
       .hero-tools{
       display:flex;
       flex-wrap:wrap;
-      gap:7px;
-      margin-top:19px;
+      gap:6px;
+      margin-top:17px
       }
 
       .tool{
       display:flex;
       align-items:center;
-      gap:6px;
-      padding:8px 10px;
+      gap:5px;
+      padding:7px 9px;
       border:1px solid #292e35;
-      border-radius:7px;
+      border-radius:6px;
       background:#13161b;
       color:#aeb2b9;
-      font-size:8px;
-      font-weight:800;
+      font-size:7px;
+      font-weight:800
       }
 
       .tool i{
-      color:var(--yellow);
+      color:var(--yellow)
       }
 
       .action-row{
       display:flex;
       flex-wrap:wrap;
-      gap:8px;
-      margin-top:19px;
+      gap:7px;
+      margin-top:17px
       }
 
       .hero-button{
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      gap:7px;
-      padding:10px 13px;
-      border-radius:8px;
-      font-size:8px;
+      gap:6px;
+      padding:9px 11px;
+      border-radius:7px;
+      font-size:7px;
       font-weight:900;
-      letter-spacing:.4px;
+      letter-spacing:.3px
       }
 
       .hero-button.primary{
       background:var(--red);
-      color:#fff;
+      color:#fff
       }
 
       .hero-button.secondary{
       border:1px solid #343942;
       background:#171a20;
-      color:#c1c4c9;
+      color:#c1c4c9
       }
 
       .section,
       .tutorial,
       .guide,
       .check-section{
-      padding:22px;
-      border-bottom:1px solid #22272e;
+      padding:19px;
+      border-bottom:1px solid #22272e
+      }
+
+      .check-section{
+      border-bottom:0
       }
 
       .section-heading{
       display:flex;
       align-items:flex-end;
       justify-content:space-between;
-      gap:12px;
-      margin-bottom:14px;
+      gap:10px;
+      margin-bottom:13px
       }
 
       .section-kicker{
-      margin-bottom:4px;
+      margin-bottom:3px;
       color:#cda541;
       font-size:7px;
       font-weight:900;
-      letter-spacing:1.1px;
-      text-transform:uppercase;
+      letter-spacing:.9px;
+      text-transform:uppercase
       }
 
       .section-title{
-      font-size:16px;
-      font-weight:900;
+      font-size:15px;
+      font-weight:900
       }
 
       .section-desc{
-      margin-top:4px;
+      margin-top:3px;
       color:#707680;
-      font-size:9px;
-      line-height:1.6;
+      font-size:8px;
+      line-height:1.6
       }
 
       .section-mark{
       color:#555b64;
-      font-size:8px;
+      font-size:7px;
       font-weight:900;
-      white-space:nowrap;
+      white-space:nowrap
       }
 
-      .file-grid{
+      .file-grid,
+      .steps{
       display:grid;
-      gap:8px;
+      gap:7px
       }
 
       .file{
       display:flex;
       align-items:center;
-      gap:11px;
-      padding:13px;
+      gap:9px;
+      padding:11px;
       border:1px solid #292e35;
-      border-radius:11px;
-      background:#13171c;
+      border-radius:9px;
+      background:#13171c
       }
 
       .file-icon{
-      width:44px;
-      height:44px;
-      flex:0 0 44px;
+      width:40px;
+      height:40px;
+      flex:0 0 40px;
       display:grid;
       place-items:center;
-      border-radius:10px;
+      border-radius:8px;
       background:#201416;
       color:#e45b54;
-      font-size:16px;
+      font-size:14px
       }
 
       .file:nth-child(2) .file-icon{
       background:#111d20;
-      color:var(--cyan);
+      color:var(--cyan)
       }
 
       .file:nth-child(3) .file-icon{
       background:#211d12;
-      color:var(--yellow);
+      color:var(--yellow)
       }
 
       .file:nth-child(4) .file-icon{
       background:#1b1626;
-      color:var(--purple);
+      color:var(--purple)
       }
 
       .file-info{
       flex:1;
-      min-width:0;
+      min-width:0
       }
 
       .file-tag{
       display:inline-block;
-      margin-bottom:5px;
-      padding:3px 6px;
-      border-radius:4px;
+      margin-bottom:4px;
+      padding:2px 5px;
+      border-radius:3px;
       background:#22262d;
       color:#818792;
-      font-size:7px;
+      font-size:6px;
       font-weight:900;
-      letter-spacing:.4px;
-      text-transform:uppercase;
+      letter-spacing:.3px;
+      text-transform:uppercase
       }
 
       .file-title{
-      margin-bottom:4px;
+      margin-bottom:3px;
       color:#ededee;
-      font-size:12px;
-      line-height:1.35;
-      font-weight:850;
+      font-size:11px;
+      line-height:1.3;
+      font-weight:800
       }
 
       .file-meta{
       display:flex;
       flex-wrap:wrap;
-      gap:5px;
+      gap:4px
       }
 
       .file-meta span{
       color:#646a73;
-      font-size:8px;
-      font-weight:700;
+      font-size:7px;
+      font-weight:700
       }
 
       .file-meta span:not(:last-child):after{
       content:"·";
-      margin-left:5px;
-      color:#3e434b;
+      margin-left:4px;
+      color:#3e434b
       }
 
       .download{
-      position:relative;
-      min-width:105px;
-      padding:10px 11px;
+      min-width:98px;
+      padding:9px 9px;
       border:1px solid #bd3934;
-      border-radius:8px;
+      border-radius:7px;
       background:#c93c37;
       color:#fff;
       cursor:pointer;
-      font-size:8px;
+      font-size:7px;
       font-weight:900;
-      letter-spacing:.5px;
-      }
-
-      .download:active{
-      transform:scale(.97);
+      letter-spacing:.4px
       }
 
       .download.loading{
       background:#363a41;
-      border-color:#454a53;
-      pointer-events:none;
+      border-color:#454a53
       }
 
       .download.ready{
       background:#27845b;
-      border-color:#319769;
-      }
-
-      .download.loading i{
-      animation:spin .7s linear infinite;
-      }
-
-      .progress{
-      position:absolute;
-      left:0;
-      bottom:0;
-      width:0;
-      height:2px;
-      background:#fff;
-      }
-
-      .download.loading .progress{
-      animation:progress 1.2s linear forwards;
+      border-color:#319769
       }
 
       .info-strip{
       display:grid;
       grid-template-columns:auto 1fr auto;
       align-items:center;
-      gap:11px;
-      margin:0 22px 22px;
-      padding:14px;
+      gap:9px;
+      margin:0 19px 19px;
+      padding:12px;
       border:1px solid #292e35;
-      border-radius:11px;
-      background:#12161b;
+      border-radius:9px;
+      background:#12161b
       }
 
       .info-icon{
-      width:38px;
-      height:38px;
+      width:35px;
+      height:35px;
       display:grid;
       place-items:center;
-      border-radius:9px;
+      border-radius:8px;
       background:#211d12;
       color:var(--yellow);
+      font-size:13px
       }
 
       .info-title{
-      margin-bottom:3px;
-      font-size:10px;
-      font-weight:900;
+      margin-bottom:2px;
+      font-size:9px;
+      font-weight:900
       }
 
       .info-text{
       color:#707680;
-      font-size:8px;
-      line-height:1.7;
+      font-size:7px;
+      line-height:1.65
       }
 
       .info-label{
-      padding:5px 7px;
+      padding:4px 6px;
       border:1px solid #27503d;
-      border-radius:5px;
+      border-radius:4px;
       background:#13231c;
       color:#4dc588;
-      font-size:7px;
-      font-weight:900;
+      font-size:6px;
+      font-weight:900
       }
 
       .video-box{
       overflow:hidden;
       border:1px solid #292e35;
-      border-radius:12px;
-      background:#050608;
+      border-radius:10px;
+      background:#050608
       }
 
       .video-wrapper{
       aspect-ratio:16/9;
-      background:#050608;
+      background:#050608
       }
 
       .video-wrapper video{
@@ -530,343 +466,309 @@
       width:100%;
       height:100%;
       object-fit:contain;
-      background:#050608;
+      background:#050608
       }
 
       .video-caption{
-      padding:14px;
+      padding:12px;
       border-top:1px solid #252a31;
-      background:#12161b;
+      background:#12161b
       }
 
       .video-caption strong{
       display:block;
-      margin-bottom:5px;
-      font-size:11px;
+      margin-bottom:4px;
+      font-size:10px
       }
 
       .video-caption strong i{
-      margin-right:5px;
-      color:var(--yellow);
+      margin-right:4px;
+      color:var(--yellow)
       }
 
       .video-caption p{
       color:#707680;
-      font-size:9px;
-      line-height:1.65;
-      }
-
-      .steps{
-      display:grid;
-      gap:8px;
+      font-size:8px;
+      line-height:1.6
       }
 
       .step{
       display:grid;
-      grid-template-columns:44px 1fr;
-      gap:12px;
-      padding:14px;
-      border:1px solid #292e35;
-      border-radius:11px;
-      background:#13171c;
-      }
-
-      .step-number{
-      width:39px;
-      height:39px;
-      display:grid;
-      place-items:center;
-      border:1px solid #373d46;
-      border-radius:9px;
-      background:#1b2026;
-      color:var(--yellow);
-      font-size:11px;
-      font-weight:900;
-      }
-
-      .step-title{
-      margin-bottom:5px;
-      font-size:11px;
-      font-weight:900;
-      }
-
-      .step-text{
-      color:#747a83;
-      font-size:9px;
-      line-height:1.7;
-      }
-
-      .step-text ul{
-      margin:7px 0 0 16px;
-      }
-
-      .step-text li{
-      margin-bottom:2px;
-      }
-
-      .warning{
-      display:flex;
-      gap:9px;
-      margin-top:13px;
-      padding:12px;
-      border:1px solid #493d20;
-      border-radius:9px;
-      background:#15130e;
-      color:#817b70;
-      font-size:8px;
-      line-height:1.7;
-      }
-
-      .warning i{
-      margin-top:2px;
-      color:var(--yellow);
-      }
-
-      .check-section{
-      border-bottom:0;
-      }
-
-      .check-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:8px;
-      }
-
-      .check{
-      display:flex;
-      align-items:flex-start;
-      gap:8px;
-      padding:12px;
-      border:1px solid #292e35;
-      border-radius:9px;
-      background:#12161b;
-      }
-
-      .check i{
-      margin-top:2px;
-      color:var(--green);
-      font-size:11px;
-      }
-
-      .check span{
-      color:#747a83;
-      font-size:8px;
-      line-height:1.65;
-      }
-
-      .footer{
-      padding:25px 15px;
-      text-align:center;
-      border-top:1px solid #252a31;
-      background:#090b0f;
-      }
-
-      .footer-brand{
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.6px;
-      }
-
-      .footer-brand span{
-      color:#d8b14d;
-      }
-
-      .footer-line{
-      width:38px;
-      height:2px;
-      margin:7px auto;
-      background:var(--yellow);
-      }
-
-      .footer-copy{
-      color:#5f656e;
-      font-size:8px;
-      }
-
-      .toast{
-      position:fixed;
-      left:50%;
-      bottom:18px;
-      width:max-content;
-      max-width:calc(100% - 24px);
-      padding:10px 13px;
-      border:1px solid #343a43;
-      border-radius:8px;
-      background:#171b20;
-      color:#eee;
-      font-size:9px;
-      font-weight:700;
-      text-align:center;
-      opacity:0;
-      pointer-events:none;
-      transform:translate(-50%,15px);
-      transition:opacity .2s,transform .2s;
-      z-index:99;
-      }
-
-      .toast.show{
-      opacity:1;
-      transform:translate(-50%,0);
-      }
-
-      @keyframes spin{
-      to{
-      transform:rotate(360deg);
-      }
-      }
-
-      @keyframes progress{
-      from{
-      width:0;
-      }
-      to{
-      width:100%;
-      }
-      }
-
-      @media(max-width:600px){
-
-      .wrapper{
-      width:calc(100% - 14px);
-      padding-top:11px;
-      }
-
-      .topbar{
-      margin-bottom:10px;
-      }
-
-      .hero{
-      padding:28px 19px 24px;
-      }
-
-      .hero h1{
-      font-size:clamp(40px,12vw,60px);
-      }
-
-      .hero p{
-      font-size:11px;
-      }
-
-      .hero-tools{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      }
-
-      .tool{
-      justify-content:center;
-      }
-
-      .action-row{
-      display:grid;
-      grid-template-columns:1fr;
-      }
-
-      .hero-button{
-      width:100%;
-      }
-
-      .section,
-      .tutorial,
-      .guide,
-      .check-section{
-      padding:16px;
-      }
-
-      .info-strip{
-      margin-left:16px;
-      margin-right:16px;
-      }
-
-      .file{
-      display:grid;
-      grid-template-columns:44px minmax(0,1fr);
-      gap:10px;
-      }
-
-      .file-info{
-      grid-column:2;
-      }
-
-      .download{
-      grid-column:1 / -1;
-      width:100%;
-      }
-
-      .check-grid{
-      grid-template-columns:1fr;
-      }
-
-      .section-mark{
-      display:none;
-      }
-
-      }
-
-      @media(max-width:380px){
-
-      .version{
-      display:none;
-      }
-
-      .brand-title{
-      font-size:11px;
-      }
-
-      .brand-sub{
-      font-size:7px;
-      }
-
-      .hero{
-      padding:25px 16px 22px;
-      }
-
-      .hero h1{
-      font-size:39px;
-      }
-
-      .hero-tools{
-      grid-template-columns:1fr;
-      }
-
-      .section,
-      .tutorial,
-      .guide,
-      .check-section{
-      padding:14px;
-      }
-
-      .info-strip{
-      margin-left:14px;
-      margin-right:14px;
-      grid-template-columns:auto 1fr;
-      }
-
-      .info-label{
-      display:none;
-      }
-
-      .step{
       grid-template-columns:40px 1fr;
+      gap:10px;
       padding:12px;
+      border:1px solid #292e35;
+      border-radius:9px;
+      background:#13171c
       }
 
       .step-number{
       width:36px;
       height:36px;
+      display:grid;
+      place-items:center;
+      border:1px solid #373d46;
+      border-radius:8px;
+      background:#1b2026;
+      color:var(--yellow);
+      font-size:10px;
+      font-weight:900
       }
 
+      .step-title{
+      margin-bottom:4px;
+      font-size:10px;
+      font-weight:900
+      }
+
+      .step-text{
+      color:#747a83;
+      font-size:8px;
+      line-height:1.65
+      }
+
+      .step-text ul{
+      margin:6px 0 0 14px
+      }
+
+      .step-text li{
+      margin-bottom:2px
+      }
+
+      .warning{
+      display:flex;
+      gap:8px;
+      margin-top:11px;
+      padding:10px;
+      border:1px solid #493d20;
+      border-radius:8px;
+      background:#15130e;
+      color:#817b70;
+      font-size:7px;
+      line-height:1.65
+      }
+
+      .warning i{
+      margin-top:2px;
+      color:var(--yellow)
+      }
+
+      .check-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:7px
+      }
+
+      .check{
+      display:flex;
+      align-items:flex-start;
+      gap:7px;
+      padding:10px;
+      border:1px solid #292e35;
+      border-radius:8px;
+      background:#12161b
+      }
+
+      .check i{
+      margin-top:2px;
+      color:var(--green);
+      font-size:10px
+      }
+
+      .check span{
+      color:#747a83;
+      font-size:7px;
+      line-height:1.6
+      }
+
+      .footer{
+      padding:21px 12px;
+      text-align:center;
+      border-top:1px solid #252a31;
+      background:#090b0f
+      }
+
+      .footer-brand{
+      font-size:10px;
+      font-weight:900;
+      letter-spacing:.4px
+      }
+
+      .footer-brand span{
+      color:#d8b14d
+      }
+
+      .footer-line{
+      width:32px;
+      height:2px;
+      margin:6px auto;
+      background:var(--yellow)
+      }
+
+      .footer-copy{
+      color:#5f656e;
+      font-size:7px
+      }
+
+      .toast{
+      position:fixed;
+      left:50%;
+      bottom:15px;
+      width:max-content;
+      max-width:calc(100% - 20px);
+      padding:9px 11px;
+      border:1px solid #343a43;
+      border-radius:7px;
+      background:#171b20;
+      color:#eee;
+      font-size:8px;
+      font-weight:700;
+      text-align:center;
+      opacity:0;
+      pointer-events:none;
+      z-index:99
+      }
+
+      .toast.show{
+      opacity:1
+      }
+
+      @media(max-width:600px){
+
+      .wrapper{
+      width:calc(100% - 12px);
+      padding-top:9px
+      }
+
+      .topbar{
+      margin-bottom:8px
+      }
+
+      .hero{
+      padding:27px 17px 23px
+      }
+
+      .hero h1{
+      font-size:clamp(39px,12vw,58px)
+      }
+
+      .hero p{
+      font-size:10px
+      }
+
+      .hero-tools{
+      display:grid;
+      grid-template-columns:1fr 1fr
+      }
+
+      .tool{
+      justify-content:center
+      }
+
+      .action-row{
+      display:grid;
+      grid-template-columns:1fr
+      }
+
+      .hero-button{
+      width:100%
+      }
+
+      .section,
+      .tutorial,
+      .guide,
+      .check-section{
+      padding:15px
+      }
+
+      .info-strip{
+      margin-left:15px;
+      margin-right:15px
+      }
+
+      .file{
+      display:grid;
+      grid-template-columns:40px minmax(0,1fr);
+      gap:9px
+      }
+
+      .file-info{
+      grid-column:2
+      }
+
+      .download{
+      grid-column:1/-1;
+      width:100%
+      }
+
+      .check-grid{
+      grid-template-columns:1fr
+      }
+
+      .section-mark{
+      display:none
+      }
+      }
+
+      @media(max-width:380px){
+
+      .version{
+      display:none
+      }
+
+      .brand-title{
+      font-size:11px
+      }
+
+      .brand-sub{
+      font-size:6px
+      }
+
+      .hero{
+      padding:24px 14px 21px
+      }
+
+      .hero h1{
+      font-size:38px
+      }
+
+      .hero-tools{
+      grid-template-columns:1fr
+      }
+
+      .section,
+      .tutorial,
+      .guide,
+      .check-section{
+      padding:13px
+      }
+
+      .info-strip{
+      margin-left:13px;
+      margin-right:13px;
+      grid-template-columns:auto 1fr
+      }
+
+      .info-label{
+      display:none
+      }
+
+      .step{
+      grid-template-columns:37px 1fr;
+      padding:11px
+      }
+
+      .step-number{
+      width:34px;
+      height:34px
+      }
       }
 
       @media(prefers-reduced-motion:reduce){
 
       html{
-      scroll-behavior:auto;
+      scroll-behavior:auto
       }
-
-      .download.loading i{
-      animation:none;
-      }
-
       }
     </style>
   </head>
@@ -891,56 +793,54 @@
 
       <main class="panel">
         <section class="hero">
-          <div class="hero-content">
-            <div class="kicker">
-              <i class="fa-solid fa-location-dot"></i>
-              Los Santos Archive
+          <div class="kicker">
+            <i class="fa-solid fa-location-dot"></i>
+            Los Santos Archive
+          </div>
+
+          <h1>
+            GTA
+            <span>SAN ANDREAS</span>
+          </h1>
+
+          <p>
+            Kumpulan file GTA San Andreas untuk Android yang sudah dipisahkan
+            berdasarkan kebutuhan. Pilih APK utama, versi unprotected, OBB, atau
+            file CLEO sesuai paket yang ingin kamu gunakan.
+          </p>
+
+          <div class="hero-tools">
+            <div class="tool">
+              <i class="fa-solid fa-mobile-screen-button"></i>
+              Android
             </div>
 
-            <h1>
-              GTA
-              <span>SAN ANDREAS</span>
-            </h1>
-
-            <p>
-              Kumpulan file GTA San Andreas untuk Android yang sudah dipisahkan
-              berdasarkan kebutuhan. Pilih APK utama, versi unprotected, OBB,
-              atau file CLEO sesuai paket yang ingin kamu gunakan.
-            </p>
-
-            <div class="hero-tools">
-              <div class="tool">
-                <i class="fa-solid fa-mobile-screen-button"></i>
-                Android
-              </div>
-
-              <div class="tool">
-                <i class="fa-solid fa-file-zipper"></i>
-                APK / ZIP
-              </div>
-
-              <div class="tool">
-                <i class="fa-solid fa-database"></i>
-                OBB
-              </div>
-
-              <div class="tool">
-                <i class="fa-solid fa-puzzle-piece"></i>
-                CLEO
-              </div>
+            <div class="tool">
+              <i class="fa-solid fa-file-zipper"></i>
+              APK / ZIP
             </div>
 
-            <div class="action-row">
-              <a href="#tutorial" class="hero-button primary">
-                <i class="fa-solid fa-play"></i>
-                LIHAT TUTORIAL
-              </a>
-
-              <a href="#panduan" class="hero-button secondary">
-                <i class="fa-solid fa-map"></i>
-                BUKA PANDUAN
-              </a>
+            <div class="tool">
+              <i class="fa-solid fa-database"></i>
+              OBB
             </div>
+
+            <div class="tool">
+              <i class="fa-solid fa-puzzle-piece"></i>
+              CLEO
+            </div>
+          </div>
+
+          <div class="action-row">
+            <a href="#tutorial" class="hero-button primary">
+              <i class="fa-solid fa-play"></i>
+              LIHAT TUTORIAL
+            </a>
+
+            <a href="#panduan" class="hero-button secondary">
+              <i class="fa-solid fa-map"></i>
+              BUKA PANDUAN
+            </a>
           </div>
         </section>
 
@@ -949,6 +849,7 @@
             <div>
               <div class="section-kicker">File Repository</div>
               <div class="section-title">Pilih Paket Game</div>
+
               <div class="section-desc">
                 Download file sesuai kebutuhan pemasanganmu.
               </div>
@@ -981,7 +882,7 @@
                 onclick="startDownload(this)"
               >
                 <i class="fa-solid fa-arrow-down"></i>
-                DOWNLOAD <span class="progress"></span>
+                DOWNLOAD
               </button>
             </article>
 
@@ -1008,7 +909,7 @@
                 onclick="startDownload(this)"
               >
                 <i class="fa-solid fa-arrow-down"></i>
-                DOWNLOAD <span class="progress"></span>
+                DOWNLOAD
               </button>
             </article>
 
@@ -1035,7 +936,7 @@
                 onclick="startDownload(this)"
               >
                 <i class="fa-solid fa-arrow-down"></i>
-                DOWNLOAD <span class="progress"></span>
+                DOWNLOAD
               </button>
             </article>
 
@@ -1062,7 +963,7 @@
                 onclick="startDownload(this)"
               >
                 <i class="fa-solid fa-arrow-down"></i>
-                DOWNLOAD <span class="progress"></span>
+                DOWNLOAD
               </button>
             </article>
           </div>
@@ -1355,34 +1256,34 @@
     <div class="toast" id="toast"></div>
 
     <script>
+      var toast=document.getElementById("toast");
+      var toastTimer;
+
       function showToast(message){
 
-      const toast=document.getElementById("toast");
-
       toast.textContent=message;
-      toast.classList.add("show");
+      toast.className="toast show";
 
-      clearTimeout(toast.timer);
+      clearTimeout(toastTimer);
 
-      toast.timer=setTimeout(function(){
-      toast.classList.remove("show");
-      },2200);
+      toastTimer=setTimeout(function(){
+      toast.className="toast";
+      },2000);
 
       }
 
       function startDownload(button){
 
-      if(button.classList.contains("loading")){
+      if(button.disabled){
       return;
       }
 
-      const target=button.dataset.link;
-      const original=button.innerHTML;
+      var target=button.getAttribute("data-link");
 
       if(
       !target ||
-      target.startsWith("GANTI_LINK_") ||
-      target==="#"
+      target==="#" ||
+      target.indexOf("GANTI_LINK_")===0
       ){
 
       showToast("Link file belum diatur.");
@@ -1390,18 +1291,16 @@
 
       }
 
-      button.classList.add("loading");
-
+      button.disabled=true;
+      button.className="download loading";
       button.innerHTML=
-      '<i class="fa-solid fa-spinner"></i> CHECKING <span class="progress"></span>';
+      '<i class="fa-solid fa-spinner"></i> CHECKING';
 
       showToast("Menyiapkan file...");
 
       setTimeout(function(){
 
-      button.classList.remove("loading");
-      button.classList.add("ready");
-
+      button.className="download ready";
       button.innerHTML=
       '<i class="fa-solid fa-check"></i> READY';
 
@@ -1411,14 +1310,7 @@
       window.location.href=target;
       },400);
 
-      setTimeout(function(){
-
-      button.classList.remove("ready");
-      button.innerHTML=original;
-
-      },1500);
-
-      },1100);
+      },700);
 
       }
     </script>
