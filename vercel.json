@@ -67,6 +67,14 @@
       "dest": "/convert/emovideos.html"
     },
     {
+      "src": "/removebg/?$",
+      "dest": "/convert/removebg.html"
+    },
+    {
+      "src": "/remini/?$",
+      "dest": "/convert/remini.html"
+    },
+    {
       "src": "/bully/?$",
       "dest": "/temp/bully.html"
     },
