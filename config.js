@@ -20,7 +20,15 @@ const CONFIG = {
   },
   
   DIMZZ6: {
-    URL: "https://dimz-wtf.vercel.app/api/salam-booyah"
+    URL: "https://dimz-wtf.vercel.app/api/epep-maker"
+  },
+  
+  DIMZZ7: {
+    URL: "https://dimz-wtf.vercel.app/api/uploaders"
+  },
+  
+  DIMZZ8: {
+    URL: "https://dimz-wtf.vercel.app/api/downloadms"
   },
 
   SITE: {
