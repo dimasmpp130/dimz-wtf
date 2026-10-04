@@ -6,10 +6,12 @@
     <meta name="theme-color" content="#070911" />
     <meta
       name="description"
-      content="Kalkulator Zodiak Wheel MLBB by DIMMZZZSUM_ENAK"
+      content="Kalkulator Zodiak Wheel MLBB"
     />
     <title>Kalkulator Zodiak Wheel MLBB - DIMMZZZSUM_ENAK</title>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicons/android-icon-192x192.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
     <style>
       *{
         box-sizing:border-box;
@@ -740,22 +742,17 @@
       }
     </style>
   </head>
-
   <body>
     <div class="container">
       <header>
         <div class="header-icon">◆</div>
-
         <h1>KALKULATOR ZODIAK WHEEL MLBB</h1>
-
         <p class="subtitle">
           Hitung estimasi diamond berdasarkan progress Zodiak Wheel yang sudah
           kamu miliki.
         </p>
-
-        <div class="creator">CREATED BY DIMMZZZSUM_ENAK</div>
+        <div class="creator">simpel, mudah, dan cepat</div>
       </header>
-
       <main class="main-card">
         <div class="intro">
           <div class="intro-icon">↔</div>
@@ -767,49 +764,41 @@
             >
           </div>
         </div>
-
         <div class="info-grid">
           <div class="info-card">
             <div class="info-label">Harga Awal</div>
             <div class="info-value gold">◆ 1.700 Diamond</div>
           </div>
-
           <div class="info-card">
             <div class="info-label">Target Maksimal</div>
             <div class="info-value blue">● 100 Point</div>
           </div>
         </div>
-
         <div class="formula-panel">
           <div class="formula-head">
             <div class="formula-title"><b>ƒ</b> Rumus Perhitungan</div>
             <div class="formula-badge">AKURAT</div>
           </div>
-
           <div class="formula-list">
             <div class="formula-row">
               <strong>0–89 Point</strong>
               <code>1.700 - (point × 17)</code>
             </div>
-
             <div class="formula-row">
               <strong>90–99 Point</strong>
               <code>200 - ((point - 90) × 20)</code>
             </div>
-
             <div class="formula-row">
               <strong>100 Point</strong>
               <code>0 Diamond</code>
             </div>
           </div>
         </div>
-
         <section class="calculator-panel">
           <div class="panel-heading">
             <span>Live Calculator</span>
             <strong>POINT ZODIAK WHEEL YANG SUDAH DIMILIKI</strong>
           </div>
-
           <div class="point-area">
             <div class="progress-wrap">
               <div class="progress-ring" id="progressRing">
@@ -823,13 +812,11 @@
                 </div>
               </div>
             </div>
-
             <div class="control-area">
               <div class="control-top">
                 <div class="control-label">Progress Point</div>
                 <div class="live-point" id="livePoint">0 / 100</div>
               </div>
-
               <div class="slider-box">
                 <input
                   type="range"
@@ -839,7 +826,6 @@
                   class="slider"
                   id="pointSlider"
                 />
-
                 <div class="slider-scale">
                   <span>0</span>
                   <span>50</span>
@@ -847,7 +833,6 @@
                   <span>100</span>
                 </div>
               </div>
-
               <div class="button-row">
                 <button class="point-control" id="decreaseBtn" type="button">
                   − Kurangi
@@ -856,7 +841,6 @@
                   Tambah +
                 </button>
               </div>
-
               <div class="status-line">
                 <span class="status-dot"></span>
                 <span id="statusText"
@@ -866,31 +850,26 @@
             </div>
           </div>
         </section>
-
         <section class="result-section">
           <div class="section-heading">
             <strong>Hasil Perhitungan</strong>
             <span id="resultPhase">PHASE 01</span>
           </div>
-
           <div class="result-grid">
             <div class="result-card">
               <div class="result-card-label">Point Dimiliki</div>
               <div class="result-card-value" id="currentPointResult">0</div>
             </div>
-
             <div class="result-card">
               <div class="result-card-label">Sisa Point</div>
               <div class="result-card-value" id="neededPointsResult">100</div>
             </div>
-
             <div class="result-card">
               <div class="result-card-label">Estimasi Spin</div>
               <div class="result-card-value" id="estimatedSpinsResult">
                 ~100
               </div>
             </div>
-
             <div class="result-card diamond-card">
               <div class="result-card-label">Diamond Dibutuhkan</div>
               <div class="result-card-value diamond-value">
@@ -898,26 +877,21 @@
               </div>
             </div>
           </div>
-
           <div class="details-card">
             <div class="details-head">Detail Perhitungan</div>
-
             <div class="detail-list">
               <div class="detail-row">
                 <span>Rumus digunakan</span>
                 <span id="formulaUsed">1.700 - (0 × 17)</span>
               </div>
-
               <div class="detail-row">
                 <span>Point saat ini</span>
                 <span id="currentPointDetail">0</span>
               </div>
-
               <div class="detail-row">
                 <span>Diamond per point</span>
                 <span id="diamondPerPoint">17</span>
               </div>
-
               <div class="detail-row">
                 <span>Total diamond</span>
                 <span id="totalDiamondDetail">1.700 Diamond</span>
@@ -925,85 +899,69 @@
             </div>
           </div>
         </section>
-
         <section class="reference-section">
           <div class="section-heading">
             <strong>Quick Reference</strong>
             <span>Estimasi diamond</span>
           </div>
-
           <div class="reference-grid">
             <div class="reference-item">
               <div class="reference-point">0 Point</div>
               <div class="reference-diamond">1.700 Diamond</div>
             </div>
-
             <div class="reference-item">
               <div class="reference-point">25 Point</div>
               <div class="reference-diamond">1.275 Diamond</div>
             </div>
-
             <div class="reference-item">
               <div class="reference-point">50 Point</div>
               <div class="reference-diamond">850 Diamond</div>
             </div>
-
             <div class="reference-item">
               <div class="reference-point">75 Point</div>
               <div class="reference-diamond">425 Diamond</div>
             </div>
-
             <div class="reference-item">
               <div class="reference-point">89 Point</div>
               <div class="reference-diamond">187 Diamond</div>
             </div>
-
             <div class="reference-item">
               <div class="reference-point">95 Point</div>
               <div class="reference-diamond">100 Diamond</div>
             </div>
-
             <div class="reference-item">
               <div class="reference-point">99 Point</div>
               <div class="reference-diamond">20 Diamond</div>
             </div>
-
             <div class="reference-item">
               <div class="reference-point">100 Point</div>
               <div class="reference-diamond">0 Diamond</div>
             </div>
           </div>
         </section>
-
         <section class="note">
           <div class="note-title"><b>ⓘ</b> Sistem Zodiak Wheel MLBB</div>
-
           <div class="note-grid">
             <div class="note-item">
               <strong>0–89 Point</strong><br />
               1.700 - (point × 17) Diamond
             </div>
-
             <div class="note-item">
               <strong>90–99 Point</strong><br />
               200 - ((point - 90) × 20) Diamond
             </div>
-
             <div class="note-item">
               <strong>100 Point</strong><br />
               0 Diamond karena skin sudah didapat.
             </div>
-
             <div class="note-item">
               <strong>Contoh 50 Point</strong><br />
               1.700 - (50 × 17) = 850 Diamond
             </div>
-
             <div class="note-item">
               <strong>Contoh 89 Point</strong><br />
               1.700 - (89 × 17) = 187 Diamond
             </div>
-
             <div class="note-item">
               <strong>Contoh 95 Point</strong><br />
               200 - ((95 - 90) × 20) = 100 Diamond
@@ -1011,17 +969,19 @@
           </div>
         </section>
       </main>
-
       <footer>
         <div>
-          © 2026 Kalkulator Zodiak Wheel MLBB by
-          <strong>DIMMZZZSUM_ENAK</strong>
+          © <span id="currentYear"></span> Kalkulator Zodiak Wheel —
+          <strong id="footerText"></strong>
         </div>
         <div>Mobile Legends: Bang Bang • Zodiac Wheel Calculator</div>
       </footer>
     </div>
-
+    <script src="/config.js"></script>
     <script>
+      const footerText = document.getElementById("footerText").textContent = CONFIG.SITE.FOOTER1;
+      const currentYear = document.getElementById("currentYear").textContent = new Date().getFullYear();
+    
       const MAX=100;
       const BASE=1700;
       const PRICE=17;
