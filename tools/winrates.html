@@ -9,7 +9,9 @@
       content="Win Rate Calculator — Hitung target win rate gaming dengan mudah."
     />
     <title>Win Rate Calculator — DIMMZZZSUM_ENAK</title>
-
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicons/android-icon-192x192.png">
+    <meta name="msapplication-TileColor" content="#ffffff">
     <style>
       *{margin:0;padding:0;box-sizing:border-box}
 
@@ -564,27 +566,21 @@
       }
     </style>
   </head>
-
   <body>
     <div class="container">
       <header class="header">
         <div class="header-icon">%</div>
-
         <div class="eyebrow">
           <span></span>
           GAMING STATISTICS
         </div>
-
         <h1>WIN RATE CALCULATOR</h1>
-
         <p>
           Hitung statistik win rate, jumlah kemenangan dan kekalahan, serta
           match yang dibutuhkan untuk mencapai target.
         </p>
-
-        <div class="creator">Created by DIMMZZZSUM_ENAK</div>
+        <div class="creator">simpel, mudah, dan cepat</div>
       </header>
-
       <main class="card calculator-card">
         <div class="section-title">
           <div class="icon">⚙</div>
@@ -593,7 +589,6 @@
             <p>Masukkan statistik akun kamu</p>
           </div>
         </div>
-
         <div class="input-grid">
           <div class="input-group">
             <label for="totalMatch">Total Match</label>
@@ -610,7 +605,6 @@
               Jumlah seluruh match yang telah dimainkan.
             </div>
           </div>
-
           <div class="input-group">
             <label for="currentWR">Win Rate Saat Ini</label>
             <div class="input-wrap">
@@ -621,12 +615,11 @@
                 min="0"
                 max="100"
                 step="0.01"
-                placeholder="Contoh: 90.1"
+                placeholder="Contoh: 90"
               />
             </div>
             <div class="input-hint">Gunakan nilai persen, misalnya 90.1.</div>
           </div>
-
           <div class="input-group">
             <label for="targetWR">Target Win Rate</label>
             <div class="input-wrap">
@@ -643,126 +636,104 @@
             <div class="input-hint">Target yang ingin dicapai.</div>
           </div>
         </div>
-
         <button class="calculate-btn" id="calculateBtn">
           ⚡ HITUNG STATISTIK
         </button>
-
         <section class="result-container" id="resultContainer">
           <div class="result-header">
             <i>◉</i>
             <h2>HASIL PERHITUNGAN</h2>
           </div>
-
           <div class="current-panel">
             <div class="current-label">WIN RATE SAAT INI</div>
             <div class="current-wr" id="currentWRDisplay">0%</div>
-
             <div class="current-status">
               <span></span>
               <b id="currentStatus">STATISTIK AKTIF</b>
             </div>
           </div>
-
           <div class="stats-grid">
             <div class="stat-card">
               <div class="stat-icon">▲</div>
               <div class="stat-value" id="totalWinResult">0</div>
               <div class="stat-label">TOTAL MENANG</div>
             </div>
-
             <div class="stat-card">
               <div class="stat-icon">×</div>
               <div class="stat-value" id="totalLoseResult">0</div>
               <div class="stat-label">TOTAL KALAH</div>
             </div>
           </div>
-
           <div class="target-panel">
             <div class="target-heading">
               <h3>◎ TARGET WIN RATE</h3>
               <div class="target-badge" id="targetBadge">TARGET</div>
             </div>
-
             <div class="target-wr" id="targetWRDisplay">0%</div>
-
             <div class="progress-track">
               <div class="progress-bar" id="targetProgress"></div>
             </div>
-
             <div class="target-difference">
               Selisih dari win rate sekarang:
               <strong id="wrDifference">0%</strong>
             </div>
           </div>
-
           <div class="requirements" id="increaseSection">
             <div class="requirements-title">
               <i>↗</i>
               KEBUTUHAN UNTUK MENAIKKAN WIN RATE
             </div>
-
             <div class="requirement-list">
               <div class="requirement">
                 <div class="requirement-label">Total Match Dibutuhkan</div>
                 <div class="requirement-value" id="requiredMatches">0</div>
               </div>
-
               <div class="requirement">
                 <div class="requirement-label">Match Menang Berturut-turut</div>
                 <div class="requirement-value" id="winStreakNeeded">0</div>
               </div>
-
               <div class="requirement">
                 <div class="requirement-label">Win Rate per Match</div>
                 <div class="requirement-value">100%</div>
               </div>
             </div>
           </div>
-
           <div class="requirements" id="decreaseSection" style="display:none">
             <div class="requirements-title">
               <i>↘</i>
               KEBUTUHAN UNTUK MENURUNKAN WIN RATE
             </div>
-
             <div class="requirement-list">
               <div class="requirement">
                 <div class="requirement-label">Total Match Dibutuhkan</div>
                 <div class="requirement-value" id="decreaseMatches">0</div>
               </div>
-
               <div class="requirement">
                 <div class="requirement-label">Match Kalah Berturut-turut</div>
                 <div class="requirement-value" id="loseStreakNeeded">0</div>
               </div>
-
               <div class="requirement">
                 <div class="requirement-label">Win Rate per Match</div>
                 <div class="requirement-value">0%</div>
               </div>
             </div>
           </div>
-
           <div class="detail-section">
             <div class="detail-title">
               <i>☷</i>
               STATISTIK DETAIL
             </div>
-
             <div class="detail-grid">
               <div class="detail-card">
                 <div class="detail-icon">%</div>
                 <div class="detail-label">SELISIH WIN RATE</div>
                 <div class="detail-value" id="wrDifferenceDetail">0%</div>
               </div>
-
               <div class="detail-card">
                 <div class="detail-icon">↗</div>
                 <div class="detail-label">PERUBAHAN DIBUTUHKAN</div>
                 <div class="detail-value" id="wrChangeNeeded">0%</div>
               </div>
-
               <div class="detail-card">
                 <div class="detail-icon">◷</div>
                 <div class="detail-label">ESTIMASI WAKTU</div>
@@ -770,13 +741,11 @@
               </div>
             </div>
           </div>
-
           <div class="recommendation">
             <div class="recommendation-head">
               <i>!</i>
               <span>CATATAN</span>
             </div>
-
             <p id="recommendationText">
               Masukkan data pertandingan terlebih dahulu untuk melihat hasil
               perhitungan.
@@ -784,14 +753,16 @@
           </div>
         </section>
       </main>
-
       <footer class="footer">
-        © 2026 Win Rate Calculator dibuat oleh
-        <strong>DIMMZZZSUM_ENAK</strong>
+        © 2026 Win Rate Calculator —
+        <strong id="footerText"></strong>
       </footer>
     </div>
-
+    <script src="/config.js"></script>
     <script>
+      const footerText = document.getElementById("footerText").textContent = CONFIG.SITE.FOOTER1;
+      const currentYear = document.getElementById("currentYear").textContent = new Date().getFullYear();
+    
       const $=id=>document.getElementById(id);
 
       const totalMatchInput=$("totalMatch");
