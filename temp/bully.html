@@ -1029,8 +1029,8 @@
     </div>
     <script src="/config.js"></script>
     <script>
-      const footerText = document.getElementById("footerText").textContent = CONFIG.SITE.FOOTER1;
-      const currentYear = document.getElementById("currentYear").textContent = new Date().getFullYear();
+      var footerText=document.getElementById("footerText").textContent = CONFIG.SITE.FOOTER1;
+      var currentYear=document.getElementById("currentYear").textContent = new Date().getFullYear();
       (function(){
 
       var buttons=document.querySelectorAll(".download-btn");
