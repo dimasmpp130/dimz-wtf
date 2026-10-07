@@ -35,7 +35,7 @@ export default async function handler(req, res) {
       });
     }
 
-    const allowedHosts = (process.env.ALLOWED_PROXY_HOSTS || "")
+    const allowedHosts = ("secure-signed.pages.dev" || "cdn.alyachan.online" || "")
       .split(",")
       .map(host => host.trim().toLowerCase())
       .filter(Boolean);
@@ -43,7 +43,7 @@ export default async function handler(req, res) {
     if (!allowedHosts.length) {
       return res.status(500).json({
         success: false,
-        message: "ALLOWED_PROXY_HOSTS belum dikonfigurasi di Vercel."
+        message: "ada yang belum dikonfigurasi."
       });
     }
 
