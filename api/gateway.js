@@ -3,7 +3,7 @@ export default async function handler(req, res) {
     if (req.method === "OPTIONS") {
       res.setHeader("Access-Control-Allow-Origin", "*");
       res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
-      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Range");
       return res.status(204).end();
     }
 
@@ -64,7 +64,8 @@ export default async function handler(req, res) {
       method: "GET",
       redirect: "follow",
       headers: {
-        "User-Agent": "Mozilla/5.0"
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "image/avif,image/webp,image/apng,image/png,image/jpeg,image/gif,video/mp4,video/webm,*/*"
       }
     });
 
@@ -75,62 +76,115 @@ export default async function handler(req, res) {
       });
     }
 
-    const contentTypeHeader = response.headers.get("content-type") || "";
+    const buffer = Buffer.from(await response.arrayBuffer());
 
-    const cleanContentType = contentTypeHeader
-      .split(";")[0]
-      .trim()
-      .toLowerCase();
+    const upstreamType =
+      response.headers.get("content-type") || "";
+
+    const detectMime = () => {
+      if (
+        buffer.length >= 8 &&
+        buffer[0] === 0x89 &&
+        buffer[1] === 0x50 &&
+        buffer[2] === 0x4e &&
+        buffer[3] === 0x47
+      ) {
+        return "image/png";
+      }
+
+      if (
+        buffer.length >= 3 &&
+        buffer[0] === 0xff &&
+        buffer[1] === 0xd8 &&
+        buffer[2] === 0xff
+      ) {
+        return "image/jpeg";
+      }
+
+      if (
+        buffer.length >= 6 &&
+        buffer.toString("ascii", 0, 6) === "GIF89a"
+      ) {
+        return "image/gif";
+      }
+
+      if (
+        buffer.length >= 6 &&
+        buffer.toString("ascii", 0, 6) === "GIF87a"
+      ) {
+        return "image/gif";
+      }
+
+      if (
+        buffer.length >= 12 &&
+        buffer.toString("ascii", 0, 4) === "RIFF" &&
+        buffer.toString("ascii", 8, 12) === "WEBP"
+      ) {
+        return "image/webp";
+      }
+
+      if (
+        buffer.length >= 12 &&
+        buffer.toString("ascii", 4, 8) === "ftyp"
+      ) {
+        return "video/mp4";
+      }
+
+      return "";
+    };
+
+    let contentType = upstreamType.split(";")[0].trim().toLowerCase();
+
+    if (
+      !contentType ||
+      contentType === "application/octet-stream" ||
+      contentType === "binary/octet-stream"
+    ) {
+      contentType = detectMime();
+    }
+
+    if (!contentType) {
+      return res.status(415).json({
+        success: false,
+        message: "Format file tidak dapat dikenali."
+      });
+    }
 
     let extension = "bin";
 
-    const mimeExtensions = {
-      "image/jpeg": "jpg",
-      "image/jpg": "jpg",
-      "image/png": "png",
-      "image/webp": "webp",
-      "image/gif": "gif",
-      "image/avif": "avif",
-      "image/bmp": "bmp",
-      "video/mp4": "mp4",
-      "video/webm": "webm",
-      "video/quicktime": "mov",
-      "video/x-matroska": "mkv"
-    };
-
-    if (mimeExtensions[cleanContentType]) {
-      extension = mimeExtensions[cleanContentType];
-    } else {
-      const pathExtension = target.pathname
-        .split(".")
-        .pop()
-        .toLowerCase();
-
-      if (
-        pathExtension &&
-        /^[a-z0-9]{2,5}$/.test(pathExtension)
-      ) {
-        extension = pathExtension;
-      }
+    if (contentType === "image/png") {
+      extension = "png";
+    } else if (contentType === "image/jpeg") {
+      extension = "jpg";
+    } else if (contentType === "image/gif") {
+      extension = "gif";
+    } else if (contentType === "image/webp") {
+      extension = "webp";
+    } else if (contentType === "video/mp4") {
+      extension = "mp4";
+    } else if (contentType === "video/webm") {
+      extension = "webm";
     }
 
-    let filename = `dimz-result.${extension}`;
-
-    if (cleanContentType.startsWith("image/")) {
-      filename = `brat-${Date.now()}.${extension}`;
+    if (
+      !contentType.startsWith("image/") &&
+      !contentType.startsWith("video/")
+    ) {
+      return res.status(415).json({
+        success: false,
+        message: `Format file tidak didukung: ${contentType}`
+      });
     }
 
-    if (cleanContentType.startsWith("video/")) {
-      filename = `brat-video-${Date.now()}.${extension}`;
-    }
-
-    const contentLength = response.headers.get("content-length");
+    const filename = contentType.startsWith("video/")
+      ? `brat-video.${extension}`
+      : `brat-image.${extension}`;
 
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
     res.setHeader(
       "Access-Control-Allow-Headers",
-      "Content-Type"
+      "Content-Type, Range"
     );
 
     res.setHeader(
@@ -138,19 +192,13 @@ export default async function handler(req, res) {
       "Content-Type, Content-Length, Content-Disposition"
     );
 
-    res.setHeader(
-      "Content-Type",
-      cleanContentType || "application/octet-stream"
-    );
+    res.setHeader("Content-Type", contentType);
+    res.setHeader("Content-Length", buffer.length.toString());
 
     res.setHeader(
       "Content-Disposition",
       `attachment; filename="${filename}"`
     );
-
-    if (contentLength) {
-      res.setHeader("Content-Length", contentLength);
-    }
 
     res.setHeader(
       "Cache-Control",
@@ -162,19 +210,14 @@ export default async function handler(req, res) {
       "nosniff"
     );
 
-    const buffer = Buffer.from(
-      await response.arrayBuffer()
-    );
-
     return res.status(200).send(buffer);
 
   } catch (error) {
-    console.error("Gateway error:", error);
+    console.error("Proxy error:", error);
 
     return res.status(500).json({
       success: false,
-      message: "Terjadi kesalahan pada gateway.",
-      error: error?.message || "Unknown error"
+      message: "Terjadi kesalahan saat mengambil file."
     });
   }
 }
