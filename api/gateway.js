@@ -1,7 +1,14 @@
 export default async function handler(req, res) {
   try {
+    if (req.method === "OPTIONS") {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+      return res.status(204).end();
+    }
+
     if (req.method !== "GET") {
-      res.setHeader("Allow", "GET");
+      res.setHeader("Allow", "GET, OPTIONS");
       return res.status(405).json({
         success: false,
         message: "Method Not Allowed"
@@ -35,17 +42,10 @@ export default async function handler(req, res) {
       });
     }
 
-    const allowedHosts = ("secure-signed.pages.dev" || "cdn.alyachan.online" || "")
-      .split(",")
-      .map(host => host.trim().toLowerCase())
-      .filter(Boolean);
-
-    if (!allowedHosts.length) {
-      return res.status(500).json({
-        success: false,
-        message: "ada yang belum dikonfigurasi."
-      });
-    }
+    const allowedHosts = [
+      "secure-signed.pages.dev",
+      "cdn.alyachan.online"
+    ];
 
     const hostname = target.hostname.toLowerCase();
 
@@ -75,9 +75,54 @@ export default async function handler(req, res) {
       });
     }
 
-    const contentType =
-      response.headers.get("content-type") ||
-      "application/octet-stream";
+    const contentTypeHeader = response.headers.get("content-type") || "";
+
+    const cleanContentType = contentTypeHeader
+      .split(";")[0]
+      .trim()
+      .toLowerCase();
+
+    let extension = "bin";
+
+    const mimeExtensions = {
+      "image/jpeg": "jpg",
+      "image/jpg": "jpg",
+      "image/png": "png",
+      "image/webp": "webp",
+      "image/gif": "gif",
+      "image/avif": "avif",
+      "image/bmp": "bmp",
+      "video/mp4": "mp4",
+      "video/webm": "webm",
+      "video/quicktime": "mov",
+      "video/x-matroska": "mkv"
+    };
+
+    if (mimeExtensions[cleanContentType]) {
+      extension = mimeExtensions[cleanContentType];
+    } else {
+      const pathExtension = target.pathname
+        .split(".")
+        .pop()
+        .toLowerCase();
+
+      if (
+        pathExtension &&
+        /^[a-z0-9]{2,5}$/.test(pathExtension)
+      ) {
+        extension = pathExtension;
+      }
+    }
+
+    let filename = `dimz-result.${extension}`;
+
+    if (cleanContentType.startsWith("image/")) {
+      filename = `brat-${Date.now()}.${extension}`;
+    }
+
+    if (cleanContentType.startsWith("video/")) {
+      filename = `brat-video-${Date.now()}.${extension}`;
+    }
 
     const contentLength = response.headers.get("content-length");
 
@@ -85,40 +130,51 @@ export default async function handler(req, res) {
     res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
     res.setHeader(
       "Access-Control-Allow-Headers",
-      "Content-Type, Range"
+      "Content-Type"
     );
 
-    res.setHeader("Content-Type", contentType);
+    res.setHeader(
+      "Access-Control-Expose-Headers",
+      "Content-Type, Content-Length, Content-Disposition"
+    );
+
+    res.setHeader(
+      "Content-Type",
+      cleanContentType || "application/octet-stream"
+    );
+
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${filename}"`
+    );
 
     if (contentLength) {
       res.setHeader("Content-Length", contentLength);
     }
 
     res.setHeader(
-      "Content-Disposition",
-      "inline"
+      "Cache-Control",
+      "private, no-store, max-age=0"
     );
 
     res.setHeader(
-      "Cache-Control",
-      "public, max-age=3600, s-maxage=3600"
+      "X-Content-Type-Options",
+      "nosniff"
     );
 
-    if (contentType.startsWith("image/") ||
-        contentType.startsWith("video/")) {
-      res.setHeader("X-Content-Type-Options", "nosniff");
-    }
-
-    const buffer = Buffer.from(await response.arrayBuffer());
+    const buffer = Buffer.from(
+      await response.arrayBuffer()
+    );
 
     return res.status(200).send(buffer);
 
   } catch (error) {
-    console.error("Proxy error:", error);
+    console.error("Gateway error:", error);
 
     return res.status(500).json({
       success: false,
-      message: "Terjadi kesalahan saat mengambil file."
+      message: "Terjadi kesalahan pada gateway.",
+      error: error?.message || "Unknown error"
     });
   }
 }
