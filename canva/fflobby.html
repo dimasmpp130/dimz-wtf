@@ -2,101 +2,586 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1"
-    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
     <meta name="theme-color" content="#080808" />
-    <meta
-      name="description"
-      content="Free Fire Lobby Maker - Buat gambar lobby Free Fire dengan nama pilihanmu."
-    />
+    <meta name="description" content="Free Fire Lobby Maker - Buat gambar lobby Free Fire dengan nama pilihanmu." />
     <title>Free Fire Lobby Maker - DIMMZZZSUM_ENAK</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-icon-192x192.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <style>
-      *{box-sizing:border-box;margin:0;padding:0}
-      :root{--bg:#080808;--card:#111;--red:#ff2020;--text:#eee;--border:#242424;--green:#20d47b}
-      body{min-height:100vh;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
-      button,input{font-family:Arial,Helvetica,sans-serif}
-      button{border:0}
-      .container{width:calc(100% - 24px);max-width:1180px;margin:auto}
-      header{height:62px;background:#0a0a0a;border-bottom:1px solid var(--border)}
-      .header-inner{height:100%;display:flex;align-items:center;justify-content:space-between;gap:12px}
-      .brand{display:flex;align-items:center;gap:10px;min-width:0}
-      .logo{width:38px;height:38px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--red);color:#fff;font-size:16px;font-weight:700}
-      .brand-text{min-width:0}
-      .brand-title{color:#fff;font-size:17px;font-weight:700;white-space:nowrap}
-      .brand-subtitle{margin-top:3px;color:#666;font-size:8px;letter-spacing:1px;white-space:nowrap}
-      .online-status{display:flex;align-items:center;gap:6px;color:#999;font-size:10px;white-space:nowrap}
-      .online-dot{width:7px;height:7px;border-radius:50%;background:var(--green)}
-      .hero{padding:50px 0 35px;text-align:center}
-      .hero-badge{display:inline-block;padding:6px 10px;border:1px solid #3b1b14;border-radius:20px;background:#160d0a;color:#e89070;font-size:10px;font-weight:700;letter-spacing:1px}
-      .hero h1{margin-top:16px;color:#fff;font-size:48px;font-weight:800;line-height:1;letter-spacing:1px}
-      .hero h1 span{color:var(--red)}
-      .hero p{max-width:620px;margin:15px auto 0;color:#777;font-size:12px;line-height:1.6}
-      .workspace{display:grid;grid-template-columns:minmax(0,.82fr) minmax(0,1.18fr);gap:16px;padding-bottom:50px;align-items:start}
-      .card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;min-width:0}
-      .card-header{display:flex;align-items:center;padding:17px;border-bottom:1px solid var(--border)}
-      .card-title{display:flex;align-items:center;gap:9px;color:#fff;font-size:18px;font-weight:700}
-      .card-title-icon{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:7px;background:#24100c;color:var(--red);font-size:13px}
-      .card-body{padding:17px}
-      .field-label{display:block;margin-bottom:8px;color:#ccc;font-size:11px;font-weight:700;text-transform:uppercase}
-      .input-wrap input{width:100%;height:50px;padding:0 13px;outline:none;background:#090909;border:1px solid #292929;border-radius:8px;color:#fff;font-size:15px}
-      .input-wrap input:focus{border-color:#a51b10}
-      .input-wrap input::placeholder{color:#555}
-      .generate-btn{width:100%;height:50px;margin-top:14px;border-radius:8px;background:var(--red);color:#fff;cursor:pointer;font-size:14px;font-weight:700}
-      .generate-btn:active{background:#d71919}
-      .generate-btn:disabled,.action-btn:disabled{opacity:.55;cursor:wait}
-      .tips{margin-top:17px;padding:12px;border:1px solid #202020;border-radius:8px;background:#0d0d0d}
-      .tips-title{margin-bottom:7px;color:#ddd;font-size:12px;font-weight:700}
-      .tips ul{padding-left:16px;color:#707070;font-size:10px;line-height:1.8}
-      .error-box{display:none;margin-top:12px;padding:10px 12px;border:1px solid #522020;border-radius:7px;background:#1a0b0b;color:#ff8585;font-size:11px;line-height:1.6;overflow-wrap:anywhere}
-      .error-box.active{display:block}
-      .result-card-body{min-height:420px;display:flex;align-items:center;justify-content:center}
-      .result-empty,.loading{width:100%;min-height:390px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
-      .empty-icon{width:65px;height:65px;display:flex;align-items:center;justify-content:center;margin-bottom:15px;border:1px solid #321711;border-radius:15px;background:#120b09;color:#6c281c;font-size:27px}
-      .result-empty h3,.loading h3{color:#ddd;font-size:17px}
-      .result-empty p{max-width:340px;margin-top:7px;color:#666;font-size:11px;line-height:1.6}
-      .loading{display:none}
-      .loading.active{display:flex}
-      .loader{width:42px;height:42px;margin-bottom:16px;border:3px solid #262626;border-top-color:var(--red);border-radius:50%;animation:spin .8s linear infinite}
-      @keyframes spin{to{transform:rotate(360deg)}}
-      .loading p{margin-top:6px;color:#666;font-size:10px}
-      .result-content{display:none;width:100%;min-width:0}
-      .result-content.active{display:block}
-      .image-preview{width:100%;padding:4px;background:#080808;border:1px solid #202020;border-radius:9px;overflow:hidden;text-align:center}
-      .image-preview img{display:block;width:100%;max-height:560px;object-fit:contain;border-radius:6px}
-      .file-info{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin-top:10px}
-      .file-info-box{min-width:0;padding:9px;border:1px solid #202020;border-radius:7px;background:#0d0d0d}
-      .file-info-label{color:#5f5f5f;font-size:8px;font-weight:700;text-transform:uppercase}
-      .file-info-value{margin-top:3px;overflow:hidden;color:#ccc;font-size:10px;font-weight:600;white-space:nowrap;text-overflow:ellipsis}
-      .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
-      .action-btn{min-height:46px;padding:10px;border:1px solid #292929;border-radius:8px;background:#151515;color:#ddd;cursor:pointer;font-size:12px;font-weight:700}
-      .action-btn:active{background:#202020}
-      .action-btn.primary{background:var(--red);border-color:var(--red);color:#fff}
-      footer{padding:0 0 30px;text-align:center;color:#505050;font-size:9px;line-height:1.6}
-      footer .creator{color:#707070}
-      .toast{position:fixed;left:50%;bottom:18px;z-index:100;width:max-content;max-width:calc(100% - 28px);padding:11px 14px;border:1px solid #3a2929;border-radius:9px;background:#171010;color:#eee;font-size:11px;line-height:1.45;text-align:center;box-shadow:0 8px 30px rgba(0,0,0,.35);transform:translate(-50%,12px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s,transform .2s}
-      .toast.show{opacity:1;visibility:visible;transform:translate(-50%,0)}
-      @media(max-width:850px){.workspace{grid-template-columns:minmax(0,1fr)}}
-      @media(max-width:560px){
-      .container{width:calc(100% - 20px)}
-      header{height:58px}
-      .logo{width:35px;height:35px;font-size:14px}
-      .brand-title{font-size:15px}
-      .brand-subtitle{font-size:7px}
-      .online-status{font-size:9px}
-      .hero{padding:40px 0 28px}
-      .hero h1{font-size:43px}
-      .hero p{font-size:11px}
-      .card-header,.card-body{padding:15px}
-      .result-card-body{padding:15px;min-height:340px}
-      .result-empty,.loading{min-height:320px}
-      .actions{grid-template-columns:1fr}
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0
       }
-      @media(prefers-reduced-motion:reduce){.loader{animation:none}.toast{transition:none}}
+
+      :root {
+        --bg: #080808;
+        --card: #111;
+        --red: #ff2020;
+        --text: #eee;
+        --border: #242424;
+        --green: #20d47b
+      }
+
+      body {
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family: Arial, Helvetica, sans-serif;
+        overflow-x: hidden
+      }
+
+      button,
+      input {
+        font-family: Arial, Helvetica, sans-serif
+      }
+
+      button {
+        border: 0
+      }
+
+      .container {
+        width: calc(100% - 24px);
+        max-width: 1180px;
+        margin: auto
+      }
+
+      header {
+        height: 62px;
+        background: #0a0a0a;
+        border-bottom: 1px solid var(--border)
+      }
+
+      .header-inner {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0
+      }
+
+      .logo {
+        width: 38px;
+        height: 38px;
+        flex: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--red);
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700
+      }
+
+      .brand-text {
+        min-width: 0
+      }
+
+      .brand-title {
+        color: #fff;
+        font-size: 17px;
+        font-weight: 700;
+        white-space: nowrap
+      }
+
+      .brand-subtitle {
+        margin-top: 3px;
+        color: #666;
+        font-size: 8px;
+        letter-spacing: 1px;
+        white-space: nowrap
+      }
+
+      .online-status {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #999;
+        font-size: 10px;
+        white-space: nowrap
+      }
+
+      .online-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green)
+      }
+
+      .hero {
+        padding: 50px 0 35px;
+        text-align: center
+      }
+
+      .hero-badge {
+        display: inline-block;
+        padding: 6px 10px;
+        border: 1px solid #3b1b14;
+        border-radius: 20px;
+        background: #160d0a;
+        color: #e89070;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1px
+      }
+
+      .hero h1 {
+        margin-top: 16px;
+        color: #fff;
+        font-size: 48px;
+        font-weight: 800;
+        line-height: 1;
+        letter-spacing: 1px
+      }
+
+      .hero h1 span {
+        color: var(--red)
+      }
+
+      .hero p {
+        max-width: 620px;
+        margin: 15px auto 0;
+        color: #777;
+        font-size: 12px;
+        line-height: 1.6
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(0, .82fr) minmax(0, 1.18fr);
+        gap: 16px;
+        padding-bottom: 50px;
+        align-items: start
+      }
+
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        min-width: 0
+      }
+
+      .card-header {
+        display: flex;
+        align-items: center;
+        padding: 17px;
+        border-bottom: 1px solid var(--border)
+      }
+
+      .card-title {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 700
+      }
+
+      .card-title-icon {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 7px;
+        background: #24100c;
+        color: var(--red);
+        font-size: 13px
+      }
+
+      .card-body {
+        padding: 17px
+      }
+
+      .field-label {
+        display: block;
+        margin-bottom: 8px;
+        color: #ccc;
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase
+      }
+
+      .input-wrap input {
+        width: 100%;
+        height: 50px;
+        padding: 0 13px;
+        outline: none;
+        background: #090909;
+        border: 1px solid #292929;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 15px
+      }
+
+      .input-wrap input:focus {
+        border-color: #a51b10
+      }
+
+      .input-wrap input::placeholder {
+        color: #555
+      }
+
+      .generate-btn {
+        width: 100%;
+        height: 50px;
+        margin-top: 14px;
+        border-radius: 8px;
+        background: var(--red);
+        color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700
+      }
+
+      .generate-btn:active {
+        background: #d71919
+      }
+
+      .generate-btn:disabled,
+      .action-btn:disabled {
+        opacity: .55;
+        cursor: wait
+      }
+
+      .tips {
+        margin-top: 17px;
+        padding: 12px;
+        border: 1px solid #202020;
+        border-radius: 8px;
+        background: #0d0d0d
+      }
+
+      .tips-title {
+        margin-bottom: 7px;
+        color: #ddd;
+        font-size: 12px;
+        font-weight: 700
+      }
+
+      .tips ul {
+        padding-left: 16px;
+        color: #707070;
+        font-size: 10px;
+        line-height: 1.8
+      }
+
+      .error-box {
+        display: none;
+        margin-top: 12px;
+        padding: 10px 12px;
+        border: 1px solid #522020;
+        border-radius: 7px;
+        background: #1a0b0b;
+        color: #ff8585;
+        font-size: 11px;
+        line-height: 1.6;
+        overflow-wrap: anywhere
+      }
+
+      .error-box.active {
+        display: block
+      }
+
+      .result-card-body {
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+        justify-content: center
+      }
+
+      .result-empty,
+      .loading {
+        width: 100%;
+        min-height: 390px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center
+      }
+
+      .empty-icon {
+        width: 65px;
+        height: 65px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        border: 1px solid #321711;
+        border-radius: 15px;
+        background: #120b09;
+        color: #6c281c;
+        font-size: 27px
+      }
+
+      .result-empty h3,
+      .loading h3 {
+        color: #ddd;
+        font-size: 17px
+      }
+
+      .result-empty p {
+        max-width: 340px;
+        margin-top: 7px;
+        color: #666;
+        font-size: 11px;
+        line-height: 1.6
+      }
+
+      .loading {
+        display: none
+      }
+
+      .loading.active {
+        display: flex
+      }
+
+      .loader {
+        width: 42px;
+        height: 42px;
+        margin-bottom: 16px;
+        border: 3px solid #262626;
+        border-top-color: var(--red);
+        border-radius: 50%;
+        animation: spin .8s linear infinite
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg)
+        }
+      }
+
+      .loading p {
+        margin-top: 6px;
+        color: #666;
+        font-size: 10px
+      }
+
+      .result-content {
+        display: none;
+        width: 100%;
+        min-width: 0
+      }
+
+      .result-content.active {
+        display: block
+      }
+
+      .image-preview {
+        width: 100%;
+        padding: 4px;
+        background: #080808;
+        border: 1px solid #202020;
+        border-radius: 9px;
+        overflow: hidden;
+        text-align: center
+      }
+
+      .image-preview img {
+        display: block;
+        width: 100%;
+        max-height: 560px;
+        object-fit: contain;
+        border-radius: 6px
+      }
+
+      .file-info {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 7px;
+        margin-top: 10px
+      }
+
+      .file-info-box {
+        min-width: 0;
+        padding: 9px;
+        border: 1px solid #202020;
+        border-radius: 7px;
+        background: #0d0d0d
+      }
+
+      .file-info-label {
+        color: #5f5f5f;
+        font-size: 8px;
+        font-weight: 700;
+        text-transform: uppercase
+      }
+
+      .file-info-value {
+        margin-top: 3px;
+        overflow: hidden;
+        color: #ccc;
+        font-size: 10px;
+        font-weight: 600;
+        white-space: nowrap;
+        text-overflow: ellipsis
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 10px
+      }
+
+      .action-btn {
+        min-height: 46px;
+        padding: 10px;
+        border: 1px solid #292929;
+        border-radius: 8px;
+        background: #151515;
+        color: #ddd;
+        cursor: pointer;
+        font-size: 12px;
+        font-weight: 700
+      }
+
+      .action-btn:active {
+        background: #202020
+      }
+
+      .action-btn.primary {
+        background: var(--red);
+        border-color: var(--red);
+        color: #fff
+      }
+
+      .action-btn.whatsapp {
+        border-color: #204b35;
+        color: #72e6a5
+      }
+
+      .action-btn.whatsapp:active {
+        background: #18251d
+      }
+
+      footer {
+        padding: 0 0 30px;
+        text-align: center;
+        color: #505050;
+        font-size: 9px;
+        line-height: 1.6
+      }
+
+      footer .creator {
+        color: #707070
+      }
+
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 18px;
+        z-index: 100;
+        width: max-content;
+        max-width: calc(100% - 28px);
+        padding: 11px 14px;
+        border: 1px solid #3a2929;
+        border-radius: 9px;
+        background: #171010;
+        color: #eee;
+        font-size: 11px;
+        line-height: 1.45;
+        text-align: center;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, .35);
+        transform: translate(-50%, 12px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity .2s, transform .2s
+      }
+
+      .toast.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translate(-50%, 0)
+      }
+
+      @media(max-width:850px) {
+        .workspace {
+          grid-template-columns: minmax(0, 1fr)
+        }
+      }
+
+      @media(max-width:560px) {
+        .container {
+          width: calc(100% - 20px)
+        }
+
+        header {
+          height: 58px
+        }
+
+        .logo {
+          width: 35px;
+          height: 35px;
+          font-size: 14px
+        }
+
+        .brand-title {
+          font-size: 15px
+        }
+
+        .brand-subtitle {
+          font-size: 7px
+        }
+
+        .online-status {
+          font-size: 9px
+        }
+
+        .hero {
+          padding: 40px 0 28px
+        }
+
+        .hero h1 {
+          font-size: 43px
+        }
+
+        .hero p {
+          font-size: 11px
+        }
+
+        .card-header,
+        .card-body {
+          padding: 15px
+        }
+
+        .result-card-body {
+          padding: 15px;
+          min-height: 340px
+        }
+
+        .result-empty,
+        .loading {
+          min-height: 320px
+        }
+
+        .actions {
+          grid-template-columns: 1fr
+        }
+      }
+
+      @media(prefers-reduced-motion:reduce) {
+        .loader {
+          animation: none
+        }
+
+        .toast {
+          transition: none
+        }
+      }
     </style>
   </head>
   <body>
@@ -109,41 +594,32 @@
             <div class="brand-subtitle">simpel, ringan, dan cepat</div>
           </div>
         </div>
-        <div class="online-status"><span class="online-dot"></span> Online</div>
+        <div class="online-status">
+          <span class="online-dot"></span> Online
+        </div>
       </div>
     </header>
     <main>
       <section class="hero">
         <div class="container">
           <div class="hero-badge">🔥 Free Fire Creative Tool</div>
-          <h1>LOBBY <span>MAKER</span></h1>
-          <p>
-            Buat gambar lobby Free Fire menggunakan nama pilihanmu. Masukkan
-            nama, proses gambar, lalu download hasilnya.
-          </p>
+          <h1> LOBBY <span>MAKER</span>
+          </h1>
+          <p> Buat gambar lobby Free Fire menggunakan nama pilihanmu. Masukkan nama, proses gambar, lalu download atau share hasilnya. </p>
         </div>
       </section>
       <section class="container workspace">
         <div class="card">
           <div class="card-header">
             <div class="card-title">
-              <div class="card-title-icon">✦</div>
-              Buat Lobby
+              <div class="card-title-icon">✦</div> Buat Lobby
             </div>
           </div>
           <div class="card-body">
             <form id="lobbyForm">
-              <label class="field-label" for="playerName">Nama Player</label>
+              <label class="field-label" for="playerName"> Nama Player </label>
               <div class="input-wrap">
-                <input
-                  type="text"
-                  id="playerName"
-                  name="playerName"
-                  maxlength="50"
-                  autocomplete="off"
-                  placeholder="Contoh: DIMMZZZSUM_ENAK"
-                  required
-                />
+                <input type="text" id="playerName" name="playerName" maxlength="50" autocomplete="off" placeholder="Contoh: DIMMZZZSUM_ENAK" required />
               </div>
               <button type="submit" class="generate-btn" id="generateBtn">
                 <span id="generateText">⚡ Buat Gambar</span>
@@ -163,18 +639,14 @@
         <div class="card" id="resultCard">
           <div class="card-header">
             <div class="card-title">
-              <div class="card-title-icon">◈</div>
-              Hasil Lobby
+              <div class="card-title-icon">◈</div> Hasil Lobby
             </div>
           </div>
           <div class="card-body result-card-body">
             <div class="result-empty" id="resultEmpty">
               <div class="empty-icon">◇</div>
               <h3>Belum Ada Gambar</h3>
-              <p>
-                Buatlah nama kemudian tekan tombol buat gambar lobby
-                untuk menghasilkan gambar.
-              </p>
+              <p> Buatlah nama kemudian tekan tombol buat gambar lobby untuk menghasilkan gambar. </p>
             </div>
             <div class="loading" id="loading">
               <div class="loader"></div>
@@ -183,11 +655,7 @@
             </div>
             <div class="result-content" id="resultContent">
               <div class="image-preview">
-                <img
-                  id="resultImage"
-                  alt="Hasil gambar lobby Free Fire"
-                  style="display:none"
-                />
+                <img id="resultImage" alt="Hasil gambar lobby Free Fire" style="display:none" />
               </div>
               <div class="file-info">
                 <div class="file-info-box">
@@ -204,16 +672,9 @@
                 </div>
               </div>
               <div class="actions">
-                <button
-                  type="button"
-                  class="action-btn primary"
-                  id="downloadBtn"
-                >
-                  ⬇️ Download Foto Ini
-                </button>
-                <button type="button" class="action-btn" id="newBtn">
-                  ✦ Buat Gambar Baru
-                </button>
+                <button type="button" class="action-btn primary" id="downloadBtn"> ⬇️ Download Foto Ini </button>
+                <button type="button" class="action-btn whatsapp" id="shareBtn"> 📲 Share ke WhatsApp </button>
+                <button type="button" class="action-btn" id="newBtn"> ✦ Buat Gambar Baru </button>
               </div>
             </div>
           </div>
@@ -221,9 +682,7 @@
       </section>
     </main>
     <footer>
-      <p>
-        © 2026 Free Fire Lobby ·
-        <span class="creator" id="footerText"></span>
+      <p> © 2026 Free Fire Lobby · <span class="creator" id="footerText"></span>
       </p>
     </footer>
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
