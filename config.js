@@ -23,9 +23,6 @@ const CONFIG = {
   DIMZZ8: {
     URL: "https://dimz-wtf.web.id/api/downloadms"
   },
-  DIMZZ9: {
-    URL: "https://dimz-wtf.web.id/api/gateway"
-  },
   SITE: {
     FOOTER1: "Made with ♥ by DIMMZZZSUM_ENAK"
   },
