@@ -1,80 +1,223 @@
-import { Readable } from "stream";
-
-// Tambah host lain dipisah koma, atau set env ALLOWED_HOSTS
-const ALLOWED_HOSTS = ("secure-signed.pages.dev,cdn.alyachan.online")
-  .split(",").map(h => h.trim().toLowerCase()).filter(Boolean);
-
-const isAllowed = (hostname) => {
-  hostname = hostname.toLowerCase();
-  return ALLOWED_HOSTS.some(h => hostname === h || hostname.endsWith("." + h));
-};
-
-const MIME = {
-  jpg: "image/jpeg", jpeg: "image/jpeg", png: "image/png", webp: "image/webp", gif: "image/gif",
-  mp4: "video/mp4", webm: "video/webm", mov: "video/quicktime", mkv: "video/x-matroska", "3gp": "video/3gpp"
-};
-
 export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "GET, HEAD, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Range");
-  res.setHeader("Access-Control-Expose-Headers", "Content-Length, Content-Range, Accept-Ranges, Content-Type");
-
-  if (req.method === "OPTIONS") return res.status(204).end();
-  if (req.method !== "GET" && req.method !== "HEAD") {
-    res.setHeader("Allow", "GET, HEAD, OPTIONS");
-    return res.status(405).json({ success: false, message: "Method Not Allowed" });
-  }
-
   try {
-    const { url } = req.query;
-    if (!url || typeof url !== "string")
-      return res.status(400).json({ success: false, message: "Parameter url wajib diisi." });
-
-    let target;
-    try { target = new URL(url); }
-    catch { return res.status(400).json({ success: false, message: "URL tidak valid." }); }
-
-    if (!["http:", "https:"].includes(target.protocol))
-      return res.status(400).json({ success: false, message: "Protocol URL tidak diizinkan." });
-    if (!isAllowed(target.hostname))
-      return res.status(403).json({ success: false, message: "Hostname file tidak diizinkan." });
-
-    const headers = { "User-Agent": "Mozilla/5.0" };
-    if (req.headers.range) headers.Range = req.headers.range;
-
-    const upstream = await fetch(target.toString(), { method: req.method, redirect: "follow", headers });
-
-    if (upstream.url && !isAllowed(new URL(upstream.url).hostname))
-      return res.status(403).json({ success: false, message: "Redirect ke host tidak diizinkan." });
-
-    if (!upstream.ok && upstream.status !== 206)
-      return res.status(upstream.status).json({ success: false, message: `Gagal mengambil file. Status: ${upstream.status}` });
-
-    let contentType = upstream.headers.get("content-type") || "application/octet-stream";
-    if (contentType.startsWith("application/octet-stream") || contentType.startsWith("binary/")) {
-      const ext = target.pathname.split(".").pop().toLowerCase();
-      if (MIME[ext]) contentType = MIME[ext];
+    if (req.method === "OPTIONS") {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+      res.setHeader("Access-Control-Allow-Headers", "Content-Type, Range");
+      return res.status(204).end();
     }
 
-    res.status(upstream.status);
+    if (req.method !== "GET") {
+      res.setHeader("Allow", "GET, OPTIONS");
+      return res.status(405).json({
+        success: false,
+        message: "Method Not Allowed"
+      });
+    }
+
+    const { url } = req.query;
+
+    if (!url || typeof url !== "string") {
+      return res.status(400).json({
+        success: false,
+        message: "Parameter url wajib diisi."
+      });
+    }
+
+    let target;
+
+    try {
+      target = new URL(url);
+    } catch {
+      return res.status(400).json({
+        success: false,
+        message: "URL tidak valid."
+      });
+    }
+
+    if (!["http:", "https:"].includes(target.protocol)) {
+      return res.status(400).json({
+        success: false,
+        message: "Protocol URL tidak diizinkan."
+      });
+    }
+
+    const allowedHosts = [
+      "secure-signed.pages.dev",
+      "cdn.alyachan.online"
+    ];
+
+    const hostname = target.hostname.toLowerCase();
+
+    const allowed = allowedHosts.some(host => {
+      return hostname === host || hostname.endsWith("." + host);
+    });
+
+    if (!allowed) {
+      return res.status(403).json({
+        success: false,
+        message: "Hostname file tidak diizinkan."
+      });
+    }
+
+    const response = await fetch(target.toString(), {
+      method: "GET",
+      redirect: "follow",
+      headers: {
+        "User-Agent": "Mozilla/5.0",
+        "Accept": "image/avif,image/webp,image/apng,image/png,image/jpeg,image/gif,video/mp4,video/webm,*/*"
+      }
+    });
+
+    if (!response.ok) {
+      return res.status(response.status).json({
+        success: false,
+        message: `Gagal mengambil file. Status: ${response.status}`
+      });
+    }
+
+    const buffer = Buffer.from(await response.arrayBuffer());
+
+    const upstreamType =
+      response.headers.get("content-type") || "";
+
+    const detectMime = () => {
+      if (
+        buffer.length >= 8 &&
+        buffer[0] === 0x89 &&
+        buffer[1] === 0x50 &&
+        buffer[2] === 0x4e &&
+        buffer[3] === 0x47
+      ) {
+        return "image/png";
+      }
+
+      if (
+        buffer.length >= 3 &&
+        buffer[0] === 0xff &&
+        buffer[1] === 0xd8 &&
+        buffer[2] === 0xff
+      ) {
+        return "image/jpeg";
+      }
+
+      if (
+        buffer.length >= 6 &&
+        buffer.toString("ascii", 0, 6) === "GIF89a"
+      ) {
+        return "image/gif";
+      }
+
+      if (
+        buffer.length >= 6 &&
+        buffer.toString("ascii", 0, 6) === "GIF87a"
+      ) {
+        return "image/gif";
+      }
+
+      if (
+        buffer.length >= 12 &&
+        buffer.toString("ascii", 0, 4) === "RIFF" &&
+        buffer.toString("ascii", 8, 12) === "WEBP"
+      ) {
+        return "image/webp";
+      }
+
+      if (
+        buffer.length >= 12 &&
+        buffer.toString("ascii", 4, 8) === "ftyp"
+      ) {
+        return "video/mp4";
+      }
+
+      return "";
+    };
+
+    let contentType = upstreamType.split(";")[0].trim().toLowerCase();
+
+    if (
+      !contentType ||
+      contentType === "application/octet-stream" ||
+      contentType === "binary/octet-stream"
+    ) {
+      contentType = detectMime();
+    }
+
+    if (!contentType) {
+      return res.status(415).json({
+        success: false,
+        message: "Format file tidak dapat dikenali."
+      });
+    }
+
+    let extension = "bin";
+
+    if (contentType === "image/png") {
+      extension = "png";
+    } else if (contentType === "image/jpeg") {
+      extension = "jpg";
+    } else if (contentType === "image/gif") {
+      extension = "gif";
+    } else if (contentType === "image/webp") {
+      extension = "webp";
+    } else if (contentType === "video/mp4") {
+      extension = "mp4";
+    } else if (contentType === "video/webm") {
+      extension = "webm";
+    }
+
+    if (
+      !contentType.startsWith("image/") &&
+      !contentType.startsWith("video/")
+    ) {
+      return res.status(415).json({
+        success: false,
+        message: `Format file tidak didukung: ${contentType}`
+      });
+    }
+
+    const filename = contentType.startsWith("video/")
+      ? `brat-video.${extension}`
+      : `brat-image.${extension}`;
+
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET, OPTIONS");
+    res.setHeader(
+      "Access-Control-Allow-Headers",
+      "Content-Type, Range"
+    );
+
+    res.setHeader(
+      "Access-Control-Expose-Headers",
+      "Content-Type, Content-Length, Content-Disposition"
+    );
+
     res.setHeader("Content-Type", contentType);
-    res.setHeader("Content-Disposition", "inline");
-    res.setHeader("Cache-Control", "public, max-age=3600, s-maxage=3600");
-    res.setHeader("Accept-Ranges", upstream.headers.get("accept-ranges") || "bytes");
-    res.setHeader("X-Content-Type-Options", "nosniff");
+    res.setHeader("Content-Length", buffer.length.toString());
 
-    const len = upstream.headers.get("content-length");
-    const range = upstream.headers.get("content-range");
-    if (len) res.setHeader("Content-Length", len);
-    if (range) res.setHeader("Content-Range", range);
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${filename}"`
+    );
 
-    if (req.method === "HEAD" || !upstream.body) return res.end();
-    Readable.fromWeb(upstream.body).pipe(res);
+    res.setHeader(
+      "Cache-Control",
+      "private, no-store, max-age=0"
+    );
+
+    res.setHeader(
+      "X-Content-Type-Options",
+      "nosniff"
+    );
+
+    return res.status(200).send(buffer);
+
   } catch (error) {
     console.error("Proxy error:", error);
-    if (!res.headersSent)
-      return res.status(500).json({ success: false, message: "Terjadi kesalahan saat mengambil file." });
-    res.end();
+
+    return res.status(500).json({
+      success: false,
+      message: "Terjadi kesalahan saat mengambil file."
+    });
   }
 }
