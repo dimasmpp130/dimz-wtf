@@ -2,515 +2,100 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width,initial-scale=1,maximum-scale=1"
-    />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
     <meta name="theme-color" content="#080a0f" />
-    <meta
-      name="description"
-      content="PILGAN — Game pilihan ganda by DIMMZZZSUM_ENAK."
-    />
+    <meta name="description" content="PILGAN — Game pilihan ganda by DIMMZZZSUM_ENAK." />
     <title>PILGAN — DIMMZZZSUM_ENAK</title>
     <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-icon-192x192.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <style>
-      *{box-sizing:border-box;margin:0;padding:0}
-
-      :root{
-        --bg:#080a0f;
-        --p:#10131a;
-        --p2:#151923;
-        --b:#242936;
-        --t:#f4f6fa;
-        --m:#8991a1;
-        --a:#7c6cff;
-        --g:#35d07f;
-        --r:#ff4f68;
-        --y:#ffc857
+      * { box-sizing: border-box; margin: 0; padding: 0 }
+      :root { --bg: #080a0f; --p: #10131a; --p2: #151923; --b: #242936; --t: #f4f6fa; --m: #8991a1; --a: #7c6cff; --g: #35d07f; --r: #ff4f68; --y: #ffc857 }
+      html, body { min-height: 100% }
+      body { font-family: Arial, Helvetica, sans-serif; background: var(--bg); color: var(--t); padding: 10px; -webkit-tap-highlight-color: transparent }
+      button { font: inherit; -webkit-appearance: none; appearance: none }
+      .app { width: 100%; max-width: 680px; margin: auto }
+      .header { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 9px }
+      .brand { min-width: 0 }
+      .brand-title { font-size: 19px; font-weight: 900 }
+      .brand-sub { margin-top: 2px; color: var(--m); font-size: 9px }
+      .coins { min-width: 65px; padding: 7px 8px; border: 1px solid var(--b); border-radius: 9px; background: var(--p); text-align: center; font-size: 11px; font-weight: 800 }
+      .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 6px }
+      .stat { padding: 7px 4px; border: 1px solid var(--b); border-radius: 8px; background: var(--p); text-align: center }
+      .stat-label { display: block; margin-bottom: 3px; color: var(--m); font-size: 7px; text-transform: uppercase }
+      .stat-value { display: block; font-size: 13px; font-weight: 900 }
+      .level-box { padding: 8px; margin-bottom: 6px; border: 1px solid var(--b); border-radius: 9px; background: var(--p) }
+      .level-top { display: flex; justify-content: space-between; margin-bottom: 5px }
+      .level-name { font-size: 10px; font-weight: 900 }
+      .level-range { color: var(--m); font-size: 8px }
+      .progress { height: 4px; overflow: hidden; border-radius: 5px; background: #20242d }
+      .progress-bar { width: 0; height: 100%; background: var(--a) }
+      .game { position: relative; padding: 11px; border: 1px solid var(--b); border-radius: 11px; background: var(--p) }
+      .top-row { display: flex; align-items: center; justify-content: space-between; gap: 7px; margin-bottom: 8px }
+      .category, .timer { padding: 5px 7px; border: 1px solid var(--b); border-radius: 7px; background: var(--p2); font-size: 9px; font-weight: 800 }
+      .category { min-height: 25px; color: #c7cce0 }
+      .timer { min-width: 43px; text-align: center }
+      .timer.warning { color: var(--y) }
+      .timer.danger { color: var(--r) }
+      .question-label { margin-bottom: 4px; color: var(--m); font-size: 8px; text-transform: uppercase }
+      .question { min-height: 68px; display: flex; align-items: center; justify-content: center; padding: 8px; text-align: center; font-size: 19px; line-height: 1.3; font-weight: 900; overflow-wrap: anywhere }
+      .question.long { font-size: 16px }
+      .question.very-long { font-size: 14px }
+      .lives { display: flex; justify-content: center; gap: 6px; margin: 6px 0 9px }
+      .life { width: 22px; height: 22px; color: var(--r); font-size: 21px; line-height: 22px; text-align: center }
+      .life.dead { color: #333843 }
+      .options { display: grid; grid-template-columns: 1fr 1fr; gap: 6px }
+      .option { position: relative; width: 100%; min-height: 54px; padding: 8px 8px 8px 36px; border: 1px solid var(--b); border-radius: 8px; background: var(--p2); color: var(--t); text-align: left }
+      .option.disabled { opacity: .3 }
+      .option.correct { border-color: var(--g); background: rgba(53, 208, 127, .08) }
+      .option.wrong { border-color: var(--r); background: rgba(255, 79, 104, .07) }
+      .option-letter { position: absolute; left: 7px; top: 50%; width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; transform: translateY(-50%); border: 1px solid #343a48; border-radius: 5px; color: #aeb5c7; font-size: 9px; font-weight: 900 }
+      .option-text { font-size: 11px; line-height: 1.3; font-weight: 700; overflow-wrap: anywhere }
+      .status { min-height: 18px; margin: 9px 2px 5px; color: var(--m); text-align: center; font-size: 9px; line-height: 1.4 }
+      .status.good { color: var(--g) }
+      .status.bad { color: var(--r) }
+      .status.warn { color: var(--y) }
+      .explanation { display: none; margin-top: 6px; padding: 8px; border: 1px solid var(--b); border-radius: 7px; background: #0c0f15 }
+      .explanation.show { display: block }
+      .explanation-title { margin-bottom: 3px; color: #b9b2ff; font-size: 8px; font-weight: 900 }
+      .explanation-text { color: #aab1bf; font-size: 9px; line-height: 1.4 }
+      .actions { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px }
+      .btn { min-height: 38px; border: 1px solid var(--b); border-radius: 8px; background: var(--p2); color: var(--t); font-size: 10px; font-weight: 900 }
+      .btn.primary { border: 0; background: var(--a); color: #fff }
+      .btn:disabled { opacity: .4 }
+      .loading { display: none; position: absolute; inset: 0; z-index: 5; align-items: center; justify-content: center; border-radius: 11px; background: rgba(8, 10, 15, .94) }
+      .loading.show { display: flex }
+      .loader-wrap { text-align: center }
+      .loader { width: 21px; height: 21px; margin: auto auto 6px; border: 2px solid #303541; border-top-color: var(--a); border-radius: 50%; animation: spin .8s linear infinite }
+      .loader-text { color: var(--m); font-size: 8px }
+      @keyframes spin { to { transform: rotate(360deg) } }
+      .toast { position: fixed; left: 50%; bottom: 15px; z-index: 50; max-width: calc(100% - 20px); padding: 8px 10px; border: 1px solid var(--b); border-radius: 7px; background: #151922; color: #fff; font-size: 9px; font-weight: 800; transform: translateX(-50%); opacity: 0; pointer-events: none }
+      .toast.show { opacity: 1 }
+      .levelup, .gameover { position: fixed; inset: 0; z-index: 40; display: none; align-items: center; justify-content: center; padding: 12px; background: rgba(0, 0, 0, .82) }
+      .levelup.show, .gameover.show { display: flex }
+      .level-card, .gameover-card { width: 100%; max-width: 310px; padding: 20px 16px; border: 1px solid #303542; border-radius: 12px; background: #11141c; text-align: center }
+      .level-icon { margin-bottom: 6px; font-size: 26px }
+      .level-card h2, .gameover-card h2 { font-size: 19px }
+      .level-card p, .gameover-card p { margin-top: 6px; color: var(--m); font-size: 9px; line-height: 1.5 }
+      .level-card button, .gameover-card button { width: 100%; height: 38px; margin-top: 13px; border: 0; border-radius: 8px; background: var(--a); color: #fff; font-size: 10px; font-weight: 900 }
+      .gameover { z-index: 45; background: #030406 }
+      .gameover-card { background: #090b10 }
+      .gameover-face { width: 65px; height: 48px; margin: 0 auto 10px; position: relative }
+      .eye { position: absolute; top: 11px; width: 19px; height: 7px; border-radius: 50%; background: var(--r) }
+      .eye.left { left: 6px }
+      .eye.right { right: 6px }
+      .mouth { position: absolute; left: 50%; bottom: 3px; width: 36px; height: 15px; transform: translateX(-50%); border-bottom: 3px solid var(--r); border-radius: 50% }
+      .gameover-card h2 { color: var(--r) }
+      .gameover-card button { background: #b52f43 }
+      @media(max-width:480px) {
+        .options { grid-template-columns: 1fr }
+        .option { min-height: 52px }
       }
-
-      html,body{min-height:100%}
-
-      body{
-        font-family:Arial,Helvetica,sans-serif;
-        background:var(--bg);
-        color:var(--t);
-        padding:10px;
-        -webkit-tap-highlight-color:transparent
-      }
-
-      button{
-        font:inherit;
-        -webkit-appearance:none;
-        appearance:none
-      }
-
-      .app{
-        width:100%;
-        max-width:680px;
-        margin:auto
-      }
-
-      .header{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:8px;
-        margin-bottom:9px
-      }
-
-      .brand{min-width:0}
-
-      .brand-title{
-        font-size:19px;
-        font-weight:900
-      }
-
-      .brand-sub{
-        margin-top:2px;
-        color:var(--m);
-        font-size:9px
-      }
-
-      .coins{
-        min-width:65px;
-        padding:7px 8px;
-        border:1px solid var(--b);
-        border-radius:9px;
-        background:var(--p);
-        text-align:center;
-        font-size:11px;
-        font-weight:800
-      }
-
-      .stats{
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
-        gap:5px;
-        margin-bottom:6px
-      }
-
-      .stat{
-        padding:7px 4px;
-        border:1px solid var(--b);
-        border-radius:8px;
-        background:var(--p);
-        text-align:center
-      }
-
-      .stat-label{
-        display:block;
-        margin-bottom:3px;
-        color:var(--m);
-        font-size:7px;
-        text-transform:uppercase
-      }
-
-      .stat-value{
-        display:block;
-        font-size:13px;
-        font-weight:900
-      }
-
-      .level-box{
-        padding:8px;
-        margin-bottom:6px;
-        border:1px solid var(--b);
-        border-radius:9px;
-        background:var(--p)
-      }
-
-      .level-top{
-        display:flex;
-        justify-content:space-between;
-        margin-bottom:5px
-      }
-
-      .level-name{
-        font-size:10px;
-        font-weight:900
-      }
-
-      .level-range{
-        color:var(--m);
-        font-size:8px
-      }
-
-      .progress{
-        height:4px;
-        overflow:hidden;
-        border-radius:5px;
-        background:#20242d
-      }
-
-      .progress-bar{
-        width:0;
-        height:100%;
-        background:var(--a)
-      }
-
-      .game{
-        position:relative;
-        padding:11px;
-        border:1px solid var(--b);
-        border-radius:11px;
-        background:var(--p)
-      }
-
-      .top-row{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:7px;
-        margin-bottom:8px
-      }
-
-      .category,
-      .timer{
-        padding:5px 7px;
-        border:1px solid var(--b);
-        border-radius:7px;
-        background:var(--p2);
-        font-size:9px;
-        font-weight:800
-      }
-
-      .category{
-        min-height:25px;
-        color:#c7cce0
-      }
-
-      .timer{
-        min-width:43px;
-        text-align:center
-      }
-
-      .timer.warning{color:var(--y)}
-      .timer.danger{color:var(--r)}
-
-      .question-label{
-        margin-bottom:4px;
-        color:var(--m);
-        font-size:8px;
-        text-transform:uppercase
-      }
-
-      .question{
-        min-height:68px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        padding:8px;
-        text-align:center;
-        font-size:19px;
-        line-height:1.3;
-        font-weight:900;
-        overflow-wrap:anywhere
-      }
-
-      .question.long{font-size:16px}
-      .question.very-long{font-size:14px}
-
-      .lives{
-        display:flex;
-        justify-content:center;
-        gap:6px;
-        margin:6px 0 9px
-      }
-
-      .life{
-        width:22px;
-        height:22px;
-        color:var(--r);
-        font-size:21px;
-        line-height:22px;
-        text-align:center
-      }
-
-      .life.dead{color:#333843}
-
-      .options{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:6px
-      }
-
-      .option{
-        position:relative;
-        width:100%;
-        min-height:54px;
-        padding:8px 8px 8px 36px;
-        border:1px solid var(--b);
-        border-radius:8px;
-        background:var(--p2);
-        color:var(--t);
-        text-align:left
-      }
-
-      .option.disabled{opacity:.3}
-
-      .option.correct{
-        border-color:var(--g);
-        background:rgba(53,208,127,.08)
-      }
-
-      .option.wrong{
-        border-color:var(--r);
-        background:rgba(255,79,104,.07)
-      }
-
-      .option-letter{
-        position:absolute;
-        left:7px;
-        top:50%;
-        width:22px;
-        height:22px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        transform:translateY(-50%);
-        border:1px solid #343a48;
-        border-radius:5px;
-        color:#aeb5c7;
-        font-size:9px;
-        font-weight:900
-      }
-
-      .option-text{
-        font-size:11px;
-        line-height:1.3;
-        font-weight:700;
-        overflow-wrap:anywhere
-      }
-
-      .status{
-        min-height:18px;
-        margin:9px 2px 5px;
-        color:var(--m);
-        text-align:center;
-        font-size:9px;
-        line-height:1.4
-      }
-
-      .status.good{color:var(--g)}
-      .status.bad{color:var(--r)}
-      .status.warn{color:var(--y)}
-
-      .explanation{
-        display:none;
-        margin-top:6px;
-        padding:8px;
-        border:1px solid var(--b);
-        border-radius:7px;
-        background:#0c0f15
-      }
-
-      .explanation.show{display:block}
-
-      .explanation-title{
-        margin-bottom:3px;
-        color:#b9b2ff;
-        font-size:8px;
-        font-weight:900
-      }
-
-      .explanation-text{
-        color:#aab1bf;
-        font-size:9px;
-        line-height:1.4
-      }
-
-      .actions{
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:6px;
-        margin-top:8px
-      }
-
-      .btn{
-        min-height:38px;
-        border:1px solid var(--b);
-        border-radius:8px;
-        background:var(--p2);
-        color:var(--t);
-        font-size:10px;
-        font-weight:900
-      }
-
-      .btn.primary{
-        border:0;
-        background:var(--a);
-        color:#fff
-      }
-
-      .btn:disabled{opacity:.4}
-
-      .loading{
-        display:none;
-        position:absolute;
-        inset:0;
-        z-index:5;
-        align-items:center;
-        justify-content:center;
-        border-radius:11px;
-        background:rgba(8,10,15,.94)
-      }
-
-      .loading.show{display:flex}
-
-      .loader-wrap{text-align:center}
-
-      .loader{
-        width:21px;
-        height:21px;
-        margin:auto auto 6px;
-        border:2px solid #303541;
-        border-top-color:var(--a);
-        border-radius:50%;
-        animation:spin .8s linear infinite
-      }
-
-      .loader-text{
-        color:var(--m);
-        font-size:8px
-      }
-
-      @keyframes spin{
-        to{transform:rotate(360deg)}
-      }
-
-      .toast{
-        position:fixed;
-        left:50%;
-        bottom:15px;
-        z-index:50;
-        max-width:calc(100% - 20px);
-        padding:8px 10px;
-        border:1px solid var(--b);
-        border-radius:7px;
-        background:#151922;
-        color:#fff;
-        font-size:9px;
-        font-weight:800;
-        transform:translateX(-50%);
-        opacity:0;
-        pointer-events:none
-      }
-
-      .toast.show{opacity:1}
-
-      .levelup,
-      .gameover{
-        position:fixed;
-        inset:0;
-        z-index:40;
-        display:none;
-        align-items:center;
-        justify-content:center;
-        padding:12px;
-        background:rgba(0,0,0,.82)
-      }
-
-      .levelup.show,
-      .gameover.show{
-        display:flex
-      }
-
-      .level-card,
-      .gameover-card{
-        width:100%;
-        max-width:310px;
-        padding:20px 16px;
-        border:1px solid #303542;
-        border-radius:12px;
-        background:#11141c;
-        text-align:center
-      }
-
-      .level-icon{
-        margin-bottom:6px;
-        font-size:26px
-      }
-
-      .level-card h2,
-      .gameover-card h2{
-        font-size:19px
-      }
-
-      .level-card p,
-      .gameover-card p{
-        margin-top:6px;
-        color:var(--m);
-        font-size:9px;
-        line-height:1.5
-      }
-
-      .level-card button,
-      .gameover-card button{
-        width:100%;
-        height:38px;
-        margin-top:13px;
-        border:0;
-        border-radius:8px;
-        background:var(--a);
-        color:#fff;
-        font-size:10px;
-        font-weight:900
-      }
-
-      .gameover{
-        z-index:45;
-        background:#030406
-      }
-
-      .gameover-card{
-        background:#090b10
-      }
-
-      .gameover-face{
-        width:65px;
-        height:48px;
-        margin:0 auto 10px;
-        position:relative
-      }
-
-      .eye{
-        position:absolute;
-        top:11px;
-        width:19px;
-        height:7px;
-        border-radius:50%;
-        background:var(--r)
-      }
-
-      .eye.left{left:6px}
-      .eye.right{right:6px}
-
-      .mouth{
-        position:absolute;
-        left:50%;
-        bottom:3px;
-        width:36px;
-        height:15px;
-        transform:translateX(-50%);
-        border-bottom:3px solid var(--r);
-        border-radius:50%
-      }
-
-      .gameover-card h2{color:var(--r)}
-      .gameover-card button{background:#b52f43}
-
-      @media(max-width:480px){
-        .options{grid-template-columns:1fr}
-        .option{min-height:52px}
-      }
-
-      @media(max-width:340px){
-        .brand-title{font-size:17px}
-        .stats{grid-template-columns:repeat(2,1fr)}
-        .actions{grid-template-columns:1fr}
+      @media(max-width:340px) {
+        .brand-title { font-size: 17px }
+        .stats { grid-template-columns: repeat(2, 1fr) }
+        .actions { grid-template-columns: 1fr }
       }
     </style>
   </head>
@@ -524,31 +109,17 @@
         <div class="coins">🪙 <span id="coin">5</span></div>
       </header>
       <section class="stats">
-        <div class="stat">
-          <span class="stat-label">Level</span>
-          <span class="stat-value" id="level">1</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Point</span>
-          <span class="stat-value" id="score">0</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">Streak</span>
-          <span class="stat-value" id="streak">0</span>
-        </div>
-        <div class="stat">
-          <span class="stat-label">LV Streak</span>
-          <span class="stat-value" id="levelStreak">0</span>
-        </div>
+        <div class="stat"><span class="stat-label">Level</span><span class="stat-value" id="level">1</span></div>
+        <div class="stat"><span class="stat-label">Point</span><span class="stat-value" id="score">0</span></div>
+        <div class="stat"><span class="stat-label">Streak</span><span class="stat-value" id="streak">0</span></div>
+        <div class="stat"><span class="stat-label">LV Streak</span><span class="stat-value" id="levelStreak">0</span></div>
       </section>
       <section class="level-box">
         <div class="level-top">
           <div class="level-name">LEVEL <span id="levelTop">1</span></div>
           <div class="level-range" id="levelRange">0–99</div>
         </div>
-        <div class="progress">
-          <div class="progress-bar" id="progressBar"></div>
-        </div>
+        <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
       </section>
       <main class="game" id="game">
         <div class="loading" id="loading">
@@ -569,18 +140,14 @@
           <div class="life">♥</div>
         </div>
         <div class="options" id="options"></div>
-        <div class="status" id="status">
-          Pilih jawaban yang menurutmu benar.
-        </div>
+        <div class="status" id="status"> Pilih jawaban yang menurutmu benar. </div>
         <div class="explanation" id="explanation">
           <div class="explanation-title">Penjelasan</div>
           <div class="explanation-text" id="explanationText"></div>
         </div>
         <div class="actions">
           <button class="btn" id="hintBtn" type="button">HINT • 2 COIN</button>
-          <button class="btn primary" id="newBtn" type="button">
-            SOAL BARU • 1
-          </button>
+          <button class="btn primary" id="newBtn" type="button"> SOAL BARU • 1 </button>
         </div>
       </main>
     </div>
@@ -589,9 +156,7 @@
       <div class="level-card">
         <div class="level-icon">🏆</div>
         <h2>LEVEL UP!</h2>
-        <p>
-          Kamu berhasil menyelesaikan level sebelumnya. Level streak bertambah.
-        </p>
+        <p> Kamu berhasil menyelesaikan level sebelumnya. Level streak bertambah. </p>
         <button id="levelupBtn" type="button">LANJUT</button>
       </div>
     </div>
@@ -603,11 +168,7 @@
           <div class="mouth"></div>
         </div>
         <h2>GAME OVER</h2>
-        <p>
-          Tiga kesempatanmu sudah habis.<br />
-          Jawaban benar:
-          <strong id="gameoverAnswer">-</strong>
-        </p>
+        <p> Tiga kesempatanmu sudah habis. <br /> Jawaban benar: <strong id="gameoverAnswer">-</strong></p>
         <button id="restartBtn" type="button">MAIN LAGI</button>
       </div>
     </div>
