@@ -135,6 +135,14 @@
       "dest": "/random/maidrdm.html"
     },
     {
+      "source": "/sitemap.xml",
+      "destination": "/sitemap.xml"
+    },
+    {
+      "source": "/robots.txt",
+      "destination": "/robots.txt"
+    },
+    {
       "handle": "filesystem"
     },
     {
