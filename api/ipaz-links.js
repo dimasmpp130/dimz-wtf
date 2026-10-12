@@ -18,7 +18,7 @@ export default async function handler(req, res) {
     });
   }
 
-  if (!process.env.ZPI_API_KEY) {
+  if (!process.env.DIMZZZZ3333_API) {
     return res.status(500).json({
       success: false,
       error: "Ada yang belum dikonfigurasi"
