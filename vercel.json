@@ -1,3 +1,4 @@
+
 {
   "functions": {
     "api/ipaz-links.js": {
@@ -7,6 +8,42 @@
       "maxDuration": 60
     }
   },
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/(.*\\.html)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate"
+        },
+        {
+          "key": "CDN-Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "Cloudflare-CDN-Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ],
   "routes": [
     {
       "src": "/fb/?$",
@@ -86,7 +123,7 @@
     },
     {
       "src": "/redirect/?$",
-      "dest": "/temp/bypass.html"
+      "dest": "/temp/bypasslink.html"
     },
     {
       "src": "/khodam/?$",
