@@ -4,670 +4,591 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#edf1f6" />
-    <meta
-      name="description"
-      content="Download Bully Anniversary Edition dan Subtitle Indonesia"
-    />
+    <meta name="description" content="Download Bully Anniversary Edition dan Subtitle Indonesia" />
     <title>Bully Files — DIMMZZZSUM_ENAK</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
     <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="/favicons/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicons/android-icon-192x192.png">
     <meta name="msapplication-TileColor" content="#ffffff">
     <style>
-      :root{
-      --bg:#edf1f6;
-      --white:#fff;
-      --soft:#f7f8fa;
-      --line:#e1e5ea;
-      --text:#1c2430;
-      --muted:#737b87;
-      --blue:#315b9f;
-      --blue-soft:#edf3fc;
-      --green:#199b6c;
-      --yellow:#73591c;
-      --yellow-bg:#fff7df
+      :root {
+        --bg: #edf1f6;
+        --white: #fff;
+        --soft: #f7f8fa;
+        --line: #e1e5ea;
+        --text: #1c2430;
+        --muted: #737b87;
+        --blue: #315b9f;
+        --blue-soft: #edf3fc;
+        --green: #199b6c;
+        --yellow: #73591c;
+        --yellow-bg: #fff7df;
       }
-
-      *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
 
-      html{
-      scroll-behavior:smooth
+      html {
+        scroll-behavior: smooth;
       }
 
-      body{
-      min-height:100vh;
-      padding:12px;
-      font-family:Arial,Helvetica,sans-serif;
-      font-size:14px;
-      line-height:1.5;
-      color:var(--text);
-      background:var(--bg)
+      body {
+        min-height: 100vh;
+        padding: 12px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--text);
+        background: var(--bg);
       }
 
-      a{
-      color:inherit;
-      text-decoration:none
-      }
-
-      button{
-      font-family:inherit
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font-family: inherit;
       }
 
-      .container{
-      width:min(1060px,100%);
-      margin:auto;
-      overflow:hidden;
-      background:var(--white);
-      border:1px solid var(--line);
-      border-radius:16px;
-      box-shadow:0 5px 20px rgba(25,35,50,.07)
+      .container {
+        width: min(1060px, 100%);
+        margin: auto;
+        overflow: hidden;
+        background: var(--white);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: 0 5px 20px rgba(25, 35, 50, .07);
       }
 
-      .navbar{
-      min-height:64px;
-      padding:11px 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      border-bottom:1px solid var(--line)
+      .navbar {
+        min-height: 64px;
+        padding: 11px 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        border-bottom: 1px solid var(--line);
       }
 
-      .brand{
-      display:flex;
-      align-items:center;
-      gap:9px;
-      min-width:0
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-width: 0;
       }
 
-      .brand-icon{
-      width:36px;
-      height:36px;
-      flex:0 0 36px;
-      display:grid;
-      place-items:center;
-      border-radius:9px;
-      background:var(--blue);
-      color:#fff;
-      font-size:15px
+      .brand-icon {
+        width: 36px;
+        height: 36px;
+        flex: 0 0 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 9px;
+        background: var(--blue);
+        color: #fff;
+        font-size: 15px;
       }
 
-      .brand-text{
-      display:flex;
-      flex-direction:column;
-      line-height:1.1
+      .brand-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
       }
 
-      .brand-text strong{
-      font-size:14px;
-      font-weight:800
+      .brand-text strong {
+        font-size: 14px;
+        font-weight: 800;
       }
 
-      .brand-text span{
-      margin-top:4px;
-      color:var(--muted);
-      font-size:8px;
-      font-weight:700;
-      letter-spacing:.7px
+      .brand-text span {
+        margin-top: 4px;
+        color: var(--muted);
+        font-size: 8px;
+        font-weight: 700;
+        letter-spacing: .7px;
       }
 
-      .nav-right{
-      display:flex;
-      gap:6px
+      .nav-right {
+        display: flex;
+        gap: 6px;
       }
 
-      .nav-link{
-      display:flex;
-      align-items:center;
-      gap:6px;
-      padding:8px 10px;
-      border:1px solid var(--line);
-      border-radius:8px;
-      color:var(--muted);
-      font-size:10px;
-      font-weight:700
+      .nav-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 8px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 700;
       }
 
-      .hero{
-      padding:40px 28px 30px;
-      background:#f8fafc
+      .hero {
+        padding: 40px 28px 30px;
+        background: #f8fafc;
       }
 
-      .hero-content{
-      max-width:720px
+      .hero-content {
+        max-width: 720px;
       }
 
-      .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      margin-bottom:13px;
-      padding:6px 9px;
-      border-radius:20px;
-      background:var(--blue-soft);
-      color:var(--blue);
-      font-size:9px;
-      font-weight:800
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 13px;
+        padding: 6px 9px;
+        border-radius: 20px;
+        background: var(--blue-soft);
+        color: var(--blue);
+        font-size: 9px;
+        font-weight: 800;
       }
 
-      .hero h1{
-      margin-bottom:12px;
-      font-size:clamp(32px,6vw,52px);
-      line-height:1;
-      letter-spacing:-1.8px
+      .hero h1 {
+        margin-bottom: 12px;
+        font-size: clamp(32px, 6vw, 52px);
+        line-height: 1;
+        letter-spacing: -1.8px;
       }
 
-      .hero h1 span{
-      color:var(--blue)
+      .hero h1 span {
+        color: var(--blue);
       }
 
-      .hero p{
-      max-width:670px;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.7
+      .hero p {
+        max-width: 670px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
       }
 
-      .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top:19px
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 19px;
       }
 
-      .hero-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:7px;
-      padding:10px 13px;
-      border-radius:9px;
-      font-size:10px;
-      font-weight:800
+      .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        padding: 10px 13px;
+        border-radius: 9px;
+        font-size: 10px;
+        font-weight: 800;
       }
 
-      .hero-btn.primary{
-      background:var(--blue);
-      color:#fff
+      .hero-btn.primary {
+        background: var(--blue);
+        color: #fff;
       }
 
-      .hero-btn.secondary{
-      border:1px solid #ccd7e7;
-      background:#fff;
-      color:var(--blue)
+      .quick-info {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 9px;
+        padding: 0 28px 23px;
+        background: #f8fafc;
       }
 
-      .quick-info{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:9px;
-      padding:0 28px 23px;
-      background:#f8fafc
+      .info-box {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: #fff;
       }
 
-      .info-box{
-      display:flex;
-      align-items:center;
-      gap:9px;
-      padding:12px;
-      border:1px solid var(--line);
-      border-radius:11px;
-      background:#fff
+      .info-icon {
+        width: 34px;
+        height: 34px;
+        flex: 0 0 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 8px;
+        background: var(--blue-soft);
+        color: var(--blue);
+        font-size: 13px;
       }
 
-      .info-icon{
-      width:34px;
-      height:34px;
-      flex:0 0 34px;
-      display:grid;
-      place-items:center;
-      border-radius:8px;
-      background:var(--blue-soft);
-      color:var(--blue);
-      font-size:13px
+      .info-box strong {
+        display: block;
+        margin-bottom: 1px;
+        font-size: 10px;
       }
 
-      .info-box strong{
-      display:block;
-      margin-bottom:1px;
-      font-size:10px
+      .info-box span {
+        color: var(--muted);
+        font-size: 9px;
       }
 
-      .info-box span{
-      color:var(--muted);
-      font-size:9px
+      .section {
+        padding: 32px 28px;
+        border-top: 1px solid var(--line);
       }
 
-      .section{
-      padding:32px 28px;
-      border-top:1px solid var(--line)
+      .section-heading {
+        margin-bottom: 17px;
       }
 
-      .section-heading{
-      margin-bottom:17px
+      .section-label {
+        display: inline-block;
+        margin-bottom: 5px;
+        color: var(--blue);
+        font-size: 8px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        text-transform: uppercase;
       }
 
-      .section-label{
-      display:inline-block;
-      margin-bottom:5px;
-      color:var(--blue);
-      font-size:8px;
-      font-weight:800;
-      letter-spacing:1px;
-      text-transform:uppercase
+      .section-heading h2 {
+        margin-bottom: 5px;
+        font-size: 23px;
+        letter-spacing: -.5px;
       }
 
-      .section-heading h2{
-      margin-bottom:5px;
-      font-size:23px;
-      letter-spacing:-.5px
+      .section-heading p {
+        color: var(--muted);
+        font-size: 11px;
+        line-height: 1.7;
       }
 
-      .section-heading p{
-      color:var(--muted);
-      font-size:11px;
-      line-height:1.7
+      .download-list {
+        display: grid;
+        gap: 9px;
       }
 
-      .download-list,
-      .guide-list{
-      display:grid;
-      gap:9px
+      .download-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 13px;
+        border: 1px solid var(--line);
+        border-radius: 11px;
+        background: var(--soft);
       }
 
-      .download-card{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:13px;
-      border:1px solid var(--line);
-      border-radius:11px;
-      background:var(--soft)
+      .download-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
       }
 
-      .download-info{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width:0
+      .download-icon {
+        width: 38px;
+        height: 38px;
+        flex: 0 0 38px;
+        display: grid;
+        place-items: center;
+        border-radius: 9px;
+        background: var(--blue-soft);
+        color: var(--blue);
+        font-size: 14px;
       }
 
-      .download-icon{
-      width:38px;
-      height:38px;
-      flex:0 0 38px;
-      display:grid;
-      place-items:center;
-      border-radius:9px;
-      background:var(--blue-soft);
-      color:var(--blue);
-      font-size:14px
+      .download-info h3 {
+        margin-bottom: 2px;
+        font-size: 11px;
       }
 
-      .download-info h3{
-      margin-bottom:2px;
-      font-size:11px
+      .download-info p {
+        color: var(--muted);
+        font-size: 9px;
       }
 
-      .download-info p{
-      color:var(--muted);
-      font-size:9px
+      .download-btn {
+        min-width: 105px;
+        padding: 9px 10px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--blue);
+        color: #fff;
+        font-size: 9px;
+        font-weight: 800;
+        cursor: pointer;
       }
 
-      .download-btn{
-      min-width:105px;
-      padding:9px 10px;
-      border:0;
-      border-radius:8px;
-      background:var(--blue);
-      color:#fff;
-      font-size:9px;
-      font-weight:800;
-      cursor:pointer
+      .download-btn.loading {
+        background: #707a88;
       }
 
-      .download-btn.loading{
-      background:#707a88
+      .download-btn.ready {
+        background: var(--green);
       }
 
-      .download-btn.ready{
-      background:var(--green)
+      .tutorial-box {
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: #11151b;
       }
 
-      .tutorial-box{
-      overflow:hidden;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:#11151b
+      .tutorial-video {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: #0b0d10;
       }
 
-      .tutorial-video{
-      width:100%;
-      aspect-ratio:16/9;
-      background:#0b0d10
+      .tutorial-video video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background: #0b0d10;
+        object-fit: contain;
       }
 
-      .tutorial-video video{
-      display:block;
-      width:100%;
-      height:100%;
-      background:#0b0d10;
-      object-fit:contain
+      .tutorial-caption {
+        padding: 13px 15px;
+        background: #fff;
       }
 
-      .tutorial-caption{
-      padding:13px 15px;
-      background:#fff
+      .tutorial-caption strong {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 12px;
       }
 
-      .tutorial-caption strong{
-      display:block;
-      margin-bottom:4px;
-      font-size:12px
+      .tutorial-caption p {
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.7;
       }
 
-      .tutorial-caption p{
-      color:var(--muted);
-      font-size:10px;
-      line-height:1.7
+      .check-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 9px;
       }
 
-      .guide-step{
-      display:grid;
-      grid-template-columns:44px 1fr;
-      gap:12px;
-      padding:15px;
-      border:1px solid var(--line);
-      border-radius:11px;
-      background:#fff
+      .check-item {
+        display: flex;
+        gap: 8px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: var(--soft);
       }
 
-      .step-number{
-      width:40px;
-      height:40px;
-      display:grid;
-      place-items:center;
-      border-radius:10px;
-      background:var(--blue);
-      color:#fff;
-      font-size:13px;
-      font-weight:800
+      .check-item i {
+        margin-top: 2px;
+        color: var(--green);
+        font-size: 11px;
       }
 
-      .step-content h3{
-      margin-bottom:5px;
-      font-size:12px
+      .check-item span {
+        color: #596270;
+        font-size: 10px;
+        line-height: 1.6;
       }
 
-      .step-content p,
-      .step-content ul{
-      color:#606977;
-      font-size:10px;
-      line-height:1.7
+      .footer {
+        padding: 24px 15px;
+        border-top: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+        background: #fafbfc;
       }
 
-      .step-content ul{
-      margin:7px 0 0 16px
+      .footer-brand {
+        font-size: 10px;
+        font-weight: 800;
       }
 
-      .note{
-      margin-top:13px;
-      padding:12px 13px;
-      border:1px solid #f0dfac;
-      border-radius:10px;
-      background:var(--yellow-bg);
-      color:var(--yellow);
-      font-size:10px;
-      line-height:1.7
+      .footer-brand span {
+        color: var(--blue);
       }
 
-      .note strong{
-      display:block;
-      margin-bottom:2px;
-      color:#674d0d
+      .footer-line {
+        width: 32px;
+        height: 2px;
+        border-radius: 2px;
+        background: var(--blue);
       }
 
-      .check-list{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:9px
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        background: rgba(10, 14, 20, .65);
       }
 
-      .check-item{
-      display:flex;
-      gap:8px;
-      padding:12px;
-      border:1px solid var(--line);
-      border-radius:10px;
-      background:var(--soft)
+      .modal.show {
+        display: flex;
       }
 
-      .check-item i{
-      margin-top:2px;
-      color:var(--green);
-      font-size:11px
+      .modal-box {
+        width: min(380px, 100%);
+        padding: 19px;
+        border-radius: 12px;
+        background: #fff;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, .2);
+        text-align: center;
       }
 
-      .check-item span{
-      color:#596270;
-      font-size:10px;
-      line-height:1.6
+      .modal-icon {
+        width: 46px;
+        height: 46px;
+        margin: 0 auto 11px;
+        display: grid;
+        place-items: center;
+        border-radius: 11px;
+        background: var(--blue-soft);
+        color: var(--blue);
+        font-size: 17px;
       }
 
-      .footer{
-      padding:24px 15px;
-      border-top:1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex-direction:column;
-      gap:6px;
-      text-align:center;
-      background:#fafbfc
+      .modal-box h3 {
+        margin-bottom: 5px;
+        font-size: 15px;
       }
 
-      .footer-brand{
-      font-size:10px;
-      font-weight:800
+      .modal-box p {
+        color: var(--muted);
+        font-size: 10px;
+        line-height: 1.7;
       }
 
-      .footer-brand span{
-      color:var(--blue)
+      .modal-close {
+        width: 100%;
+        margin-top: 13px;
+        padding: 9px;
+        border: 0;
+        border-radius: 8px;
+        background: var(--blue);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 800;
+        cursor: pointer;
       }
 
-      .footer-line{
-      width:32px;
-      height:2px;
-      border-radius:2px;
-      background:var(--blue)
-      }
-
-      .modal{
-      position:fixed;
-      inset:0;
-      z-index:100;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:15px;
-      background:rgba(10,14,20,.65)
-      }
-
-      .modal.show{
-      display:flex
-      }
-
-      .modal-box{
-      width:min(380px,100%);
-      padding:19px;
-      border-radius:12px;
-      background:#fff;
-      box-shadow:0 10px 30px rgba(0,0,0,.2);
-      text-align:center
-      }
-
-      .modal-icon{
-      width:46px;
-      height:46px;
-      margin:0 auto 11px;
-      display:grid;
-      place-items:center;
-      border-radius:11px;
-      background:var(--blue-soft);
-      color:var(--blue);
-      font-size:17px
-      }
-
-      .modal-box h3{
-      margin-bottom:5px;
-      font-size:15px
-      }
+      @media (max-width: 700px) {
+        body {
+          padding: 8px;
+        }
 
-      .modal-box p{
-      color:var(--muted);
-      font-size:10px;
-      line-height:1.7
-      }
-
-      .modal-close{
-      width:100%;
-      margin-top:13px;
-      padding:9px;
-      border:0;
-      border-radius:8px;
-      background:var(--blue);
-      color:#fff;
-      font-size:10px;
-      font-weight:800;
-      cursor:pointer
-      }
-
-      @media(max-width:700px){
-      body{
-      padding:8px
-      }
-
-      .container{
-      border-radius:13px
-      }
-
-      .navbar{
-      padding:11px 13px
-      }
-
-      .brand-icon{
-      width:34px;
-      height:34px;
-      flex-basis:34px
-      }
+        .container {
+          border-radius: 13px;
+        }
 
-      .brand-text strong{
-      font-size:12px
-      }
+        .navbar {
+          padding: 11px 13px;
+        }
 
-      .nav-link{
-      padding:7px 8px
-      }
+        .brand-icon {
+          width: 34px;
+          height: 34px;
+          flex-basis: 34px;
+        }
 
-      .nav-link span{
-      display:none
-      }
+        .brand-text strong {
+          font-size: 12px;
+        }
 
-      .hero{
-      padding:32px 17px 25px
-      }
+        .nav-link {
+          padding: 7px 8px;
+        }
 
-      .hero h1{
-      font-size:37px
-      }
+        .nav-link span {
+          display: none;
+        }
 
-      .hero p{
-      font-size:11px
-      }
+        .hero {
+          padding: 32px 17px 25px;
+        }
 
-      .hero-actions{
-      display:grid;
-      grid-template-columns:1fr
-      }
+        .hero h1 {
+          font-size: 37px;
+        }
 
-      .hero-btn{
-      width:100%
-      }
+        .hero p {
+          font-size: 11px;
+        }
 
-      .quick-info{
-      grid-template-columns:1fr;
-      padding:0 17px 18px
-      }
+        .hero-actions {
+          display: grid;
+          grid-template-columns: 1fr;
+        }
 
-      .section{
-      padding:27px 17px
-      }
+        .hero-btn {
+          width: 100%;
+        }
 
-      .section-heading h2{
-      font-size:20px
-      }
+        .quick-info {
+          grid-template-columns: 1fr;
+          padding: 0 17px 18px;
+        }
 
-      .download-card{
-      align-items:stretch;
-      flex-direction:column
-      }
+        .section {
+          padding: 27px 17px;
+        }
 
-      .download-btn{
-      width:100%
-      }
+        .section-heading h2 {
+          font-size: 20px;
+        }
 
-      .check-list{
-      grid-template-columns:1fr
-      }
-      }
+        .download-card {
+          align-items: stretch;
+          flex-direction: column;
+        }
 
-      @media(max-width:380px){
-      body{
-      padding:5px
-      }
+        .download-btn {
+          width: 100%;
+        }
 
-      .hero{
-      padding-left:14px;
-      padding-right:14px
+        .check-list {
+          grid-template-columns: 1fr;
+        }
       }
 
-      .hero h1{
-      font-size:33px
-      }
+      @media (max-width: 380px) {
+        body {
+          padding: 5px;
+        }
 
-      .section{
-      padding:24px 13px
-      }
+        .hero {
+          padding-left: 14px;
+          padding-right: 14px;
+        }
 
-      .quick-info{
-      padding-left:13px;
-      padding-right:13px
-      }
+        .hero h1 {
+          font-size: 33px;
+        }
 
-      .guide-step{
-      grid-template-columns:38px 1fr;
-      gap:10px;
-      padding:13px
-      }
+        .section {
+          padding: 24px 13px;
+        }
 
-      .step-number{
-      width:36px;
-      height:36px
+        .quick-info {
+          padding-left: 13px;
+          padding-right: 13px;
+        }
       }
-      }
 
-      @media(prefers-reduced-motion:reduce){
-      html{
-      scroll-behavior:auto
-      }
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
       }
     </style>
   </head>
@@ -688,33 +609,19 @@
             <i class="fa-solid fa-play"></i>
             <span>Tutorial</span>
           </a>
-          <a href="#panduan" class="nav-link">
-            <i class="fa-solid fa-book-open"></i>
-            <span>Panduan</span>
-          </a>
         </div>
       </nav>
       <header class="hero">
         <div class="hero-content">
           <div class="badge">
-            <i class="fa-solid fa-gamepad"></i>
-            BULLY ANNIVERSARY EDITION
+            <i class="fa-solid fa-gamepad"></i> BULLY ANNIVERSARY EDITION
           </div>
-          <h1>Bully <span>Files</span></h1>
-          <p>
-            Kumpulan file Bully Anniversary Edition dan Subtitle Indonesia yang
-            sudah disiapkan dalam satu halaman. Download file yang dibutuhkan,
-            lalu ikuti tutorial pemasangan di bawah.
-          </p>
+          <h1>Bully <span>Files</span>
+          </h1>
+          <p> Kumpulan file Bully Anniversary Edition dan Subtitle Indonesia yang sudah disiapkan dalam satu halaman. Download file yang dibutuhkan, lalu ikuti tutorial pemasangan di bawah. </p>
           <div class="hero-actions">
             <a href="#tutorial" class="hero-btn primary">
-              <i class="fa-solid fa-circle-play"></i>
-              Lihat Tutorial
-            </a>
-            <a href="#panduan" class="hero-btn secondary">
-              <i class="fa-solid fa-list-check"></i>
-              Baca Panduan
-            </a>
+              <i class="fa-solid fa-circle-play"></i> Lihat Tutorial </a>
           </div>
         </div>
       </header>
@@ -751,10 +658,7 @@
         <div class="section-heading">
           <span class="section-label">Download</span>
           <h2>File yang Dibutuhkan</h2>
-          <p>
-            Download sesuai kebutuhan. Setelah file selesai diunduh, lanjutkan
-            dengan melihat video dan panduan pemasangan.
-          </p>
+          <p> Download sesuai kebutuhan. Setelah file selesai diunduh, lanjutkan dengan melihat video pemasangan. </p>
         </div>
         <div class="download-list">
           <div class="download-card">
@@ -767,13 +671,8 @@
                 <p>File utama game</p>
               </div>
             </div>
-            <button
-              class="download-btn"
-              data-url="https://link.dimz-wtf.web.id/PunFpm"
-            >
-              <i class="fa-solid fa-download"></i>
-              DOWNLOAD
-            </button>
+            <button class="download-btn" data-url="https://link.dimz-wtf.web.id/PunFpm">
+              <i class="fa-solid fa-download"></i> DOWNLOAD </button>
           </div>
           <div class="download-card">
             <div class="download-info">
@@ -785,13 +684,8 @@
                 <p>File ZIP game</p>
               </div>
             </div>
-            <button
-              class="download-btn"
-              data-url="https://link.dimz-wtf.web.id/PunFpm"
-            >
-              <i class="fa-solid fa-download"></i>
-              DOWNLOAD
-            </button>
+            <button class="download-btn" data-url="https://link.dimz-wtf.web.id/PunFpm">
+              <i class="fa-solid fa-download"></i> DOWNLOAD </button>
           </div>
           <div class="download-card">
             <div class="download-info">
@@ -803,191 +697,37 @@
                 <p>Terjemahan Bahasa Indonesia</p>
               </div>
             </div>
-            <button
-              class="download-btn"
-              data-url="https://link.dimz-wtf.web.id/TR78dw"
-            >
-              <i class="fa-solid fa-download"></i>
-              DOWNLOAD
-            </button>
+            <button class="download-btn" data-url="https://link.dimz-wtf.web.id/TR78dw">
+              <i class="fa-solid fa-download"></i> DOWNLOAD </button>
           </div>
         </div>
       </section>
+      <!-- VIDEO TUTORIAL DAN TEKS KETERANGANNYA TETAP DIPERTAHANKAN -->
       <section class="section" id="tutorial">
         <div class="section-heading">
           <span class="section-label">Video Tutorial</span>
           <h2>Tutorial Pemasangan Bully</h2>
-          <p>
-            Tonton video berikut sebelum melakukan pemasangan supaya urutan
-            prosesnya lebih mudah dipahami.
-          </p>
+          <p> Tonton video berikut sebelum melakukan pemasangan supaya urutan prosesnya lebih mudah dipahami. </p>
         </div>
         <div class="tutorial-box">
           <div class="tutorial-video">
             <video controls playsinline preload="metadata">
-              <source
-                src="https://github.com/mantapbro4/RDP/raw/refs/heads/main/lv_0_20260925230616.mp4"
-                type="video/mp4"
-              />
-              Browser kamu tidak mendukung pemutaran video.
+              <source src="https://github.com/mantapbro4/RDP/raw/refs/heads/main/lv_0_20260925230616.mp4" type="video/mp4" /> Browser kamu tidak mendukung pemutaran video.
             </video>
           </div>
           <div class="tutorial-caption">
             <strong>
-              <i class="fa-solid fa-circle-play"></i>
-              Cara Pemasangan Bully Anniversary Edition
-            </strong>
-            <p>
-              Putar video sampai selesai. Tutorial menjelaskan proses pemasangan
-              file game dan subtitle secara bertahap.
-            </p>
+              <i class="fa-solid fa-circle-play"></i> Cara Pemasangan Bully Anniversary Edition </strong>
+            <p> Putar video sampai selesai. Tutorial menjelaskan proses pemasangan file game dan subtitle secara bertahap. </p>
           </div>
         </div>
       </section>
-      <section class="section" id="panduan">
-        <div class="section-heading">
-          <span class="section-label">Panduan Lengkap</span>
-          <h2>Cara Memasang Bully</h2>
-          <p>
-            Ikuti langkah berikut secara berurutan. Jika masih bingung, gunakan
-            video tutorial sebagai panduan visual.
-          </p>
-        </div>
-        <div class="guide-list">
-          <article class="guide-step">
-            <div class="step-number">1</div>
-            <div class="step-content">
-              <h3>Download File yang Dibutuhkan</h3>
-              <p>
-                Download file Bully Anniversary Edition dari link yang tersedia.
-                Jika ingin menggunakan Subtitle Indonesia, download juga file
-                subtitle.
-              </p>
-              <ul>
-                <li>Pastikan proses download selesai sepenuhnya.</li>
-                <li>Jangan membuka file ZIP sebelum selesai diunduh.</li>
-                <li>Simpan file di folder yang mudah ditemukan.</li>
-              </ul>
-            </div>
-          </article>
-          <article class="guide-step">
-            <div class="step-number">2</div>
-            <div class="step-content">
-              <h3>Ekstrak File ZIP</h3>
-              <p>
-                Buka file ZIP menggunakan aplikasi pengelola arsip yang tersedia
-                di perangkat. Ekstrak seluruh isi file ke sebuah folder.
-              </p>
-              <ul>
-                <li>Jangan hanya membuka isi ZIP tanpa mengekstraknya.</li>
-                <li>Tunggu sampai proses ekstraksi selesai.</li>
-                <li>Pastikan tidak ada pesan error saat ekstraksi.</li>
-              </ul>
-            </div>
-          </article>
-          <article class="guide-step">
-            <div class="step-number">3</div>
-            <div class="step-content">
-              <h3>Periksa Isi Folder Hasil Ekstrak</h3>
-              <p>
-                Buka folder hasil ekstraksi dan periksa file yang ada di
-                dalamnya. Jangan mengubah nama file atau folder secara
-                sembarangan.
-              </p>
-              <ul>
-                <li>Pastikan file game terlihat dengan lengkap.</li>
-                <li>
-                  Jika terdapat folder data atau OBB, biarkan sesuai
-                  strukturnya.
-                </li>
-                <li>Ikuti struktur folder yang diperlihatkan pada video.</li>
-              </ul>
-            </div>
-          </article>
-          <article class="guide-step">
-            <div class="step-number">4</div>
-            <div class="step-content">
-              <h3>Pasang File Game</h3>
-              <p>
-                Jika paket menyediakan file APK, pasang APK terlebih dahulu.
-                Setelah itu tempatkan file data atau OBB pada lokasi yang sesuai
-                dengan struktur paket.
-              </p>
-              <ul>
-                <li>Jangan memindahkan folder secara acak.</li>
-                <li>Jangan mengganti nama folder data atau OBB.</li>
-                <li>Pastikan proses pemindahan file selesai.</li>
-              </ul>
-            </div>
-          </article>
-          <article class="guide-step">
-            <div class="step-number">5</div>
-            <div class="step-content">
-              <h3>Pasang Subtitle Indonesia</h3>
-              <p>
-                Jika ingin menggunakan Bahasa Indonesia, ekstrak file Subtitle
-                Indonesia lalu ikuti lokasi pemasangan subtitle yang ditunjukkan
-                dalam video.
-              </p>
-              <ul>
-                <li>Ekstrak file subtitle terlebih dahulu.</li>
-                <li>
-                  Jangan mengubah nama file subtitle jika tidak diperlukan.
-                </li>
-                <li>Ikuti lokasi folder subtitle pada tutorial.</li>
-              </ul>
-            </div>
-          </article>
-          <article class="guide-step">
-            <div class="step-number">6</div>
-            <div class="step-content">
-              <h3>Cek Kembali File</h3>
-              <p>
-                Sebelum menjalankan game, periksa kembali apakah semua file
-                sudah berada di tempat yang benar.
-              </p>
-              <ul>
-                <li>Pastikan penyimpanan masih mencukupi.</li>
-                <li>Pastikan proses ekstraksi dan pemindahan selesai.</li>
-                <li>Pastikan file game tidak rusak atau terpotong.</li>
-              </ul>
-            </div>
-          </article>
-          <article class="guide-step">
-            <div class="step-number">7</div>
-            <div class="step-content">
-              <h3>Jalankan Bully</h3>
-              <p>
-                Setelah seluruh file terpasang, buka Bully dari perangkat.
-                Tunggu proses loading sampai masuk ke menu utama.
-              </p>
-              <ul>
-                <li>Jangan langsung menutup game saat proses loading.</li>
-                <li>Tunggu beberapa saat saat pertama kali membuka game.</li>
-                <li>Jika muncul masalah, cek kembali langkah sebelumnya.</li>
-              </ul>
-            </div>
-          </article>
-        </div>
-        <div class="note">
-          <strong>
-            <i class="fa-solid fa-circle-info"></i>
-            Catatan penting
-          </strong>
-          Struktur file dan lokasi pemasangan dapat berbeda tergantung versi
-          atau paket game yang digunakan. Gunakan video tutorial sebagai acuan
-          utama dan jangan memindahkan atau mengganti nama folder secara
-          sembarangan.
-        </div>
-      </section>
+      <!-- BAGIAN PANDUAN / STEP BY STEP DIHAPUS -->
       <section class="section">
         <div class="section-heading">
           <span class="section-label">Sebelum Bermain</span>
           <h2>Checklist Pemasangan</h2>
-          <p>
-            Kalau semua poin berikut sudah beres, kamu bisa mencoba menjalankan
-            game.
-          </p>
+          <p> Kalau semua poin berikut sudah beres, kamu bisa mencoba menjalankan game. </p>
         </div>
         <div class="check-list">
           <div class="check-item">
@@ -1010,7 +750,8 @@
       </section>
       <footer class="footer">
         <div class="footer-brand">
-          <span>© <span id="currentYear"></span> Bully Files · <span id="footerText"></span></span>
+          <span> © <span id="currentYear"></span> Bully Files · <span id="footerText"></span>
+          </span>
         </div>
         <div class="footer-line"></div>
       </footer>
@@ -1021,71 +762,60 @@
           <i class="fa-solid fa-spinner fa-spin"></i>
         </div>
         <h3 id="modalTitle">Menyiapkan Download</h3>
-        <p id="modalText">
-          Tunggu sebentar, kamu akan diarahkan ke halaman download.
-        </p>
+        <p id="modalText"> Tunggu sebentar, kamu akan diarahkan ke halaman download. </p>
         <button class="modal-close" id="modalClose">TUTUP</button>
       </div>
     </div>
     <script src="/config.js"></script>
     <script>
-      var footerText=document.getElementById("footerText").textContent = CONFIG.SITE.FOOTER1;
-      var currentYear=document.getElementById("currentYear").textContent = new Date().getFullYear();
-      (function(){
+      document.getElementById("footerText").textContent = CONFIG.SITE.FOOTER1;
+      document.getElementById("currentYear").textContent = new Date().getFullYear();
+      (function() {
+        var buttons = document.querySelectorAll(".download-btn");
+        var modal = document.getElementById("downloadModal");
+        var title = document.getElementById("modalTitle");
+        var text = document.getElementById("modalText");
+        var close = document.getElementById("modalClose");
+        var redirectTimer;
 
-      var buttons=document.querySelectorAll(".download-btn");
-      var modal=document.getElementById("downloadModal");
-      var title=document.getElementById("modalTitle");
-      var text=document.getElementById("modalText");
-      var close=document.getElementById("modalClose");
-
-      function reset(){
-      for(var i=0;i<buttons.length;i++){
-      buttons[i].className="download-btn";
-      buttons[i].innerHTML='<i class="fa-solid fa-download"></i> DOWNLOAD';
-      buttons[i].disabled=false;
-      }
-      modal.className="modal";
-      }
-
-      for(var i=0;i<buttons.length;i++){
-      buttons[i].onclick=function(){
-
-      var btn=this;
-      var url=btn.getAttribute("data-url");
-
-      if(!url||btn.disabled)return;
-
-      btn.className="download-btn loading";
-      btn.innerHTML='<i class="fa-solid fa-spinner fa-spin"></i> CHECKING';
-      btn.disabled=true;
-
-      setTimeout(function(){
-
-      btn.className="download-btn ready";
-      btn.innerHTML='<i class="fa-solid fa-check"></i> READY';
-
-      title.textContent="Download Siap";
-      text.textContent="Kamu akan diarahkan ke halaman download.";
-      modal.className="modal show";
-
-      setTimeout(function(){
-      location.href=url;
-      },400);
-
-      },600);
-
-      };
-      }
-
-      close.onclick=reset;
-
-      modal.onclick=function(e){
-      if(e.target===modal)reset();
-      };
-
-      window.addEventListener("pageshow",reset);
-
+        function reset() {
+          clearTimeout(redirectTimer);
+          for (var i = 0; i < buttons.length; i++) {
+            buttons[i].className = "download-btn";
+            buttons[i].innerHTML = '<i class="fa-solid fa-download"></i> DOWNLOAD';
+            buttons[i].disabled = false;
+          }
+          modal.className = "modal";
+        }
+        for (var i = 0; i < buttons.length; i++) {
+          buttons[i].onclick = function() {
+            var btn = this;
+            var url = btn.getAttribute("data-url");
+            if (!url || btn.disabled) {
+              return;
+            }
+            btn.className = "download-btn loading";
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> CHECKING';
+            btn.disabled = true;
+            setTimeout(function() {
+              btn.className = "download-btn ready";
+              btn.innerHTML = '<i class="fa-solid fa-check"></i> READY';
+              title.textContent = "Download Siap";
+              text.textContent = "Kamu akan diarahkan ke halaman download.";
+              modal.className = "modal show";
+              redirectTimer = setTimeout(function() {
+                window.location.href = url;
+              }, 400);
+            }, 600);
+          };
+        }
+        close.onclick = reset;
+        modal.onclick = function(event) {
+          if (event.target === modal) {
+            reset();
+          }
+        };
+        window.addEventListener("pageshow", reset);
       })();
     </script>
   </body>
