@@ -1,16 +1,14 @@
-
 import { ZpiClient } from "zpi-sdk";
 
 const client = new ZpiClient({
   apiKey: process.env.DIMZZZZ3333_API
 });
 
-const PROJECT_PATTERN = /^bypass-tools:[a-z0-9-]+$/i;
-const ACTION_PATTERN = /^[a-z][a-z0-9_-]{0,63}$/i;
-const MAX_BODY_SIZE = 32_000;
+const MAX_BODY_SIZE = 32000;
 
 export default async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
+  res.setHeader("X-Content-Type-Options", "nosniff");
 
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
@@ -23,7 +21,7 @@ export default async function handler(req, res) {
   if (!process.env.ZPI_API_KEY) {
     return res.status(500).json({
       success: false,
-      error: "Layanan belum dikonfigurasi."
+      error: "Ada yang belum dikonfigurasi"
     });
   }
 
@@ -35,12 +33,16 @@ export default async function handler(req, res) {
     } catch {
       return res.status(400).json({
         success: false,
-        error: "Permintaan tidak valid."
+        error: "JSON tidak valid."
       });
     }
   }
 
-  if (!body || typeof body !== "object" || Array.isArray(body)) {
+  if (
+    !body ||
+    typeof body !== "object" ||
+    Array.isArray(body)
+  ) {
     return res.status(400).json({
       success: false,
       error: "Permintaan tidak valid."
@@ -61,43 +63,42 @@ export default async function handler(req, res) {
     });
   }
 
-  const { project, action, params = {} } = body;
+  const { project, action, params } = body;
 
   if (
     typeof project !== "string" ||
-    !PROJECT_PATTERN.test(project)
+    !/^[a-z0-9_-]+:[a-z0-9_-]+$/i.test(project) ||
+    project.length > 120
   ) {
     return res.status(400).json({
       success: false,
-      error: "Layanan tidak valid."
+      error: "Project tidak valid."
     });
   }
 
   if (
     typeof action !== "string" ||
-    !ACTION_PATTERN.test(action)
+    action.length > 150 ||
+    !/^[a-zA-Z0-9_:/-]+$/.test(action) ||
+    action.startsWith("/") ||
+    action.includes("..") ||
+    action.includes("//")
   ) {
     return res.status(400).json({
       success: false,
-      error: "Aksi tidak valid."
+      error: "Action atau path tidak valid."
     });
   }
 
   if (
     !params ||
     typeof params !== "object" ||
-    Array.isArray(params)
+    Array.isArray(params) ||
+    Object.keys(params).length > 50
   ) {
     return res.status(400).json({
       success: false,
       error: "Parameter tidak valid."
-    });
-  }
-
-  if (Object.keys(params).length > 50) {
-    return res.status(400).json({
-      success: false,
-      error: "Terlalu banyak parameter."
     });
   }
 
@@ -111,16 +112,14 @@ export default async function handler(req, res) {
     });
   }
 
-  let inputUrl;
-
   try {
-    inputUrl = new URL(params.url);
+    const url = new URL(params.url);
 
-    if (!["http:", "https:"].includes(inputUrl.protocol)) {
-      throw new Error();
-    }
-
-    if (inputUrl.username || inputUrl.password) {
+    if (
+      !["http:", "https:"].includes(url.protocol) ||
+      url.username ||
+      url.password
+    ) {
       throw new Error();
     }
   } catch {
@@ -130,52 +129,26 @@ export default async function handler(req, res) {
     });
   }
 
-  const allowedServices = {
-    "bypass-tools:safelinku": ["resolve"],
-    "bypass-tools:sub4unlock": ["resolve"],
-    "bypass-tools:sub2unlock": ["bypass"]
-  };
-
-  if (!allowedServices[project]?.includes(action)) {
-    return res.status(400).json({
-      success: false,
-      error: "Layanan atau aksi belum diizinkan."
-    });
-  }
-
-  const allowedHosts = {
-    "bypass-tools:safelinku": [
-      "sfl.gl",
-      "safelinku.com"
-    ],
-    "bypass-tools:sub4unlock": [
-      "sub4unlock.co",
-      "sub4unlock.com"
-    ],
-    "bypass-tools:sub2unlock": [
-      "sub2unlock.com"
-    ]
-  };
-
-  const hostname = inputUrl.hostname.toLowerCase();
-
-  if (
-    !allowedHosts[project].some(
-      host => hostname === host || hostname.endsWith("." + host)
-    )
-  ) {
-    return res.status(400).json({
-      success: false,
-      error: "Domain tidak sesuai dengan layanan."
-    });
+  for (const [key, value] of Object.entries(params)) {
+    if (
+      !/^[a-zA-Z0-9_-]{1,100}$/.test(key) ||
+      !["string", "number", "boolean"].includes(typeof value) ||
+      (typeof value === "string" && value.length > 2048) ||
+      (typeof value === "number" && !Number.isFinite(value))
+    ) {
+      return res.status(400).json({
+        success: false,
+        error: "Nilai parameter tidak valid."
+      });
+    }
   }
 
   try {
-    const result = await client.run(project, action, params);
+    const data = await client.run(project, action, params);
 
     return res.status(200).json({
       success: true,
-      data: result
+      data
     });
   } catch {
     return res.status(502).json({
