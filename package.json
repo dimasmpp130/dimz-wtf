@@ -5,6 +5,6 @@
   "dependencies": {
     "axios": "^1.8.4",
     "form-data": "^4.0.2",
-    "@coflyn/scrapr": "^1.2.1"
+    "zpi-sdk": "^0.6.0"
   }
 }
