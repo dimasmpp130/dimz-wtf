@@ -86,7 +86,7 @@
     },
     {
       "src": "/redirect/?$",
-      "dest": "/temp/bypasslink.html"
+      "dest": "/temp/bypass.html"
     },
     {
       "src": "/khodam/?$",
