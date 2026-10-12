@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101114">
+<meta name="description" content="Multi-service URL resolver untuk Safelinku, Sub4Unlock, dan Sub2Unlock.">
+<title>Link Resolver — DIMZ</title>
+<style>
+:root{color-scheme:dark;--bg:#101114;--card:#17181d;--card2:#1d1e24;--text:#ededf0;--muted:#92939f;--line:#2c2d35;--accent:#a78bfa;--green:#75d6a5;--red:#f08c94}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;font-size:14px;-webkit-tap-highlight-color:transparent}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+button:disabled{opacity:.55;cursor:wait}
+.nav{height:65px;max-width:850px;margin:auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff08}
+.brand{display:flex;align-items:center;gap:10px;font-size:14px;font-weight:750;letter-spacing:-.3px}
+.logo{width:32px;height:32px;display:grid;place-items:center;border:1px solid #a78bfa42;border-radius:9px;color:var(--accent);font-size:20px;background:#a78bfa0c}
+.nav-tag{font-size:10px;letter-spacing:1px;color:#a5a5b2}
+main{width:min(100% - 30px,620px);margin:49px auto 48px}
+.heading{margin-bottom:25px}
+.eyebrow{display:flex;align-items:center;gap:8px;color:var(--accent);font-size:10px;font-weight:750;letter-spacing:1.6px}
+.indicator{width:6px;height:6px;border-radius:50%;background:var(--green)}
+h1{margin:13px 0 8px;font-size:clamp(28px,6vw,37px);line-height:1.2;letter-spacing:-1.4px;font-weight:780}
+.heading p{max-width:440px;margin:0;color:var(--muted);font-size:13px;line-height:1.8}
+.panel{padding:21px;border:1px solid var(--line);border-radius:15px;background:var(--card);box-shadow:0 16px 45px #0002}
+.field-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}
+.field-head label{font-size:12px;font-weight:700}
+.field-head span{font-size:10px;color:var(--muted)}
+.service-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:20px}
+.service{min-height:63px;padding:10px 6px;border:1px solid var(--line);border-radius:10px;background:#131418;color:#a7a7b3;font-size:11px;font-weight:650;line-height:1.5}
+.service.active{border-color:#a78bfa85;background:#a78bfa12;color:#d4c6ff}
+.service-mark{display:block;margin-bottom:3px;font-size:16px}
+.field{margin-top:17px}
+.input-row{display:flex;gap:7px}
+.url-input{width:100%;height:47px;min-width:0;flex:1;padding:0 12px;border:1px solid var(--line);border-radius:9px;background:#121317;color:var(--text);font-size:13px}
+.url-input::placeholder{color:#777782}
+.small-btn{width:45px;flex-shrink:0;border:1px solid var(--line);border-radius:9px;background:var(--card2);color:#b8b8c4;font-size:19px}
+.helper{margin:8px 0 0;color:var(--muted);font-size:11px;line-height:1.65}
+.primary{width:100%;height:47px;margin-top:17px;border:1px solid #b7a4ff24;border-radius:9px;background:var(--accent);color:#17121f;font-size:13px;font-weight:800}
+.primary:hover{filter:brightness(1.06)}
+.result{margin-top:14px;padding:17px;border:1px solid #355342;border-radius:12px;background:#151b18}
+.result[hidden],.status[hidden]{display:none}
+.result-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.result-heading{display:flex;align-items:center;gap:9px;font-size:13px;font-weight:750}
+.check{display:grid;place-items:center;width:25px;height:25px;border-radius:8px;background:#75d6a51a;color:var(--green);font-size:15px}
+.badge{padding:5px 8px;border:1px solid #355342;border-radius:20px;color:var(--green);font-size:9px;font-weight:750;letter-spacing:.6px}
+.result-message{margin:12px 0 15px;color:#b8c8bd;font-size:12px;line-height:1.7}
+.meta-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.meta{padding:11px;border:1px solid #ffffff0a;border-radius:8px;background:#ffffff03;min-width:0}
+.meta span{display:block;margin-bottom:6px;color:var(--muted);font-size:10px}
+.meta strong{display:block;overflow-wrap:anywhere;color:#e2e2e7;font-size:12px;font-weight:650}
+.actions{display:flex;gap:8px;margin-top:13px}
+.actions button{height:42px;flex:1;border-radius:8px;font-size:12px;font-weight:750}
+.copy{border:0;background:var(--green);color:#102018}
+.open{border:1px solid #355342;background:#1a2720;color:var(--green)}
+.section-label{margin:28px 0 11px;color:var(--muted);font-size:10px;font-weight:750;letter-spacing:1.3px}
+.info-list{display:grid;gap:9px}
+.info-row{display:flex;gap:12px;padding:13px;border:1px solid var(--line);border-radius:10px;background:#141519}
+.info-mark{width:29px;height:29px;flex-shrink:0;display:grid;place-items:center;border:1px solid var(--line);border-radius:8px;color:var(--accent);font-size:13px}
+.info-row strong{display:block;margin:1px 0 5px;font-size:12px}
+.info-row p{margin:0;color:var(--muted);font-size:11px;line-height:1.6}
+footer{max-width:850px;margin:auto;padding:19px 22px calc(20px + env(safe-area-inset-bottom));border-top:1px solid #ffffff0a;display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:10px}
+.toast-wrap{position:fixed;z-index:5;left:50%;bottom:calc(22px + env(safe-area-inset-bottom));width:min(440px,calc(100% - 28px));transform:translateX(-50%);pointer-events:none}
+.toast{padding:12px 14px;border:1px solid #42414c;border-radius:10px;background:#232329;color:#eeeef3;box-shadow:0 8px 30px #0005;font-size:12px;line-height:1.6;overflow-wrap:anywhere;opacity:0;transform:translateY(8px);transition:opacity .18s,transform .18s}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.error{border-color:#744046}
+.toast.success{border-color:#355342}
+@media(max-width:440px){.nav{height:59px;padding:0 15px}.brand{font-size:12px}.nav-tag{font-size:9px}main{margin-top:35px}.panel{padding:15px}.service{font-size:10px}.meta-grid{gap:7px}.meta{padding:10px}footer{flex-direction:column;align-items:center;text-align:center}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="brand"><span class="logo">↗</span><span>Link Resolver</span></div>
+  <span class="nav-tag">DIMZ / UTILITIES</span>
+</header>
+
+<main>
+  <section class="heading">
+    <div class="eyebrow"><span class="indicator"></span> MULTI-SERVICE RESOLVER</div>
+    <h1>Resolve your link.</h1>
+    <p>Pilih layanan, masukkan URL, lalu dapatkan tautan tujuan. Ringkas, langsung, tanpa langkah yang tidak diperlukan.</p>
+  </section>
+
+  <section class="panel">
+    <div class="field-head">
+      <label>Pilih layanan</label>
+      <span>3 layanan tersedia</span>
+    </div>
+
+    <div class="service-grid" id="services">
+      <button type="button" class="service active" data-service="safelinku" aria-pressed="true"><span class="service-mark">↗</span>Safelinku</button>
+      <button type="button" class="service" data-service="sub4unlock" aria-pressed="false"><span class="service-mark">⌁</span>Sub4Unlock</button>
+      <button type="button" class="service" data-service="sub2unlock" aria-pressed="false"><span class="service-mark">⌘</span>Sub2Unlock</button>
+    </div>
+
+    <div class="field">
+      <div class="field-head">
+        <label for="url">URL yang akan diproses</label>
+        <span>HTTP / HTTPS</span>
+      </div>
+      <div class="input-row">
+        <input class="url-input" id="url" type="url" maxlength="2048" placeholder="Tempel URL di sini" autocomplete="url" spellcheck="false">
+        <button type="button" class="small-btn" id="paste" aria-label="Tempel URL" title="Tempel URL">↓</button>
+        <button type="button" class="small-btn" id="clear" aria-label="Hapus URL" title="Hapus URL">×</button>
+      </div>
+      <p class="helper" id="serviceHint">Memproses tautan Safelinku melalui resolver yang dipilih.</p>
+    </div>
+
+    <button class="primary" type="button" id="resolve">↗ &nbsp; Resolve URL</button>
+
+    <section class="result" id="result" hidden>
+      <div class="result-top">
+        <div class="result-heading"><span class="check">✓</span><span>Resolusi selesai</span></div>
+        <span class="badge">BERHASIL</span>
+      </div>
+      <p class="result-message" id="successMessage">Tautan berhasil diproses.</p>
+      <div class="meta-grid">
+        <div class="meta"><span>Layanan</span><strong id="metaService">—</strong></div>
+        <div class="meta"><span>Waktu proses</span><strong id="metaTime">—</strong></div>
+        <div class="meta"><span>Alias / ID</span><strong id="metaAlias">—</strong></div>
+        <div class="meta"><span>Status tujuan</span><strong id="metaDestination">Tersedia</strong></div>
+        <div class="meta"><span>Waktu hasil</span><strong id="metaDate">—</strong></div>
+        <div class="meta"><span>Metode</span><strong id="metaFlow">—</strong></div>
+      </div>
+      <div class="actions">
+        <button class="copy" type="button" id="copy">Salin Link</button>
+        <button class="open" type="button" id="open">Buka Tujuan ↗</button>
+      </div>
+    </section>
+  </section>
+
+  <div class="section-label">INFORMASI</div>
+  <section class="info-list">
+    <article class="info-row"><div class="info-mark">↗</div><div><strong>Beberapa layanan</strong><p>Safelinku, Sub4Unlock, dan Sub2Unlock memakai satu endpoint resolver.</p></div></article>
+    <article class="info-row"><div class="info-mark">⌘</div><div><strong>Hasil privat di tampilan</strong><p>URL tujuan tidak ditampilkan sebagai teks. Kamu dapat membuka atau menyalinnya langsung.</p></div></article>
+    <article class="info-row"><div class="info-mark">◷</div><div><strong>Proses terukur</strong><p>Waktu proses dan metadata hasil ditampilkan setelah resolver mengembalikan hasil valid.</p></div></article>
+  </section>
+</main>
+
+<footer>
+  <span>© <span id="year"></span> Link Resolver</span>
+  <span>DIMZ Utilities</span>
+</footer>
+
+<div class="toast-wrap" aria-live="polite" aria-atomic="true">
+  <div class="toast" id="toast" role="status"></div>
+</div>
+
+<script>
+"use strict";
+
+const ENDPOINT = "https://dimz-wtf.web.id/api/ipaz-links";
+
+const services = {
+  safelinku: {
+    label: "Safelinku",
+    project: "bypass-tools:safelinku",
+    action: "resolve",
+    hosts: ["sfl.gl", "safelinku.com"],
+    hint: "Memproses tautan Safelinku melalui resolver yang dipilih."
+  },
+  sub4unlock: {
+    label: "Sub4Unlock",
+    project: "bypass-tools:sub4unlock",
+    action: "resolve",
+    hosts: ["sub4unlock.co", "sub4unlock.com"],
+    hint: "Memproses tautan Sub4Unlock menggunakan action resolve."
+  },
+  sub2unlock: {
+    label: "Sub2Unlock",
+    project: "bypass-tools:sub2unlock",
+    action: "bypass",
+    hosts: ["sub2unlock.com"],
+    hint: "Memproses tautan Sub2Unlock menggunakan action bypass."
+  }
+};
+
+const $ = id => document.getElementById(id);
+const input = $("url");
+const button = $("resolve");
+const result = $("result");
+const toast = $("toast");
+
+let selected = "safelinku";
+let destination = "";
+let busy = false;
+let toastTimer;
+
+$("year").textContent = new Date().getFullYear();
+
+function notify(message, type = "") {
+  clearTimeout(toastTimer);
+  toast.textContent = message;
+  toast.className = "toast show " + type;
+  toastTimer = setTimeout(() => {
+    toast.className = "toast";
+  }, 4000);
+}
+
+function isHttpUrl(value) {
+  try {
+    const url = new URL(value);
+    return (
+      ["http:", "https:"].includes(url.protocol) &&
+      !url.username &&
+      !url.password
+    );
+  } catch {
+    return false;
+  }
+}
+
+function getFinalUrl(value) {
+  const keys = [
+    "finalUrl",
+    "final_url",
+    "destinationUrl",
+    "destination_url",
+    "destination",
+    "targetUrl",
+    "target_url",
+    "downloadUrl",
+    "download_url",
+    "redirectUrl",
+    "redirect_url",
+    "resultUrl",
+    "result_url",
+    "url",
+    "link"
+  ];
+
+  const queue = [value];
+  const seen = new Set();
+
+  while (queue.length) {
+    const item = queue.shift();
+
+    if (!item || typeof item !== "object" || seen.has(item)) {
+      continue;
+    }
+
+    seen.add(item);
+
+    if (Array.isArray(item)) {
+      queue.push(...item);
+      continue;
+    }
+
+    for (const key of keys) {
+      const candidate = item[key];
+
+      if (typeof candidate === "string" && isHttpUrl(candidate)) {
+        return new URL(candidate).href;
+      }
+    }
+
+    for (const [key, child] of Object.entries(item)) {
+      if (
+        child &&
+        typeof child === "object" &&
+        !["headers", "request", "config"].includes(key.toLowerCase())
+      ) {
+        queue.push(child);
+      }
+    }
+  }
+
+  return "";
+}
+
+function getData(payload) {
+  let data = payload?.data ?? payload;
+
+  for (let i = 0; i < 5; i++) {
+    if (!data || typeof data !== "object" || Array.isArray(data)) {
+      break;
+    }
+
+    if (data.result !== undefined) {
+      data = data.result;
+    } else if (data.data !== undefined) {
+      data = data.data;
+    } else {
+      break;
+    }
+  }
+
+  return data;
+}
+
+function hideResult() {
+  result.hidden = true;
+  destination = "";
+}
+
+function selectService(name) {
+  if (!services[name]) return;
+
+  selected = name;
+
+  document.querySelectorAll(".service").forEach(el => {
+    const active = el.dataset.service === name;
+    el.classList.toggle("active", active);
+    el.setAttribute("aria-pressed", String(active));
+  });
+
+  $("serviceHint").textContent = services[name].hint;
+  hideResult();
+}
+
+document.querySelectorAll(".service").forEach(el => {
+  el.addEventListener("click", () => {
+    selectService(el.dataset.service);
+  });
+});
+
+async function resolve() {
+  if (busy) return;
+
+  const service = services[selected];
+  const value = input.value.trim();
+
+  if (!value) {
+    notify("Masukkan URL terlebih dahulu.", "error");
+    input.focus();
+    return;
+  }
+
+  if (value.length > 2048 || !isHttpUrl(value)) {
+    notify("URL tidak valid. Gunakan HTTP atau HTTPS.", "error");
+    return;
+  }
+
+  const parsed = new URL(value);
+  const host = parsed.hostname.toLowerCase();
+
+  if (!service.hosts.some(domain =>
+    host === domain || host.endsWith("." + domain)
+  )) {
+    notify("Domain tidak cocok dengan layanan yang dipilih.", "error");
+    return;
+  }
+
+  busy = true;
+  button.disabled = true;
+  button.textContent = "Memproses...";
+  hideResult();
+
+  const started = performance.now();
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 45000);
+
+  try {
+    const response = await fetch(ENDPOINT, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Accept": "application/json"
+      },
+      body: JSON.stringify({
+        project: service.project,
+        action: service.action,
+        params: {
+          url: parsed.href
+        }
+      }),
+      cache: "no-store",
+      signal: controller.signal
+    });
+
+    const raw = await response.text();
+    let payload;
+
+    try {
+      payload = JSON.parse(raw);
+    } catch {
+      console.error("Resolver returned non-JSON:", response.status, raw);
+      throw new Error(
+        response.status === 404
+          ? "Endpoint tidak ditemukan. Periksa routing Vercel."
+          : "Server mengembalikan respons yang bukan JSON."
+      );
+    }
+
+    if (!response.ok || payload?.success !== true) {
+      console.error("Resolver API error:", response.status, payload);
+
+      const serverMessage =
+        typeof payload?.error === "string" ? payload.error : "";
+
+      if (response.status === 404) {
+        throw new Error("Endpoint tidak ditemukan. Periksa routing Vercel.");
+      }
+
+      if (response.status === 405) {
+        throw new Error("Endpoint menolak metode POST.");
+      }
+
+      if (response.status === 429) {
+        throw new Error("Terlalu banyak permintaan. Tunggu sebentar.");
+      }
+
+      if (response.status === 401 || response.status === 403) {
+        throw new Error("Permintaan ditolak oleh server.");
+      }
+
+      if (response.status === 500) {
+        throw new Error(serverMessage || "Konfigurasi backend bermasalah. Periksa Environment Variables.");
+      }
+
+      if (response.status === 502) {
+        throw new Error(serverMessage || "Resolver gagal memproses tautan. Periksa log Vercel.");
+      }
+
+      throw new Error(
+        serverMessage ||
+        "Permintaan gagal dengan HTTP " + response.status + "."
+      );
+    }
+
+    const data = getData(payload);
+    const finalUrl = getFinalUrl(data);
+
+    if (!finalUrl) {
+      console.error("Destination URL missing in resolver response:", payload);
+      throw new Error(
+        "Server merespons sukses, tetapi format URL tujuan belum dikenali. Periksa respons API di console."
+      );
+    }
+
+    destination = finalUrl;
+
+    $("metaService").textContent = service.label;
+    $("metaTime").textContent =
+      Math.round(performance.now() - started) + " ms";
+    $("metaAlias").textContent = String(
+      data?.alias ?? data?.id ?? "—"
+    ).slice(0, 100);
+    $("metaDestination").textContent = "Tersedia";
+    $("metaDate").textContent = new Date().toLocaleString("id-ID");
+    $("metaFlow").textContent = service.action;
+    $("successMessage").textContent =
+      "Tautan berhasil diproses. Tujuan siap dibuka atau disalin.";
+
+    result.hidden = false;
+    notify("Berhasil. Link tujuan siap digunakan.", "success");
+  } catch (error) {
+    console.error("Link Resolver error:", error);
+
+    if (error.name === "AbortError") {
+      notify("Waktu proses habis. Silakan coba lagi.", "error");
+    } else if (
+      error instanceof TypeError &&
+      /fetch/i.test(error.message)
+    ) {
+      notify(
+        "Koneksi ke endpoint gagal. Periksa domain, deployment, dan CORS.",
+        "error"
+      );
+    } else {
+      notify(
+        error.message || "Terjadi kesalahan saat memproses tautan.",
+        "error"
+      );
+    }
+  } finally {
+    clearTimeout(timeout);
+    busy = false;
+    button.disabled = false;
+    button.textContent = "↗  Resolve URL";
+  }
+}
+
+button.addEventListener("click", resolve);
+
+input.addEventListener("keydown", event => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    resolve();
+  }
+});
+
+$("clear").addEventListener("click", () => {
+  input.value = "";
+  hideResult();
+  input.focus();
+});
+
+$("paste").addEventListener("click", async () => {
+  try {
+    const value = await navigator.clipboard.readText();
+
+    if (!value.trim()) {
+      notify("Clipboard kosong.", "error");
+      return;
+    }
+
+    input.value = value.trim().slice(0, 2048);
+    notify("URL berhasil ditempel.", "success");
+    input.focus();
+  } catch {
+    notify("Clipboard tidak tersedia. Tempel URL secara manual.", "error");
+  }
+});
+
+$("copy").addEventListener("click", async () => {
+  if (!destination || !isHttpUrl(destination)) {
+    notify("Belum ada link tujuan.", "error");
+    return;
+  }
+
+  try {
+    await navigator.clipboard.writeText(destination);
+    notify("Link berhasil disalin.", "success");
+  } catch {
+    const area = document.createElement("textarea");
+    area.value = destination;
+    area.readOnly = true;
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+
+    let copied = false;
+
+    try {
+      copied = document.execCommand("copy");
+    } catch {}
+
+    area.remove();
+
+    notify(
+      copied ? "Link berhasil disalin." : "Gagal menyalin link.",
+      copied ? "success" : "error"
+    );
+  }
+});
+
+$("open").addEventListener("click", () => {
+  if (!destination || !isHttpUrl(destination)) {
+    notify("Belum ada tujuan yang valid.", "error");
+    return;
+  }
+
+  const tab = window.open("about:blank", "_blank");
+
+  if (!tab) {
+    notify("Browser memblokir tab baru. Izinkan pop-up lalu coba lagi.", "error");
+    return;
+  }
+
+  tab.opener = null;
+  tab.location.replace(destination);
+});
+</script>
+</body>
+</html>
