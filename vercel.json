@@ -85,6 +85,10 @@
       "dest": "/temp/gtasa.html"
     },
     {
+      "src": "/redirect/?$",
+      "dest": "/temp/bypasslink.html"
+    },
+    {
       "src": "/khodam/?$",
       "dest": "/tools/khodam.html"
     },
