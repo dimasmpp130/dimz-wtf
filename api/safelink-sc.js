@@ -1,6 +1,11 @@
 
 const axios = require("axios");
 
+const ALLOWED_ORIGINS = new Set([
+  "https://dimz-wtf.web.id",
+  "https://www.dimz-wtf.web.id"
+]);
+
 const ALLOWED_HOSTS = new Set([
   "sfl.gl",
   "www.sfl.gl",
@@ -12,6 +17,29 @@ const ALLOWED_HOSTS = new Set([
   "www.lokerwfh.net"
 ]);
 
+const DEFAULT_UA =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+
+function sendError(res, status, message) {
+  return res.status(status).json({
+    status: false,
+    message
+  });
+}
+
+function validateHttpUrl(value) {
+  try {
+    const url = new URL(value);
+
+    if (!["http:", "https:"].includes(url.protocol)) return null;
+    if (url.username || url.password) return null;
+
+    return url;
+  } catch {
+    return null;
+  }
+}
+
 function decodeDestination(input) {
   try {
     const parsed = new URL(input);
@@ -20,11 +48,13 @@ function decodeDestination(input) {
       const value = parsed.searchParams.get(key);
       if (!value) continue;
 
-      if (/^https?:\/\//i.test(value)) return value;
+      const direct = validateHttpUrl(value);
+      if (direct) return direct.href;
 
       try {
         const decoded = Buffer.from(value, "base64").toString("utf8");
-        if (/^https?:\/\//i.test(decoded)) return decoded;
+        const destination = validateHttpUrl(decoded);
+        if (destination) return destination.href;
       } catch {}
     }
   } catch {}
@@ -44,16 +74,16 @@ function extractRedirect(html, baseUrl) {
 
   for (const pattern of patterns) {
     const match = html.match(pattern);
-    if (!match || !match[1]) continue;
+    if (!match?.[1]) continue;
 
     try {
-      const destination = new URL(
+      const target = new URL(
         match[1].replace(/&amp;/g, "&").replace(/\\\//g, "/").trim(),
         baseUrl
       );
 
-      if (["http:", "https:"].includes(destination.protocol)) {
-        return destination.href;
+      if (["http:", "https:"].includes(target.protocol)) {
+        return target.href;
       }
     } catch {}
   }
@@ -86,43 +116,60 @@ async function resolveSafelinku(input) {
 
     visited.add(currentUrl);
 
-    const response = await axios.get(currentUrl, {
-      timeout: 12000,
-      maxRedirects: 5,
-      responseType: "text",
-      validateStatus: status => status >= 200 && status < 400,
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/124.0.0.0 Safari/537.36",
-        Accept: "text/html,application/xhtml+xml,*/*;q=0.8"
+    let response;
+
+    try {
+      response = await axios.get(currentUrl, {
+        timeout: 12000,
+        maxRedirects: 5,
+        responseType: "text",
+        validateStatus: status => status >= 200 && status < 400,
+        headers: {
+          "User-Agent": DEFAULT_UA,
+          "Accept": "text/html,application/xhtml+xml,*/*;q=0.8"
+        }
+      });
+    } catch (error) {
+      const status = error.response?.status;
+
+      if (status === 403) {
+        throw new Error(
+          "Situs sumber menolak request server (HTTP 403). CORS bukan penyebabnya."
+        );
       }
-    });
 
-    const finalUrl =
-      response.request?.res?.responseUrl || currentUrl;
+      if (status) {
+        throw new Error(`Situs sumber mengembalikan HTTP ${status}.`);
+      }
 
-    const html =
-      typeof response.data === "string" ? response.data : "";
+      throw new Error(
+        "Tidak dapat menghubungi situs sumber. Periksa koneksi atau timeout."
+      );
+    }
 
+    const finalUrl = response.request?.res?.responseUrl || currentUrl;
+    const html = typeof response.data === "string" ? response.data : "";
     const destination = extractRedirect(html, finalUrl);
 
     if (destination && destination !== finalUrl) {
-      currentUrl = destination;
+      const target = validateHttpUrl(destination);
 
-      const parsedDestination = new URL(currentUrl);
-
-      if (!["http:", "https:"].includes(parsedDestination.protocol)) {
-        throw new Error("Protokol URL tujuan tidak didukung.");
+      if (!target) {
+        throw new Error("URL tujuan tidak valid.");
       }
 
+      currentUrl = target.href;
+
       if (decodeDestination(currentUrl)) {
+        const decodedTarget = decodeDestination(currentUrl);
+
         return {
           status: true,
           result: {
             title: "Safelinku Destination Link",
             originalUrl: input,
-            destinationUrl: currentUrl,
-            url: currentUrl
+            destinationUrl: decodedTarget,
+            url: decodedTarget
           }
         };
       }
@@ -131,19 +178,25 @@ async function resolveSafelinku(input) {
     }
 
     if (finalUrl !== input) {
+      const target = validateHttpUrl(finalUrl);
+
+      if (!target) {
+        throw new Error("URL redirect tidak valid.");
+      }
+
       return {
         status: true,
         result: {
           title: "Destination Link",
           originalUrl: input,
-          destinationUrl: finalUrl,
-          url: finalUrl
+          destinationUrl: target.href,
+          url: target.href
         }
       };
     }
 
     throw new Error(
-      "URL tujuan tidak ditemukan. Situs mungkin memerlukan verifikasi tambahan."
+      "URL tujuan tidak ditemukan. Link mungkin memerlukan API, sesi, atau verifikasi tambahan."
     );
   }
 
@@ -152,73 +205,73 @@ async function resolveSafelinku(input) {
 
 module.exports = async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
-  res.setHeader("Access-Control-Allow-Origin", "https://dimz-wtf.web.id");
-  res.setHeader("Vary", "Origin");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  const origin = req.headers.origin;
+
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  }
 
   if (req.method === "OPTIONS") {
+    if (origin && !ALLOWED_ORIGINS.has(origin)) {
+      return res.status(403).end();
+    }
+
     return res.status(204).end();
+  }
+
+  if (origin && !ALLOWED_ORIGINS.has(origin)) {
+    return sendError(res, 403, "Origin tidak diizinkan.");
   }
 
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST, OPTIONS");
-
-    return res.status(405).json({
-      status: false,
-      message: "Gunakan metode POST."
-    });
+    return sendError(res, 405, "Gunakan metode POST.");
   }
 
   try {
-    const url =
-      typeof req.body?.url === "string" ? req.body.url.trim() : "";
+    let body = req.body;
 
-    if (!url || url.length > 2048) {
-      return res.status(400).json({
-        status: false,
-        message: "Masukkan URL yang valid."
-      });
+    if (typeof body === "string") {
+      try {
+        body = JSON.parse(body);
+      } catch {
+        return sendError(res, 400, "Body JSON tidak valid.");
+      }
     }
 
-    let parsed;
+    const input =
+      typeof body?.url === "string" ? body.url.trim() : "";
 
-    try {
-      parsed = new URL(url);
-    } catch {
-      return res.status(400).json({
-        status: false,
-        message: "Format URL tidak valid."
-      });
+    if (!input || input.length > 2048) {
+      return sendError(res, 400, "Masukkan URL dengan panjang yang valid.");
     }
 
-    if (
-      !["http:", "https:"].includes(parsed.protocol) ||
-      parsed.username ||
-      parsed.password ||
-      !ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())
-    ) {
-      return res.status(400).json({
-        status: false,
-        message: "Domain Safelinku tidak didukung."
-      });
+    const parsed = validateHttpUrl(input);
+
+    if (!parsed) {
+      return sendError(res, 400, "Format URL tidak valid.");
+    }
+
+    if (!ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())) {
+      return sendError(res, 400, "Domain Safelinku tidak didukung.");
     }
 
     const result = await resolveSafelinku(parsed.href);
 
     return res.status(200).json(result);
   } catch (error) {
-    console.error("Resolver error:", {
-      message: error.message,
-      status: error.response?.status || null
+    console.error("Safelinku resolver error:", {
+      message: error.message
     });
 
-    return res.status(422).json({
-      status: false,
-      message:
-        error.response?.status === 403
-          ? "Situs sumber menolak permintaan resolver."
-          : error.message || "Gagal memproses URL."
-    });
+    return sendError(
+      res,
+      422,
+      error.message || "Gagal memproses URL."
+    );
   }
 };
