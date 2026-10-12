@@ -12,14 +12,41 @@ const ALLOWED_HOSTS = new Set([
   "www.lokerwfh.net"
 ]);
 
+const ALLOWED_ORIGINS = new Set([
+  "https://dimz-wtf.web.id",
+  "https://www.dimz-wtf.web.id",
+  "https://dimz-wtf.vercel.app"
+]);
+
 module.exports = async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
 
+  const origin = req.headers.origin;
+
+  if (origin && ALLOWED_ORIGINS.has(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+    res.setHeader("Vary", "Origin");
+  }
+
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
+    res.setHeader("Allow", "POST, OPTIONS");
     return res.status(405).json({
       status: false,
       message: "Gunakan metode POST."
+    });
+  }
+
+  if (origin && !ALLOWED_ORIGINS.has(origin)) {
+    return res.status(403).json({
+      status: false,
+      message: "Origin tidak diizinkan."
     });
   }
 
@@ -70,7 +97,7 @@ module.exports = async function handler(req, res) {
         status: false,
         message:
           result?.message ||
-          "URL tujuan tidak ditemukan. Link mungkin sudah kedaluwarsa atau resolver sedang bermasalah."
+          "URL tujuan tidak ditemukan. Link mungkin kedaluwarsa atau resolver bermasalah."
       });
     }
 
@@ -85,7 +112,9 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    if (!["https:", "http:"].includes(destination.protocol)) {
+    if (
+      !["https:", "http:"].includes(destination.protocol)
+    ) {
       return res.status(502).json({
         status: false,
         message: "Protokol URL tujuan tidak didukung."
@@ -101,12 +130,12 @@ module.exports = async function handler(req, res) {
       }
     });
   } catch (error) {
-    console.error("Safelinku resolver error:", error.message);
+    console.error("Safelinku resolver error:", error);
 
     return res.status(500).json({
       status: false,
       message:
-        "Resolver gagal memproses link. Coba lagi nanti atau periksa apakah layanan Safelinku sedang berubah."
+        "Resolver gagal memproses link. Periksa log Vercel untuk detail error."
     });
   }
 };
