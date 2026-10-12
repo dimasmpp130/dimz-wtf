@@ -12,48 +12,37 @@ const ALLOWED_HOSTS = new Set([
   "www.lokerwfh.net"
 ]);
 
-const ALLOWED_ORIGINS = new Set([
-  "https://dimz-wtf.web.id",
-  "https://www.dimz-wtf.web.id",
-  "https://dimz-wtf.vercel.app"
-]);
-
 module.exports = async function handler(req, res) {
   res.setHeader("Cache-Control", "no-store");
 
-  const origin = req.headers.origin;
-
-  if (origin && ALLOWED_ORIGINS.has(origin)) {
-    res.setHeader("Access-Control-Allow-Origin", origin);
-    res.setHeader("Vary", "Origin");
-  }
-
+  // CORS untuk frontend yang di-host di domain berbeda.
+  // Endpoint ini tidak menggunakan cookie atau kredensial browser.
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Max-Age", "86400");
 
+  // Browser mengirim OPTIONS sebelum POST JSON lintas origin.
   if (req.method === "OPTIONS") {
     return res.status(204).end();
   }
 
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST, OPTIONS");
+
     return res.status(405).json({
       status: false,
       message: "Gunakan metode POST."
     });
   }
 
-  if (origin && !ALLOWED_ORIGINS.has(origin)) {
-    return res.status(403).json({
-      status: false,
-      message: "Origin tidak diizinkan."
-    });
-  }
-
   try {
-    const { url } = req.body || {};
+    const body = req.body || {};
+    const url = typeof body.url === "string"
+      ? body.url.trim()
+      : "";
 
-    if (typeof url !== "string" || !url.trim()) {
+    if (!url) {
       return res.status(400).json({
         status: false,
         message: "Masukkan URL Safelinku terlebih dahulu."
@@ -70,7 +59,7 @@ module.exports = async function handler(req, res) {
     let parsed;
 
     try {
-      parsed = new URL(url.trim());
+      parsed = new URL(url);
     } catch {
       return res.status(400).json({
         status: false,
@@ -79,7 +68,7 @@ module.exports = async function handler(req, res) {
     }
 
     if (
-      !["https:", "http:"].includes(parsed.protocol) ||
+      !["http:", "https:"].includes(parsed.protocol) ||
       parsed.username ||
       parsed.password ||
       !ALLOWED_HOSTS.has(parsed.hostname.toLowerCase())
@@ -97,7 +86,7 @@ module.exports = async function handler(req, res) {
         status: false,
         message:
           result?.message ||
-          "URL tujuan tidak ditemukan. Link mungkin kedaluwarsa atau resolver bermasalah."
+          "URL tujuan tidak ditemukan. Link mungkin kedaluwarsa atau layanan resolver bermasalah."
       });
     }
 
@@ -112,9 +101,7 @@ module.exports = async function handler(req, res) {
       });
     }
 
-    if (
-      !["https:", "http:"].includes(destination.protocol)
-    ) {
+    if (!["http:", "https:"].includes(destination.protocol)) {
       return res.status(502).json({
         status: false,
         message: "Protokol URL tujuan tidak didukung."
