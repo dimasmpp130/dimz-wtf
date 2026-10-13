@@ -117,6 +117,10 @@
       "dest": "/temp/bypass.html"
     },
     {
+      "src": "/amprem/?$",
+      "dest": "/temp/alightmotion.html"
+    },
+    {
       "src": "/khodam/?$",
       "dest": "/tools/khodam.html"
     },
