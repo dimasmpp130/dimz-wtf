@@ -105,20 +105,12 @@
       "dest": "/convert/remini.html"
     },
     {
-      "src": "/bully/?$",
-      "dest": "/temp/bully.html"
-    },
-    {
-      "src": "/gtasa/?$",
-      "dest": "/temp/gtasa.html"
-    },
-    {
       "src": "/redirect/?$",
       "dest": "/temp/bypass.html"
     },
     {
-      "src": "/amprem/?$",
-      "dest": "/temp/alightmtn.html"
+      "src": "/mods/?$",
+      "dest": "/temp/gamehub.html"
     },
     {
       "src": "/khodam/?$",
