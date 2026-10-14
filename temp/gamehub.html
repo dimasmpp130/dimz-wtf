@@ -2896,7 +2896,7 @@ function renderDetail(post){
    if(!commentsReady()){notify("Komentar publik belum diaktifkan. Atur COMMENTS_CONFIG di index.html.");return;}  
    const submit=$("#commentForm button[type=submit]");submit.disabled=true;submit.textContent="Mengirim...";  
    try{await submitSharedComment(post.id,name,text);$("#commentText").value="";await renderComments(post.id);notify("Komentar berhasil dikirim untuk semua pengunjung");}  
-   catch(err){notify("Komentar gagal dikirim. Periksa konfigurasi layanan.");}  
+   catch(err){console.error("Supabase comment error:",err);notify("Gagal mengirim: "+(err && err.message ? err.message : "Periksa koneksi Supabase"));}  
    finally{submit.disabled=false;submit.textContent="Kirim komentar ↗";}  
  });  
 }  
