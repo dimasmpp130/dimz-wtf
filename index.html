@@ -1116,8 +1116,6 @@
 
     @media(min-width:901px) {
 
-      /* Desktop/laptop/PC: gambar menjadi banner penuh, teks asli ditumpuk di atas gambar.
-     Tidak menambah teks atau tombol baru; layout tablet/HP tetap memakai aturan lama. */
       .hero {
         position: relative;
         display: flex;
@@ -1134,29 +1132,21 @@
       }
 
       .hero-media {
+        display: block;
         position: absolute;
-        z-index: -2;
         inset: 0;
         width: 100%;
         height: 100%;
-        border: 0;
-        border-radius: inherit;
-        order: 0;
+        object-fit: cover;
+        object-position: center 47%;
       }
 
       .hero-media picture {
         display: block;
-        width: 100%;
-        height: 100%
       }
 
       .hero-media img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
-        opacity: .88;
+        display: block;        
       }
 
       .hero-media:after {
