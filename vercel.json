@@ -173,6 +173,10 @@
       "dest": "/robots.txt"
     },
     {
+      "src": "/api/function\\.js$",
+      "dest": "/api/function.js"
+    },
+    {
       "handle": "filesystem"
     },
     {
