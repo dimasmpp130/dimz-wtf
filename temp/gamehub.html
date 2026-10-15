@@ -1010,7 +1010,7 @@
       }
     }
 
-    hero {
+    .hero {
       grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
       gap: clamp(24px, 4vw, 58px);
       padding-top: 54px;
@@ -1082,8 +1082,6 @@
       font-size: 9px;
     }
 
-    .art-glow,
-    .art-card,
     .category-row {
       gap: 0;
       overflow: visible;
@@ -2238,6 +2236,170 @@
         margin: 14px 0;
       }
     }
+
+    /* Perapian kartu download agar badge, teks, dan tombol sejajar */
+    .post-download {
+      display: grid;
+      grid-template-columns: 68px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 12px;
+      padding: 12px;
+      min-width: 0;
+    }
+
+    .post-download-badge {
+      width: 68px;
+      min-width: 0;
+      min-height: 52px;
+      padding: 6px 4px;
+      flex: none;
+      text-align: center;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      font-size: 10px;
+    }
+
+    .post-download-copy {
+      min-width: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .post-download-copy b {
+      font-size: 13px;
+      line-height: 1.4;
+      overflow-wrap: anywhere;
+    }
+
+    .post-download-copy span {
+      font-size: 11px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .post-download .action-button {
+      justify-self: end;
+      align-self: center;
+      flex: none;
+    }
+
+    @media (max-width: 520px) {
+      .post-download {
+        grid-template-columns: 62px minmax(0, 1fr) auto;
+        gap: 10px;
+        padding: 10px;
+      }
+
+      .post-download-badge {
+        width: 62px;
+        min-height: 48px;
+        font-size: 9px;
+      }
+
+      .post-download-copy b {
+        font-size: 12px;
+      }
+
+      .post-download-copy span {
+        font-size: 10px;
+      }
+
+      .post-download .action-button {
+        padding: 9px 10px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 370px) {
+      .post-download {
+        grid-template-columns: 54px minmax(0, 1fr);
+      }
+
+      .post-download-badge {
+        width: 54px;
+      }
+
+      .post-download .action-button {
+        grid-column: 2;
+        justify-self: end;
+      }
+    }
+
+    /* Kartu unduhan versi ringkas: label kecil, tanpa kolom badge besar. */
+    .post-download {
+      display: grid !important;
+      grid-template-columns: minmax(0, 1fr) auto !important;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+    }
+
+    .post-download-copy {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .post-download-badge {
+      display: inline-flex;
+      align-items: center;
+      width: auto !important;
+      min-width: 0;
+      min-height: 0 !important;
+      padding: 3px 7px !important;
+      margin: 0 0 3px;
+      border-radius: 6px;
+      font-size: 9px !important;
+      line-height: 1.35;
+      letter-spacing: .02em;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .post-download-copy b {
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .post-download-copy span:not(.post-download-badge) {
+      font-size: 11px;
+      line-height: 1.45;
+    }
+
+    .post-download .action-button {
+      justify-self: end;
+      padding: 9px 12px;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 520px) {
+      .post-download {
+        gap: 9px;
+        padding: 10px 11px;
+      }
+
+      .post-download-copy b {
+        font-size: 12px;
+      }
+
+      .post-download-copy span:not(.post-download-badge) {
+        font-size: 10px;
+      }
+
+      .post-download .action-button {
+        padding: 8px 10px;
+        font-size: 10px;
+      }
+    }
+
+    @media (max-width: 350px) {
+      .post-download {
+        grid-template-columns: minmax(0, 1fr) auto !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -2312,8 +2474,18 @@
     <script src="https://www.highrevenueformat.com/9a03d8670e24875ed43378e89e1ae7ff/invoke.js"></script>
   </template>
   <template id="postAdBottomTemplate" class="ad-template">
-    <script async="async" data-cfasync="false" src="https://pl31582805.profitableratecpmnetwork.com/fed2058e1962999b60696b4485804a97/invoke.js"></script>
-    <div id="container-fed2058e1962999b60696b4485804a97"></div>
+    <script>
+      (function(wiwn) {
+        var d = document,
+          s = d.createElement('script'),
+          l = d.currentScript || d.scripts[d.scripts.length - 1];
+        s.settings = wiwn || {};
+        s.src = "\/\/peacefulbicycle.com\/btXIV.s\/dAGjlI0\/YdWPcl\/yelmA9IuyZbUPlPkMPdT\/cB0JO\/DSAqz\/NADzE\/tbNOzAQf4TMQDGM\/0rNkQ-";
+        s.async = true;
+        s.referrerPolicy = 'no-referrer-when-downgrade';
+        l.parentNode.insertBefore(s, l);
+      })({})
+    </script>
   </template>
   <script>
     const COMMENTS_CONFIG = {
@@ -3009,7 +3181,7 @@
    <div class="detail-actions">${post.downloads?"":`<a class="action-button primary" href="${esc(post.downloadUrl)}" target="_blank" rel="noopener noreferrer">↓ Download file</a>`}</div><div class="social-share" aria-label="Bagikan ke media sosial"><a class="social-btn whatsapp" id="shareWhatsApp" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke WhatsApp"><i class="fa-brands fa-whatsapp"></i><span>WhatsApp</span></a><a class="social-btn facebook" id="shareFacebook" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke Facebook"><i class="fa-brands fa-facebook-f"></i><span>Facebook</span></a><a class="social-btn telegram" id="shareTelegram" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke Telegram"><i class="fa-brands fa-telegram"></i><span>Telegram</span></a><a class="social-btn x-social" id="shareX" target="_blank" rel="noopener noreferrer" aria-label="Bagikan ke X"><i class="fa-brands fa-x-twitter"></i><span>X</span></a><button class="social-btn instagram" id="shareInstagram" type="button" aria-label="Salin tautan untuk Instagram"><i class="fa-brands fa-instagram"></i><span>Instagram</span></button></div>
    ${post.features?`<section class="detail-section"><h2>${esc(post.sectionTitles?.features || "Fitur dan kelebihan")}</h2><div class="post-feature-grid">${post.features.map(f=>`<div class="post-feature"><b>${esc(f.title)}</b><p>${esc(f.text)}</p></div>`).join("")}</div><p class="muted small-note">${esc(post.featuresDesc || "")}</p></section>`:""}
    ${post.gallery?`<section class="detail-section"><h2>${esc(post.sectionTitles?.gallery || "Tampilan aplikasi")}</h2><p>Gambar berikut merupakan referensi tampilan. Sumber eksternal dapat berubah atau tidak tersedia.</p><div class="gallery-carousel" data-carousel><div class="gallery-track">${post.gallery.map((g,i)=>`<button class="gallery-slide${i===0?" active":""}" data-slide="${i}" type="button" aria-label="Perbesar ${esc(g.alt)}" ${i===0?"":"hidden"}><img loading="lazy" src="${esc(g.src)}" alt="${esc(g.alt)}"><span>${esc(g.label)}</span></button>`).join("")}</div><button class="gallery-nav prev" type="button" data-prev aria-label="Gambar sebelumnya"><i class="fa-solid fa-chevron-left"></i></button><button class="gallery-nav next" type="button" data-next aria-label="Gambar berikutnya"><i class="fa-solid fa-chevron-right"></i></button><div class="gallery-count" aria-live="polite"><span data-current>1</span> / ${post.gallery.length}</div></div>${post.officialUrl?`<p><a class="gallery-link" href="${esc(post.officialUrl)}" target="_blank" rel="noopener noreferrer">Lihat aplikasi resmi di Google Play ↗</a></p>`:""}</section>`:""}
-   ${post.downloads?`<section class="detail-section" id="download"><h2>${esc(post.sectionTitles?.downloads || "Pilihan unduhan")}</h2><p>Pastikan arsitektur dan sumber berkas sesuai. Tautan berikut menuju halaman unduhan eksternal; keamanan berkas modifikasi belum diverifikasi secara independen.</p><div class="post-download-list">${post.downloads.map(d=>`<div class="post-download"><span class="post-download-badge">${esc(d.badge)}</span><div class="post-download-copy"><b>${esc(d.title)}</b><span>${esc(d.subtitle)}</span></div><a class="action-button primary" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">Unduh ↗</a></div>`).join("")}</div></section>`:""}
+   ${post.downloads?`<section class="detail-section" id="download"><h2>${esc(post.sectionTitles?.downloads || "Pilihan unduhan")}</h2><p>Pastikan arsitektur dan sumber berkas sesuai. Tautan berikut menuju halaman unduhan eksternal; keamanan berkas modifikasi belum diverifikasi secara independen.</p><div class="post-download-list">${post.downloads.map(d=>`<div class="post-download"><div class="post-download-copy"><span class="post-download-badge">${esc(d.badge)}</span><b>${esc(d.title)}</b><span>${esc(d.subtitle)}</span></div><a class="action-button primary" href="${esc(d.url)}" target="_blank" rel="noopener noreferrer">Unduh ↗</a></div>`).join("")}</div></section>`:""}
    ${post.specs?`<section class="detail-section"><h2>${esc(post.sectionTitles?.specs || "Spesifikasi minimum")}</h2><div class="info-list">${post.specs.map(s=>`<div class="info-row"><span>${esc(s[0])}</span><span>${esc(s[1])}</span></div>`).join("")}</div></section>`:""}
    ${post.steps?`<section class="detail-section"><h2>${esc(post.sectionTitles?.steps || "Panduan sebelum memasang")}</h2><ul>${post.steps.map(s=>`<li>${esc(s)}</li>`).join("")}</ul></section>`:""}
    ${post.faq?`<section class="detail-section"><h2>${esc(post.sectionTitles?.faq || "Pertanyaan umum")}</h2>${post.faq.map(q=>`<details class="post-faq"><summary>${esc(q[0])}</summary><p>${esc(q[1])}</p></details>`).join("")}</section>`:""}
