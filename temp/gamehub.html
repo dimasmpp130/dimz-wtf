@@ -2404,10 +2404,10 @@
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="./" data-home-link aria-label="DIMZ MODS beranda"><span class="brand-mark"><img loading="lazy" src="https://g.top4top.io/p_3939hoqxp1.jpg" alt="DIMZ MODS" /></span><span>DIMZ<span class="brand-muted"> MODS</span></span></a>
+    <a class="brand" href="${esc(homeUrl("posts"))}" data-home-link aria-label="DIMZ MODS beranda"><span class="brand-mark"><img loading="lazy" src="https://g.top4top.io/p_3939hoqxp1.jpg" alt="DIMZ MODS" /></span><span>DIMZ<span class="brand-muted"> MODS</span></span></a>
     <button class="menu-toggle" id="menuToggle" aria-label="Buka menu" aria-expanded="false">☰</button>
     <nav class="nav" id="mainNav">
-      <a class="nav-link active" href="./" data-home-link><i class="fa-solid fa-house" aria-hidden="true"></i><span>Beranda</span></a>
+      <a class="nav-link active" href="${esc(homeUrl("posts"))}" data-home-link><i class="fa-solid fa-house" aria-hidden="true"></i><span>Beranda</span></a>
       <a class="nav-link" href="#posts" data-category-link="GTA"><i class="fa-solid fa-gamepad" aria-hidden="true"></i><span>GTA</span></a>
       <a class="nav-link" href="#posts" data-category-link="Bully"><i class="fa-solid fa-user-ninja" aria-hidden="true"></i><span>Bully</span></a>
       <a class="nav-link" href="#posts" data-category-link="APK"><i class="fa-solid fa-mobile-screen-button" aria-hidden="true"></i><span>APK</span></a>
@@ -2458,8 +2458,8 @@
       </div>
     </section>
   </main>
-  <footer class="footer"><a class="footer-top" href="./" data-home-link>DIMZ MODS <span>↗</span></a>
-    <p>Kumpulan file game, mod, aplikasi, dan tools.</p><small>© <span id="year"></span> DIMZ MODS. Created With Hosting.</small>
+  <footer class="footer"><a class="footer-top" href="https://dimz-wtf.web.id/" data-home-link>MODDING TEAM | DIMZ.WTF.WEB.ID <span>🇮🇩</span></a>
+    <p>Kecil Karena Sendiri, Besar Karena Bersama</p><small>© <span id="year"></span> DIMZ MODS. Created With Host.</small>
   </footer>
   <template id="postAdTopTemplate" class="ad-template">
     <script>
@@ -3201,7 +3201,7 @@
  </div>
  <aside class="detail-sidebar"><section class="side-card"><h3>Informasi postingan</h3><div class="info-list"><div class="info-row"><span>Penulis</span><span>${esc(post.author)}</span></div><div class="info-row"><span>Kategori</span><span>${esc(post.category)}</span></div><div class="info-row"><span>Tanggal</span><span>${esc(dateLabel(post.date))}</span></div></div></section>
  <section class="side-card"><h3>Informasi File & Sumber</h3><p>Semua file dan tautan download pada halaman ini mengarah ke sumber resmi yaitu mediafire bukan abal abal. Informasi versi, ukuran, dan kompatibilitas sudah dicantumkan di detail postingan ini. Pastikan untuk memeriksa kembali detail tersebut agar sesuai dengan perangkat yang kamu gunakan sebelum melanjutkan proses instalasi.</p></section>
- <section class="side-card about-side-card"><h3>Jelajahi Dunia DIMZ MODS</h3><p>Masih banyak koleksi menarik lainnya yang bisa kamu temukan. Mulai dari mod GTA San Andreas terbaru, kumpulan game Android full version, aplikasi mod premium, hingga berbagai tools modding yang dibuat khusus. Semua sudah kami susun rapi agar mudah kamu jelajahi.</p><a class="action-button side-browse-button" href="${esc(homeUrl("posts"))}" style="margin-top:12px;width:100%">Lihat Semua Postingan ↗</a></section></aside>
+ <section class="side-card about-side-card"><h3>Jelajahi Dunia DIMZ MODS</h3><p>Masih banyak koleksi menarik lainnya yang bisa kamu temukan. Mulai dari mod GTA San Andreas terbaru, kumpulan game Android, aplikasi mod premium, hingga berbagai tools yang dibuat khusus. Semua sudah kami susun rapi agar mudah kamu jelajahi.</p><a class="action-button side-browse-button" href="${esc(homeUrl("posts"))}" style="margin-top:12px;width:100%">Lihat Semua Postingan ↗</a></section></aside>
  </div></section>`;
       mountPostAds();
       document.title = `${post.title} — DIMZ MODS`;
